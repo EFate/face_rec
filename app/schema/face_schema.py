@@ -1,8 +1,8 @@
 # app/schema/face_schema.py
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, TypeVar, Generic, Dict, Any
 from datetime import datetime
-import uuid
+import numpy as np
 
 # --- 通用 API 响应模型 ---
 T = TypeVar("T")
@@ -24,7 +24,7 @@ class FaceInfo(BaseModel):
     extra_info: Optional[Dict[str, Any]] = Field(None, description="预留的额外信息字段。")
 
     class Config:
-        orm_mode = True # 兼容 SQLAlchemy 模型
+        from_attributes = True # 替代 orm_mode
 
 # --- API 请求体模型 ---
 class FaceRegisterRequest(BaseModel):
@@ -35,7 +35,6 @@ class FaceRegisterRequest(BaseModel):
 class UpdateFaceRequest(BaseModel):
     """更新人脸信息请求体"""
     name: Optional[str] = Field(None, description="新的姓名。", example="李四")
-    # 这里可以添加更多希望能够更新的字段，例如部门、职位等
     # extra_info: Optional[Dict[str, Any]] = Field(None, description="更新或添加额外信息。")
 
 # --- API 响应数据体模型 ---
@@ -47,9 +46,20 @@ class FaceRecognitionResult(BaseModel):
     """单次人脸识别结果"""
     name: str = Field(..., description="识别到的人脸姓名。")
     sn: str = Field(..., description="识别到的人脸SN。")
-    distance: float = Field(..., description="与已知人脸特征的距离，值越小越相似。")
-    confidence: Optional[float] = Field(None, description="识别置信度（可选）。")
-    box: Optional[List[int]] = Field(None, description="人脸在图像中的边界框 [x, y, w, h]。")
+    distance: float = Field(..., description="与已知人脸特征的余弦距离，值越小越相似。")
+    box: List[int] = Field(..., description="人脸在图像中的边界框 [x1, y1, x2, y2]。")
+    detection_confidence: float = Field(..., description="人脸检测置信度。")
+    landmark: Optional[List[List[int]]] = Field(None, description="人脸5个关键点坐标 [[x,y], ...]。")
+
+    @field_validator('landmark', mode='before')
+    def landmark_to_list(cls, v):
+        if isinstance(v, np.ndarray):
+            return v.astype(int).tolist()
+        return v
+
+    class Config:
+        arbitrary_types_allowed = True
+
 
 class GetAllFacesResponseData(BaseModel):
     """获取所有人脸列表的响应数据"""

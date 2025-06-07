@@ -20,7 +20,9 @@ ENV_FILE = BASE_DIR / ".env"
 LOGS_DIR = BASE_DIR / "logs"
 CONFIG_DIR = BASE_DIR / "app" / "cfg"
 DATA_DIR = BASE_DIR / "data"
-DEEPFACE_MODELS_DIR = BASE_DIR / "app" / "service" / "deepface_model" # DeepFace 模型下载目录
+# InsightFace 模型默认下载目录在用户主目录的 .insightface 下，
+# 我们通过环境变量在 model_manager 中重定向
+INSIGHTFACE_MODELS_DIR = BASE_DIR / "data" / ".insightface"
 
 
 # --- 自定义类型 ---
@@ -76,49 +78,43 @@ class SecurityConfig(BaseModel):
     access_token_expire_minutes: int = Field(30, description="访问令牌过期时间（分钟）。")
 
 
-class DeepFaceConfig(BaseModel):
-    model_name: str = Field(
-        "Facenet512",
-        description="用于人脸识别的模型。推荐Facenet512, SFace。"
+class InsightFaceConfig(BaseModel):
+    model_pack_name: str = Field(
+        "buffalo_l",
+        description="InsightFace 模型包名称 (例如: 'buffalo_l', 'buffalo_s', 'antelopev2')。"
     )
-    detector_backend: str = Field(
-        "yunet",
-        description="用于人脸检测的后端。推荐yunet, retinaface。"
-    )
-    distance_metric: str = Field(
-        "cosine",
-        description="用于计算特征距离的度量。常见选项：cosine, euclidean, euclidean_l2."
+    providers: List[str] = Field(
+        default_factory=lambda: ["CUDAExecutionProvider", "CPUExecutionProvider"],
+        description="ONNX Runtime 执行提供者列表。例如: ['CUDAExecutionProvider', 'CPUExecutionProvider']。"
     )
     recognition_threshold: float = Field(
-        0.30, # Facenet512的推荐阈值通常更低
-        description="人脸识别阈值，距离小于此值认为匹配成功。"
+        0.5,
+        description="人脸识别余弦距离阈值，距离小于此值认为匹配成功。"
     )
     home: FilePath = Field(
-        DEEPFACE_MODELS_DIR,
-        description="DeepFace 模型下载和缓存的根目录。"
+        INSIGHTFACE_MODELS_DIR,
+        description="InsightFace 模型下载和缓存的根目录。"
     )
     image_db_path: FilePath = Field(
         DATA_DIR / "faces",
-        description="DeepFace 用于存储注册人脸图像的根目录。"
+        description="用于存储注册人脸图像的根目录。"
     )
     features_file_name: str = Field(
         "face_features",
         description="存储人脸特征的文件名（不含扩展名）。"
     )
-    ### OPTIMIZATION: 默认使用SQLite以提高生产环境性能和稳定性
     storage_type: StorageType = Field(
         StorageType.SQLITE,
         description="选择存储后端：sqlite (生产推荐) 或 csv (仅原型)。"
     )
-    enable_anti_spoofing: bool = Field(True, description="是否开启活体检测。")
     # --- 视频流分析的配置开关 ---
     enable_stream_analysis: bool = Field(
-        False, 
-        description="是否在视频流中开启附加分析（年龄、性别等）。默认为False以节省资源并避免网络问题。"
+        False,
+        description="是否在视频流中开启附加分析（年龄、性别等）。默认为False以节省资源。"
     )
     stream_analysis_actions: List[str] = Field(
         default_factory=lambda: ["age", "gender"],
-        description="如果开启分析，要执行的项目列表。'emotion'模型可能需要外网下载。"
+        description="如果开启分析，要执行的项目列表。"
     )
 
 
@@ -129,7 +125,7 @@ class AppSettings(BaseSettings):
     logging: LoggingConfig = Field(default_factory=LoggingConfig)
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
     security: SecurityConfig = Field(default_factory=SecurityConfig)
-    deepface: DeepFaceConfig = Field(default_factory=DeepFaceConfig)
+    insightface: InsightFaceConfig = Field(default_factory=InsightFaceConfig)
 
     model_config = SettingsConfigDict(
         env_file=ENV_FILE,

@@ -12,3 +12,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# models
+data/.insightface/
+
+# logs
+*.log
