@@ -15,6 +15,7 @@ def get_base_dir() -> Path:
     """计算项目根目录。"""
     return Path(__file__).resolve().parent.parent.parent
 
+
 BASE_DIR = get_base_dir()
 ENV_FILE = BASE_DIR / ".env"
 LOGS_DIR = BASE_DIR / "logs"
@@ -24,30 +25,40 @@ DATA_DIR = BASE_DIR / "data"
 # 我们通过环境变量在 model_manager 中重定向
 INSIGHTFACE_MODELS_DIR = BASE_DIR / "data" / ".insightface"
 
-
 # --- 自定义类型 ---
 FilePath = Annotated[Path, BeforeValidator(lambda v: Path(v) if isinstance(v, str) else v)]
+
 
 # --- 存储类型枚举 ---
 class StorageType(str, Enum):
     SQLITE = "sqlite"
     CSV = "csv"
 
+
 # --- 配置模型定义 ---
 class AppConfig(BaseModel):
     title: str = Field("高性能人脸识别服务", description="应用程序名称。")
     description: str = Field("基于FastAPI和DeepFace构建的高性能、生产级应用", description="应用程序描述。")
-    version: str = Field("2.0.0", description="应用程序版本。")
+    version: str = Field("2.1.0", description="应用程序版本。")
     debug: bool = Field(False, description="是否开启调试模式。")
     video_width: int = Field(640, description="视频流宽度。")
     video_height: int = Field(480, description="视频流高度。")
-    stream_default_lifetime_minutes: int = Field(10, description="视频流默认生命周期（分钟）。-1表示永久。")
-    stream_cleanup_interval_seconds: int = Field(30, description="清理过期视频流的后台任务运行间隔（秒）。")
+    # 【优化】新增视频流相关配置
+    stream_default_lifetime_minutes: int = Field(
+        10,
+        description="视频流默认生命周期（分钟），-1表示永久。"
+    )
+    stream_cleanup_interval_seconds: int = Field(
+        60,
+        description="清理过期视频流的后台任务运行间隔（秒）。"
+    )
+
 
 class ServerConfig(BaseModel):
     host: str = Field("0.0.0.0", description="服务器监听地址。")
     port: int = Field(8000, description="服务器监听端口。")
     reload: bool = Field(False, description="是否开启热重载（仅开发环境）。")
+
 
 class LoggingConfig(BaseModel):
     level: str = Field("INFO", description="日志级别。")
@@ -59,6 +70,7 @@ class LoggingConfig(BaseModel):
         """确保日志文件目录存在。"""
         if self.file_path:
             self.file_path.parent.mkdir(parents=True, exist_ok=True)
+
 
 class DatabaseConfig(BaseModel):
     url: str = Field(f"sqlite:///{DATA_DIR / 'face_features.db'}", description="数据库连接URL。")
@@ -73,6 +85,7 @@ class DatabaseConfig(BaseModel):
             else:
                 db_path = Path(db_path_str)
             db_path.parent.mkdir(parents=True, exist_ok=True)
+
 
 class SecurityConfig(BaseModel):
     secret_key: str = Field("a_very_secure_default_secret_key_change_me", description="用于签名和加密的密钥。")
@@ -92,6 +105,11 @@ class InsightFaceConfig(BaseModel):
     recognition_threshold: float = Field(
         0.5,
         description="人脸识别余弦距离阈值，距离小于此值认为匹配成功。"
+    )
+    # 【优化】新增人脸检测得分阈值配置
+    recognition_det_score_threshold: float = Field(
+        0.8,
+        description="注册或识别时人脸检测的最低置信度分数。"
     )
     home: FilePath = Field(
         INSIGHTFACE_MODELS_DIR,
@@ -180,12 +198,26 @@ class ConfigLoader:
 def get_app_settings(env_override: Optional[str] = None) -> AppSettings:
     current_env = env_override or os.getenv("APP_ENV", "development")
     yaml_config = ConfigLoader.load_yaml_configs(current_env)
-    base_settings = AppSettings.model_validate(yaml_config)
+
+    # Pydantic-settings 会自动从环境变量、.env文件等加载配置
+    # 这里的逻辑是：YAML作为基础配置，环境变量可以覆盖它
+
+    # 1. 从 YAML 加载基础配置
+    settings = AppSettings.model_validate(yaml_config)
+
+    # 2. Pydantic 会自动加载 .env 和环境变量，并覆盖 YAML 中的值。
+    # 为了确保环境变量优先，我们重新加载一次，但这次是基于默认构造函数，它会触发环境变量加载
     env_settings = AppSettings()
-    
-    # 优化合并逻辑，确保环境变量优先
+
+    # 3. 合并数据，以环境变量中的数据为准
+    # model_dump(exclude_unset=True) 只导出被显式设置（或有默认值）的字段
+    # 这确保了我们只用环境变量中实际存在的值去覆盖YAML配置
     env_data_to_merge = env_settings.model_dump(exclude_unset=True)
-    final_merged_data = ConfigLoader._deep_merge_dicts(base_settings.model_dump(), env_data_to_merge)
-    settings = AppSettings.model_validate(final_merged_data)
-    
-    return settings
+
+    # 将 env_settings 的数据合并到 settings 的数据上
+    final_merged_data = ConfigLoader._deep_merge_dicts(settings.model_dump(), env_data_to_merge)
+
+    # 最终验证合并后的数据
+    final_settings = AppSettings.model_validate(final_merged_data)
+
+    return final_settings

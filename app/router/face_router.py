@@ -17,10 +17,11 @@ from app.service.face_service import FaceService
 router = APIRouter()
 
 
-# 依赖注入服务实例
+# 【优化】简化依赖注入函数
+# 服务在应用启动时由 lifespan 管理器确保已初始化。
+# 如果服务不存在，则表示应用启动失败，应直接抛出 500 错误，无需额外检查。
 def get_face_service(request: Request) -> FaceService:
-    if not hasattr(request.app.state, 'face_service') or request.app.state.face_service is None:
-        raise HTTPException(status_code=503, detail="人脸识别服务当前不可用。")
+    """依赖注入函数，用于获取 FaceService 的单例实例。"""
     return request.app.state.face_service
 
 
@@ -44,6 +45,9 @@ async def health_check():
     tags=["人脸管理"]
 )
 async def register_face(
+        # 在处理 multipart/form-data 时，FastAPI 要求将表单字段（如 name, sn）
+        # 和文件（image_file）作为独立的参数。
+        # 使用 Depends 将表单字段组合到一个 Pydantic 模型中，是推荐的最佳实践。
         form_data: FaceRegisterRequest = Depends(),
         image_file: UploadFile = File(..., description="上传的人脸图像文件。"),
         face_service: FaceService = Depends(get_face_service)
@@ -147,8 +151,8 @@ async def recognize_face(
     results = await face_service.recognize_face(image_bytes)
     if not results:
         return JSONResponse(
-            status_code=status.HTTP_404_NOT_FOUND,
-            content=ApiResponse(code=404, msg="未在图像中匹配到任何已知人脸。", data=[]).model_dump()
+            status_code=status.HTTP_200_OK, # 即使未匹配到，请求也是成功的
+            content=ApiResponse(code=0, msg="在图像中检测到人脸，但未匹配到任何已知身份。", data=[]).model_dump()
         )
     return ApiResponse(data=results)
 
