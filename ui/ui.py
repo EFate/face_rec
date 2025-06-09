@@ -160,7 +160,7 @@ def api_request(method: str, endpoint: str, **kwargs) -> Tuple[bool, Any, str]:
     """统一的API请求函数。"""
     full_url = f"http://{st.session_state.api_url}{endpoint}"
     try:
-        response = requests.request(method, full_url, timeout=30, **kwargs)
+        response = requests.request(method, full_url, timeout=10, **kwargs)
         if response.ok:
             # 对于 204 No Content 这样的成功响应，没有 body
             if response.status_code == 204 or not response.content:
