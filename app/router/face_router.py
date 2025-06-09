@@ -9,19 +9,17 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from app.schema.face_schema import (
     ApiResponse, FaceRegisterResponseData, FaceRecognitionResult,
     GetAllFacesResponseData, DeleteFaceResponseData, HealthCheckResponseData,
-    UpdateFaceRequest, UpdateFaceResponseData, FaceRegisterRequest, FaceInfo,
-    StreamStartRequest, StreamStartResponseData, GetAllStreamsResponseData, StopStreamResponseData
+    UpdateFaceRequest, UpdateFaceResponseData, FaceInfo,
+    StreamStartRequest, StreamDetail, GetAllStreamsResponseData, StopStreamResponseData
 )
 from app.service.face_service import FaceService
 
 router = APIRouter()
 
 
-# 【优化】简化依赖注入函数
-# 服务在应用启动时由 lifespan 管理器确保已初始化。
-# 如果服务不存在，则表示应用启动失败，应直接抛出 500 错误，无需额外检查。
 def get_face_service(request: Request) -> FaceService:
     """依赖注入函数，用于获取 FaceService 的单例实例。"""
+    # 应用程序启动时会确保 face_service 存在，因此这里的检查是一种额外的保险
     return request.app.state.face_service
 
 
@@ -45,24 +43,22 @@ async def health_check():
     tags=["人脸管理"]
 )
 async def register_face(
-        # 在处理 multipart/form-data 时，FastAPI 要求将表单字段（如 name, sn）
-        # 和文件（image_file）作为独立的参数。
-        # 使用 Depends 将表单字段组合到一个 Pydantic 模型中，是推荐的最佳实践。
-        form_data: FaceRegisterRequest = Depends(),
-        image_file: UploadFile = File(..., description="上传的人脸图像文件。"),
-        face_service: FaceService = Depends(get_face_service)
+    name: str = Form(..., description="人员姓名", example="张三"),
+    sn: str = Form(..., description="人员唯一标识 (如工号)", example="EMP001"),
+    image_file: UploadFile = File(..., description="上传的人脸图像文件 (jpg, png等)。"),
+    face_service: FaceService = Depends(get_face_service)
 ):
     """
-    上传一张图片并关联到指定的人员信息（姓名和SN）。
-    - **name**: 人员姓名
-    - **sn**: 人员唯一标识 (如工号)
-    - **image_file**: 包含清晰人脸的图片文件 (jpg, png等)
+    上传一张图片并关联到指定的人员信息。
+    - **name**: 人员姓名 (表单字段)
+    - **sn**: 人员唯一标识 (表单字段)
+    - **image_file**: 包含清晰人脸的图片文件 (文件部分)
     """
     image_bytes = await image_file.read()
     if not image_bytes:
         raise HTTPException(status_code=400, detail="上传的图像文件为空。")
 
-    face_info = await face_service.register_face(form_data.name, form_data.sn, image_bytes)
+    face_info = await face_service.register_face(name, sn, image_bytes)
     return ApiResponse(data=FaceRegisterResponseData(face_info=face_info))
 
 
@@ -104,7 +100,10 @@ async def update_face_info(
         update_data: UpdateFaceRequest,
         face_service: FaceService = Depends(get_face_service)
 ):
-    """根据SN更新人员的姓名或其他信息。"""
+    """
+    根据SN更新人员的姓名。
+    注意：此接口不用于更换人脸照片，仅用于更新元数据如姓名。
+    """
     updated_face = await face_service.update_face_by_sn(sn, update_data)
     return ApiResponse(
         msg=f"成功更新SN为 '{sn}' 的人员信息。",
@@ -150,16 +149,13 @@ async def recognize_face(
 
     results = await face_service.recognize_face(image_bytes)
     if not results:
-        return JSONResponse(
-            status_code=status.HTTP_200_OK, # 即使未匹配到，请求也是成功的
-            content=ApiResponse(code=0, msg="在图像中检测到人脸，但未匹配到任何已知身份。", data=[]).model_dump()
-        )
+        return ApiResponse(code=0, msg="在图像中检测到人脸，但未匹配到任何已知身份。", data=[])
     return ApiResponse(data=results)
 
 
 @router.post(
     "/streams/start",
-    response_model=ApiResponse[StreamStartResponseData],
+    response_model=ApiResponse[StreamDetail],
     summary="启动一个视频流任务",
     tags=["视频流管理"]
 )
@@ -172,11 +168,10 @@ async def start_stream(
     请求服务器启动一个新的视频流处理任务。
     - **source**: 视频源 (摄像头ID '0', '1', ... 或视频文件路径/URL)
     - **lifetime_minutes**: 流的生命周期（分钟），-1表示永久，不传则使用默认配置。
-    成功后返回流的详细信息，包括唯一的`stream_id`和播放URL。
     """
     stream_info = await face_service.start_stream(start_request)
     feed_url = request.url_for('get_stream_feed', stream_id=stream_info.stream_id)
-    response_data = StreamStartResponseData(**stream_info.model_dump(), feed_url=str(feed_url))
+    response_data = StreamDetail(**stream_info.model_dump(), feed_url=str(feed_url))
     return ApiResponse(data=response_data)
 
 
@@ -188,7 +183,7 @@ async def start_stream(
     responses={
         200: {
             "content": {"multipart/x-mixed-replace; boundary=frame": {}},
-            "description": "一个包含实时识别结果的JPEG视频流。可以直接在HTML的<img>标签中使用。",
+            "description": "一个包含实时识别结果的JPEG视频流。",
         },
         404: {"description": "Stream not found."}
     }
@@ -217,9 +212,7 @@ async def stop_stream(
         stream_id: str,
         face_service: FaceService = Depends(get_face_service)
 ):
-    """
-    根据 `stream_id` 手动停止一个正在运行的视频流任务。
-    """
+    """根据 `stream_id` 手动停止一个正在运行的视频流任务。"""
     success = await face_service.stop_stream(stream_id)
     if not success:
         raise HTTPException(status_code=404, detail=f"Stream with ID '{stream_id}' not found or already stopped.")
@@ -232,13 +225,23 @@ async def stop_stream(
     summary="获取所有活动的视频流列表",
     tags=["视频流管理"]
 )
-async def get_all_streams(face_service: FaceService = Depends(get_face_service)):
-    """
-    查询并返回当前服务器上所有正在运行的视频流的详细信息列表。
-    """
-    streams_list = await face_service.get_all_streams()
+async def get_all_streams(
+        request: Request,
+        face_service: FaceService = Depends(get_face_service)
+):
+    """查询并返回当前服务器上所有正在运行的视频流的详细信息列表，包含播放URL。"""
+    active_streams_info = await face_service.get_all_active_streams_info()
+
+    streams_with_details = [
+        StreamDetail(
+            **info.model_dump(),
+            feed_url=str(request.url_for('get_stream_feed', stream_id=info.stream_id))
+        )
+        for info in active_streams_info
+    ]
+
     response_data = GetAllStreamsResponseData(
-        active_streams_count=len(streams_list),
-        streams=streams_list
+        active_streams_count=len(streams_with_details),
+        streams=streams_with_details
     )
     return ApiResponse(data=response_data)

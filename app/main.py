@@ -49,10 +49,9 @@ async def lifespan(app: FastAPI):
     yield
     # --- 关闭任务 ---
     app_logger.info("应用程序正在关闭... 开始执行清理任务。")
-    face_service: FaceService = app.state.face_service
 
     # 1. 【新增】停止周期性清理任务
-    if hasattr(app.state, 'cleanup_task'):
+    if hasattr(app.state, 'cleanup_task') and not app.state.cleanup_task.done():
         app.state.cleanup_task.cancel()
         app_logger.info("正在停止视频流清理任务...")
         try:
@@ -61,7 +60,8 @@ async def lifespan(app: FastAPI):
             app_logger.info("✅ 视频流清理任务已成功取消。")
 
     # 2. 【新增】优雅地关闭所有活动的视频流
-    if face_service:
+    if hasattr(app.state, 'face_service'):
+        face_service: FaceService = app.state.face_service
         await face_service.stop_all_streams()
 
     # 3. 释放模型资源
@@ -121,13 +121,14 @@ def create_app() -> FastAPI:
         )
 
     # 根路由
-    @app.get("/", tags=["应用状态"])
+    @app.get("/", tags=["应用状态"], include_in_schema=False)
     async def read_root(request: Request):
         settings: AppSettings = request.app.state.settings
         return {
             "message": f"欢迎来到 {settings.app.title}!",
             "version": settings.app.version,
-            "docs_url": "/docs"
+            "docs_url": "/docs",
+            "api_prefix": "/api/face"
         }
 
     return app

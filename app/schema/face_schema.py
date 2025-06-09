@@ -7,11 +7,13 @@ import numpy as np
 # --- 通用 API 响应模型 ---
 T = TypeVar("T")
 
+
 class ApiResponse(BaseModel, Generic[T]):
     """标准API响应格式"""
     code: int = Field(0, description="响应状态码，0表示成功，其他值表示失败。")
     msg: str = Field("Success", description="响应消息。")
     data: Optional[T] = Field(None, description="响应数据。")
+
 
 # --- 人脸元数据模型 (用于展示和响应) ---
 class FaceInfo(BaseModel):
@@ -24,23 +26,22 @@ class FaceInfo(BaseModel):
     extra_info: Optional[Dict[str, Any]] = Field(None, description="预留的额外信息字段。")
 
     class Config:
-        from_attributes = True # 替代 orm_mode
+        from_attributes = True
+
 
 # --- API 请求体模型 ---
-class FaceRegisterRequest(BaseModel):
-    """人脸注册请求体"""
-    name: str = Field(..., description="人员姓名。", example="张三")
-    sn: str = Field(..., description="人员唯一标识SN，例如工号或学号。", example="EMP001")
+# FaceRegisterRequest 已被 Form 字段替代，故移除
 
 class UpdateFaceRequest(BaseModel):
     """更新人脸信息请求体"""
     name: Optional[str] = Field(None, description="新的姓名。", example="李四")
-    # extra_info: Optional[Dict[str, Any]] = Field(None, description="更新或添加额外信息。")
+
 
 # --- API 响应数据体模型 ---
 class FaceRegisterResponseData(BaseModel):
     """注册人脸的响应数据"""
     face_info: FaceInfo = Field(..., description="注册成功的人脸信息。")
+
 
 class FaceRecognitionResult(BaseModel):
     """单次人脸识别结果"""
@@ -49,9 +50,10 @@ class FaceRecognitionResult(BaseModel):
     distance: float = Field(..., description="与已知人脸特征的余弦距离，值越小越相似。")
     box: List[int] = Field(..., description="人脸在图像中的边界框 [x1, y1, x2, y2]。")
     detection_confidence: float = Field(..., description="人脸检测置信度。")
-    landmark: Optional[List[List[int]]] = Field(None, description="人脸5个关键点坐标 [[x,y], ...]。")
+    landmark: Optional[List[List[int]]] = Field(None, description="人脸关键点坐标。")
 
     @field_validator('landmark', mode='before')
+    @classmethod
     def landmark_to_list(cls, v):
         if isinstance(v, np.ndarray):
             return v.astype(int).tolist()
@@ -66,10 +68,12 @@ class GetAllFacesResponseData(BaseModel):
     count: int = Field(..., description="人脸总数。")
     faces: List[FaceInfo] = Field(..., description="已注册人脸的列表。")
 
+
 class DeleteFaceResponseData(BaseModel):
     """删除人脸的响应数据"""
     sn: str = Field(..., description="被删除的人员SN。")
     deleted_count: int = Field(..., description="成功删除的人脸特征数量。")
+
 
 class UpdateFaceResponseData(BaseModel):
     """更新人脸信息的响应数据"""
@@ -77,13 +81,14 @@ class UpdateFaceResponseData(BaseModel):
     updated_count: int = Field(..., description="成功更新的人脸特征数量。")
     face_info: FaceInfo = Field(..., description="更新后的人脸信息。")
 
+
 class HealthCheckResponseData(BaseModel):
     """健康检查响应数据"""
     status: str = Field("ok", description="服务状态。")
     message: str = Field("人脸识别服务正常运行。", description="服务状态信息。")
 
 
-# --- 【新增】视频流管理 Schema ---
+# --- 视频流管理 Schema ---
 
 class StreamStartRequest(BaseModel):
     """启动视频流请求体"""
@@ -94,24 +99,31 @@ class StreamStartRequest(BaseModel):
         example=10
     )
 
+
 class ActiveStreamInfo(BaseModel):
-    """单个活动流的状态信息"""
+    """单个活动流的基础状态信息（内部使用）"""
     stream_id: str = Field(..., description="流的唯一ID。")
     source: str = Field(..., description="视频源。")
     started_at: datetime = Field(..., description="流启动时间。")
     expires_at: Optional[datetime] = Field(None, description="流过期时间，None表示永不过期。")
     lifetime_minutes: int = Field(..., description="生命周期（分钟），-1表示永久。")
 
-class StreamStartResponseData(ActiveStreamInfo):
-    """启动视频流的响应数据"""
-    feed_url: str = Field(..., description="用于播放视频流的URL。")
+    class Config:
+        from_attributes = True
+
+
+class StreamDetail(ActiveStreamInfo):
+    """用于API响应的单个视频流的详细信息"""
+    feed_url: str = Field(..., description="用于播放该视频流的完整URL。")
+
 
 class StopStreamResponseData(BaseModel):
     """停止视频流的响应数据"""
     stream_id: str = Field(..., description="被停止的流ID。")
     message: str = Field("Stream stopped successfully.", description="操作结果信息。")
 
+
 class GetAllStreamsResponseData(BaseModel):
     """获取所有活动流的响应数据"""
     active_streams_count: int = Field(..., description="当前活动的视频流数量。")
-    streams: List[ActiveStreamInfo] = Field([], description="所有活动视频流的详细信息列表。")
+    streams: List[StreamDetail] = Field([], description="所有活动视频流的详细信息列表。")

@@ -1,6 +1,6 @@
 # app/service/face_service.py
 import asyncio
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional
 from pathlib import Path
 import numpy as np
 import cv2
@@ -25,7 +25,6 @@ class FaceService:
         self.settings = settings
         self.model = model
 
-        # 根据配置选择DAO实现
         if self.settings.insightface.storage_type == StorageType.CSV:
             features_file = Path(self.settings.insightface.image_db_path).parent / (
                     self.settings.insightface.features_file_name + ".csv")
@@ -40,52 +39,52 @@ class FaceService:
         self.image_db_path.mkdir(parents=True, exist_ok=True)
         self.threshold = self.settings.insightface.recognition_threshold
 
-        self.known_faces_cache: List[Dict[str, Any]] = []
+        self.known_faces_cache: Dict[str, Any] = {
+            "features_matrix": np.array([]), "metadata": []
+        }
         self.cache_lock = asyncio.Lock()
 
-        # --- 视频流状态管理 ---
         self.active_streams: Dict[str, Dict[str, Any]] = {}
         self.stream_lock = asyncio.Lock()
-        # 注意：初始加载在应用启动时完成，这里不再调用
+
+    async def _rebuild_cache_from_db(self):
+        app_logger.info("正在从数据库重建人脸特征缓存...")
+        all_faces_data = self.face_dao.get_all()
+        if not all_faces_data:
+            self.known_faces_cache = {"features_matrix": np.empty((0, 512)), "metadata": []}
+        else:
+            features_list = [face["features"] for face in all_faces_data]
+            self.known_faces_cache["features_matrix"] = np.array(features_list, dtype=np.float32)
+            self.known_faces_cache["metadata"] = [{"sn": face["sn"], "name": face["name"]} for face in all_faces_data]
+        app_logger.info(f"✅ 缓存重建完成！缓存中共有 {len(self.known_faces_cache['metadata'])} 条人脸特征。")
 
     async def load_and_cache_features(self):
-        """从数据库加载人脸特征到内存缓存。应在服务启动后调用。"""
-        app_logger.info("正在从数据库加载人脸特征到内存缓存...")
         async with self.cache_lock:
-            all_faces_data = self.face_dao.get_all()
-            self.known_faces_cache = [
-                {
-                    "sn": face["sn"],
-                    "name": face["name"],
-                    # 【优化】DAO层返回的已是numpy数组，无需再次转换
-                    "features": face["features"]
-                }
-                for face in all_faces_data
-            ]
-        app_logger.info(f"✅ 加载完成！缓存中共有 {len(self.known_faces_cache)} 条人脸特征。")
+            await self._rebuild_cache_from_db()
+
+    def get_known_faces_cache_copy(self) -> Dict[str, Any]:
+        return {
+            "features_matrix": self.known_faces_cache["features_matrix"].copy(),
+            "metadata": self.known_faces_cache["metadata"].copy()
+        }
 
     async def _add_to_cache(self, face_data: Dict[str, Any]):
         async with self.cache_lock:
-            self.known_faces_cache.append({
-                "sn": face_data["sn"],
-                "name": face_data["name"],
-                # 确保添加到缓存的也是 numpy 数组
-                "features": face_data["features"] if isinstance(face_data["features"], np.ndarray) else np.array(
-                    face_data["features"], dtype=np.float32)
-            })
+            # 对于中小规模库，重建缓存是最简单可靠的方式。
+            # 对于超大规模(几十万以上)人脸库，可优化为增量更新缓存矩阵。
+            await self._rebuild_cache_from_db()
 
     async def _remove_from_cache(self, sn: str):
         async with self.cache_lock:
-            self.known_faces_cache = [face for face in self.known_faces_cache if face["sn"] != sn]
+            await self._rebuild_cache_from_db()
 
     async def _update_in_cache(self, sn: str, new_name: str):
         async with self.cache_lock:
-            for face in self.known_faces_cache:
-                if face["sn"] == sn:
-                    face["name"] = new_name
+            for item in self.known_faces_cache["metadata"]:
+                if item["sn"] == sn:
+                    item["name"] = new_name
 
     def _decode_image(self, image_bytes: bytes) -> np.ndarray:
-        """从字节解码图像"""
         try:
             np_arr = np.frombuffer(image_bytes, np.uint8)
             img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
@@ -97,26 +96,21 @@ class FaceService:
             raise HTTPException(status_code=400, detail=f"无效的图像文件: {e}")
 
     def _get_faces_from_image(self, img: np.ndarray) -> List[Face]:
-        """使用 InsightFace 模型从图像中提取人脸"""
         try:
-            faces = self.model.get(img)
-            return faces
+            return self.model.get(img)
         except Exception as e:
             app_logger.error(f"使用 InsightFace 提取人脸时出错: {e}", exc_info=True)
             raise HTTPException(status_code=500, detail="人脸分析服务内部错误。")
 
     def _crop_face_image(self, img: np.ndarray, bbox: np.ndarray) -> np.ndarray:
-        """根据边界框裁剪人脸"""
         x1, y1, x2, y2 = bbox.astype(int)
-        # 增加一些边距，避免裁剪过紧
-        y1 = max(0, y1 - 20)
+        y1 = max(0, y1 - 20);
         y2 = min(img.shape[0], y2 + 20)
-        x1 = max(0, x1 - 20)
+        x1 = max(0, x1 - 20);
         x2 = min(img.shape[1], x2 + 20)
         return img[y1:y2, x1:x2]
 
     def _save_face_image_and_get_path(self, face_img: np.ndarray, sn: str) -> Path:
-        """保存裁剪后的人脸图像"""
         file_uuid = str(uuid.uuid4())
         sn_dir = self.image_db_path / sn
         sn_dir.mkdir(parents=True, exist_ok=True)
@@ -125,10 +119,8 @@ class FaceService:
         success, encoded_image = cv2.imencode(".jpg", face_img)
         if not success:
             raise HTTPException(status_code=500, detail="无法编码裁剪的人脸图像。")
-
         with open(file_path, "wb") as f:
-            f.write(encoded_image)
-
+            f.write(encoded_image.tobytes())
         app_logger.info(f"注册图像已保存到: {file_path}")
         return file_path
 
@@ -142,67 +134,48 @@ class FaceService:
             raise HTTPException(status_code=400, detail=f"图像中检测到 {len(faces)} 张人脸，注册时必须确保只有一张人脸。")
 
         face = faces[0]
-
-        # 【优化】使用配置中的检测分数阈值
         det_score_threshold = self.settings.insightface.recognition_det_score_threshold
         if face.det_score < det_score_threshold:
-            app_logger.warning(f"注册人脸的检测分数({face.det_score:.2f})过低，低于阈值({det_score_threshold})")
             raise HTTPException(status_code=400,
-                                detail=f"人脸质量不佳，检测分数仅为 {face.det_score:.2f}，请上传更清晰的人脸图像。")
+                                detail=f"人脸质量不佳，检测分数({face.det_score:.2f})过低，请上传更清晰的人脸图像。")
 
         features = face.normed_embedding
         cropped_face_img = self._crop_face_image(img, face.bbox)
         saved_image_path = self._save_face_image_and_get_path(cropped_face_img, sn)
 
-        # DAO层需要的是 numpy 数组
         new_face_record = self.face_dao.create(name, sn, features, saved_image_path)
         await self._add_to_cache(new_face_record)
 
-        app_logger.info(f"新的人脸 (SN: {sn}, Name: {name}) 已成功注册。缓存大小: {len(self.known_faces_cache)}")
+        app_logger.info(f"新的人脸 (SN: {sn}, Name: {name}) 已成功注册。")
         return FaceInfo.model_validate(new_face_record)
 
     async def recognize_face(self, image_bytes: bytes) -> List[FaceRecognitionResult]:
-        async with self.cache_lock:
-            if not self.known_faces_cache:
-                return []
-            # 创建副本以避免在异步操作中出现竞态条件
-            known_faces_cache_copy = self.known_faces_cache.copy()
+        cache_copy = self.get_known_faces_cache_copy()
+        known_features_matrix = cache_copy["features_matrix"]
+        known_metadata = cache_copy["metadata"]
 
+        if known_features_matrix.size == 0: return []
         img = self._decode_image(image_bytes)
         detected_faces = self._get_faces_from_image(img)
-
-        if not detected_faces:
-            return []
-
-        known_features_matrix = np.array([face["features"] for face in known_faces_cache_copy])
-        known_metadata = [{"name": face["name"], "sn": face["sn"]} for face in known_faces_cache_copy]
+        if not detected_faces: return []
 
         detected_features_matrix = np.array([face.normed_embedding for face in detected_faces])
-
-        # 使用余弦相似度计算，结果范围[-1, 1]，值越大越相似
         similarity_matrix = np.dot(detected_features_matrix, known_features_matrix.T)
 
         final_results = []
         for i, detected_face in enumerate(detected_faces):
             similarities = similarity_matrix[i]
             best_match_index = np.argmax(similarities)
-            best_similarity = similarities[best_match_index]
-
-            # 将相似度转换为距离 (0-2)，0表示最相似
-            min_dist = 1 - best_similarity
+            min_dist = 1 - similarities[best_match_index]
 
             if min_dist < self.threshold:
                 best_match_meta = known_metadata[best_match_index]
-                result = FaceRecognitionResult(
-                    name=best_match_meta["name"],
-                    sn=best_match_meta["sn"],
-                    distance=min_dist,
+                final_results.append(FaceRecognitionResult(
+                    name=best_match_meta["name"], sn=best_match_meta["sn"], distance=min_dist,
                     box=detected_face.bbox.astype(int).tolist(),
                     detection_confidence=float(detected_face.det_score),
                     landmark=detected_face.landmark_2d_106
-                )
-                final_results.append(result)
-
+                ))
         return final_results
 
     async def get_all_faces(self) -> List[FaceInfo]:
@@ -216,7 +189,6 @@ class FaceService:
         return [FaceInfo.model_validate(record) for record in db_records]
 
     async def delete_face_by_sn(self, sn: str) -> int:
-        # 在删除数据库记录前，先获取信息以便删除关联文件
         features_to_delete = self.face_dao.get_features_by_sn(sn)
         if not features_to_delete:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"SN '{sn}' 未找到。")
@@ -225,19 +197,16 @@ class FaceService:
         if deleted_count > 0:
             await self._remove_from_cache(sn)
             app_logger.info(f"SN {sn} 已从数据库和缓存中移除。")
-            # 删除关联的图片文件
             for feature in features_to_delete:
-                image_path = Path(feature['image_path'])
-                if image_path.exists():
-                    try:
+                try:
+                    image_path = Path(feature['image_path'])
+                    if image_path.exists():
                         os.remove(image_path)
-                        # 尝试删除空的父目录
                         parent_dir = image_path.parent
                         if not any(parent_dir.iterdir()):
-                            app_logger.info(f"目录 {parent_dir} 为空，正在删除...")
                             os.rmdir(parent_dir)
-                    except OSError as e:
-                        app_logger.error(f"无法删除图片文件或目录 {image_path}: {e}")
+                except OSError as e:
+                    app_logger.error(f"无法删除图片文件或目录 {feature.get('image_path', 'N/A')}: {e}")
         return deleted_count
 
     async def update_face_by_sn(self, sn: str, update_data: UpdateFaceRequest) -> FaceInfo:
@@ -250,217 +219,183 @@ class FaceService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"SN '{sn}' 未找到。")
 
         updated_count = self.face_dao.update_by_sn(sn, update_dict)
-        if updated_count > 0:
-            if 'name' in update_dict:
-                await self._update_in_cache(sn, update_dict['name'])
-                app_logger.info(f"SN {sn} 的姓名已在缓存中更新。")
+        if updated_count > 0 and 'name' in update_dict:
+            await self._update_in_cache(sn, update_dict['name'])
 
-            # 返回更新后的信息
-            first_face = existing_faces[0]
-            first_face['name'] = update_dict.get('name', first_face['name'])
-            return FaceInfo.model_validate(first_face)
-
-        raise HTTPException(status_code=500, detail="更新失败，数据库未返回更新计数。")
+        updated_face_info = await self.get_face_by_sn(sn)
+        return updated_face_info[0]
 
     # =======================================================================================
-    # === 视频流管理核心逻辑 =================================================================
+    # === 视频流管理核心逻辑 (已重构) ==========================================================
     # =======================================================================================
-    def _draw_recognition_results_on_frame(self, frame: np.ndarray, detected_faces: List[Face],
-                                           similarity_matrix: np.ndarray, known_metadata: List[Dict]):
-        """【新增】辅助函数：在单帧图像上绘制识别结果。"""
-        for i, face in enumerate(detected_faces):
-            similarities = similarity_matrix[i]
-            best_match_index = np.argmax(similarities)
-            min_dist = 1 - similarities[best_match_index]
+    def _draw_recognition_results_on_frame(self, frame: np.ndarray, last_results: List[Dict]):
+        if not last_results: return
+        for result in last_results:
+            box = result['box'];
+            label = result['label'];
+            color = result['color']
+            cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), color, 2)
+            (lw, lh), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)
+            cv2.rectangle(frame, (box[0], box[1] - lh - 10), (box[0] + lw, box[1] - 5), color, cv2.FILLED)
+            cv2.putText(frame, label, (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
-            box = face.bbox.astype(int)
-            color = (0, 0, 255)  # 红色代表未知
-            label = "Unknown"
-
-            if min_dist < self.threshold:
-                best_match_meta = known_metadata[best_match_index]
-                label = f"{best_match_meta['name']} ({min_dist:.2f})"
-                color = (0, 255, 0)  # 绿色代表匹配成功
-
-            # 绘制边界框
-            cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), color, 1)
-            # 绘制标签
-            label_size, base_line = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 1)
-            top = max(box[1], label_size[1])
-            cv2.rectangle(frame, (box[0], top - label_size[1]), (box[0] + label_size[0], top + base_line), color,
-                          cv2.FILLED)
-            cv2.putText(frame, label, (box[0], top), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 1)
-
-    def _blocking_video_processor(
-            self,
-            video_source: str,
-            frame_queue: asyncio.Queue,
-            stop_event: asyncio.Event,
-            loop: asyncio.AbstractEventLoop
-    ):
-        """在独立线程中运行的阻塞型视频处理函数。"""
+    def _blocking_video_processor(self, video_source: str, frame_queue: asyncio.Queue, stop_event: asyncio.Event,
+                                  loop: asyncio.AbstractEventLoop):
         cap = None
         try:
             source = int(video_source) if video_source.isdigit() else video_source
             cap = cv2.VideoCapture(source)
             if not cap.isOpened():
-                app_logger.error(f"无法打开视频源: {video_source}")
-                loop.call_soon_threadsafe(frame_queue.put_nowait, None)
+                app_logger.error(f"【后台线程】无法打开视频源: {video_source}")
                 return
 
-            has_known_faces = len(self.known_faces_cache) > 0
-            if has_known_faces:
-                known_features_matrix = np.array([face["features"] for face in self.known_faces_cache])
-                known_metadata = [{"name": face["name"], "sn": face["sn"]} for face in self.known_faces_cache]
+            last_rec_time, last_cache_update_time = 0, 0
+            last_results, known_faces_cache = [], {}
 
             while not stop_event.is_set():
                 ret, frame = cap.read()
-                if stop_event.is_set() or not ret:
+                if not ret:
+                    app_logger.warning(f"无法从视频源 {video_source} 读取帧，流可能已结束。")
                     break
-
-                try:
-                    # 【重构】将识别和绘制逻辑分离
-                    detected_faces = self._get_faces_from_image(frame)
-                    if detected_faces and has_known_faces:
-                        detected_features_matrix = np.array([face.normed_embedding for face in detected_faces])
-                        similarity_matrix = np.dot(detected_features_matrix, known_features_matrix.T)
-                        self._draw_recognition_results_on_frame(frame, detected_faces, similarity_matrix,
-                                                                known_metadata)
-
-                except Exception as e:
-                    app_logger.error(f"处理视频帧时发生错误: {e}", exc_info=False)
-
+                current_time = time.time()
+                if current_time - last_cache_update_time > self.settings.app.stream_cache_update_interval_seconds:
+                    known_faces_cache = self.get_known_faces_cache_copy()
+                    last_cache_update_time = current_time
+                if current_time - last_rec_time > self.settings.app.stream_recognition_interval_seconds:
+                    last_rec_time = current_time
+                    if known_faces_cache.get("metadata"):
+                        try:
+                            detected_faces = self._get_faces_from_image(frame)
+                            temp_results = []
+                            if detected_faces:
+                                known_features = known_faces_cache["features_matrix"]
+                                known_meta = known_faces_cache["metadata"]
+                                detected_features = np.array([f.normed_embedding for f in detected_faces])
+                                sim_matrix = np.dot(detected_features, known_features.T)
+                                for i, face in enumerate(detected_faces):
+                                    sims = sim_matrix[i]
+                                    best_idx = np.argmax(sims)
+                                    min_dist = 1 - sims[best_idx]
+                                    box = face.bbox.astype(int)
+                                    color, label = ((0, 0, 255), "Unknown")
+                                    if min_dist < self.threshold:
+                                        meta = known_meta[best_idx]
+                                        label = f"{meta['name']} ({min_dist:.2f})"
+                                        color = (0, 255, 0)
+                                    temp_results.append({"box": box, "label": label, "color": color})
+                            last_results = temp_results
+                        except Exception as e:
+                            app_logger.error(f"处理视频帧时发生错误: {e}", exc_info=False)
+                self._draw_recognition_results_on_frame(frame, last_results)
                 (flag, encodedImage) = cv2.imencode(".jpg", frame)
                 if flag:
-                    jpeg_bytes = bytearray(encodedImage)
-                    loop.call_soon_threadsafe(
-                        frame_queue.put_nowait,
-                        (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + jpeg_bytes + b'\r\n')
-                    )
-                time.sleep(0.001)  # 短暂休眠，避免CPU 100%
+                    try:
+                        frame_queue.put_nowait(
+                            b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + encodedImage.tobytes() + b'\r\n')
+                    except asyncio.QueueFull:
+                        app_logger.warning(f"视频流 {video_source} 队列已满，丢弃一帧。")
+                time.sleep(0.01)
         except Exception as e:
             app_logger.error(f"视频处理线程中发生致命错误: {e}", exc_info=True)
         finally:
             if cap and cap.isOpened():
                 cap.release()
-                app_logger.info(f"✅ 视频源 {video_source} 已成功释放。")
-            loop.call_soon_threadsafe(frame_queue.put_nowait, None)  # 发送结束信号
+            # 【核心修复】无论何种情况退出，都必须向队列发送终结信号
+            try:
+                loop.call_soon_threadsafe(frame_queue.put_nowait, None)
+            except asyncio.QueueFull:
+                app_logger.warning(f"视频源 {video_source} 队列已满，无法放入结束信号。")
+            app_logger.info(f"✅ 视频源 {video_source} 的处理线程已安全结束。")
 
     async def start_stream(self, req: StreamStartRequest) -> ActiveStreamInfo:
+        # 【核心修复】启动流之前，先快速检查源是否可用
+        source_to_check = int(req.source) if req.source.isdigit() else req.source
+        cap_check = cv2.VideoCapture(source_to_check)
+        if not cap_check.isOpened():
+            cap_check.release()
+            app_logger.error(f"启动视频流失败：无法打开视频源 '{req.source}'")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                                detail=f"无法打开视频源 '{req.source}'。请检查路径或摄像头ID是否正确。")
+        cap_check.release()
+        app_logger.info(f"视频源 '{req.source}' 预检通过。")
+
         stream_id = str(uuid.uuid4())
-        # 【优化】使用配置中的默认生命周期
         lifetime = req.lifetime_minutes if req.lifetime_minutes is not None else self.settings.app.stream_default_lifetime_minutes
 
         async with self.stream_lock:
             if stream_id in self.active_streams:
                 raise HTTPException(status_code=409, detail="Stream ID conflict. Please try again.")
 
-            frame_queue = asyncio.Queue(maxsize=10)  # 设置队列大小防止内存溢出
+            frame_queue = asyncio.Queue(maxsize=60)
             stop_event = asyncio.Event()
             loop = asyncio.get_running_loop()
-
-            processing_task = loop.run_in_executor(
-                None, self._blocking_video_processor, req.source, frame_queue, stop_event, loop
-            )
-
+            processing_task = loop.run_in_executor(None, self._blocking_video_processor, req.source, frame_queue,
+                                                   stop_event, loop)
             started_at = datetime.now()
-            expires_at = None
-            if lifetime != -1:
-                expires_at = started_at + timedelta(minutes=lifetime)
-
-            stream_info = ActiveStreamInfo(
-                stream_id=stream_id,
-                source=req.source,
-                started_at=started_at,
-                expires_at=expires_at,
-                lifetime_minutes=lifetime
-            )
-
-            self.active_streams[stream_id] = {
-                "info": stream_info,
-                "queue": frame_queue,
-                "stop_event": stop_event,
-                "task": processing_task
-            }
+            expires_at = None if lifetime == -1 else started_at + timedelta(minutes=lifetime)
+            stream_info = ActiveStreamInfo(stream_id=stream_id, source=req.source, started_at=started_at,
+                                           expires_at=expires_at, lifetime_minutes=lifetime)
+            self.active_streams[stream_id] = {"info": stream_info, "queue": frame_queue, "stop_event": stop_event,
+                                              "task": processing_task}
             app_logger.info(f"🚀 视频流已启动: ID={stream_id}, Source={req.source}, Lifetime={lifetime} mins")
             return stream_info
 
     async def stop_stream(self, stream_id: str) -> bool:
         async with self.stream_lock:
-            stream = self.active_streams.get(stream_id)
+            stream = self.active_streams.pop(stream_id, None)
             if not stream:
                 app_logger.warning(f"尝试停止一个不存在或已停止的视频流: ID={stream_id}")
                 return False
-
-            app_logger.info(f"⏹️ 正在请求停止视频流: ID={stream_id}...")
-            stream["stop_event"].set()
-            # 设置超时以防任务卡死
-            try:
-                await asyncio.wait_for(stream["task"], timeout=5.0)
-            except asyncio.TimeoutError:
-                app_logger.error(f"停止视频流 {stream_id} 超时！")
-                # 任务可能无法正常终止，但这可以防止服务器卡住
-
-            # 清理队列
-            while not stream["queue"].empty():
-                stream["queue"].get_nowait()
-
-            del self.active_streams[stream_id]
-            app_logger.info(f"✅ 视频流已成功停止并清理: ID={stream_id}")
-            return True
+        app_logger.info(f"⏹️ 正在请求停止视频流: ID={stream_id}...")
+        stream["stop_event"].set()
+        try:
+            await asyncio.wait_for(stream["task"], timeout=5.0)
+        except asyncio.TimeoutError:
+            app_logger.error(f"停止视频流 {stream_id} 的后台任务超时！")
+        while not stream["queue"].empty():
+            stream["queue"].get_nowait()
+        app_logger.info(f"✅ 视频流已成功停止并清理: ID={stream_id}")
+        return True
 
     async def get_stream_feed(self, stream_id: str):
-        stream = self.active_streams.get(stream_id)
-        if not stream:
-            raise HTTPException(status_code=404, detail="Stream not found.")
-
-        frame_queue = stream["queue"]
+        async with self.stream_lock:
+            if stream_id not in self.active_streams:
+                raise HTTPException(status_code=404, detail="Stream not found.")
+            frame_queue = self.active_streams[stream_id]["queue"]
         try:
             while True:
                 frame = await frame_queue.get()
-                if frame is None:
+                if frame is None:  # 检查终结信号
+                    app_logger.info(f"接收到流 {stream_id} 的终结信号，关闭连接。")
                     break
                 yield frame
-                frame_queue.task_done()
         except asyncio.CancelledError:
             app_logger.info(f"客户端断开连接，正在关闭流生成器: ID={stream_id}")
         finally:
             app_logger.debug(f"一个客户端已从流 {stream_id} 断开。")
 
-    async def get_all_streams(self) -> List[ActiveStreamInfo]:
+    async def get_all_active_streams_info(self) -> List[ActiveStreamInfo]:
         async with self.stream_lock:
             return [stream["info"] for stream in self.active_streams.values()]
 
     async def cleanup_expired_streams(self):
-        """后台任务，周期性地清理过期的视频流。"""
         while True:
-            # 【优化】使用配置中的清理间隔
             await asyncio.sleep(self.settings.app.stream_cleanup_interval_seconds)
             now = datetime.now()
-
-            # 创建副本以安全地迭代和修改
-            expired_stream_ids = []
-            async with self.stream_lock:
-                for stream_id, stream in self.active_streams.items():
-                    if stream["info"].expires_at and now >= stream["info"].expires_at:
-                        expired_stream_ids.append(stream_id)
-
+            expired_stream_ids = [
+                stream_id for stream_id, stream in self.active_streams.items()
+                if stream["info"].expires_at and now >= stream["info"].expires_at
+            ]
             if expired_stream_ids:
                 app_logger.info(f"🗑️ 发现 {len(expired_stream_ids)} 个过期视频流，正在清理...")
-                for stream_id in expired_stream_ids:
-                    # stop_stream 有自己的锁，所以在这里调用是安全的
-                    await self.stop_stream(stream_id)
+                cleanup_tasks = [self.stop_stream(stream_id) for stream_id in expired_stream_ids]
+                await asyncio.gather(*cleanup_tasks)
 
     async def stop_all_streams(self):
-        """在应用关闭时，优雅地停止所有活动的视频流。"""
         app_logger.info("应用程序关闭，正在停止所有活动的视频流...")
-        # 创建副本以安全地迭代
         all_stream_ids = list(self.active_streams.keys())
-        stopped_count = 0
         if all_stream_ids:
-            # 并发停止所有流
             stop_tasks = [self.stop_stream(stream_id) for stream_id in all_stream_ids]
-            results = await asyncio.gather(*stop_tasks)
-            stopped_count = sum(1 for res in results if res)
-
-        app_logger.info(f"✅ 所有 {stopped_count} 个活动流已清理完毕。")
+            results = await asyncio.gather(*stop_tasks, return_exceptions=True)
+            stopped_count = sum(1 for res in results if res is True)
+            app_logger.info(f"✅ 所有 {stopped_count}/{len(all_stream_ids)} 个活动流已清理完毕。")

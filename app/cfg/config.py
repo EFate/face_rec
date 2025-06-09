@@ -43,7 +43,7 @@ class AppConfig(BaseModel):
     debug: bool = Field(False, description="是否开启调试模式。")
     video_width: int = Field(640, description="视频流宽度。")
     video_height: int = Field(480, description="视频流高度。")
-    # 【优化】新增视频流相关配置
+    # 视频流相关配置
     stream_default_lifetime_minutes: int = Field(
         10,
         description="视频流默认生命周期（分钟），-1表示永久。"
@@ -51,6 +51,15 @@ class AppConfig(BaseModel):
     stream_cleanup_interval_seconds: int = Field(
         60,
         description="清理过期视频流的后台任务运行间隔（秒）。"
+    )
+    # 视频流识别间隔，避免每一帧都做识别，降低资源消耗
+    stream_recognition_interval_seconds: float = Field(
+        0.1,
+        description="视频流中执行人脸识别的最小时间间隔（秒）。"
+    )
+    stream_cache_update_interval_seconds: int = Field(
+        5,
+        description="在视频流处理中，重新加载人脸库缓存的时间间隔（秒）。"
     )
 
 
