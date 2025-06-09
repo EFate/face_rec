@@ -14,6 +14,7 @@ from app.core.model_manager import model_manager, load_models_on_startup, releas
 from app.router.face_router import router as face_router
 from app.service.face_service import FaceService
 from app.schema.face_schema import ApiResponse
+from app.cfg.config import DATA_DIR  # 导入DATA_DIR
 
 
 @asynccontextmanager
@@ -39,12 +40,35 @@ async def lifespan(app: FastAPI):
     await face_service.load_and_cache_features()
     app_logger.info("✅ 人脸特征缓存加载完成。")
 
+    # 4. 【新增】启动周期性清理过期流的后台任务
+    cleanup_task = asyncio.create_task(face_service.cleanup_expired_streams())
+    app.state.cleanup_task = cleanup_task
+    app_logger.info("✅ 启动了周期性清理过期视频流的后台任务。")
+
     app_logger.info("🎉 所有启动任务完成，应用程序准备就绪。")
     yield
     # --- 关闭任务 ---
     app_logger.info("应用程序正在关闭... 开始执行清理任务。")
+    face_service: FaceService = app.state.face_service
+
+    # 1. 【新增】停止周期性清理任务
+    if hasattr(app.state, 'cleanup_task'):
+        app.state.cleanup_task.cancel()
+        app_logger.info("正在停止视频流清理任务...")
+        try:
+            await app.state.cleanup_task
+        except asyncio.CancelledError:
+            app_logger.info("✅ 视频流清理任务已成功取消。")
+
+    # 2. 【新增】优雅地关闭所有活动的视频流
+    if face_service:
+        await face_service.stop_all_streams()
+
+    # 3. 释放模型资源
     await release_models_on_shutdown()
-    app_logger.info("✅ 清理任务完成。")
+
+    app_logger.info("✅ 所有清理任务完成。")
+
 
 def create_app() -> FastAPI:
     app_settings = get_app_settings()
@@ -82,6 +106,10 @@ def create_app() -> FastAPI:
     if STATIC_FILES_DIR.exists():
         app.mount("/static", StaticFiles(directory=STATIC_FILES_DIR), name="static")
 
+    # 挂载数据文件目录，用于访问注册的人脸图片
+    if DATA_DIR.exists():
+        app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")
+
     # 自定义Swagger UI
     @app.get("/docs", include_in_schema=False)
     async def custom_swagger_ui_html():
@@ -103,5 +131,6 @@ def create_app() -> FastAPI:
         }
 
     return app
+
 
 app = create_app()

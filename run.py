@@ -15,6 +15,7 @@ from app.cfg.logging import app_logger as logger, setup_logging
 # from app.main import create_app, app as fastapi_app_instance # 移除 fastapi_app_instance 导入
 
 
+
 # 加载 .env 文件
 # 确保在任何配置或日志初始化之前加载环境变量
 load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")

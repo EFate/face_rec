@@ -9,6 +9,7 @@ from insightface.app import FaceAnalysis
 from app.cfg.config import AppSettings, get_app_settings
 from app.cfg.logging import app_logger
 
+
 class ModelManager:
     _instance = None
     _model: Optional[FaceAnalysis] = None
@@ -47,8 +48,26 @@ class ModelManager:
                 self._model = model
                 app_logger.info("✅ InsightFace 模型加载并准备成功。")
             except Exception as e:
-                app_logger.exception(f"❌ InsightFace 模型加载失败: {e}")
-                raise RuntimeError(f"InsightFace 模型初始化失败: {e}")
+                error_message = str(e)
+                # 专门针对 ONNX Runtime 的 CUDA 加载失败错误
+                if "CUDA wasn't able to be loaded" in error_message or "LoadLibrary failed with error 126" in error_message:
+                    app_logger.critical("❌ ONNX Runtime无法加载CUDA执行提供者！这是GPU环境配置问题。")
+
+                    guide_message = (
+                        "GPU调用失败，请严格按照以下步骤检查您的环境：\n"
+                        "1. [驱动检查] 运行 `nvidia-smi` 命令，确保NVIDIA驱动已正确安装。\n"
+                        "2. [版本匹配] 确认 `onnxruntime-gpu`、`CUDA Toolkit`、`cuDNN` 三者的版本是严格匹配的。请查阅ONNX Runtime官方文档获取版本对应关系。\n"
+                        "3. [文件核对] 确保已将cuDNN压缩包中的 `bin`, `lib`, `include` 目录下的所有文件，正确复制到CUDA Toolkit的安装目录中。\n"
+                        "4. [临时方案] 如果暂时无法解决，可修改配置文件，将执行提供者改为 `['CPUExecutionProvider']` 以使用CPU运行。"
+                    )
+                    app_logger.error(guide_message)
+                    # 抛出一个更清晰的异常，终止应用启动
+                    raise RuntimeError("GPU环境配置错误，无法启动服务。请查看上方日志获取详细指引。") from e
+
+                # 其他类型的加载错误
+                else:
+                    app_logger.exception(f"❌ InsightFace 模型加载失败: {e}")
+                    raise RuntimeError(f"InsightFace 模型初始化失败: {e}")
         else:
             app_logger.info("InsightFace 模型已加载，跳过重复加载。")
 
@@ -82,12 +101,15 @@ class ModelManager:
         self._model = None
         app_logger.info("模型资源已释放。")
 
+
 # 单例实例
 model_manager = ModelManager()
+
 
 # 用于FastAPI启动时加载模型
 async def load_models_on_startup():
     await model_manager.load_insightface_model()
+
 
 # 用于FastAPI关闭时释放资源
 async def release_models_on_shutdown():

@@ -41,6 +41,8 @@ class AppConfig(BaseModel):
     debug: bool = Field(False, description="是否开启调试模式。")
     video_width: int = Field(640, description="视频流宽度。")
     video_height: int = Field(480, description="视频流高度。")
+    stream_default_lifetime_minutes: int = Field(10, description="视频流默认生命周期（分钟）。-1表示永久。")
+    stream_cleanup_interval_seconds: int = Field(30, description="清理过期视频流的后台任务运行间隔（秒）。")
 
 class ServerConfig(BaseModel):
     host: str = Field("0.0.0.0", description="服务器监听地址。")

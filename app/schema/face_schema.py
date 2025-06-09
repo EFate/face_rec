@@ -81,3 +81,37 @@ class HealthCheckResponseData(BaseModel):
     """健康检查响应数据"""
     status: str = Field("ok", description="服务状态。")
     message: str = Field("人脸识别服务正常运行。", description="服务状态信息。")
+
+
+# --- 【新增】视频流管理 Schema ---
+
+class StreamStartRequest(BaseModel):
+    """启动视频流请求体"""
+    source: str = Field(..., description="视频源。可以是摄像头ID(如 '0') 或 视频文件/URL。", example="0")
+    lifetime_minutes: Optional[int] = Field(
+        None,
+        description="视频流生命周期（分钟）。-1表示永久，不填则使用配置默认值。",
+        example=10
+    )
+
+class ActiveStreamInfo(BaseModel):
+    """单个活动流的状态信息"""
+    stream_id: str = Field(..., description="流的唯一ID。")
+    source: str = Field(..., description="视频源。")
+    started_at: datetime = Field(..., description="流启动时间。")
+    expires_at: Optional[datetime] = Field(None, description="流过期时间，None表示永不过期。")
+    lifetime_minutes: int = Field(..., description="生命周期（分钟），-1表示永久。")
+
+class StreamStartResponseData(ActiveStreamInfo):
+    """启动视频流的响应数据"""
+    feed_url: str = Field(..., description="用于播放视频流的URL。")
+
+class StopStreamResponseData(BaseModel):
+    """停止视频流的响应数据"""
+    stream_id: str = Field(..., description="被停止的流ID。")
+    message: str = Field("Stream stopped successfully.", description="操作结果信息。")
+
+class GetAllStreamsResponseData(BaseModel):
+    """获取所有活动流的响应数据"""
+    active_streams_count: int = Field(..., description="当前活动的视频流数量。")
+    streams: List[ActiveStreamInfo] = Field([], description="所有活动视频流的详细信息列表。")

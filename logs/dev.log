@@ -619,3 +619,787 @@
 2025-06-07 14:33:03.955 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
 2025-06-07 14:33:03.955 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
 2025-06-07 14:33:03.955 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:31:18.474 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:31:18.475 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:31:18.475 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:31:18.475 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:31:18.476 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:31:18.476 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:31:18.476 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:31:18.476 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:37:36.087 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:37:36.087 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:37:36.087 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:37:36.087 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:37:36.089 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:37:36.089 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:37:36.089 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:37:36.089 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:43:45.032 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:43:45.033 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:43:45.033 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:43:45.033 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:43:45.033 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:43:45.033 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:43:45.034 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:43:45.034 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:44:05.489 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:44:05.489 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:44:05.489 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:44:05.490 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:44:05.490 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:44:05.490 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:44:05.490 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:44:05.490 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:48:15.762 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:48:15.762 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:48:15.762 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:48:15.762 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:48:15.762 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:48:15.764 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:48:15.764 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:48:15.764 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:48:25.399 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:48:25.399 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:48:25.400 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:48:25.400 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:48:25.401 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:48:25.401 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:48:25.401 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:48:25.401 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:49:28.219 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:49:28.219 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:49:28.220 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:49:28.220 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:49:28.220 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:49:28.220 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:49:28.220 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:49:28.220 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:51:49.912 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:51:49.913 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:51:49.913 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:51:49.913 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:51:49.913 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:51:49.914 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:51:49.914 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:51:49.914 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:52:05.213 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:52:05.213 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:52:05.214 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:52:05.214 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:52:05.214 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:52:05.214 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:52:05.214 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:52:05.214 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:57:48.917 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:57:48.918 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:57:48.918 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:57:48.918 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:57:48.918 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:57:48.918 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:57:48.919 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:57:48.919 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 15:59:48.019 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:59:48.020 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 15:59:48.020 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 15:59:48.020 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 15:59:48.021 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 15:59:48.021 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 15:59:48.021 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 15:59:48.021 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:21:59.985 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:21:59.986 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:21:59.986 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:21:59.986 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:21:59.986 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:21:59.987 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:21:59.987 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:21:59.988 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:22:06.425 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:22:06.426 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:22:06.426 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:22:06.426 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:22:06.426 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:22:06.427 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:22:06.427 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:22:06.427 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:22:08.639 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:22:08.640 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:22:08.640 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:22:08.640 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:22:08.640 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:22:08.640 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:22:08.641 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:22:08.641 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:24:48.560 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:24:48.561 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:24:48.561 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:24:48.562 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:24:48.562 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:24:48.562 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:24:48.562 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:24:48.562 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:27:58.229 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:27:58.229 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:27:58.229 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:27:58.229 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:27:58.230 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:27:58.230 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:27:58.230 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:27:58.230 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:43:03.410 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:43:03.411 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:43:03.411 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:43:03.412 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:43:03.412 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:43:03.412 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:43:03.412 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:43:03.412 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:46:58.521 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:46:58.521 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:46:58.522 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:46:58.522 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:46:58.522 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:46:58.522 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:46:58.523 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:46:58.523 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 16:51:15.852 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:51:15.853 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 16:51:15.854 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 16:51:15.854 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 16:51:15.854 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 16:51:15.855 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 16:51:15.855 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 16:51:15.855 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:02:24.128 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:02:24.129 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:02:24.129 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:02:24.130 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:02:24.130 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:02:24.130 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:02:24.130 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:02:24.130 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:03:12.406 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:03:12.407 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:03:12.407 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:03:12.407 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:03:12.407 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:03:12.408 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:03:12.408 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:03:12.408 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:06:28.889 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:06:28.889 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:06:28.890 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:06:28.890 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:06:28.890 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:06:28.890 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:06:28.890 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:06:28.890 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:06:53.288 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:06:53.289 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:06:53.289 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:06:53.289 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:06:53.289 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:06:53.290 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:06:53.290 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:06:53.290 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:08:00.936 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:08:00.936 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:08:00.937 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:08:00.937 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:08:00.937 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:08:00.937 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:08:00.937 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:08:00.938 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:08:51.689 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:08:51.690 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:08:51.690 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:08:51.690 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:08:51.691 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:08:51.691 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:08:51.691 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:08:51.691 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:18:14.486 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:18:14.486 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:18:14.487 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:18:14.487 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:18:14.487 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:18:14.487 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:18:14.487 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:18:14.487 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:18:31.091 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:18:31.092 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:18:31.092 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:18:31.092 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:18:31.092 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:18:31.092 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:18:31.092 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:18:31.093 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:21:30.251 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:21:30.252 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:21:30.252 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:21:30.252 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:21:30.252 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:21:30.253 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:21:30.253 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:21:30.253 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:21:39.990 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:21:39.990 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:21:39.990 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:21:39.991 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:21:39.991 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:21:39.991 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:21:39.991 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:21:39.992 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:28:40.319 | INFO     | __main__:_apply_env_and_config:56 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:28:40.319 | INFO     | __main__:start_server:181 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:28:40.319 | INFO     | __main__:start_server:182 - 🔧 配置概览:
+2025-06-07 17:28:40.320 | INFO     | __main__:start_server:183 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:28:40.320 | INFO     | __main__:start_server:184 -   - 端口 (Port): 12010
+2025-06-07 17:28:40.320 | INFO     | __main__:start_server:185 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:28:40.320 | INFO     | __main__:start_server:186 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:28:40.320 | INFO     | __main__:start_server:187 -   - 热重载 (Reload): ❌ 关闭
+2025-06-07 17:28:42.830 | DEBUG    | logging:_log:1624 - matplotlib data path: D:\ABT\0-Project\face_rec\.venv\lib\site-packages\matplotlib\mpl-data
+2025-06-07 17:28:42.835 | DEBUG    | logging:_log:1624 - CONFIGDIR=C:\Users\31425\.matplotlib
+2025-06-07 17:28:42.836 | DEBUG    | logging:_log:1624 - interactive is False
+2025-06-07 17:28:42.837 | DEBUG    | logging:_log:1624 - platform is win32
+2025-06-07 17:28:42.888 | DEBUG    | logging:_log:1624 - CACHEDIR=C:\Users\31425\.matplotlib
+2025-06-07 17:28:42.890 | DEBUG    | logging:_log:1624 - Using fontManager instance from C:\Users\31425\.matplotlib\fontlist-v390.json
+2025-06-07 17:28:43.103 | INFO     | app.core.model_manager:_initialize_insightface_env:28 - InsightFace HOME 环境变量设置为: D:\ABT\0-Project\face_rec\data\.insightface
+2025-06-07 17:28:43.547 | INFO     | app.main:lifespan:25 - 应用程序启动... 开始执行启动任务。
+2025-06-07 17:28:43.547 | INFO     | app.core.model_manager:load_insightface_model:36 - 正在加载 InsightFace 模型包: 'buffalo_l' 使用 providers: ['CUDAExecutionProvider', 'CPUExecutionProvider']
+2025-06-07 17:28:43.779 | ERROR    | app.core.model_manager:load_insightface_model:50 - ❌ InsightFace 模型加载失败: D:\a\_work\1\s\onnxruntime\python\onnxruntime_pybind_state.cc:743 onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page (https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements), make sure they're in the PATH, and that your GPU is supported.
+
+Traceback (most recent call last):
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+    │    │                         │          │                 └ None
+    │    │                         │          └ None
+    │    │                         └ ['CUDAExecutionProvider', 'CPUExecutionProvider']
+    │    └ <function InferenceSession._create_inference_session at 0x000002B2FE68F7F0>
+    └ <insightface.model_zoo.model_zoo.PickableInferenceSession object at 0x000002B2AF134310>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py", line 463, in _create_inference_session
+    sess.initialize_session(providers, provider_options, disabled_optimizers)
+    │    │                  │          │                 └ set()
+    │    │                  │          └ [{}, {}]
+    │    │                  └ ['CUDAExecutionProvider', 'CPUExecutionProvider']
+    │    └ <instancemethod initialize_session at 0x000002B2FE6A9090>
+    └ <onnxruntime.capi.onnxruntime_pybind11_state.InferenceSession object at 0x000002B2FFAECEF0>
+
+RuntimeError: D:\a\_work\1\s\onnxruntime\python\onnxruntime_pybind_state.cc:743 onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page (https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements), make sure they're in the PATH, and that your GPU is supported.
+
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "D:\ABT\0-Project\face_rec\run.py", line 220, in <module>
+    app()
+    └ <typer.main.Typer object at 0x000002B2F4567A60>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\typer\main.py", line 324, in __call__
+    return get_command(self)(*args, **kwargs)
+           │           │      │       └ {}
+           │           │      └ ()
+           │           └ <typer.main.Typer object at 0x000002B2F4567A60>
+           └ <function get_command at 0x000002B2F6C82A70>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\click\core.py", line 1442, in __call__
+    return self.main(*args, **kwargs)
+           │    │     │       └ {}
+           │    │     └ ()
+           │    └ <function TyperGroup.main at 0x000002B2F6C779A0>
+           └ <TyperGroup >
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\typer\core.py", line 757, in main
+    return _main(
+           └ <function _main at 0x000002B2F6C76D40>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\typer\core.py", line 195, in _main
+    rv = self.invoke(ctx)
+         │    │      └ <click.core.Context object at 0x000002B2F71D2680>
+         │    └ <function Group.invoke at 0x000002B2F6276C20>
+         └ <TyperGroup >
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\click\core.py", line 1830, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+           │               │       │       │      └ <click.core.Context object at 0x000002B2F7E6D5A0>
+           │               │       │       └ <function Command.invoke at 0x000002B2F6276170>
+           │               │       └ <TyperCommand start>
+           │               └ <click.core.Context object at 0x000002B2F7E6D5A0>
+           └ <function Group.invoke.<locals>._process_result at 0x000002B2F7E7DAB0>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\click\core.py", line 1226, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           │   │      │    │           │   └ {'env': 'development'}
+           │   │      │    │           └ <click.core.Context object at 0x000002B2F7E6D5A0>
+           │   │      │    └ <function start_server at 0x000002B2F7E7D870>
+           │   │      └ <TyperCommand start>
+           │   └ <function Context.invoke at 0x000002B2F6275510>
+           └ <click.core.Context object at 0x000002B2F7E6D5A0>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\click\core.py", line 794, in invoke
+    return callback(*args, **kwargs)
+           │         │       └ {'env': 'development'}
+           │         └ ()
+           └ <function start_server at 0x000002B2F7E7D870>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\typer\main.py", line 699, in wrapper
+    return callback(**use_params)
+           │          └ {'env': 'development'}
+           └ <function start_server at 0x000002B2F7E7D7E0>
+
+  File "D:\ABT\0-Project\face_rec\run.py", line 194, in start_server
+    uvicorn.run(
+    │       └ <function run at 0x000002B2F6F41480>
+    └ <module 'uvicorn' from 'D:\\ABT\\0-Project\\face_rec\\.venv\\lib\\site-packages\\uvicorn\\__init__.py'>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\uvicorn\main.py", line 580, in run
+    server.run()
+    │      └ <function Server.run at 0x000002B2F6F40D30>
+    └ <uvicorn.server.Server object at 0x000002B2F6A2F700>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ None
+           │       │   │    └ <function Server.serve at 0x000002B2F6F40DC0>
+           │       │   └ <uvicorn.server.Server object at 0x000002B2F6A2F700>
+           │       └ <function run at 0x000002B2F6DCE4D0>
+           └ <module 'asyncio' from 'C:\\Users\\31425\\AppData\\Roaming\\uv\\python\\cpython-3.10.17-windows-x86_64-none\\lib\\asyncio\\__...
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x000002B2F761EB20>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002B2F6DCFEB0>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\asyncio\base_events.py", line 636, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000002B2F6E348B0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\asyncio\base_events.py", line 603, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002B2F6DD5990>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\asyncio\base_events.py", line 1909, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002B2F6D552D0>
+    └ <Handle Task.task_wakeup(<Future finis...upported.\n")>)>
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...upported.\n")>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...upported.\n")>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...upported.\n")>)>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\uvicorn\lifespan\on.py", line 86, in main
+    await app(scope, self.receive, self.send)
+          │   │      │    │        │    └ <function LifespanOn.send at 0x000002B2F7FD6B00>
+          │   │      │    │        └ <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>
+          │   │      │    └ <function LifespanOn.receive at 0x000002B2F7FD6B90>
+          │   │      └ <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>
+          │   └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+          └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000002B2F7ED8340>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 29, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+                 │    │   │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+                 │    │   └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+                 │    └ <fastapi.applications.FastAPI object at 0x000002B2F7FC8D00>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000002B2F7ED8340>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+                           │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+                           └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\starlette\applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │                │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │                └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002B2AF11B550>
+          └ <fastapi.applications.FastAPI object at 0x000002B2F7FC8D00>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\starlette\middleware\errors.py", line 152, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │   │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │   └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002B2AF11B520>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002B2AF11B550>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 48, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │   │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │   └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+          │    └ <fastapi.routing.APIRouter object at 0x000002B2AF0CCA60>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002B2AF11B520>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\starlette\routing.py", line 714, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │                │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │                └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x000002B2AF0CCA60>>
+          └ <fastapi.routing.APIRouter object at 0x000002B2AF0CCA60>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\starlette\routing.py", line 723, in app
+    await self.lifespan(scope, receive, send)
+          │    │        │      │        └ <bound method LifespanOn.send of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │        │      └ <bound method LifespanOn.receive of <uvicorn.lifespan.on.LifespanOn object at 0x000002B2AF11AFE0>>
+          │    │        └ {'type': 'lifespan', 'asgi': {'version': '3.0', 'spec_version': '2.0'}, 'state': {}, 'app': <fastapi.applications.FastAPI obj...
+          │    └ <function Router.lifespan at 0x000002B2F8282C20>
+          └ <fastapi.routing.APIRouter object at 0x000002B2AF0CCA60>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\starlette\routing.py", line 692, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               │    │                └ <fastapi.applications.FastAPI object at 0x000002B2F7FC8D00>
+               │    └ <function _merge_lifespan_context.<locals>.merged_lifespan at 0x000002B2AF109360>
+               └ <fastapi.routing.APIRouter object at 0x000002B2AF0CCA60>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\fastapi\routing.py", line 133, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               │                └ <fastapi.applications.FastAPI object at 0x000002B2F7FC8D00>
+               └ <function lifespan at 0x000002B2AF0AF490>
+
+  File "D:\ABT\0-Project\face_rec\app\main.py", line 30, in lifespan
+    await load_models_on_startup()
+          └ <function load_models_on_startup at 0x000002B2F82C6F80>
+
+  File "D:\ABT\0-Project\face_rec\app\core\model_manager.py", line 90, in load_models_on_startup
+    await model_manager.load_insightface_model()
+          │             └ <function ModelManager.load_insightface_model at 0x000002B2FFADF250>
+          └ <app.core.model_manager.ModelManager object at 0x000002B2F82E8340>
+
+> File "D:\ABT\0-Project\face_rec\app\core\model_manager.py", line 43, in load_insightface_model
+    model = await loop.run_in_executor(
+                  │    └ <function BaseEventLoop.run_in_executor at 0x000002B2F6DD4700>
+                  └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\31425\AppData\Roaming\uv\python\cpython-3.10.17-windows-x86_64-none\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             │        │            └ None
+             │        └ None
+             └ None
+
+  File "D:\ABT\0-Project\face_rec\app\core\model_manager.py", line 58, in _build_and_prepare_model
+    model = FaceAnalysis(
+            └ <class 'insightface.app.face_analysis.FaceAnalysis'>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\insightface\app\face_analysis.py", line 31, in __init__
+    model = model_zoo.get_model(onnx_file, **kwargs)
+            │         │         │            └ {'providers': ['CUDAExecutionProvider', 'CPUExecutionProvider']}
+            │         │         └ 'D:\\ABT\\0-Project\\face_rec\\data\\.insightface\\models\\buffalo_l\\1k3d68.onnx'
+            │         └ <function get_model at 0x000002B2FFADDEA0>
+            └ <module 'insightface.model_zoo.model_zoo' from 'D:\\ABT\\0-Project\\face_rec\\.venv\\lib\\site-packages\\insightface\\model_z...
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\insightface\model_zoo\model_zoo.py", line 96, in get_model
+    model = router.get_model(providers=providers, provider_options=provider_options)
+            │      │                   │                           └ None
+            │      │                   └ ['CUDAExecutionProvider', 'CPUExecutionProvider']
+            │      └ <function ModelRouter.get_model at 0x000002B2FFADDCF0>
+            └ <insightface.model_zoo.model_zoo.ModelRouter object at 0x000002B2AF134370>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\insightface\model_zoo\model_zoo.py", line 40, in get_model
+    session = PickableInferenceSession(self.onnx_file, **kwargs)
+              │                        │    │            └ {'providers': ['CUDAExecutionProvider', 'CPUExecutionProvider'], 'provider_options': None}
+              │                        │    └ 'D:\\ABT\\0-Project\\face_rec\\data\\.insightface\\models\\buffalo_l\\1k3d68.onnx'
+              │                        └ <insightface.model_zoo.model_zoo.ModelRouter object at 0x000002B2AF134370>
+              └ <class 'insightface.model_zoo.model_zoo.PickableInferenceSession'>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\insightface\model_zoo\model_zoo.py", line 25, in __init__
+    super().__init__(model_path, **kwargs)
+                     │             └ {'providers': ['CUDAExecutionProvider', 'CPUExecutionProvider'], 'provider_options': None}
+                     └ 'D:\\ABT\\0-Project\\face_rec\\data\\.insightface\\models\\buffalo_l\\1k3d68.onnx'
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py", line 430, in __init__
+    raise fallback_error from e
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py", line 425, in __init__
+    self._create_inference_session(self._fallback_providers, None)
+    │    │                         │    └ ['CUDAExecutionProvider', 'CPUExecutionProvider']
+    │    │                         └ <insightface.model_zoo.model_zoo.PickableInferenceSession object at 0x000002B2AF134310>
+    │    └ <function InferenceSession._create_inference_session at 0x000002B2FE68F7F0>
+    └ <insightface.model_zoo.model_zoo.PickableInferenceSession object at 0x000002B2AF134310>
+
+  File "D:\ABT\0-Project\face_rec\.venv\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py", line 463, in _create_inference_session
+    sess.initialize_session(providers, provider_options, disabled_optimizers)
+    │    │                  │          │                 └ set()
+    │    │                  │          └ [{}, {}]
+    │    │                  └ ['CUDAExecutionProvider', 'CPUExecutionProvider']
+    │    └ <instancemethod initialize_session at 0x000002B2FE6A9090>
+    └ <onnxruntime.capi.onnxruntime_pybind11_state.InferenceSession object at 0x000002B2AF12BC70>
+
+RuntimeError: D:\a\_work\1\s\onnxruntime\python\onnxruntime_pybind_state.cc:743 onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page (https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements), make sure they're in the PATH, and that your GPU is supported.
+
+2025-06-07 17:36:38.940 | INFO     | __main__:_apply_env_and_config:69 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:36:38.941 | INFO     | __main__:start_server:194 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:36:38.941 | INFO     | __main__:start_server:195 - 🔧 配置概览:
+2025-06-07 17:36:38.941 | INFO     | __main__:start_server:196 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:36:38.941 | INFO     | __main__:start_server:197 -   - 端口 (Port): 12010
+2025-06-07 17:36:38.941 | INFO     | __main__:start_server:198 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:36:38.942 | INFO     | __main__:start_server:199 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:36:38.942 | INFO     | __main__:start_server:200 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:37:10.590 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:37:10.591 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:37:10.591 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:37:10.591 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:37:10.591 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:37:10.591 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:37:10.591 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:37:10.592 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:39:59.212 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:39:59.213 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:40:08.165 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:40:08.165 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:40:08.165 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:40:08.165 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:40:08.166 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:40:08.166 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:40:08.166 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:40:08.167 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:40:25.496 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:40:25.497 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:40:25.497 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:40:25.497 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:40:25.497 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:40:25.498 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:40:25.498 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:40:25.498 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:48:23.957 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:48:23.957 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:48:23.957 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:48:23.958 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:48:23.958 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:48:23.958 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:48:23.958 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:48:23.958 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:50:25.813 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:50:25.813 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:50:25.813 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:50:25.814 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:50:25.814 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:50:25.814 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:50:25.814 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:50:25.814 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-07 17:53:54.139 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:53:54.140 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-07 17:53:54.140 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-07 17:53:54.141 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-07 17:53:54.141 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-07 17:53:54.141 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-07 17:53:54.141 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-07 17:53:54.141 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 09:31:56.217 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 09:31:56.219 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 09:31:56.219 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 09:31:56.219 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 09:31:56.219 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 09:31:56.220 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 09:31:56.220 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 09:31:56.220 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 09:45:10.403 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 09:45:10.403 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 09:45:10.403 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 09:45:10.403 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 09:45:10.404 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 09:45:10.404 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 09:45:10.404 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 09:45:10.404 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 09:54:44.768 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 09:54:44.769 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 09:54:44.769 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 09:54:44.769 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 09:54:44.770 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 09:54:44.770 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 09:54:44.770 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 09:54:44.770 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:02:25.132 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:02:25.132 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:02:25.132 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:02:25.132 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:02:25.133 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:02:25.133 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:02:25.133 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:02:25.133 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:14:50.932 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:14:50.933 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:14:50.933 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:14:50.933 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:14:50.933 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:14:50.934 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:14:50.934 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:14:50.934 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:19:23.272 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:19:23.272 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:19:23.272 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:19:23.272 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:19:23.273 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:19:23.273 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:19:23.273 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:19:23.273 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:29:33.419 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:29:33.419 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:29:33.419 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:29:33.419 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:29:33.420 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:29:33.420 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:29:33.420 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:29:33.420 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:32:35.429 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:32:35.429 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:32:35.429 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:32:35.430 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:32:35.430 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:32:35.430 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:32:35.430 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:32:35.430 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:37:04.639 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:37:04.640 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:37:04.640 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:37:04.640 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:37:04.640 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:37:04.641 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:37:04.641 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:37:04.641 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 10:54:04.131 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:54:04.131 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 10:54:04.132 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 10:54:04.132 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 10:54:04.132 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 10:54:04.132 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 10:54:04.132 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 10:54:04.132 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 13:19:31.595 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:19:31.596 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:19:31.596 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 13:19:31.596 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 13:19:31.596 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 13:19:31.597 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 13:19:31.597 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 13:19:31.597 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 13:24:18.300 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:24:18.300 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:24:18.300 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 13:24:18.300 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 13:24:18.301 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 13:24:18.301 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 13:24:18.301 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 13:24:18.301 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 13:29:37.168 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:29:37.168 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:29:37.168 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 13:29:37.169 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 13:29:37.169 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 13:29:37.169 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 13:29:37.169 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 13:29:37.169 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 13:36:51.436 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:36:51.436 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:36:51.436 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 13:36:51.436 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 13:36:51.436 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 13:36:51.436 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 13:36:51.436 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 13:36:51.437 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 13:38:27.560 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:38:27.560 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 13:38:27.560 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 13:38:27.560 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 13:38:27.561 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 13:38:27.561 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 13:38:27.561 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 13:38:27.561 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 14:19:34.389 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 14:19:34.389 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 14:19:34.389 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 14:19:34.390 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 14:19:34.390 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 14:19:34.390 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 14:19:34.391 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 14:19:34.391 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
+2025-06-09 14:45:44.256 | INFO     | __main__:_apply_env_and_config:57 - ⚙️ 应用程序环境已设置为: 开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 14:45:44.257 | INFO     | __main__:start_server:182 - 
+🚀 准备启动服务器：开发环境 - FastAPI人脸识别服务 v1.0.0
+2025-06-09 14:45:44.257 | INFO     | __main__:start_server:183 - 🔧 配置概览:
+2025-06-09 14:45:44.257 | INFO     | __main__:start_server:184 -   - 主机 (Host): 0.0.0.0
+2025-06-09 14:45:44.257 | INFO     | __main__:start_server:185 -   - 端口 (Port): 12010
+2025-06-09 14:45:44.257 | INFO     | __main__:start_server:186 -   - 本机IP (Local IP): 172.16.4.152
+2025-06-09 14:45:44.258 | INFO     | __main__:start_server:187 -   - 调试模式 (Debug): ✅ 开启
+2025-06-09 14:45:44.258 | INFO     | __main__:start_server:188 -   - 热重载 (Reload): ✅ 开启
