@@ -89,7 +89,7 @@ st.markdown("""
 def initialize_session_state():
     """初始化应用所需的全部会话状态。"""
     defaults = {
-        "api_url": "127.0.0.1:8000",
+        "api_url": "127.0.0.1:12010",
         "api_status": (False, "尚未连接"),
         "faces_data": None,
         "active_stream_info": None,  # 【修改】用于存储当前活动的流信息
