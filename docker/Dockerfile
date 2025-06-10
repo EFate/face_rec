@@ -2,7 +2,7 @@
 
 # --- Stage 1: 基础镜像 ---
 # 使用 NVIDIA 官方的 CUDA 运行时镜像。它比 -devel 镜像更小，但包含运行 GPU 应用所需的所有库。
-FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+FROM nvidia/cuda:12.1.0-devel-ubuntu22.04
 
 # --- Stage 2: 环境配置 ---
 # 设置环境变量，避免交互式提示并声明 NVIDIA GPU 可用
