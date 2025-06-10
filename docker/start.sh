@@ -12,7 +12,7 @@ echo "[INFO] Current working directory: $(pwd)"
 echo "[INFO] Starting Streamlit UI in background..."
 
 # 以后台模式启动 Streamlit UI，并允许从外部访问
-streamlit run ui/ui.py --server.address=0.0.0.0 --server.port=8501 &
+streamlit run ui/ui.py --server.address=0.0.0.0 --server.port=12011 &
 
 echo "[INFO] Starting FastAPI application in foreground..."
 
