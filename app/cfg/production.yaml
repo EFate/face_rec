@@ -10,7 +10,7 @@ app:
 
 server:
   host: "0.0.0.0" # 生产环境通常监听所有网络接口，以便从外部访问。
-  port: 80 # 生产环境通常使用标准 HTTP (80) 或 HTTPS (443) 端口。
+  port: 12010 # 生产环境通常使用标准 HTTP (80) 或 HTTPS (443) 端口。
   reload: false # 生产环境绝不能开启热重载，避免服务不稳定和性能问题。
 
 logging:
@@ -23,7 +23,7 @@ database:
   # 生产环境数据库连接到真实的 PostgreSQL 或 MySQL 等数据库。
   # 强烈建议通过环境变量或秘密管理工具（如 Kubernetes Secrets, AWS Secrets Manager, HashiCorp Vault）
   # 提供真实的连接字符串，而不是硬编码在此处。
-  url: "postgresql://user:password@host:port/prod_db" # 生产环境数据库示例URL
+  url: "sqlite:///./data/prod.db" # 生产环境数据库示例URL
   echo: false # 生产环境通常关闭 SQL 语句打印。
 
 security:

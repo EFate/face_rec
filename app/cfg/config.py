@@ -202,31 +202,41 @@ class ConfigLoader:
         return merged
 
 
-# --- 配置加载接口 (单例模式) ---
+# --- 配置加载接口 (单例模式) (优化) ---
 @lru_cache(maxsize=1)
 def get_app_settings(env_override: Optional[str] = None) -> AppSettings:
+    """
+    获取全局应用配置的单例实例。
+
+    此函数实现了多层配置加载策略，优先级从低到高如下：
+    1.  **YAML 默认配置**: `app/cfg/default.yaml` 文件中的值为基础。
+    2.  **YAML 环境配置**: 根据 `APP_ENV` 环境变量 (例如 `development` 或 `production`)，
+        加载对应的 `app/cfg/{APP_ENV}.yaml` 文件，其值会覆盖默认配置。
+    3.  **.env 文件**: 项目根目录下的 `.env` 文件中的变量会覆盖 YAML 配置。
+    4.  **环境变量**: 系统的环境变量具有最高优先级，会覆盖之前所有层级的值。
+
+    注意：命令行参数 (如 --host) 在 `run.py` 中被处理，并具有最终决定权，不在此函数中处理。
+    """
+    # 确定要加载的配置文件环境
     current_env = env_override or os.getenv("APP_ENV", "development")
-    yaml_config = ConfigLoader.load_yaml_configs(current_env)
 
-    # Pydantic-settings 会自动从环境变量、.env文件等加载配置
-    # 这里的逻辑是：YAML作为基础配置，环境变量可以覆盖它
+    # 第 1 & 2 层: 加载并合并 YAML 配置文件 (`default.yaml` -> `{env}.yaml`)，作为配置基底层。
+    yaml_data = ConfigLoader.load_yaml_configs(current_env)
+    base_settings = AppSettings.model_validate(yaml_data)
 
-    # 1. 从 YAML 加载基础配置
-    settings = AppSettings.model_validate(yaml_config)
+    # 第 3 & 4 层: 创建一个临时的 AppSettings 实例。
+    # Pydantic-settings 的 `BaseSettings` 在初始化时会自动从 .env 文件和环境变量加载配置。
+    # 按照 Pydantic-settings 的规则，环境变量的优先级高于 .env 文件。
+    env_aware_settings = AppSettings()
 
-    # 2. Pydantic 会自动加载 .env 和环境变量，并覆盖 YAML 中的值。
-    # 为了确保环境变量优先，我们重新加载一次，但这次是基于默认构造函数，它会触发环境变量加载
-    env_settings = AppSettings()
+    # 使用 `model_dump` 并设置 `exclude_unset=True`，我们只获取那些
+    # 从环境 (.env 或 os.environ) 中被显式设置的值，从而忽略掉 Pydantic 的模型默认值。
+    env_overrides = env_aware_settings.model_dump(exclude_unset=True)
 
-    # 3. 合并数据，以环境变量中的数据为准
-    # model_dump(exclude_unset=True) 只导出被显式设置（或有默认值）的字段
-    # 这确保了我们只用环境变量中实际存在的值去覆盖YAML配置
-    env_data_to_merge = env_settings.model_dump(exclude_unset=True)
+    # 合并: 将从环境中获取的配置（更高优先级）深度合并到从 YAML 加载的基础配置（更低优先级）上。
+    final_data = ConfigLoader._deep_merge_dicts(base_settings.model_dump(), env_overrides)
 
-    # 将 env_settings 的数据合并到 settings 的数据上
-    final_merged_data = ConfigLoader._deep_merge_dicts(settings.model_dump(), env_data_to_merge)
-
-    # 最终验证合并后的数据
-    final_settings = AppSettings.model_validate(final_merged_data)
+    # 创建最终的、经过验证的配置实例。
+    final_settings = AppSettings.model_validate(final_data)
 
     return final_settings
