@@ -90,7 +90,7 @@ st.markdown("""
 def initialize_session_state():
     """初始化应用所需的全部会话状态。"""
     defaults = {
-        "api_url": "localhost:12010",  # 默认指向后端的12010端口
+        "api_url": "ip:12010",  # 默认指向后端的12010端口
         "api_status": (False, "尚未连接"),
         "faces_data": None,
         "show_register_dialog": False,
@@ -231,7 +231,7 @@ def render_sidebar():
         st.caption("v0.1.0")
 
         st.session_state.api_url = st.text_input("后端服务地址", value=st.session_state.api_url,
-                                                 help="例如: 192.168.1.15:12010")
+                                                 help="例如: 192.168.1.15:12010, 请指定正确的服务ip;")
 
         is_connected, status_msg = check_api_status(st.session_state.api_url)
         st.session_state.api_status = (is_connected, status_msg)
