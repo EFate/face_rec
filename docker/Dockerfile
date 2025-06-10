@@ -11,9 +11,15 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
 # --- Stage 3: 系统及工具安装 ---
-# 更新包列表并安装 Python 和 pip
+# 更新包列表并一次性安装所有构建依赖
+# build-essential (提供 g++ 编译器)
+# python3-dev (提供 Python.h 头文件)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends python3.10 python3-pip && \
+    apt-get install -y --no-install-recommends \
+    python3.10 \
+    python3-pip \
+    build-essential \
+    python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
