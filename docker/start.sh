@@ -17,4 +17,4 @@ streamlit run ui/ui.py --server.address=0.0.0.0 --server.port=8501 &
 echo "[INFO] Starting FastAPI application in foreground..."
 
 # 在前台启动 FastAPI 应用 (作为容器的主进程)
-python run.py --env production start
+python3 run.py --env production start
