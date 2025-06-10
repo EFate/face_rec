@@ -1,0 +1,37 @@
+# 位于 docker/ 目录下的 docker-compose.yml
+# 定义服务
+services:
+  # 服务的名称
+  face-rec-service:
+    # 构建指令
+    build:
+      # 'context'：构建上下文的路径。'..' 表示项目根目录。
+      context: ..
+      # 'dockerfile'：Dockerfile 的路径，相对于 context。
+      dockerfile: docker/Dockerfile
+
+    # 容器名称
+    container_name: face_recognition_service
+
+    # 端口映射: "主机端口:容器端口"
+    ports:
+      - "12010:8000"  # FastAPI
+      - "12011:8501"  # Streamlit
+
+    # 数据卷挂载: "主机路径:容器路径"
+    # 这是实现数据持久化的关键，防止容器删除后数据丢失
+#    volumes:
+#      - ../data:/app/data
+#      - ../logs:/app/logs
+
+    # GPU 资源配置 (Docker Compose 推荐方式)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    # 重启策略: 除非手动停止，否则容器总是在退出后重启
+    restart: unless-stopped

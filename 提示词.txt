@@ -60,7 +60,8 @@ project
 │ │ └── sn001/
 │ │ └── face_sn001*... .jpg
 │ └── face_features.db (SQLite 数据库文件)
-│
+├── ui/ (streamlit前端)
+│ ├── ui.py(前端文件)
 ├── logs/ (日志文件)
 ├── run.py (应用启动脚本)
 └── requirements.txt (项目依赖)

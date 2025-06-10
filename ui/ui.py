@@ -228,7 +228,7 @@ def render_sidebar():
     """渲染侧边栏。"""
     with st.sidebar:
         st.title("💫 星尘AI视觉平台")
-        st.caption("v2.2.0 - 性能优化版")
+        st.caption("v0.1.0")
 
         st.session_state.api_url = st.text_input("后端服务地址", value=st.session_state.api_url,
                                                  help="例如: 192.168.1.15:12010")
