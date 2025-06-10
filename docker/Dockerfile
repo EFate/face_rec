@@ -23,9 +23,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 安装 C++/Python 编译所需的构建工具
-RUN apt-get update && apt-get install -y --no-install-recommends build-essential
-
 # 从清华镜像源安装 uv，以加速 uv 工具本身的下载
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple uv
 
