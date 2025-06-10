@@ -2,7 +2,7 @@
 
 # --- Stage 1: 基础镜像 ---
 # 使用 NVIDIA 官方的 CUDA 运行时镜像。它比 -devel 镜像更小，但包含运行 GPU 应用所需的所有库。
-FROM nvidia/cuda:12.1.0-devel-ubuntu22.04
+FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
 
 # --- Stage 2: 环境配置 ---
 # 设置环境变量，避免交互式提示并声明 NVIDIA GPU 可用
@@ -14,11 +14,13 @@ ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
 # 更新包列表并一次性安装所有构建依赖
 # build-essential (提供 g++ 编译器)
 # python3-dev (提供 Python.h 头文件)
+# 安装 cuDNN 库
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3.10 \
     python3-pip \
     build-essential \
+    libcudnn9 \
     python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
