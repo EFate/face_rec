@@ -20,9 +20,9 @@ services:
 
     # 数据卷挂载: "主机路径:容器路径"
     # 这是实现数据持久化的关键，防止容器删除后数据丢失
-#    volumes:
-#      - ../data:/app/data
-#      - ../logs:/app/logs
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
 
     # GPU 资源配置 (Docker Compose 推荐方式)
     deploy:
