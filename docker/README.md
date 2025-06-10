@@ -245,7 +245,7 @@ services:
     ```
 2.  **一键启动服务**
     ```bash
-    docker-compose up --build -d
+    docker compose up --build -d
     ```
       * `--build`: 强制在启动前重新构建镜像。
       * `-d`: 以分离（后台）模式运行。
@@ -261,8 +261,8 @@ services:
   * **管理应用**:
 
       * **Docker Compose**:
-          * 查看日志: `docker-compose logs -f`
-          * 停止并移除: `docker-compose down`
+          * 查看日志: `docker compose logs -f`
+          * 停止并移除: `docker compose down`
       * **Dockerfile (手动)**:
           * 查看日志: `docker logs -f face-rec-container`
           * 停止并移除: `docker stop face-rec-container`
