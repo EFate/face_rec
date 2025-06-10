@@ -20,7 +20,7 @@ RUN apt-get update && \
     python3.10 \
     python3-pip \
     build-essential \
-    libcudnn9 \
+    libcudnn9-cuda-12 \
     python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
