@@ -1,182 +1,66 @@
-# 核心依赖
-
-"fastapi[standard]"
-pydantic
-pydantic-settings
-typer
-python-dotenv
-loguru
-pyyaml
-sqlalchemy
-aiofiles
-
-# 人脸识别 (InsightFace)
-
-insightface
-onnx
-
-# 根据您的硬件选择一个
-
-# onnxruntime # CPU 版本
-
-# onnxruntime-gpu # GPU 版本
-
-# 其他
-
-opencv-python
-numpy
-pandas
-scipy
-
-project
-├── app/ (核心应用)
-│ ├── cfg/ (配置模块)
-│ │ ├── config.py
-│ │ ├── logging.py
-│ │ ├── default.yaml
-│ │ └── ...
-│ ├── core/ (核心组件)
-│ │ └── model*manager.py
-│ ├── router/ (API 路由层)
-│ │ └── face_router.py
-│ ├── schema/ (数据模型/验证层)
-│ │ └── face_schema.py
-│ ├── service/ (业务逻辑层)
-│ │ ├── face_service.py
-│ │ └── face_dao.py
-│ ├── static/ (静态文件)
-│ │ └── swagger-ui/
-│ ├── main.py (FastAPI 应用主入口)
-│
-├── data/ (所有数据存储)
-│ ├── .insightface/ <- [新增] InsightFace 模型将下载并存储于此
-│ │ └── models/
-│ │ └── buffalo_l/
-│ │ ├── det_10g.onnx
-│ │ ├── genderage.onnx
-│ │ └── w600k_r50.onnx
-│ ├── faces/ (注册的人脸图片库)
-│ │ └── sn001/
-│ │ └── face_sn001*... .jpg
-│ └── face_features.db (SQLite 数据库文件)
-├── ui/ (streamlit前端)
-│ ├── ui.py(前端文件)
-├── logs/ (日志文件)
-├── run.py (应用启动脚本)
-└── requirements.txt (项目依赖)
-实现一个高性能、易扩展、功能完善的人脸识别项目，核心需求包括: 1.完整的人脸库功能:增、删、改、查。 2.视频流预测与结果展示:实时识别视频流中的人脸，并将识别框和结果信息绘制在视频上返回 3.高性能与最佳实践:基于 FastAPI 和 InsightFace，代码清晰、健壮、易于维护。 4.参考现有架构和代码，去除所有 deepface 逻辑，将其改为 InsightFace 逻辑;
-5、修改 face_schema.py 让其符合 InsightFace，重新思考所有代码逻辑，让这个项目符合最佳实践。
-5、修改 config.py 的 deepface 逻辑，将其改为 InsightFace 逻辑。 7.中文回复，给出修改后的完整代码
-
-
-实现一个高性能、易扩展、功能完善的人脸识别项目，使用中文回复，核心需求包括:
-1、阅读代码文件理清现有代码逻辑关系，实现方法；
-2、根据===包围的优化文档，思考优化方案，我的方案可能不完美(比如拆分为三个独立接口还是拆分成两个好，需要你进行思考)，你需要优化文档确保最佳实践，根据你的思考去优化代码，优化对应文件代码，如果文件需要优化，输出这个文件完整代码；
-3、以下schema如果是最佳实践就加入到代码，不是你思考一下怎么实现
-class ActiveStreamInfo(BaseModel):
-    """单个活动流的状态信息"""
-    stream_id: str
-    source: str
-    started_at: datetime
-    expires_at: Optional[datetime]
-    lifetime_minutes: int
-
-class GetAllStreamsResponseData(BaseModel):
-    """获取所有活动流的响应数据"""
-    active_streams_count: int = Field(..., description="当前活动的视频流数量。")
-    streams: List[ActiveStreamInfo] = Field([], description="所有活动视频流的详细信息列表。")
-3、使用中文回答，中文回复
-
-===优化文档
-### 1. **架构设计优化：从“一体式”到“控制/数据”分离**
-- **问题**：原系统只有一个接口处理启动、传输和停止，职责不清。
-- **改进**：
-  - 拆分为三个独立接口：
-    - `POST /stream/start`：启动流任务
-    - `GET /stream/feed/{stream_id}`：获取指定流的数据
-    - `POST /stream/stop`：停止指定流
-- **优势**：
-  - 职责清晰，符合 RESTful 设计原则
-  - 控制与数据通道解耦，提升可维护性和扩展性
-
----
-
-### 2. **服务端状态管理：从“无状态”到“有状态”**
-- **问题**：无法对运行中的视频流进行单独管理
-- **改进**：
-  - 引入 `app.state.active_streams` 字典，记录每个流的元信息（任务、队列、信号等）
-- **优势**：
-  - 可以根据 ID 精准控制任意流的状态
-  - 实现了流的查询、启动、停止等操作的精细化管理
-
----
-
-### 3. **资源释放机制：双保险策略**
-- **问题**：依赖客户端断开连接释放资源不可靠
-- **改进**：
-  - **主动停止机制**：前端调用 `/stream/stop` 明确终止流
-  - **自动清理机制**：
-    - 客户端断连时触发 `finally` 块，执行清理逻辑
-    - 使用 `lifespan` 钩子在服务关闭前统一清理所有活动流
-- **优势**：
-  - 防止因意外断开或服务重启导致的资源泄露
-  - 提高系统的稳定性和健壮性
-
----
-
-### 4. **生产级健壮性增强：引入周期性清理器任务**
-- **问题**：网络异常或浏览器崩溃可能导致“僵尸流”
-- **改进**：
-  - 添加后台任务 `cleanup_expired_streams`
-  - 每30秒检查并清理过期流
-- **优势**：
-  - 自动修复异常状态，防止资源长期占用
-  - 是构建高可用、长时间运行服务的关键保障
-
----
-
-### 5. **前端体验优化：形成完整交互闭环**
-- **问题**：前端缺乏控制与反馈
-- **改进**：
-  - 支持设置视频流生命周期
-  - 实时倒计时显示流剩余时间
-  - 形成 “启动 -> 获取ID -> 显示 -> 停止” 的完整交互流程
-- **优势**：
-  - 用户体验更直观、可控
-  - 更易集成进实际业务界面中
-
----
-
-### 6. **新增功能：支持无限生命周期**
-- **功能描述**：
-  - 设置 `lifetime_minutes = -1` 表示该流为“永久流”
-  - 不会被自动清理器销毁
-  - 必须通过 `POST /stream/stop` 手动停止
-- **适用场景**：
-  - 需要长期运行的视频流服务（如监控）
-
----
-
-## 📌 总结关键词（便于记忆与传播）：
-> 架构解耦 | 状态管理 | 双重清理 | 生产健壮性 | 用户闭环 | 新增无限流支持
-
----
-
-如需进一步提炼用于文档或汇报，也可使用以下格式：
-
-| 维度 | 优化前 | 优化后 |
-|------|--------|--------|
-| 接口设计 | 单一接口处理全部逻辑 | 控制与数据分离，三接口明确分工 |
-| 状态管理 | 无状态，无法追踪流 | 有状态登记簿（active_streams） |
-| 资源释放 | 仅依赖客户端断开 | 主动+自动双机制保障 |
-| 异常处理 | 无容错机制 | 后台清理任务定期扫描“僵尸流” |
-| 前端交互 | 无反馈，难控制 | 可配置、可视化、闭环控制 |
-| 功能拓展 | 固定生命周期 | 支持无限生命周期（-1） |
-===
-
-
+face_rec/
+├── app/
+│   ├── cfg/
+│   │   ├── config.py
+│   │   ├── default.yaml
+│   │   ├── development.yaml
+│   │   ├── __init__.py
+│   │   ├── logging.py
+│   │   ├── production.yaml
+│   │   └── testing.yaml
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── model_manager.py
+│   ├── __init__.py
+│   ├── main.py
+│   ├── router/
+│   │   ├── face_router.py
+│   │   └── __init__.py
+│   ├── schema/
+│   │   ├── face_schema.py
+│   │   └── __init__.py
+│   ├── service/
+│   │   ├── face_dao.py
+│   │   ├── face_service.py
+│   │   └── __init__.py
+│   └── static/
+│       └── swagger-ui/
+│           ├── swagger-ui-bundle.js
+│           └── swagger-ui.css
+├── data/
+│   ├── dev.db
+│   ├── faces/
+│   │   ├── ds_model_facenet_detector_opencv_aligned_normalization_base_expand_0.pkl
+│   │   ├── sn001/
+│   │   │   ├── face_sn001_ac93dda5-3a70-47d7-856e-7b67e88df812.jpg
+│   │   │   └── face_sn001_db09552b-d5b0-4b32-afeb-3d2de7de0482.jpg
+│   │   ├── sn002/
+│   │   │   ├── face_sn002_2e31dd3e-1260-4ce9-aad5-dea337d7ce6b.jpg
+│   │   │   └── face_sn002_4161dcee-ff7f-4bbb-9aef-a0d49571d10a.jpg
+│   │   └── sn003/
+│   │       └── face_sn003_32e38d19-b4dd-425e-8f1d-5bd0f6902e83.jpg
+│   └── prod.db
+├── docker/
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── README.md
+│   └── start.sh
+├── LICENSE
+├── logs/
+│   ├── app.log
+│   ├── dev.log
+│   └── prod.log
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+├── run.py
+├── test.txt
+├── ui/
+│   ├── test_rtsp.py
+│   └── ui.py
+└── uv.lock
 检查代码是否有优化点，实现一个高性能、易扩展、功能完善的人脸识别项目，核心需求包括:
-0.先解决问题：现在启动配置不符合最佳实现，请参考大型;思考最佳实践，保证推理高性能易扩展;重新思考，解决问题并修改时整体代码怎么修改；
+0.先解决问题：思考最佳实践，保证推理高性能易扩展;重新思考，解决问题并修改时整体代码怎么修改；
 1.完整的人脸库功能:增、删、改、查、视频流预测。
 2.视频流预测与结果展示:实时识别视频流中的人脸，并将识别框和结果信息绘制在视频上返回。
 3.高性能与最佳实践:基于 FastAPI 和 InsightFace，代码清晰、健壮、易于维护;预测性能高速、请求响应快速;

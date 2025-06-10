@@ -44,7 +44,7 @@ RUN chmod +x docker/start.sh
 
 # --- Stage 5: 容器运行配置 ---
 # 暴露 FastAPI 和 Streamlit 的端口
-EXPOSE 8000
+EXPOSE 12010
 EXPOSE 8501
 
 # 定义容器启动命令，执行我们的启动脚本
