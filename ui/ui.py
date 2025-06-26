@@ -1,3 +1,5 @@
+# ui.py
+
 import streamlit as st
 import requests
 import pandas as pd
@@ -299,7 +301,8 @@ def render_dashboard_page():
         # 清除缓存以重新获取视频流信息
         st.cache_data.clear()
 
-    faces_data = st.session_state.get("faces_data", {})
+    # 确保 faces_data 不是 None，如果 st.session_state.get 返回 None，则使用空字典
+    faces_data = st.session_state.get("faces_data") or {}
     unique_sns_count = len(faces_data.get('unique_sns', []))
     api_status, api_color = ("在线", "#28a745") if st.session_state.api_status[0] else ("离线", "#dc3545")
 
@@ -370,7 +373,8 @@ def render_management_page():
 
     st.divider()
 
-    faces_data = st.session_state.get("faces_data", {})
+    # 【修复】确保 faces_data 不是 None，如果 st.session_state.get 返回 None，则使用空字典
+    faces_data = st.session_state.get("faces_data") or {}
     if not faces_data.get('unique_sns'):
         st.info("人脸库为空，或数据加载中... 请确保API服务在线并尝试刷新数据。")
         return
