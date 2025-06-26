@@ -30,8 +30,6 @@ class FaceInfo(BaseModel):
 
 
 # --- API 请求体模型 ---
-# FaceRegisterRequest 已被 Form 字段替代，故移除
-
 class UpdateFaceRequest(BaseModel):
     """更新人脸信息请求体"""
     name: Optional[str] = Field(None, description="新的姓名。", example="李四")
@@ -47,7 +45,7 @@ class FaceRecognitionResult(BaseModel):
     """单次人脸识别结果"""
     name: str = Field(..., description="识别到的人脸姓名。")
     sn: str = Field(..., description="识别到的人脸SN。")
-    distance: float = Field(..., description="与已知人脸特征的余弦距离，值越小越相似。")
+    similarity: float = Field(..., description="与已知人脸特征的余弦相似度，值越大越相似。")
     box: List[int] = Field(..., description="人脸在图像中的边界框 [x1, y1, x2, y2]。")
     detection_confidence: float = Field(..., description="人脸检测置信度。")
     landmark: Optional[List[List[int]]] = Field(None, description="人脸关键点坐标。")
@@ -89,7 +87,6 @@ class HealthCheckResponseData(BaseModel):
 
 
 # --- 视频流管理 Schema ---
-
 class StreamStartRequest(BaseModel):
     """启动视频流请求体"""
     source: str = Field(..., description="视频源。可以是摄像头ID(如 '0') 或 视频文件/URL。", example="0")

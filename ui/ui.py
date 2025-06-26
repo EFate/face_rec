@@ -90,7 +90,7 @@ st.markdown("""
 def initialize_session_state():
     """初始化应用所需的全部会话状态。"""
     defaults = {
-        "api_url": "ip:12010",  # 默认指向后端的12010端口
+        "api_url": "localhost:12010",  # 默认指向后端的12010端口
         "api_status": (False, "尚未连接"),
         "faces_data": None,
         "show_register_dialog": False,

@@ -38,12 +38,15 @@ class StorageType(str, Enum):
 # --- 配置模型定义 ---
 class AppConfig(BaseModel):
     title: str = Field("高性能人脸识别服务", description="应用程序名称。")
-    description: str = Field("基于FastAPI和DeepFace构建的高性能、生产级应用", description="应用程序描述。")
-    version: str = Field("2.1.0", description="应用程序版本。")
+    description: str = Field("基于FastAPI、InsightFace和实时追踪技术构建", description="应用程序描述。")
+    version: str = Field("3.0.0", description="应用程序版本。")
     debug: bool = Field(False, description="是否开启调试模式。")
-    video_width: int = Field(640, description="视频流宽度。")
-    video_height: int = Field(480, description="视频流高度。")
+
     # 视频流相关配置
+    rtsp_use_tcp: bool = Field(
+        True,
+        description="是否强制RTSP视频流使用TCP传输，可避免UDP丢包导致的花屏问题。"
+    )
     stream_default_lifetime_minutes: int = Field(
         10,
         description="视频流默认生命周期（分钟），-1表示永久。"
@@ -52,15 +55,17 @@ class AppConfig(BaseModel):
         60,
         description="清理过期视频流的后台任务运行间隔（秒）。"
     )
-    # 视频流识别间隔，避免每一帧都做识别，降低资源消耗
-    stream_recognition_interval_seconds: float = Field(
-        0.1,
-        description="视频流中执行人脸识别的最小时间间隔（秒）。"
+
+    # --- 【新增】视频流捕获与识别策略 ---
+    stream_capture_fps: int = Field(
+        10,
+        description="[性能策略] 控制视频处理进程从源视频流中截取帧的频率（帧/秒）。"
     )
     stream_cache_update_interval_seconds: int = Field(
-        5,
-        description="在视频流处理中，重新加载人脸库缓存的时间间隔（秒）。"
+        30,
+        description="在视频流处理中，子进程重新从数据库加载人脸库缓存的时间间隔（秒）。"
     )
+
 
 
 class ServerConfig(BaseModel):
@@ -111,14 +116,19 @@ class InsightFaceConfig(BaseModel):
         default_factory=lambda: ["CUDAExecutionProvider", "CPUExecutionProvider"],
         description="ONNX Runtime 执行提供者列表。例如: ['CUDAExecutionProvider', 'CPUExecutionProvider']。"
     )
-    recognition_threshold: float = Field(
-        0.5,
-        description="人脸识别余弦距离阈值，距离小于此值认为匹配成功。"
+    # --- 关键阈值 ---
+    recognition_similarity_threshold: float = Field(
+        0.7,
+        description="人脸识别余弦相似度阈值，相似度大于此值则认为匹配成功。推荐范围: 0.6 ~ 0.9。"
     )
-    # 【优化】新增人脸检测得分阈值配置
     recognition_det_score_threshold: float = Field(
-        0.8,
+        0.4,
         description="注册或识别时人脸检测的最低置信度分数。"
+    )
+    # --- 新增配置 ---
+    detection_size: List[int] = Field(
+        [640, 640],
+        description="人脸检测模型的输入尺寸 [宽度, 高度]。"
     )
     home: FilePath = Field(
         INSIGHTFACE_MODELS_DIR,
@@ -135,15 +145,6 @@ class InsightFaceConfig(BaseModel):
     storage_type: StorageType = Field(
         StorageType.SQLITE,
         description="选择存储后端：sqlite (生产推荐) 或 csv (仅原型)。"
-    )
-    # --- 视频流分析的配置开关 ---
-    enable_stream_analysis: bool = Field(
-        False,
-        description="是否在视频流中开启附加分析（年龄、性别等）。默认为False以节省资源。"
-    )
-    stream_analysis_actions: List[str] = Field(
-        default_factory=lambda: ["age", "gender"],
-        description="如果开启分析，要执行的项目列表。"
     )
 
 
@@ -205,38 +206,11 @@ class ConfigLoader:
 # --- 配置加载接口 (单例模式) (优化) ---
 @lru_cache(maxsize=1)
 def get_app_settings(env_override: Optional[str] = None) -> AppSettings:
-    """
-    获取全局应用配置的单例实例。
-
-    此函数实现了多层配置加载策略，优先级从低到高如下：
-    1.  **YAML 默认配置**: `app/cfg/default.yaml` 文件中的值为基础。
-    2.  **YAML 环境配置**: 根据 `APP_ENV` 环境变量 (例如 `development` 或 `production`)，
-        加载对应的 `app/cfg/{APP_ENV}.yaml` 文件，其值会覆盖默认配置。
-    3.  **.env 文件**: 项目根目录下的 `.env` 文件中的变量会覆盖 YAML 配置。
-    4.  **环境变量**: 系统的环境变量具有最高优先级，会覆盖之前所有层级的值。
-
-    注意：命令行参数 (如 --host) 在 `run.py` 中被处理，并具有最终决定权，不在此函数中处理。
-    """
-    # 确定要加载的配置文件环境
     current_env = env_override or os.getenv("APP_ENV", "development")
-
-    # 第 1 & 2 层: 加载并合并 YAML 配置文件 (`default.yaml` -> `{env}.yaml`)，作为配置基底层。
     yaml_data = ConfigLoader.load_yaml_configs(current_env)
     base_settings = AppSettings.model_validate(yaml_data)
-
-    # 第 3 & 4 层: 创建一个临时的 AppSettings 实例。
-    # Pydantic-settings 的 `BaseSettings` 在初始化时会自动从 .env 文件和环境变量加载配置。
-    # 按照 Pydantic-settings 的规则，环境变量的优先级高于 .env 文件。
     env_aware_settings = AppSettings()
-
-    # 使用 `model_dump` 并设置 `exclude_unset=True`，我们只获取那些
-    # 从环境 (.env 或 os.environ) 中被显式设置的值，从而忽略掉 Pydantic 的模型默认值。
     env_overrides = env_aware_settings.model_dump(exclude_unset=True)
-
-    # 合并: 将从环境中获取的配置（更高优先级）深度合并到从 YAML 加载的基础配置（更低优先级）上。
     final_data = ConfigLoader._deep_merge_dicts(base_settings.model_dump(), env_overrides)
-
-    # 创建最终的、经过验证的配置实例。
     final_settings = AppSettings.model_validate(final_data)
-
     return final_settings
