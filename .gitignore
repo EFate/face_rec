@@ -17,6 +17,7 @@ wheels/
 data/.insightface/
 
 # logs
+logs/
 *.log
 
 # others
