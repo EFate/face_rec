@@ -228,3 +228,12 @@ class SQLiteFaceDataDAO(FaceDataDAO):
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"数据库更新失败: {e}")
         finally:
             session.close()
+
+    def dispose(self):
+        """
+        显式关闭数据库引擎和其连接池。
+        """
+        if self.engine:
+            app_logger.info("正在关闭数据库连接池...")
+            self.engine.dispose()
+            app_logger.info("✅ 数据库连接池已关闭。")

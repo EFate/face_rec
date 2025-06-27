@@ -1,6 +1,7 @@
 # app/service/face_service.py
 import asyncio
-import multiprocessing
+# 【核心修正】修改导入
+import multiprocessing as mp
 import queue
 import threading
 from typing import List, Dict, Any, Optional
@@ -85,8 +86,8 @@ def video_stream_process_worker(
         stream_id: str,
         video_source: str,
         settings_dict: Dict[str, Any],
-        result_queue: multiprocessing.Queue,
-        stop_event: multiprocessing.Event
+        result_queue: mp.Queue,
+        stop_event: mp.Event
 ):
     """
     在独立进程中运行的视频处理工作函数。
@@ -114,8 +115,9 @@ def video_stream_process_worker(
     grabber_thread_handle = None
     cap = None
     internal_thread_stop_event = threading.Event()
+    face_dao = None
     try:
-        # --- 【优化】复用配置和统一的模型加载逻辑 ---
+        # 复用配置和统一的模型加载逻辑
         settings = AppSettings.model_validate(settings_dict)
         app_logger.info(f"【子进程 {stream_id}】正在启动，目标处理频率: {settings.app.stream_capture_fps} FPS。")
 
@@ -125,7 +127,6 @@ def video_stream_process_worker(
 
         app_logger.info(f"✅【子进程 {stream_id}】模型加载成功。")
 
-        # --- 后续逻辑保持不变 ---
         face_dao = SQLiteFaceDataDAO(db_url=settings.database.url)
 
         def get_latest_known_faces() -> Dict[str, Any]:
@@ -149,7 +150,8 @@ def video_stream_process_worker(
         internal_frame_queue = queue.Queue(maxsize=2)
         grabber_thread_handle = threading.Thread(
             target=frame_grabber_thread,
-            args=(cap, internal_frame_queue, internal_thread_stop_event)
+            args=(cap, internal_frame_queue, internal_thread_stop_event),
+            daemon=True
         )
         grabber_thread_handle.start()
         target_fps = settings.app.stream_capture_fps
@@ -213,6 +215,9 @@ def video_stream_process_worker(
             grabber_thread_handle.join(timeout=2.0)
         if cap and cap.isOpened():
             cap.release()
+        # 显式关闭数据库连接池
+        if face_dao:
+            face_dao.dispose()
         try:
             result_queue.put_nowait(None)
         except (queue.Full, ValueError):
@@ -236,6 +241,8 @@ class FaceService:
         self.stream_lock = asyncio.Lock()
         self.known_faces_cache: Dict[str, Any] = {}
         self.cache_lock = asyncio.Lock()
+        # 【核心修正】在服务初始化时获取spawn上下文
+        self.mp_context = mp.get_context("spawn")
 
     # --- 缓存管理 ---
     async def _rebuild_cache_from_db(self):
@@ -453,10 +460,13 @@ class FaceService:
         async with self.stream_lock:
             if stream_id in self.active_streams:
                 raise HTTPException(status_code=409, detail="Stream ID conflict.")
-            result_queue = multiprocessing.Queue(maxsize=120)
-            stop_event = multiprocessing.Event()
+
+            # 【核心修正】使用上下文来创建进程和同步原语
+            result_queue = self.mp_context.Queue(maxsize=120)
+            stop_event = self.mp_context.Event()
             settings_dict = self.settings.model_dump()
-            process = multiprocessing.Process(
+
+            process = self.mp_context.Process(
                 target=video_stream_process_worker,
                 args=(stream_id, req.source, settings_dict, result_queue, stop_event),
                 daemon=True
@@ -479,19 +489,23 @@ class FaceService:
             stream = self.active_streams.pop(stream_id, None)
             if not stream: return False
         app_logger.info(f"⏹️ 正在停止视频流: ID={stream_id}...")
+        # 1. 向子进程发送停止信号
         stream["stop_event"].set()
+
+        # 2. 立刻关闭队列。向子进程的“喂食线程”发送EOF信号，。
+        stream["queue"].close()
+
+        # 3. 现在可以安全地等待子进程结束了。
         stream["process"].join(timeout=5.0)
         if stream["process"].is_alive():
-            app_logger.warning(f"视频流进程 {stream_id} 未能在5秒内正常退出，将强制终止。")
+            app_logger.warning(f"视频流进程 {stream_id} 在正确关闭队列后，仍未能在5秒内退出，将强制终止。")
             stream["process"].terminate()
             stream["process"].join()
-        while not stream["queue"].empty():
-            try:
-                stream["queue"].get_nowait()
-            except queue.Empty:
-                break
-        stream["queue"].close()
+
+        # 4. join_thread() 确保队列的后台线程已完全终结，清理资源。
+        #    因为队列已经关闭，这里通常会立即返回。
         stream["queue"].join_thread()
+
         app_logger.info(f"✅ 视频流已成功停止: ID={stream_id}")
         return True
 
