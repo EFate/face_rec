@@ -58,7 +58,7 @@ class AppConfig(BaseModel):
 
     # --- 【新增】视频流捕获与识别策略 ---
     stream_capture_fps: int = Field(
-        10,
+        15,
         description="[性能策略] 控制视频处理进程从源视频流中截取帧的频率（帧/秒）。"
     )
     stream_cache_update_interval_seconds: int = Field(
