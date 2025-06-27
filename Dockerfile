@@ -1,4 +1,4 @@
-# 位于 docker/ 目录下的 Dockerfile
+# Dockerfile
 
 # --- Stage 1: 基础镜像 ---
 # 使用 NVIDIA 官方的 CUDA 运行时镜像。它比 -devel 镜像更小，但包含运行 GPU 应用所需的所有库。
@@ -41,13 +41,13 @@ RUN uv pip install --system --no-cache -r pyproject.toml
 # 将构建上下文（项目根目录）中的所有文件完整地复制到容器的工作目录（/app）中
 COPY . .
 
-# 赋予启动脚本执行权限
-RUN chmod +x docker/start.sh
+# 赋予启动脚本执行权限（路径已更新）
+RUN chmod +x start.sh
 
 # --- Stage 5: 容器运行配置 ---
 # 暴露 FastAPI 和 Streamlit 的端口
 EXPOSE 12010
 EXPOSE 12011
 
-# 定义容器启动命令，执行我们的启动脚本
-CMD ["./docker/start.sh"]
+# 定义容器启动命令，执行我们的启动脚本（路径已更新）
+CMD ["./start.sh"]
