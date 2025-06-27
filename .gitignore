@@ -21,3 +21,4 @@ data/.insightface/
 
 # others
 test.txt
+*.db
