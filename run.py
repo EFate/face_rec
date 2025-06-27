@@ -163,6 +163,14 @@ def start_server(
         logger.critical(f"⚠️ Uvicorn 服务器启动失败: {e}", exc_info=True)
         raise typer.Exit(code=1)
 
-
+import multiprocessing as mp
 if __name__ == "__main__":
+    # 在应用启动的最初阶段，强制将多进程启动方式设置为 'spawn'。
+    # 避免在Linux上由 'fork' 模式引发的CUDA上下文冲突问题。
+    try:
+        mp.set_start_method('spawn', force=True)
+        logger.info("✅ Multiprocessing start method has been set to 'spawn'.")
+    except RuntimeError:
+        pass
+
     app()
