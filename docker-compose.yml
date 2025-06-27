@@ -24,13 +24,14 @@ services:
       - ./data:/app/data
       - ./logs:/app/logs
 
-    # GPU 资源配置 (Docker Compose 推荐方式)
+    # GPU 资源配置
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: all
+              # 将 'count: all' 修改为 'device_ids'
+              device_ids: ['0']
               capabilities: [gpu]
 
     # 重启策略: 除非手动停止，否则容器总是在退出后重启
