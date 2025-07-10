@@ -23,6 +23,8 @@ services:
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
+    environment:
+      - UI_HOST=${UI_BACKEND_HOST}
 
     # GPU 资源配置 (Docker Compose 推荐方式)
     deploy:
