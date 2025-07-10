@@ -25,18 +25,20 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 从清华镜像源安装 uv，以加速 uv 工具本身的下载
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple uv
+# 设置 pip 全局使用清华镜像源
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
 
 # --- Stage 4: 项目配置与依赖安装 ---
 # 创建并设置工作目录
 WORKDIR /app
 
-# 仅复制依赖定义文件，以便利用 Docker 的层缓存机制。如果此文件未更改，则不会重新运行下一步的安装
-COPY pyproject.toml .
+# 复制依赖文件
+COPY requirements.txt .
 
-# 使用 uv 安装 Python 依赖。uv 会自动读取 pyproject.toml 中配置的清华镜像源
-RUN uv pip install --system --no-cache -r pyproject.toml
+# 使用清华镜像源安装依赖
+RUN pip install --no-cache-dir \
+    -r requirements.txt
 
 # 将构建上下文（项目根目录）中的所有文件完整地复制到容器的工作目录（/app）中
 COPY . .

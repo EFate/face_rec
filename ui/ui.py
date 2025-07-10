@@ -14,8 +14,8 @@ from datetime import datetime
 # ==============================================================================
 
 st.set_page_config(
-    page_title="星尘AI视觉平台",
-    page_icon="💫",
+    page_title="人脸识别系统",
+    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -229,8 +229,8 @@ def format_datetime_human(dt_str: str) -> str:
 def render_sidebar():
     """渲染侧边栏。"""
     with st.sidebar:
-        st.title("💫 星尘AI视觉平台")
-        st.caption("v0.1.0")
+        st.title("🤖 人脸识别系统")
+        st.caption("v1.0")
 
         st.session_state.api_url = st.text_input("后端服务地址", value=st.session_state.api_url,
                                                  help="例如: 192.168.1.15:12010, 请指定正确的服务ip;")
@@ -245,7 +245,7 @@ def render_sidebar():
             refresh_all_data()
 
         st.markdown("<div style='height: 10vh;'></div>", unsafe_allow_html=True)
-        st.info("© 2025 星尘AI")
+        st.info("人脸识别系统 v1.0")
 
 
 @st.dialog("➕ 注册新人员", width="large")
@@ -261,7 +261,7 @@ def render_register_dialog():
         if st.form_submit_button("✔️ 确认注册", type="primary", use_container_width=True):
             if name and sn and image_file:
                 with st.spinner("正在注册新人员..."):
-                    # 【修复】将 name 和 sn 作为表单数据 (data) 发送，文件作为 files 发送
+                    # 将 name 和 sn 作为表单数据 (data) 发送，文件作为 files 发送
                     form_data = {'name': name, 'sn': sn}
                     files_payload = {'image_file': (image_file.name, image_file.getvalue(), image_file.type)}
 
@@ -373,7 +373,7 @@ def render_management_page():
 
     st.divider()
 
-    # 【修复】确保 faces_data 不是 None，如果 st.session_state.get 返回 None，则使用空字典
+    # 确保 faces_data 不是 None，如果 st.session_state.get 返回 None，则使用空字典
     faces_data = st.session_state.get("faces_data") or {}
     if not faces_data.get('unique_sns'):
         st.info("人脸库为空，或数据加载中... 请确保API服务在线并尝试刷新数据。")

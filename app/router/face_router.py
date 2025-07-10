@@ -104,10 +104,13 @@ async def update_face_info(
     根据SN更新人员的姓名。
     注意：此接口不用于更换人脸照片，仅用于更新元数据如姓名。
     """
-    updated_face = await face_service.update_face_by_sn(sn, update_data)
+    # 1. 正确地解包从服务层返回的元组
+    updated_count, updated_face_info = await face_service.update_face_by_sn(sn, update_data)
+
+    # 2. 将正确的变量传递给响应模型
     return ApiResponse(
-        msg=f"成功更新SN为 '{sn}' 的人员信息。",
-        data=UpdateFaceResponseData(sn=sn, updated_count=1, face_info=updated_face)
+        msg=f"成功更新SN为 '{sn}' 的 {updated_count} 条人员信息。",
+        data=UpdateFaceResponseData(sn=sn, updated_count=updated_count, face_info=updated_face_info)
     )
 
 
