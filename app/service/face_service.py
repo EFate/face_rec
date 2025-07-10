@@ -183,10 +183,7 @@ class FaceService:
         return results
 
     async def start_stream(self, req: StreamStartRequest) -> ActiveStreamInfo:
-        # --- 【关键修正】 ---
-        # 移除了在主进程中调用 cv2.VideoCapture 的预检查逻辑。
-        # 视频源的有效性检查完全交由子进程处理，这是解决h264问题的关键。
-        # -------------------
+        # 视频源的有效性检查交由子进程处理，这是解决h264问题的关键。
 
         stream_id = str(uuid.uuid4())
         lifetime = req.lifetime_minutes if req.lifetime_minutes is not None else self.settings.app.stream_default_lifetime_minutes

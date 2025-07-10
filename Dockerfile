@@ -17,11 +17,13 @@ ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
 # 安装 cuDNN 库
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    python3.10 \
-    python3-pip \
-    build-essential \
-    libcudnn9-cuda-12 \
-    python3-dev && \
+        python3.10 \
+        python3-pip \
+        build-essential \
+        libcudnn9-cuda-12 \
+        python3-dev \
+        libgl1-mesa-glx \
+        libglib2.0-0 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
