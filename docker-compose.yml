@@ -20,11 +20,11 @@ services:
 
     # 数据卷挂载: "主机路径:容器路径"
     # 路径相对于 docker-compose.yml 所在位置（项目根目录）
-    volumes:
-      - ./data:/app/data
-      - ./logs:/app/logs
+#    volumes:
+#      - ./data:/app/data
+#      - ./logs:/app/logs
     environment:
-      - UI_HOST=${UI_BACKEND_HOST}
+      - UI_HOST=${UI_HOST}
 
     # GPU 资源配置 (Docker Compose 推荐方式)
     deploy:
