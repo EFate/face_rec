@@ -18,6 +18,9 @@ data/.insightface/
 
 # logs
 logs/
+app.log
+dev.log
+prod.log
 *.log
 
 # others

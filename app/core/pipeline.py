@@ -45,14 +45,12 @@ class FaceStreamPipeline:
 
         self.model = create_face_analysis_model(settings)
 
-        # --- 【核心修改】 ---
-        # 恢复在初始化时创建DAO实例的简洁设计。
         # 每个子进程的流水线将拥有一个贯穿整个生命周期的DAO实例。
         self.face_dao: FaceDataDAO = LanceDBFaceDataDAO(
             db_uri=self.settings.insightface.lancedb_uri,
             table_name=self.settings.insightface.lancedb_table_name
         )
-        # -------------------
+
 
         self.preprocess_queue = queue.Queue(maxsize=4)
         self.inference_queue = queue.Queue(maxsize=4)
