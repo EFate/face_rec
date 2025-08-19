@@ -1,17 +1,20 @@
 # app/core/pipeline.py
-import asyncio
 import queue
 import threading
 import time
+from datetime import datetime
 from typing import List, Dict, Any, Optional
 
 import cv2
 import numpy as np
 from insightface.app.common import Face
+from insightface.app import FaceAnalysis  # 引入 FaceAnalysis 类型注解
 
-from app.cfg.config import AppSettings
+from app.cfg.config import AppSettings, IMAGE_URL_IP
 from app.cfg.logging import app_logger
-from app.core.model_manager import create_face_analysis_model
+from app.core.database.results_ops import insert_new_result
+# 不再需要 create_face_analysis_model
+from app.database import get_db_session
 from app.service.face_dao import LanceDBFaceDataDAO, FaceDataDAO
 
 
@@ -35,27 +38,24 @@ class FaceStreamPipeline:
     每个实例对应一个独立的视频源，并管理其下的所有处理线程。
     """
 
-    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: asyncio.Queue):
+    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model: FaceAnalysis):
         self.settings = settings
         self.stream_id = stream_id
         self.video_source = video_source
         self.output_queue = output_queue
+        self.model = model
 
         app_logger.info(f"【流水线 {self.stream_id}】正在初始化...")
 
-        self.model = create_face_analysis_model(settings)
 
-        # 每个子进程的流水线将拥有一个贯穿整个生命周期的DAO实例。
         self.face_dao: FaceDataDAO = LanceDBFaceDataDAO(
             db_uri=self.settings.insightface.lancedb_uri,
             table_name=self.settings.insightface.lancedb_table_name
         )
-
-
+        self.settings.app.detected_imgs_path.mkdir(parents=True, exist_ok=True)
         self.preprocess_queue = queue.Queue(maxsize=4)
         self.inference_queue = queue.Queue(maxsize=4)
         self.postprocess_queue = queue.Queue(maxsize=4)
-
         self.stop_event = threading.Event()
         self.threads: List[threading.Thread] = []
         self.cap = None
@@ -65,12 +65,11 @@ class FaceStreamPipeline:
         app_logger.info(f"【流水线 {self.stream_id}】正在启动...")
         try:
             self._start_threads()
-            while not self.stop_event.is_set():
-                time.sleep(1)
+            # The blocking loop is now managed by the worker thread in FaceService
         except Exception as e:
             app_logger.error(f"❌【流水线 {self.stream_id}】启动或运行时失败: {e}", exc_info=True)
-        finally:
-            self.stop()
+            # Re-raise to be caught by the worker thread
+            raise
 
     def stop(self):
         """停止所有流水线工作线程并释放资源。"""
@@ -109,7 +108,7 @@ class FaceStreamPipeline:
         [T1: 读帧] 以最快速度读取帧，并在每次循环后短暂休眠以降低CPU占用。
         同时，当队列满时会自动丢弃最旧的帧以保证处理最新帧。
         """
-        app_logger.info(f"【T1:读帧 {self.stream_id}】启动 (无FPS限制模式)。")
+        app_logger.info(f"【T1:读帧 {self.stream_id}】启动。")
 
         while not self.stop_event.is_set():
             ret, frame = self.cap.read()
@@ -162,12 +161,9 @@ class FaceStreamPipeline:
 
     def _postprocessor_thread(self):
         """
-        [T4: 后处理/识别] 进行人脸比对、绘制并放入最终输出队列。
+        [T4: 后处理/识别] 进行人脸比对、保存结果、绘制并放入最终输出队列。
         """
         app_logger.info(f"【T4:后处理 {self.stream_id}】启动。")
-
-        # 调用 self.face_dao.search() 查询数据库文件
-
 
         threshold = self.settings.insightface.recognition_similarity_threshold
 
@@ -179,17 +175,31 @@ class FaceStreamPipeline:
                 original_frame, detected_faces = data
                 results = []
                 if detected_faces:
-                    for face in detected_faces:
-                        # 每次搜索都直接访问数据库
-                        search_res = self.face_dao.search(face.normed_embedding, threshold)
-                        result_item = {"box": face.bbox, "name": "Unknown", "similarity": None}
-                        if search_res:
-                            name, sn, similarity = search_res
-                            result_item.update({"name": name, "sn": sn, "similarity": similarity})
-                        results.append(result_item)
+                    db_session = next(get_db_session())
+                    try:
+                        for face in detected_faces:
+                            search_res = self.face_dao.search(face.normed_embedding, threshold)
+                            result_item = {"box": face.bbox, "name": "Unknown", "similarity": None}
+                            if search_res:
+                                name, sn, similarity = search_res
+                                result_item.update({"name": name, "sn": sn, "similarity": similarity})
+                                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+                                filename = f"{sn}_{timestamp}.jpg"
+                                save_path = self.settings.app.detected_imgs_path / filename
+                                box = face.bbox.astype(int)
+                                y1_c, y2_c = max(0, box[1]), min(original_frame.shape[0], box[3])
+                                x1_c, x2_c = max(0, box[0]), min(original_frame.shape[1], box[2])
+                                face_crop = original_frame[y1_c:y2_c, x1_c:x2_c]
+                                if face_crop.size > 0:
+                                    cv2.imwrite(str(save_path), face_crop)
+                                    image_url = f"http://{IMAGE_URL_IP}:{self.settings.server.port}/static/detected_imgs/{filename}"
+                                    db_data = {"sn": sn, "name": name, "similarity": float(similarity), "image_url": image_url}
+                                    insert_new_result(db_session, db_data)
+                            results.append(result_item)
+                    finally:
+                        db_session.close()
 
                 _draw_results_on_frame(original_frame, results)
-
                 (flag, encodedImage) = cv2.imencode(".jpg", original_frame)
                 if flag:
                     try:
@@ -200,7 +210,6 @@ class FaceStreamPipeline:
                 continue
             except Exception as e:
                 app_logger.error(f"【T4:后处理 {self.stream_id}】发生错误: {e}", exc_info=True)
-
         try:
             self.output_queue.put_nowait(None)
         except (queue.Full, ValueError):

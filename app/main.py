@@ -11,6 +11,7 @@ from fastapi.exceptions import HTTPException
 from app.cfg.config import AppSettings, get_app_settings
 from app.cfg.logging import app_logger
 from app.core.model_manager import model_manager, load_models_on_startup, release_models_on_shutdown
+from app.database import init_db
 from app.router.face_router import router as face_router
 from app.service.face_service import FaceService
 from app.schema.face_schema import ApiResponse
@@ -20,22 +21,25 @@ from app.cfg.config import DATA_DIR
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
-    应用生命周期管理器 (已更新以匹配新的服务)
+    应用生命周期管理器
     """
     # --- 启动任务 ---
     app_logger.info("应用程序启动... 开始执行启动任务。")
     settings = get_app_settings()
     app.state.settings = settings
+    app_logger.info("应用启动，开始初始化数据库...")
+    init_db()
+    app_logger.info("数据库初始化完成。")
 
-    # 1. 加载主进程所需的机器学习模型
+    # 1. 加载机器学习模型到模型池
     await load_models_on_startup()
-    app_logger.info("✅ 主进程模型加载完成。")
+    app_logger.info("✅ 模型池加载完成。")
 
-    # 2. 初始化服务，注入模型和配置
-    face_service = FaceService(settings=settings, model=model_manager.get_model())
+    # 初始化服务，注入完整的模型管理器
+    face_service = FaceService(settings=settings, model_manager=model_manager)
     app.state.face_service = face_service
 
-    # 3. 【修正】调用服务自身的初始化方法，而不是旧的缓存加载方法
+    # 3. 调用服务自身的初始化方法
     await face_service.initialize()
     app_logger.info("✅ FaceService 初始化完成。")
 
@@ -68,7 +72,6 @@ async def lifespan(app: FastAPI):
     app_logger.info("✅ 所有清理任务完成。")
 
 
-# create_app 函数和其余部分保持不变
 def create_app() -> FastAPI:
     app_settings = get_app_settings()
     app = FastAPI(
@@ -81,7 +84,6 @@ def create_app() -> FastAPI:
         redoc_url=None,
     )
 
-    # 注册全局异常处理器
     @app.exception_handler(HTTPException)
     async def http_exception_handler(request: Request, exc: HTTPException):
         return JSONResponse(status_code=exc.status_code,
@@ -92,15 +94,12 @@ def create_app() -> FastAPI:
         app_logger.exception(f"未处理的服务器内部错误: {exc}")
         return JSONResponse(status_code=500, content=ApiResponse(code=500, msg="服务器内部错误").model_dump())
 
-    # 包含API路由
     app.include_router(face_router, prefix="/api/face", tags=["人脸服务"])
 
-    # 挂载静态文件和数据目录
     STATIC_FILES_DIR = Path("app/static")
     if STATIC_FILES_DIR.exists(): app.mount("/static", StaticFiles(directory=STATIC_FILES_DIR), name="static")
     if DATA_DIR.exists(): app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")
 
-    # 自定义Swagger UI
     @app.get("/docs", include_in_schema=False)
     async def custom_swagger_ui_html():
         return get_swagger_ui_html(openapi_url=app.openapi_url, title=app.title + " - API Docs",

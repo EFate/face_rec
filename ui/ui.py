@@ -92,9 +92,10 @@ st.markdown("""
 
 def initialize_session_state():
     """初始化应用所需的全部会话状态。"""
-    backend_host = os.getenv("UI_HOST", "localhost")
+    backend_host = os.getenv("HOST__IP", "localhost")
+    backend_port = os.getenv("SERVER__PORT", "12010")
     defaults = {
-        "api_url": f"{backend_host}:12010",  # 默认指向后端的12010端口
+        "api_url": f"{backend_host}:{backend_port}",  # 默认指向后端的12010端口
         "api_status": (False, "尚未连接"),
         "faces_data": None,
         "show_register_dialog": False,

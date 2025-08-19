@@ -25,9 +25,3 @@ logging:
 database:
   url: "sqlite:///./data/default.db" # 默认使用 SQLite 数据库文件。
   echo: false # 默认不打印 SQL 语句，生产环境通常关闭。
-
-security:
-  # 默认密钥，在生产环境中务必通过环境变量或其他安全机制覆盖。
-  secret_key: "default_secret_key_please_change_this_in_production_or_environment_variable"
-  algorithm: "HS256" # JWT 签名算法。
-  access_token_expire_minutes: 30 # 访问令牌过期时间，默认 30 分钟。

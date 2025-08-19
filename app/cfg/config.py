@@ -14,14 +14,20 @@ def get_base_dir() -> Path:
     """计算项目根目录。"""
     return Path(__file__).resolve().parent.parent.parent
 
+from dotenv import load_dotenv
+load_dotenv()
+IMAGE_URL_IP = os.getenv("HOST__IP")
+
 
 BASE_DIR = get_base_dir()
 ENV_FILE = BASE_DIR / ".env"
+SQLLITE_FILE = BASE_DIR / "data" / "detected.db"
 LOGS_DIR = BASE_DIR / "logs"
 CONFIG_DIR = BASE_DIR / "app" / "cfg"
 DATA_DIR = BASE_DIR / "data"
 INSIGHTFACE_MODELS_DIR = BASE_DIR / "data" / ".insightface"
 LANCEDB_DATA_DIR = BASE_DIR / "data" / "lancedb"
+DETECTED_IMGS_DIR = BASE_DIR / "app" / "static" / "detected_imgs"
 
 # --- 自定义类型 ---
 FilePath = Annotated[Path, BeforeValidator(lambda v: Path(v) if isinstance(v, str) else v)]
@@ -33,6 +39,8 @@ class AppConfig(BaseModel):
     description: str = Field("基于FastAPI、InsightFace和LanceDB构建", description="应用程序描述。")
     version: str = Field("4.5.0-Final", description="应用程序版本。")
     debug: bool = Field(False, description="是否开启调试模式。")
+    max_concurrent_tasks: int = Field(3, description="系统允许的最大并发AI任务数（模型池大小）。")
+    detected_imgs_path: FilePath = Field(DETECTED_IMGS_DIR, description="图片保存地址")
     stream_default_lifetime_minutes: int = Field(10, description="视频流默认生命周期（分钟），-1表示永久。")
     stream_cleanup_interval_seconds: int = Field(60, description="清理过期视频流的后台任务运行间隔（秒）。")
 
