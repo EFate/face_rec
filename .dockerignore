@@ -32,4 +32,4 @@ logs/
 *.log
 
 # 图片
-*.jpg
+app/static/detected_imgs
