@@ -25,10 +25,12 @@ from app.core.model_manager import ModelManager  # 引入 ModelManager
 
 
 class FaceService:
-    def __init__(self, settings: AppSettings, model_manager: ModelManager):
+    # --- 修改 __init__ 方法以接收队列 ---
+    def __init__(self, settings: AppSettings, model_manager: ModelManager, result_queue: queue.Queue):
         app_logger.info("正在初始化 FaceService (多线程 + 模型池)...")
         self.settings = settings
         self.model_manager = model_manager  # 注入模型管理器
+        self.result_persistence_queue = result_queue  # 注入结果持久化队列
         self.face_dao: FaceDataDAO = LanceDBFaceDataDAO(
             db_uri=self.settings.insightface.lancedb_uri,
             table_name=self.settings.insightface.lancedb_table_name,
@@ -144,9 +146,11 @@ class FaceService:
         pipeline = None
         main_thread_loop = None
         try:
+            # --- 在创建流水线时注入持久化队列 ---
             pipeline = FaceStreamPipeline(
                 settings=self.settings, stream_id=stream_id, video_source=video_source,
-                output_queue=result_queue, model=model
+                output_queue=result_queue, model=model,
+                result_persistence_queue=self.result_persistence_queue
             )
             pipeline.start()  # 启动内部读帧、推理等线程
 

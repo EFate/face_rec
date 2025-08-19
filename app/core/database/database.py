@@ -1,4 +1,4 @@
-# app/database.py
+# app/core/database/database.py
 # 导入必要的模块
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

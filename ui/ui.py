@@ -355,10 +355,15 @@ def render_dashboard_page():
                         for result in data:
                             with st.container(border=True):
                                 st.markdown(f"**姓名:** {result.get('name')} | **SN:** {result.get('sn')}")
-                                similarity_percent = (1 - result.get('distance', 1)) * 100
+                                # --- 【代码修正开始】 ---
+                                # 直接从API结果中获取'similarity'字段，如果不存在则默认为0.0
+                                similarity_score = result.get('similarity', 0.0)
+                                similarity_percent = similarity_score * 100
+                                # 将标签从"置信度"改为"相似度"，并移除无关的"距离"信息
                                 st.markdown(
-                                    f"**置信度:** <span style='color:green; font-weight:bold;'>{similarity_percent:.2f}%</span> (距离: {result.get('distance', 0):.4f})",
+                                    f"**相似度:** <span style='color:green; font-weight:bold;'>{similarity_percent:.2f}%</span>",
                                     unsafe_allow_html=True)
+                                # --- 【代码修正结束】 ---
                     else:
                         st.info("图像中检测到人脸，但未在库中找到匹配项。")
                 else:

@@ -43,7 +43,7 @@ class AppConfig(BaseModel):
     detected_imgs_path: FilePath = Field(DETECTED_IMGS_DIR, description="图片保存地址")
     stream_default_lifetime_minutes: int = Field(10, description="视频流默认生命周期（分钟），-1表示永久。")
     stream_cleanup_interval_seconds: int = Field(60, description="清理过期视频流的后台任务运行间隔（秒）。")
-
+    recognition_save_interval_seconds: float = Field(0.6, description="对同一个人识别结果的最小保存间隔（秒）。")
 
 
 class ServerConfig(BaseModel):

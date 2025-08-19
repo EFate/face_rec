@@ -3,18 +3,18 @@ import queue
 import threading
 import time
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 import cv2
 import numpy as np
 from insightface.app.common import Face
 from insightface.app import FaceAnalysis  # 引入 FaceAnalysis 类型注解
 
-from app.cfg.config import AppSettings, IMAGE_URL_IP
+from app.cfg.config import AppSettings
 from app.cfg.logging import app_logger
-from app.core.database.results_ops import insert_new_result
-# 不再需要 create_face_analysis_model
-from app.database import get_db_session
+# --- 不再需要直接在此处导入数据库相关操作 ---
+# from app.core.database.results_ops import insert_new_result
+# from app.core.database.database import get_db_session
 from app.service.face_dao import LanceDBFaceDataDAO, FaceDataDAO
 
 
@@ -37,13 +37,14 @@ class FaceStreamPipeline:
     封装一个视频流的完整四级处理流水线。
     每个实例对应一个独立的视频源，并管理其下的所有处理线程。
     """
-
-    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model: FaceAnalysis):
+    # --- 修改 __init__ 方法以接收持久化队列 ---
+    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model: FaceAnalysis, result_persistence_queue: queue.Queue):
         self.settings = settings
         self.stream_id = stream_id
         self.video_source = video_source
         self.output_queue = output_queue
         self.model = model
+        self.result_persistence_queue = result_persistence_queue # 接收结果持久化队列
 
         app_logger.info(f"【流水线 {self.stream_id}】正在初始化...")
 
@@ -65,10 +66,8 @@ class FaceStreamPipeline:
         app_logger.info(f"【流水线 {self.stream_id}】正在启动...")
         try:
             self._start_threads()
-            # The blocking loop is now managed by the worker thread in FaceService
         except Exception as e:
             app_logger.error(f"❌【流水线 {self.stream_id}】启动或运行时失败: {e}", exc_info=True)
-            # Re-raise to be caught by the worker thread
             raise
 
     def stop(self):
@@ -161,7 +160,7 @@ class FaceStreamPipeline:
 
     def _postprocessor_thread(self):
         """
-        [T4: 后处理/识别] 进行人脸比对、保存结果、绘制并放入最终输出队列。
+        [T4: 后处理/识别] 进行人脸比对，将待保存结果放入持久化队列，绘制并放入最终输出队列。
         """
         app_logger.info(f"【T4:后处理 {self.stream_id}】启动。")
 
@@ -175,29 +174,35 @@ class FaceStreamPipeline:
                 original_frame, detected_faces = data
                 results = []
                 if detected_faces:
-                    db_session = next(get_db_session())
-                    try:
-                        for face in detected_faces:
-                            search_res = self.face_dao.search(face.normed_embedding, threshold)
-                            result_item = {"box": face.bbox, "name": "Unknown", "similarity": None}
-                            if search_res:
-                                name, sn, similarity = search_res
-                                result_item.update({"name": name, "sn": sn, "similarity": similarity})
-                                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-                                filename = f"{sn}_{timestamp}.jpg"
-                                save_path = self.settings.app.detected_imgs_path / filename
-                                box = face.bbox.astype(int)
-                                y1_c, y2_c = max(0, box[1]), min(original_frame.shape[0], box[3])
-                                x1_c, x2_c = max(0, box[0]), min(original_frame.shape[1], box[2])
-                                face_crop = original_frame[y1_c:y2_c, x1_c:x2_c]
-                                if face_crop.size > 0:
-                                    cv2.imwrite(str(save_path), face_crop)
-                                    image_url = f"http://{IMAGE_URL_IP}:{self.settings.server.port}/static/detected_imgs/{filename}"
-                                    db_data = {"sn": sn, "name": name, "similarity": float(similarity), "image_url": image_url}
-                                    insert_new_result(db_session, db_data)
-                            results.append(result_item)
-                    finally:
-                        db_session.close()
+                    # --- 核心修改：移除数据库会话管理 ---
+                    for face in detected_faces:
+                        search_res = self.face_dao.search(face.normed_embedding, threshold)
+                        result_item = {"box": face.bbox, "name": "Unknown", "similarity": None}
+                        if search_res:
+                            name, sn, similarity = search_res
+                            result_item.update({"name": name, "sn": sn, "similarity": similarity})
+
+                            box = face.bbox.astype(int)
+                            y1_c, y2_c = max(0, box[1]), min(original_frame.shape[0], box[3])
+                            x1_c, x2_c = max(0, box[0]), min(original_frame.shape[1], box[2])
+                            face_crop = original_frame[y1_c:y2_c, x1_c:x2_c]
+
+                            if face_crop.size > 0:
+                                # 准备要发送到后台服务的数据
+                                persistence_data = {
+                                    "sn": sn,
+                                    "name": name,
+                                    "similarity": similarity,
+                                    "face_crop": face_crop,
+                                    "timestamp": datetime.now()
+                                }
+                                # 使用非阻塞方式放入队列，如果队列满了就直接丢弃
+                                try:
+                                    self.result_persistence_queue.put_nowait(persistence_data)
+                                except queue.Full:
+                                    app_logger.warning(f"结果持久化队列已满，暂时丢弃SN为 {sn} 的结果。")
+                                    pass
+                        results.append(result_item)
 
                 _draw_results_on_frame(original_frame, results)
                 (flag, encodedImage) = cv2.imencode(".jpg", original_frame)
