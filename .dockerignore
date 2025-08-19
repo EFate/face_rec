@@ -30,6 +30,3 @@ __pycache__/
 # 日志应该由运行时生成或通过数据卷挂载，而不应被打包进镜像
 logs/
 *.log
-
-# 图片
-app/static/detected_imgs

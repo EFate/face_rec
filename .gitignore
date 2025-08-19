@@ -26,3 +26,5 @@ prod.log
 # others
 test.txt
 *.db
+app/static/detected_imgs
+app/static/detected_imgs/*.jpg
