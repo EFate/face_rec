@@ -1,7 +1,5 @@
 # docker-compose.yml
-# 定义服务
 services:
-  # 服务的名称
   face-rec-service:
     image: registry.cn-hangzhou.aliyuncs.com/canstack/face-rec-service:1.0.0
     build:
@@ -11,15 +9,26 @@ services:
     container_name: face_recognition_service
 
     ports:
-      - "${SERVER__PORT}:${SERVER__PORT}" # FastAPI
-      - "${WEBUI__PORT}:${WEBUI__PORT}" # Streamlit
+      - "${SERVER__PORT:-12010}:${SERVER__PORT:-12010}"  # FastAPI
+      - "${WEBUI__PORT:-12011}:${WEBUI__PORT:-12011}"    # Streamlit
 
     environment:
-      - HOST__IP=${HOST__IP}
-      - SERVER__PORT=${SERVER__PORT}
-      - WEBUI__PORT=${WEBUI__PORT}
+      # 服务器配置
+      - SERVER__HOST=${SERVER__HOST:-0.0.0.0}
+      - SERVER__PORT=${SERVER__PORT:-12010}
+      # Web UI配置
+      - WEBUI__HOST=${WEBUI__HOST:-0.0.0.0}
+      - WEBUI__PORT=${WEBUI__PORT:-12011}
+      # 其他配置
+      - HOST__IP=${HOST__IP:-localhost}
+      - APP__DEBUG=${APP__DEBUG:-false}
+      - LOGGING__LEVEL=${LOGGING__LEVEL:-INFO}
 
-    # GPU 资源配置 (Docker Compose 推荐方式)
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+
+    # GPU 资源配置
     deploy:
       resources:
         reservations:
@@ -28,5 +37,5 @@ services:
               count: all
               capabilities: [gpu]
 
-    # 重启策略: 除非手动停止，否则容器总是在退出后重启
+    # 重启策略
     restart: unless-stopped

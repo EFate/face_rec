@@ -1,1 +1,297 @@
 2025-06-10 13:37:34.638 | INFO     | __main__:_prepare_app_env:42 - ⚙️  应用环境已确立: DEELOPMENT
+2025-08-21 13:45:20.439 | INFO     | __main__:init_app_state:38 - ⚙️  应用环境已确立: PRODUCTION
+2025-08-21 13:45:20.439 | INFO     | __main__:start_server:145 - 
+🚀 准备启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 13:45:20.440 | INFO     | __main__:start_server:146 -   - 最终监听地址: http://0.0.0.0:8000
+2025-08-21 13:45:20.440 | INFO     | __main__:start_server:149 -   - 本机可访问: http://127.0.0.1:8000
+2025-08-21 13:45:20.440 | INFO     | __main__:start_server:150 -   - 局域网可访问: http://172.16.4.155:8000
+2025-08-21 13:45:20.440 | INFO     | __main__:start_server:151 -   - 热重载模式: ❌ 关闭
+2025-08-21 13:45:22.514 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 13:45:22.708 | CRITICAL | __main__:start_server:163 - ⚠️ Uvicorn 服务器启动失败: cannot import name 'SQLLITE_FILE' from 'app.cfg.config' (D:\ABT\0-Project\face_rec\app\cfg\config.py)
+2025-08-21 13:55:09.106 | INFO     | __main__:init_app_state:38 - ⚙️  应用环境已确立: PRODUCTION
+2025-08-21 13:55:09.107 | INFO     | __main__:start_server:145 - 
+🚀 准备启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 13:55:09.108 | INFO     | __main__:start_server:146 -   - 最终监听地址: http://0.0.0.0:8000
+2025-08-21 13:55:09.109 | INFO     | __main__:start_server:149 -   - 本机可访问: http://127.0.0.1:8000
+2025-08-21 13:55:09.109 | INFO     | __main__:start_server:150 -   - 局域网可访问: http://172.16.4.155:8000
+2025-08-21 13:55:09.109 | INFO     | __main__:start_server:151 -   - 热重载模式: ❌ 关闭
+2025-08-21 13:55:11.231 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 13:55:12.309 | INFO     | app.main:lifespan:30 - 应用程序启动... 开始执行启动任务。
+2025-08-21 13:55:12.310 | INFO     | app.main:lifespan:33 - 应用启动，开始初始化数据库...
+2025-08-21 13:55:12.312 | INFO     | app.main:lifespan:35 - 数据库初始化完成。
+2025-08-21 13:55:12.313 | INFO     | app.core.model_manager:load_models:78 - 开始加载3个模型实例到池中
+2025-08-21 13:55:12.313 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 13:55:12.315 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 13:55:12.316 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 13:55:17.137 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 13:55:17.536 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 13:55:17.537 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 13:55:17.538 | INFO     | app.core.model_manager:load_models:92 - 成功加载3个模型到池中
+2025-08-21 13:55:17.539 | INFO     | app.core.model_manager:_startup_test:109 - 开始启动自检
+2025-08-21 13:55:20.923 | INFO     | app.core.model_manager:_startup_test:120 - 自检成功：检测到1张人脸
+2025-08-21 13:55:20.924 | INFO     | app.main:lifespan:39 - ✅ 模型池加载完成。
+2025-08-21 13:55:20.924 | INFO     | app.core.result_processor:start:33 - 启动结果持久化服务...
+2025-08-21 13:55:20.925 | INFO     | app.core.result_processor:_worker:59 - 结果持久化工作线程已启动。
+2025-08-21 13:55:20.925 | INFO     | app.main:lifespan:46 - ✅ 结果持久化服务已启动。
+2025-08-21 13:55:20.926 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-21 13:55:20.930 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 13:55:20.934 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-21 13:55:20.935 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-21 13:55:20.935 | INFO     | app.main:lifespan:54 - ✅ FaceService 初始化完成。
+2025-08-21 13:55:20.935 | INFO     | app.main:lifespan:59 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-21 13:55:20.935 | INFO     | app.main:lifespan:61 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-21 13:57:25.430 | INFO     | app.main:lifespan:64 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-21 13:57:25.430 | INFO     | app.main:lifespan:73 - ✅ 视频流清理任务已取消。
+2025-08-21 13:57:25.431 | INFO     | app.core.result_processor:stop:38 - 正在停止结果持久化服务...
+2025-08-21 13:57:25.431 | INFO     | app.core.result_processor:_worker:105 - 结果持久化工作线程已停止。
+2025-08-21 13:57:25.431 | INFO     | app.core.result_processor:stop:46 - ✅ 结果持久化服务已停止。
+2025-08-21 13:57:25.432 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
+2025-08-21 13:57:25.550 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
+2025-08-21 13:57:25.550 | INFO     | app.main:lifespan:86 - ✅ 所有清理任务完成。
+2025-08-21 13:58:25.245 | INFO     | __main__:init_app_state:38 - ⚙️  应用环境已确立: PRODUCTION
+2025-08-21 13:58:25.245 | INFO     | __main__:start_server:145 - 
+🚀 准备启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 13:58:25.245 | INFO     | __main__:start_server:146 -   - 最终监听地址: http://0.0.0.0:8000
+2025-08-21 13:58:25.247 | INFO     | __main__:start_server:149 -   - 本机可访问: http://127.0.0.1:8000
+2025-08-21 13:58:25.247 | INFO     | __main__:start_server:150 -   - 局域网可访问: http://172.16.4.155:8000
+2025-08-21 13:58:25.247 | INFO     | __main__:start_server:151 -   - 热重载模式: ❌ 关闭
+2025-08-21 13:58:27.371 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 13:58:28.069 | INFO     | app.main:lifespan:30 - 应用程序启动... 开始执行启动任务。
+2025-08-21 13:58:28.069 | INFO     | app.main:lifespan:33 - 应用启动，开始初始化数据库...
+2025-08-21 13:58:28.071 | INFO     | app.main:lifespan:35 - 数据库初始化完成。
+2025-08-21 13:58:28.071 | INFO     | app.core.model_manager:load_models:78 - 开始加载3个模型实例到池中
+2025-08-21 13:58:28.072 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 13:58:28.073 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 13:58:28.073 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 13:58:31.373 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 13:58:31.793 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 13:58:31.904 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 13:58:31.904 | INFO     | app.core.model_manager:load_models:92 - 成功加载3个模型到池中
+2025-08-21 13:58:31.905 | INFO     | app.core.model_manager:_startup_test:109 - 开始启动自检
+2025-08-21 13:58:33.614 | INFO     | app.core.model_manager:_startup_test:120 - 自检成功：检测到1张人脸
+2025-08-21 13:58:33.614 | INFO     | app.main:lifespan:39 - ✅ 模型池加载完成。
+2025-08-21 13:58:33.614 | INFO     | app.core.result_processor:start:33 - 启动结果持久化服务...
+2025-08-21 13:58:33.615 | INFO     | app.core.result_processor:_worker:59 - 结果持久化工作线程已启动。
+2025-08-21 13:58:33.615 | INFO     | app.main:lifespan:46 - ✅ 结果持久化服务已启动。
+2025-08-21 13:58:33.616 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-21 13:58:33.619 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 13:58:33.622 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-21 13:58:33.622 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-21 13:58:33.622 | INFO     | app.main:lifespan:54 - ✅ FaceService 初始化完成。
+2025-08-21 13:58:33.622 | INFO     | app.main:lifespan:59 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-21 13:58:33.622 | INFO     | app.main:lifespan:61 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-21 13:59:24.802 | INFO     | app.main:lifespan:64 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-21 13:59:24.803 | INFO     | app.main:lifespan:73 - ✅ 视频流清理任务已取消。
+2025-08-21 13:59:24.803 | INFO     | app.core.result_processor:stop:38 - 正在停止结果持久化服务...
+2025-08-21 13:59:24.803 | INFO     | app.core.result_processor:_worker:105 - 结果持久化工作线程已停止。
+2025-08-21 13:59:24.804 | INFO     | app.core.result_processor:stop:46 - ✅ 结果持久化服务已停止。
+2025-08-21 13:59:24.804 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
+2025-08-21 13:59:24.908 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
+2025-08-21 13:59:24.908 | INFO     | app.main:lifespan:86 - ✅ 所有清理任务完成。
+2025-08-21 14:05:15.387 | INFO     | __main__:init_app_state:38 - ⚙️  应用环境已确立: PRODUCTION
+2025-08-21 14:05:15.387 | INFO     | __main__:start_server:145 - 
+🚀 准备启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 14:05:15.388 | INFO     | __main__:start_server:146 -   - 最终监听地址: http://0.0.0.0:12011
+2025-08-21 14:05:15.388 | INFO     | __main__:start_server:149 -   - 本机可访问: http://127.0.0.1:12011
+2025-08-21 14:05:15.388 | INFO     | __main__:start_server:150 -   - 局域网可访问: http://172.16.4.155:12011
+2025-08-21 14:05:15.389 | INFO     | __main__:start_server:151 -   - 热重载模式: ❌ 关闭
+2025-08-21 14:05:17.373 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-21 14:05:18.028 | CRITICAL | __main__:start_server:163 - ⚠️ Uvicorn 服务器启动失败: cannot import name 'IMAGE_URL_IP' from 'app.cfg.config' (D:\ABT\0-Project\face_rec\app\cfg\config.py)
+2025-08-21 14:06:34.005 | INFO     | __main__:init_app_state:38 - ⚙️  应用环境已确立: PRODUCTION
+2025-08-21 14:06:34.006 | INFO     | __main__:start_server:145 - 
+🚀 准备启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 14:06:34.006 | INFO     | __main__:start_server:146 -   - 最终监听地址: http://0.0.0.0:8000
+2025-08-21 14:06:34.006 | INFO     | __main__:start_server:149 -   - 本机可访问: http://127.0.0.1:8000
+2025-08-21 14:06:34.007 | INFO     | __main__:start_server:150 -   - 局域网可访问: http://172.16.4.155:8000
+2025-08-21 14:06:34.007 | INFO     | __main__:start_server:151 -   - 热重载模式: ❌ 关闭
+2025-08-21 14:06:35.869 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 14:06:36.509 | INFO     | app.main:lifespan:30 - 应用程序启动... 开始执行启动任务。
+2025-08-21 14:06:36.509 | INFO     | app.main:lifespan:33 - 应用启动，开始初始化数据库...
+2025-08-21 14:06:36.511 | INFO     | app.main:lifespan:35 - 数据库初始化完成。
+2025-08-21 14:06:36.512 | INFO     | app.core.model_manager:load_models:78 - 开始加载3个模型实例到池中
+2025-08-21 14:06:36.512 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:06:36.513 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:06:36.513 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:06:39.781 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:06:40.230 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:06:40.355 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:06:40.356 | INFO     | app.core.model_manager:load_models:92 - 成功加载3个模型到池中
+2025-08-21 14:06:40.357 | INFO     | app.core.model_manager:_startup_test:109 - 开始启动自检
+2025-08-21 14:06:42.153 | INFO     | app.core.model_manager:_startup_test:120 - 自检成功：检测到1张人脸
+2025-08-21 14:06:42.154 | INFO     | app.main:lifespan:39 - ✅ 模型池加载完成。
+2025-08-21 14:06:42.154 | INFO     | app.core.result_processor:start:33 - 启动结果持久化服务...
+2025-08-21 14:06:42.155 | INFO     | app.core.result_processor:_worker:59 - 结果持久化工作线程已启动。
+2025-08-21 14:06:42.155 | INFO     | app.main:lifespan:46 - ✅ 结果持久化服务已启动。
+2025-08-21 14:06:42.155 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-21 14:06:42.158 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 14:06:42.161 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-21 14:06:42.162 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-21 14:06:42.162 | INFO     | app.main:lifespan:54 - ✅ FaceService 初始化完成。
+2025-08-21 14:06:42.162 | INFO     | app.main:lifespan:59 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-21 14:06:42.162 | INFO     | app.main:lifespan:61 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-21 14:06:43.478 | INFO     | app.main:lifespan:64 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-21 14:06:43.478 | INFO     | app.main:lifespan:73 - ✅ 视频流清理任务已取消。
+2025-08-21 14:06:43.479 | INFO     | app.core.result_processor:stop:38 - 正在停止结果持久化服务...
+2025-08-21 14:06:43.479 | INFO     | app.core.result_processor:_worker:105 - 结果持久化工作线程已停止。
+2025-08-21 14:06:43.479 | INFO     | app.core.result_processor:stop:46 - ✅ 结果持久化服务已停止。
+2025-08-21 14:06:43.480 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
+2025-08-21 14:06:43.577 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
+2025-08-21 14:06:43.577 | INFO     | app.main:lifespan:86 - ✅ 所有清理任务完成。
+2025-08-21 14:15:23.530 | INFO     | __main__:init_app_state:32 - 应用环境: DEVELOPMENT
+2025-08-21 14:15:23.531 | INFO     | __main__:start_server:91 - 启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 14:15:23.531 | INFO     | __main__:start_server:92 - 监听地址: http://0.0.0.0:8000
+2025-08-21 14:15:23.533 | INFO     | __main__:start_server:96 - 本机访问: http://127.0.0.1:8000
+2025-08-21 14:15:23.533 | INFO     | __main__:start_server:97 - 局域网访问: http://172.16.4.155:8000
+2025-08-21 14:15:23.533 | INFO     | __main__:start_server:99 - 热重载: 关闭
+2025-08-21 14:15:25.924 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 14:15:26.115 | CRITICAL | __main__:start_server:111 - 服务器启动失败: cannot import name 'SQLLITE_FILE' from 'app.cfg.config' (D:\ABT\0-Project\face_rec\app\cfg\config.py)
+2025-08-21 14:18:24.387 | INFO     | __main__:init_app_state:32 - 应用环境: DEVELOPMENT
+2025-08-21 14:18:24.388 | INFO     | __main__:start_server:91 - 启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 14:18:24.388 | INFO     | __main__:start_server:92 - 监听地址: http://0.0.0.0:8000
+2025-08-21 14:18:24.389 | INFO     | __main__:start_server:96 - 本机访问: http://127.0.0.1:8000
+2025-08-21 14:18:24.390 | INFO     | __main__:start_server:97 - 局域网访问: http://172.16.4.155:8000
+2025-08-21 14:18:24.391 | INFO     | __main__:start_server:99 - 热重载: 关闭
+2025-08-21 14:18:26.704 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 14:18:26.891 | CRITICAL | __main__:start_server:111 - 服务器启动失败: name 'SQLLITE_FILE' is not defined
+2025-08-21 14:20:38.801 | INFO     | __main__:init_app_state:32 - 应用环境: DEVELOPMENT
+2025-08-21 14:20:38.802 | INFO     | __main__:start_server:91 - 启动服务器: FastAPI人脸识别服务 v4.5.0-Final
+2025-08-21 14:20:38.803 | INFO     | __main__:start_server:92 - 监听地址: http://0.0.0.0:8000
+2025-08-21 14:20:38.803 | INFO     | __main__:start_server:96 - 本机访问: http://127.0.0.1:8000
+2025-08-21 14:20:38.803 | INFO     | __main__:start_server:97 - 局域网访问: http://172.16.4.155:8000
+2025-08-21 14:20:38.804 | INFO     | __main__:start_server:99 - 热重载: 关闭
+2025-08-21 14:20:42.008 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: data\.insightface
+2025-08-21 14:20:42.175 | CRITICAL | __main__:start_server:111 - 服务器启动失败: name 'SQLLITE_FILE' is not defined
+2025-08-21 14:28:06.827 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-21 14:28:06.828 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-21 14:28:06.828 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:8000
+2025-08-21 14:28:06.829 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:8000
+2025-08-21 14:28:06.829 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:8000
+2025-08-21 14:28:06.829 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-21 14:28:09.212 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-21 14:28:10.028 | INFO     | app.main:lifespan:30 - 应用程序启动... 开始执行启动任务。
+2025-08-21 14:28:10.028 | INFO     | app.main:lifespan:33 - 应用启动，开始初始化数据库...
+2025-08-21 14:28:10.031 | INFO     | app.main:lifespan:35 - 数据库初始化完成。
+2025-08-21 14:28:10.031 | INFO     | app.core.model_manager:load_models:78 - 开始加载3个模型实例到池中
+2025-08-21 14:28:10.032 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:28:10.033 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:28:10.033 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:28:13.647 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:28:13.862 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:28:13.986 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:28:13.987 | INFO     | app.core.model_manager:load_models:92 - 成功加载3个模型到池中
+2025-08-21 14:28:13.987 | INFO     | app.core.model_manager:_startup_test:109 - 开始启动自检
+2025-08-21 14:28:15.858 | INFO     | app.core.model_manager:_startup_test:120 - 自检成功：检测到1张人脸
+2025-08-21 14:28:15.858 | INFO     | app.main:lifespan:39 - ✅ 模型池加载完成。
+2025-08-21 14:28:15.859 | INFO     | app.core.result_processor:start:33 - 启动结果持久化服务...
+2025-08-21 14:28:15.860 | INFO     | app.core.result_processor:_worker:59 - 结果持久化工作线程已启动。
+2025-08-21 14:28:15.860 | INFO     | app.main:lifespan:46 - ✅ 结果持久化服务已启动。
+2025-08-21 14:28:15.860 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-21 14:28:15.864 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 14:28:15.867 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-21 14:28:15.867 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-21 14:28:15.867 | INFO     | app.main:lifespan:54 - ✅ FaceService 初始化完成。
+2025-08-21 14:28:15.867 | INFO     | app.main:lifespan:59 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-21 14:28:15.867 | INFO     | app.main:lifespan:61 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-21 14:28:17.954 | INFO     | app.main:lifespan:64 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-21 14:28:17.955 | INFO     | app.main:lifespan:73 - ✅ 视频流清理任务已取消。
+2025-08-21 14:28:17.955 | INFO     | app.core.result_processor:stop:38 - 正在停止结果持久化服务...
+2025-08-21 14:28:17.955 | INFO     | app.core.result_processor:_worker:105 - 结果持久化工作线程已停止。
+2025-08-21 14:28:17.956 | INFO     | app.core.result_processor:stop:46 - ✅ 结果持久化服务已停止。
+2025-08-21 14:28:17.956 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
+2025-08-21 14:28:18.057 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
+2025-08-21 14:28:18.058 | INFO     | app.main:lifespan:86 - ✅ 所有清理任务完成。
+2025-08-21 14:28:20.361 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-21 14:28:20.362 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-21 14:28:20.363 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:8000
+2025-08-21 14:28:20.363 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:8000
+2025-08-21 14:28:20.363 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:8000
+2025-08-21 14:28:20.364 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-21 14:28:22.860 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-21 14:28:23.586 | INFO     | app.main:lifespan:30 - 应用程序启动... 开始执行启动任务。
+2025-08-21 14:28:23.587 | INFO     | app.main:lifespan:33 - 应用启动，开始初始化数据库...
+2025-08-21 14:28:23.589 | INFO     | app.main:lifespan:35 - 数据库初始化完成。
+2025-08-21 14:28:23.589 | INFO     | app.core.model_manager:load_models:78 - 开始加载3个模型实例到池中
+2025-08-21 14:28:23.590 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:28:23.591 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:28:23.591 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:28:26.866 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:28:27.128 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:28:27.129 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:28:27.130 | INFO     | app.core.model_manager:load_models:92 - 成功加载3个模型到池中
+2025-08-21 14:28:27.131 | INFO     | app.core.model_manager:_startup_test:109 - 开始启动自检
+2025-08-21 14:28:29.242 | INFO     | app.core.model_manager:_startup_test:120 - 自检成功：检测到1张人脸
+2025-08-21 14:28:29.242 | INFO     | app.main:lifespan:39 - ✅ 模型池加载完成。
+2025-08-21 14:28:29.242 | INFO     | app.core.result_processor:start:33 - 启动结果持久化服务...
+2025-08-21 14:28:29.243 | INFO     | app.core.result_processor:_worker:59 - 结果持久化工作线程已启动。
+2025-08-21 14:28:29.243 | INFO     | app.main:lifespan:46 - ✅ 结果持久化服务已启动。
+2025-08-21 14:28:29.243 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-21 14:28:29.249 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 14:28:29.253 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-21 14:28:29.253 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-21 14:28:29.253 | INFO     | app.main:lifespan:54 - ✅ FaceService 初始化完成。
+2025-08-21 14:28:29.254 | INFO     | app.main:lifespan:59 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-21 14:28:29.254 | INFO     | app.main:lifespan:61 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-21 14:28:36.718 | INFO     | app.main:lifespan:64 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-21 14:28:36.718 | INFO     | app.main:lifespan:73 - ✅ 视频流清理任务已取消。
+2025-08-21 14:28:36.719 | INFO     | app.core.result_processor:stop:38 - 正在停止结果持久化服务...
+2025-08-21 14:28:36.719 | INFO     | app.core.result_processor:_worker:105 - 结果持久化工作线程已停止。
+2025-08-21 14:28:36.719 | INFO     | app.core.result_processor:stop:46 - ✅ 结果持久化服务已停止。
+2025-08-21 14:28:36.719 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
+2025-08-21 14:28:36.821 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
+2025-08-21 14:28:36.821 | INFO     | app.main:lifespan:86 - ✅ 所有清理任务完成。
+2025-08-21 14:29:00.927 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-21 14:29:00.928 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-21 14:29:00.928 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-21 14:29:00.929 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-21 14:29:00.929 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-21 14:29:00.929 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-21 14:29:03.176 | INFO     | app.core.model_manager:_setup_environment:69 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-21 14:29:03.776 | INFO     | app.main:lifespan:30 - 应用程序启动... 开始执行启动任务。
+2025-08-21 14:29:03.776 | INFO     | app.main:lifespan:33 - 应用启动，开始初始化数据库...
+2025-08-21 14:29:03.779 | INFO     | app.main:lifespan:35 - 数据库初始化完成。
+2025-08-21 14:29:03.779 | INFO     | app.core.model_manager:load_models:78 - 开始加载3个模型实例到池中
+2025-08-21 14:29:03.780 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:29:03.780 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:29:05.832 | INFO     | app.core.model_manager:create_face_analysis_model:16 - 创建InsightFace模型: buffalo_l
+2025-08-21 14:29:07.428 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:29:07.429 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:29:07.554 | INFO     | app.core.model_manager:create_face_analysis_model:34 - InsightFace模型创建成功
+2025-08-21 14:29:07.554 | INFO     | app.core.model_manager:load_models:92 - 成功加载3个模型到池中
+2025-08-21 14:29:07.555 | INFO     | app.core.model_manager:_startup_test:109 - 开始启动自检
+2025-08-21 14:29:09.412 | INFO     | app.core.model_manager:_startup_test:120 - 自检成功：检测到1张人脸
+2025-08-21 14:29:09.412 | INFO     | app.main:lifespan:39 - ✅ 模型池加载完成。
+2025-08-21 14:29:09.413 | INFO     | app.core.result_processor:start:33 - 启动结果持久化服务...
+2025-08-21 14:29:09.413 | INFO     | app.core.result_processor:_worker:59 - 结果持久化工作线程已启动。
+2025-08-21 14:29:09.414 | INFO     | app.main:lifespan:46 - ✅ 结果持久化服务已启动。
+2025-08-21 14:29:09.414 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-21 14:29:09.417 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 14:29:09.420 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-21 14:29:09.420 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-21 14:29:09.421 | INFO     | app.main:lifespan:54 - ✅ FaceService 初始化完成。
+2025-08-21 14:29:09.421 | INFO     | app.main:lifespan:59 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-21 14:29:09.421 | INFO     | app.main:lifespan:61 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-21 14:29:21.465 | INFO     | app.core.pipeline:__init__:46 - 【流水线 0f00f47c-c45b-48e3-b293-c2e910f18158】正在初始化...
+2025-08-21 14:29:21.465 | INFO     | app.service.face_service:start_stream:196 - 🚀 视频流线程已启动: ID=0f00f47c-c45b-48e3-b293-c2e910f18158, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-21 14:29:21.470 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-21 14:29:21.475 | INFO     | app.core.pipeline:start:63 - 【流水线 0f00f47c-c45b-48e3-b293-c2e910f18158】正在启动...
+2025-08-21 14:29:21.756 | INFO     | app.core.pipeline:_reader_thread:106 - 【T1:读帧 0f00f47c-c45b-48e3-b293-c2e910f18158】启动。
+2025-08-21 14:29:21.757 | INFO     | app.core.pipeline:_preprocessor_thread:152 - 【T2:预处理 0f00f47c-c45b-48e3-b293-c2e910f18158】启动。
+2025-08-21 14:29:21.763 | INFO     | app.core.pipeline:_inference_thread:166 - 【T3:推理 0f00f47c-c45b-48e3-b293-c2e910f18158】启动。
+2025-08-21 14:29:21.777 | INFO     | app.core.pipeline:_postprocessor_thread:208 - 【T4:后处理 0f00f47c-c45b-48e3-b293-c2e910f18158】启动。
+2025-08-21 14:29:58.090 | INFO     | app.core.pipeline:stop:73 - 【流水线 0f00f47c-c45b-48e3-b293-c2e910f18158】正在停止...
+2025-08-21 14:29:58.094 | INFO     | app.core.pipeline:_inference_thread:202 - 【T3:推理 0f00f47c-c45b-48e3-b293-c2e910f18158】已停止。
+2025-08-21 14:29:58.121 | INFO     | app.core.pipeline:_postprocessor_thread:277 - 【T4:后处理 0f00f47c-c45b-48e3-b293-c2e910f18158】已停止。
+2025-08-21 14:29:58.122 | INFO     | app.core.pipeline:_reader_thread:148 - 【T1:读帧 0f00f47c-c45b-48e3-b293-c2e910f18158】已停止。
+2025-08-21 14:30:00.151 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-21 14:30:00.151 | INFO     | app.core.pipeline:stop:87 - ✅【流水线 0f00f47c-c45b-48e3-b293-c2e910f18158】已安全停止。
+2025-08-21 14:30:00.152 | INFO     | app.service.face_service:_pipeline_worker_thread:175 - ✅【线程 0f00f47c-c45b-48e3-b293-c2e910f18158】处理工作已结束。
+2025-08-21 14:30:00.152 | INFO     | app.core.pipeline:_preprocessor_thread:162 - 【T2:预处理 0f00f47c-c45b-48e3-b293-c2e910f18158】已停止。
+2025-08-21 14:30:00.153 | INFO     | app.service.face_service:stop_stream:205 - ✅ 视频流已成功停止: ID=0f00f47c-c45b-48e3-b293-c2e910f18158
+2025-08-21 14:30:45.845 | INFO     | app.main:lifespan:64 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-21 14:30:45.845 | INFO     | app.main:lifespan:73 - ✅ 视频流清理任务已取消。
+2025-08-21 14:30:45.845 | INFO     | app.core.result_processor:stop:38 - 正在停止结果持久化服务...
+2025-08-21 14:30:45.847 | INFO     | app.core.result_processor:_worker:105 - 结果持久化工作线程已停止。
+2025-08-21 14:30:45.847 | INFO     | app.core.result_processor:stop:46 - ✅ 结果持久化服务已停止。
+2025-08-21 14:30:45.848 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
+2025-08-21 14:30:45.994 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
+2025-08-21 14:30:45.995 | INFO     | app.main:lifespan:86 - ✅ 所有清理任务完成。

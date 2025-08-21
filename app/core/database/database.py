@@ -5,11 +5,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
 # 从配置文件导入数据库文件路径
-from app.cfg.config import SQLLITE_FILE
+from app.cfg.config import get_app_settings, DATA_DIR
+settings = get_app_settings()
 
 # 构造数据库URL
-DATABASE_URL = f"sqlite:///{SQLLITE_FILE.resolve()}"
-SQLLITE_FILE.parent.mkdir(parents=True, exist_ok=True)
+DATABASE_URL = settings.database.url
+
+# 确保数据库目录存在
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # 创建数据库引擎
 # 为SQLite添加 connect_args={"check_same_thread": False} 以支持多线程访问
