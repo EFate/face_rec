@@ -1,1060 +1,561 @@
-"""
-人脸识别管理系统 - 优化版UI
-功能完整、界面美观、逻辑清晰的人脸识别管理系统
-"""
-
+# ui.py
 import streamlit as st
 import requests
 import pandas as pd
 from typing import Tuple, Any, Dict, List, Optional
-from pathlib import Path
-import time
-import json
-from datetime import datetime, timedelta
 import os
-import altair as alt
-from PIL import Image
-import io
+import json
+from datetime import datetime
 
 # ==============================================================================
-# 1. 页面配置与主题设置
+# 1. 页面配置与样式 (Page Config & Styling)
 # ==============================================================================
-
 st.set_page_config(
-    page_title="人脸识别管理系统",
+    page_title="人脸识别智能管理系统",
     page_icon="🤖",
     layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': 'https://github.com/your-repo',
-        'Report a bug': 'https://github.com/your-repo/issues',
-        'About': '人脸识别管理系统 v2.0 - 功能完整的智能识别平台'
-    }
+    initial_sidebar_state="expanded"
 )
 
-# 自定义CSS样式
+# --- 现代化的CSS样式 ---
 st.markdown("""
 <style>
-    /* 全局样式 */
-    .stApp {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    }
-    
-    /* 卡片样式 */
-    .metric-card {
-        background: white;
-        border-radius: 15px;
-        padding: 25px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        border: 1px solid #e0e6ed;
-        transition: all 0.3s ease;
-        text-align: center;
-    }
-    
-    .metric-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-    }
-    
-    .metric-value {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #2c3e50;
-        margin: 10px 0;
-    }
-    
-    .metric-label {
-        font-size: 1rem;
-        color: #7f8c8d;
-        font-weight: 500;
-    }
-    
-    .metric-icon {
-        font-size: 3rem;
-        margin-bottom: 10px;
-    }
-    
-    /* 按钮样式 */
-    .stButton > button {
-        border-radius: 10px;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        transition: all 0.3s ease;
-    }
-    
-    /* 表格样式 */
-    .dataframe {
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    
-    /* 侧边栏样式 */
+    /* --- 全局与字体 --- */
+    .stApp { background-color: #f0f2f6; }
+    h1, h2, h3 { font-weight: 700; color: #1a1f36; }
+
+    /* --- 侧边栏 --- */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background-color: #ffffff;
+        border-right: 1px solid #e0e4e8;
     }
-    
-    [data-testid="stSidebar"] .stMarkdown {
-        color: white;
+    .st-emotion-cache-16txtl3 { padding-top: 2rem; }
+
+    /* --- 指标卡片 --- */
+    .metric-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #e0e4e8;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
     }
-    
-    /* 标签页样式 */
-    .stTabs [data-baseweb="tab-list"] {
-        background: transparent;
-        border-bottom: 2px solid #e0e6ed;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        color: #7f8c8d;
-        font-weight: 600;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        color: #667eea !important;
-        border-bottom: 3px solid #667eea;
-    }
-    
-    /* 输入框样式 */
-    .stTextInput > div > div {
-        border-radius: 10px;
-        border: 1px solid #e0e6ed;
-    }
-    
-    /* 成功状态颜色 */
-    .success-text {
-        color: #27ae60;
-        font-weight: bold;
-    }
-    
-    .warning-text {
-        color: #f39c12;
-        font-weight: bold;
-    }
-    
-    .error-text {
-        color: #e74c3c;
-        font-weight: bold;
-    }
+    .metric-card .title { font-weight: 600; color: #6c757d; font-size: 1rem; margin-bottom: 10px; }
+    .metric-card .value { font-weight: 700; color: #1a1f36; font-size: 2.2rem; }
+    .metric-card .icon { font-size: 2.5rem; text-align: right; opacity: 0.8; }
+    .metric-card.ok { border-left: 5px solid #28a745; }
+    .metric-card.error { border-left: 5px solid #dc3545; }
+
+    /* --- 其他美化 --- */
+    .stButton>button { border-radius: 8px; font-weight: 600; }
+    [data-testid="stExpander"] { border-radius: 8px; }
+    [data-testid="stFileUploader"] { padding: 10px; background-color: #fafafa; border-radius: 8px; }
+    .stTabs [data-baseweb="tab-list"] { gap: 24px; }
+    .stTabs [data-baseweb="tab"] { height: 50px; background-color: transparent; }
 </style>
 """, unsafe_allow_html=True)
 
+
 # ==============================================================================
-# 2. 全局配置与状态管理
+# 2. API客户端 (API Client)
 # ==============================================================================
+class ApiClient:
+    """一个用于与后端API交互的客户端类"""
 
-@st.cache_data(ttl=60)
-def get_api_config():
-    """获取API配置"""
-    backend_host = os.getenv("HOST__IP", "localhost")
-    backend_port = os.getenv("SERVER__PORT", "12010")
-    return f"{backend_host}:{backend_port}"
+    def __init__(self, base_url: str):
+        self.base_url = f"http://{base_url.replace('http://', '')}"
+        self.endpoints = {
+            'health': '/api/face/health',
+            'faces': '/api/face/faces',
+            'face_by_sn': '/api/face/faces/{}',
+            'recognize': '/api/face/recognize',
+            'streams_start': '/api/face/streams/start',
+            'streams_stop': '/api/face/streams/stop/{}',
+            'streams_list': '/api/face/streams',
+            'records': '/api/detection/records',
+            'stats': '/api/detection/stats',
+            'weekly_trend': '/api/detection/weekly-trend',
+            'person_pie': '/api/detection/person-pie',
+            'hourly_trend': '/api/detection/hourly-trend',
+            'top_persons': '/api/detection/top-persons',
+        }
 
-# API端点配置
-API_ENDPOINTS = {
-    # 系统健康检查
-    'HEALTH': '/api/face/health',
-    
-    # 人脸管理
-    'FACES': '/api/face/faces',
-    'FACE_BY_SN': '/api/face/faces/{}',
-    'REGISTER_FACE': '/api/face/faces',
-    'UPDATE_FACE': '/api/face/faces/{}',
-    'DELETE_FACE': '/api/face/faces/{}',
-    'RECOGNIZE': '/api/face/recognize',
-    
-    # 视频流管理
-    'STREAMS_START': '/api/face/streams/start',
-    'STREAMS_STOP': '/api/face/streams/stop/{}',
-    'STREAMS_LIST': '/api/face/streams',
-    'STREAM_FEED': '/api/face/streams/feed/{}',
-    
-    # 检测记录
-    'DETECTION_RECORDS': '/api/detection/records',
-    'DETECTION_STATS': '/api/detection/stats',
-    'DETECTION_RECORD_DETAIL': '/api/detection/records/{}',
-    'DETECTION_WEEKLY_TREND': '/api/detection/weekly-trend',
-    'DETECTION_PERSON_PIE': '/api/detection/person-pie',
-    'DETECTION_HOURLY_TREND': '/api/detection/hourly-trend',
-    'DETECTION_TOP_PERSONS': '/api/detection/top-persons',
-}
+    def _request(self, method: str, endpoint_key: str, **kwargs) -> Tuple[bool, Any]:
+        """统一的内部请求方法"""
+        url = f"{self.base_url}{kwargs.pop('url_format', self.endpoints[endpoint_key])}"
+        try:
+            response = requests.request(method, url, timeout=15, **kwargs)
+            if response.ok:
+                if response.status_code == 204 or not response.content:
+                    return True, {"msg": "操作成功"}
+                res_json = response.json()
+                if res_json.get("code") == 0:
+                    return True, res_json.get("data", {})
+                return False, res_json.get("msg", "后端返回业务错误")
+            else:
+                try:
+                    # 尝试解析FastAPI的错误详情
+                    detail = response.json().get("detail", "未知错误")
+                    if isinstance(detail, list):
+                        detail = detail[0].get('msg', '请求验证失败')
+                    return False, f"HTTP {response.status_code}: {detail}"
+                except json.JSONDecodeError:
+                    return False, f"HTTP {response.status_code}: 无法解析响应"
+        except requests.RequestException as e:
+            return False, f"网络请求失败: {e}"
 
+    # --- Wrapper methods for each endpoint ---
+    def check_health(self): return self._request('GET', 'health')
+    def get_all_faces(self): return self._request('GET', 'faces')
+    def register_face(self, data, files): return self._request('POST', 'faces', data=data, files=files)
+    def update_face(self, sn, name): return self._request('PUT', 'face_by_sn', url_format=self.endpoints['face_by_sn'].format(sn), json={"name": name})
+    def delete_face(self, sn): return self._request('DELETE', 'face_by_sn', url_format=self.endpoints['face_by_sn'].format(sn))
+    def recognize_face(self, files): return self._request('POST', 'recognize', files=files)
+    def start_stream(self, source, lifetime): return self._request('POST', 'streams_start', json={"source": source, "lifetime_minutes": lifetime})
+    def stop_stream(self, stream_id): return self._request('POST', 'streams_stop', url_format=self.endpoints['streams_stop'].format(stream_id))
+    def list_streams(self): return self._request('GET', 'streams_list')
+    def get_detection_stats(self): return self._request('GET', 'stats')
+    def get_weekly_trend(self): return self._request('GET', 'weekly_trend')
+    def get_detection_records(self, params): return self._request('GET', 'records', params=params)
+    def get_person_pie_data(self): return self._request('GET', 'person_pie')
+    def get_hourly_trend_data(self): return self._request('GET', 'hourly_trend')
+    def get_top_persons_data(self, limit=10): return self._request('GET', 'top_persons', params={'limit': limit})
+
+
+# ==============================================================================
+# 3. 会话状态管理 (Session State)
+# ==============================================================================
 def initialize_session_state():
-    """初始化会话状态"""
-    defaults = {
-        'api_url': get_api_config(),
-        'api_status': (False, '未连接'),
-        'current_page': '仪表盘',
-        'faces_data': None,
-        'detection_stats': None,
-        'detection_records': None,
-        'weekly_trend': None,
-        'person_pie_data': None,
-        'hourly_trend': None,
-        'top_persons': None,
-        'active_streams': [],
-        'selected_stream': None,
-        'detection_page': 1,
-        'detection_page_size': 20,
-        'filters': {
-            'name': '',
-            'sn': '',
-            'start_date': None,
-            'end_date': None
+    """初始化应用所需的全部会话状态。"""
+    if "app_state" not in st.session_state:
+        backend_host = os.getenv("HOST__IP", "localhost")
+        backend_port = os.getenv("SERVER__PORT", "12010")
+        st.session_state.app_state = {
+            "api_url": f"{backend_host}:{backend_port}",
+            "api_client": ApiClient(f"{backend_host}:{backend_port}"),
+            "api_status": (False, "尚未连接"),
+            "active_page": "数据看板",
+            "faces_data": {"count": 0, "faces": [], "unique_sns": []},
+            "management": {
+                "show_register_dialog": False,
+                "selected_sn": None
+            },
+            "monitoring": {
+                "viewing_stream_info": None
+            },
+            "analytics": {
+                "records_page": 1,
+                "records_filters": {"name": "", "sn": "", "start_date": None, "end_date": None}
+            }
         }
-    }
-    
-    for key, value in defaults.items():
-        if key not in st.session_state:
-            st.session_state[key] = value
+
 
 # ==============================================================================
-# 3. API通信工具函数
-# ==============================================================================
-
-@st.cache_data(ttl=30)
-def check_api_status(api_url: str) -> Tuple[bool, str]:
-    """检查API健康状态"""
-    try:
-        url = f"http://{api_url}{API_ENDPOINTS['HEALTH']}"
-        response = requests.get(url, timeout=5)
-        if response.ok:
-            return True, "服务运行正常"
-        return False, f"服务异常 (HTTP {response.status_code})"
-    except requests.exceptions.RequestException as e:
-        return False, f"连接失败: {str(e)}"
-
-def parse_error_response(response: requests.Response) -> str:
-    """解析错误响应"""
-    try:
-        error_data = response.json()
-        if "detail" in error_data:
-            detail = error_data["detail"]
-            if isinstance(detail, list):
-                return "; ".join([f"{d.get('loc', [''])[-1]}: {d.get('msg', '')}" for d in detail])
-            return str(detail)
-        return error_data.get("msg", "未知错误")
-    except:
-        return f"HTTP {response.status_code}: {response.text}"
-
-def make_api_request(method: str, endpoint: str, **kwargs) -> Tuple[bool, Any, str]:
-    """统一的API请求函数"""
-    try:
-        url = f"http://{st.session_state.api_url}{endpoint}"
-        response = requests.request(method, url, timeout=30, **kwargs)
-        
-        if response.ok:
-            try:
-                data = response.json()
-                if data.get("code") == 0:
-                    return True, data.get("data"), data.get("msg", "操作成功")
-                else:
-                    return False, None, data.get("msg", "操作失败")
-            except json.JSONDecodeError:
-                return True, None, "操作成功"
-        else:
-            return False, None, parse_error_response(response)
-    except requests.exceptions.RequestException as e:
-        return False, None, f"网络错误: {str(e)}"
-
-# ==============================================================================
-# 4. 数据加载函数
-# ==============================================================================
-
-def refresh_all_data():
-    """刷新所有数据"""
-    with st.spinner("正在刷新数据..."):
-        # 清除缓存
-        st.cache_data.clear()
-        
-        # 重新加载所有数据
-        load_faces_data()
-        load_detection_stats()
-        load_detection_records()
-        load_charts_data()
-        load_active_streams()
-        
-        st.toast("数据刷新完成！", icon="✅")
-
-@st.cache_data(ttl=60)
-def load_faces_data():
-    """加载人脸数据"""
-    success, data, msg = make_api_request('GET', API_ENDPOINTS['FACES'])
-    if success and data:
-        faces = data.get('faces', [])
-        unique_sns = list(set(face['sn'] for face in faces))
-        return {
-            'count': len(faces),
-            'persons': {sn: [f for f in faces if f['sn'] == sn] for sn in unique_sns},
-            'all_faces': faces
-        }
-    return {'count': 0, 'persons': {}, 'all_faces': []}
-
-@st.cache_data(ttl=30)
-def load_detection_stats():
-    """加载检测统计"""
-    success, data, msg = make_api_request('GET', API_ENDPOINTS['DETECTION_STATS'])
-    if success and data:
-        return data
-    return None
-
-@st.cache_data(ttl=30)
-def load_detection_records(page=1, page_size=20, **filters):
-    """加载检测记录"""
-    params = {'page': page, 'page_size': page_size}
-    
-    # 添加过滤条件
-    for key, value in filters.items():
-        if value:
-            params[key] = value
-    
-    success, data, msg = make_api_request('GET', API_ENDPOINTS['DETECTION_RECORDS'], params=params)
-    return data if success else None
-
-@st.cache_data(ttl=60)
-def load_charts_data():
-    """加载图表数据"""
-    # 周趋势
-    success, weekly_data, _ = make_api_request('GET', API_ENDPOINTS['DETECTION_WEEKLY_TREND'])
-    if success:
-        st.session_state.weekly_trend = weekly_data
-    
-    # 人员分布
-    success, pie_data, _ = make_api_request('GET', API_ENDPOINTS['DETECTION_PERSON_PIE'])
-    if success:
-        st.session_state.person_pie_data = pie_data
-    
-    # 小时分布
-    success, hourly_data, _ = make_api_request('GET', API_ENDPOINTS['DETECTION_HOURLY_TREND'])
-    if success:
-        st.session_state.hourly_trend = hourly_data
-    
-    # 排行榜
-    success, top_data, _ = make_api_request('GET', API_ENDPOINTS['DETECTION_TOP_PERSONS'], params={'limit': 10})
-    if success:
-        st.session_state.top_persons = top_data
-
-@st.cache_data(ttl=10)
-def load_active_streams():
-    """加载活动视频流"""
-    success, data, msg = make_api_request('GET', API_ENDPOINTS['STREAMS_LIST'])
-    if success and data:
-        return data.get('streams', [])
-    return []
-
-# ==============================================================================
-# 5. 工具函数
-# ==============================================================================
-
-def format_datetime(dt_str: str) -> str:
-    """格式化日期时间"""
-    if not dt_str:
-        return "永久"
-    try:
-        dt = datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
-        return dt.strftime('%Y-%m-%d %H:%M:%S')
-    except:
-        return dt_str
-
-def format_image_url(image_path: str) -> str:
-    """格式化图片URL"""
-    if not image_path:
-        return "https://via.placeholder.com/300x200?text=No+Image"
-    
-    if image_path.startswith('http'):
-        return image_path
-    
-    if image_path.startswith('/data/'):
-        return f"http://{st.session_state.api_url}{image_path}"
-    
-    return f"http://{st.session_state.api_url}/data/detected_imgs/{image_path}"
-
-def display_image_with_fallback(image_url: str, caption: str = "", width: int = 300):
-    """显示图片，带错误处理"""
-    try:
-        st.image(image_url, caption=caption, width=width)
-    except:
-        st.image("https://via.placeholder.com/300x200?text=Image+Error", caption="图片加载失败")
-
-# ==============================================================================
-# 6. 侧边栏组件
+# 4. UI 渲染模块 (UI Rendering Modules)
 # ==============================================================================
 
 def render_sidebar():
-    """渲染侧边栏"""
     with st.sidebar:
         st.title("🤖 人脸识别系统")
-        st.markdown("*智能识别 • 高效管理*")
-        
-        st.divider()
-        
-        # API配置
-        st.subheader("🔧 系统配置")
-        new_api_url = st.text_input(
-            "后端地址",
-            value=st.session_state.api_url,
-            help="格式: IP:端口 (如 192.168.1.100:12010)"
-        )
-        
-        if new_api_url != st.session_state.api_url:
-            st.session_state.api_url = new_api_url
-            st.rerun()
-        
-        # 检查API状态
-        is_connected, status_msg = check_api_status(st.session_state.api_url)
-        st.session_state.api_status = (is_connected, status_msg)
-        
-        status_color = "#27ae60" if is_connected else "#e74c3c"
-        st.markdown(f"""
-        <div style="padding: 10px; background: {status_color}20; border-radius: 10px; border-left: 4px solid {status_color};">
-            <strong>API状态:</strong> {status_msg}
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.divider()
-        
-        # 导航菜单
-        st.subheader("🧭 功能导航")
-        
-        pages = {
-            "仪表盘": "📊",
-            "人脸库管理": "👥",
-            "实时监测": "📹",
-            "检测记录": "📝",
-            "统计分析": "📈"
-        }
-        
-        for page_name, icon in pages.items():
-            if st.button(
-                f"{icon} {page_name}",
-                key=f"nav_{page_name}",
-                use_container_width=True,
-                type="primary" if st.session_state.current_page == page_name else "secondary"
-            ):
-                st.session_state.current_page = page_name
-                st.rerun()
-        
-        st.divider()
-        
-        # 快捷操作
-        st.subheader("⚡ 快捷操作")
-        
-        if st.button("🔄 刷新全部数据", use_container_width=True):
-            refresh_all_data()
-            st.rerun()
-        
-        if st.button("💾 导出报告", use_container_width=True, disabled=not is_connected):
-            st.info("报告导出功能开发中...")
-        
-        st.divider()
-        
-        # 系统信息
-        st.markdown("""
-        <div style="font-size: 0.8em; color: #7f8c8d;">
-            <strong>版本:</strong> v2.0<br>
-            <strong>作者:</strong> AI团队<br>
-            <strong>更新:</strong> 2024
-        </div>
-        """, unsafe_allow_html=True)
+        st.caption("v2.0 - 智能管理版")
 
-# ==============================================================================
-# 7. 页面组件
-# ==============================================================================
+        # --- API配置 ---
+        api_url = st.text_input("后端服务地址", value=st.session_state.app_state['api_url'])
+        if api_url != st.session_state.app_state['api_url']:
+            st.session_state.app_state['api_url'] = api_url
+            st.session_state.app_state['api_client'] = ApiClient(api_url)
+            st.rerun()
+
+        client = st.session_state.app_state['api_client']
+        success, data = client.check_health()
+        status_msg = data.get('message', "连接失败") if success else data
+        st.session_state.app_state['api_status'] = (success, status_msg)
+        status_icon = "✅" if success else "❌"
+        st.info(f"**API状态:** {status_msg}", icon=status_icon)
+        st.divider()
+
+        # --- 导航 ---
+        pages = ["数据看板", "人脸库管理", "实时监测", "检测分析"]
+        st.session_state.app_state['active_page'] = st.radio("导航", pages, label_visibility="collapsed")
+        
+        st.divider()
+        if st.button("🔄 强制刷新全站数据", use_container_width=True):
+            st.cache_data.clear()
+            st.rerun()
 
 def render_dashboard_page():
-    """仪表盘页面"""
-    st.title("📊 系统仪表盘")
-    
-    if not st.session_state.api_status[0]:
-        st.error("⚠️ API服务未连接，请在侧边栏配置正确的服务地址")
-        return
-    
-    # 加载数据
-    faces_data = load_faces_data()
-    stats_data = load_detection_stats()
-    active_streams = load_active_streams()
-    
-    # 统计卡片
+    st.header("📊 数据看板总览")
+    client = st.session_state.app_state['api_client']
+
+    # --- 获取核心数据 ---
+    @st.cache_data(ttl=30)
+    def get_dashboard_data():
+        stats_success, stats_data = client.get_detection_stats()
+        faces_success, faces_data = client.get_all_faces()
+        streams_success, streams_data = client.list_streams()
+        trend_success, trend_data = client.get_weekly_trend()
+        return {
+            "stats": stats_data if stats_success else {},
+            "faces": faces_data if faces_success else {},
+            "streams": streams_data if streams_success else {},
+            "trend": trend_data if trend_success else {}
+        }
+
+    data = get_dashboard_data()
+
+    # --- 指标卡片 ---
+    api_status, api_color_class = ("在线", "ok") if st.session_state.app_state['api_status'][0] else ("离线", "error")
     col1, col2, col3, col4 = st.columns(4)
-    
     with col1:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-icon">👥</div>
-            <div class="metric-value">{len(faces_data['persons'])}</div>
-            <div class="metric-label">注册人员</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
+        st.html(f"""<div class="metric-card"><div class="title">人脸库人员总数</div><div class="value">{data.get('faces', {}).get('count', 'N/A')}</div></div>""")
     with col2:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-icon">📸</div>
-            <div class="metric-value">{faces_data['count']}</div>
-            <div class="metric-label">人脸图片</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
+        st.html(f"""<div class="metric-card"><div class="title">总检测次数</div><div class="value">{data.get('stats', {}).get('total_detections', 'N/A')}</div></div>""")
     with col3:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-icon">🔢</div>
-            <div class="metric-value">{stats_data.get('total_detections', 0) if stats_data else 0}</div>
-            <div class="metric-label">总检测次数</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
+        st.html(f"""<div class="metric-card"><div class="title">今日检测</div><div class="value">{data.get('stats', {}).get('today_detections', 'N/A')}</div></div>""")
     with col4:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-icon">📹</div>
-            <div class="metric-value">{len(active_streams)}</div>
-            <div class="metric-label">活动视频流</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    # 快速操作区域
-    col1, col2 = st.columns(2)
-    
+        st.html(f"""<div class="metric-card {api_color_class}"><div class="title">API 服务</div><div class="value">{api_status}</div></div>""")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- 图表与最新记录 ---
+    col1, col2 = st.columns([0.6, 0.4])
     with col1:
-        st.subheader("🚀 快速识别")
-        uploaded_file = st.file_uploader(
-            "上传图片进行识别",
-            type=['jpg', 'jpeg', 'png'],
-            key="quick_recognize"
-        )
-        
-        if uploaded_file:
-            col_img, col_res = st.columns([1, 1])
-            
-            with col_img:
-                st.image(uploaded_file, caption="待识别图片", use_container_width=True)
-            
-            with col_res:
-                if st.button("开始识别", type="primary"):
-                    with st.spinner("正在识别..."):
-                        files = {'image_file': (uploaded_file.name, uploaded_file.getvalue())}
-                        success, results, msg = make_api_request('POST', API_ENDPOINTS['RECOGNIZE'], files=files)
-                        
-                        if success:
-                            if results:
-                                st.success(f"识别成功！找到 {len(results)} 个匹配")
-                                for result in results:
-                                    similarity = result.get('similarity', 0) * 100
-                                    st.markdown(f"""
-                                    **{result.get('name')}** (SN: {result.get('sn')})  
-                                    相似度: <span class="success-text">{similarity:.1f}%</span>
-                                    """)
-                            else:
-                                st.info("未找到匹配的人脸")
-                        else:
-                            st.error(f"识别失败: {msg}")
-    
+        with st.container(border=True):
+            st.subheader("🗓️ 近7日检测趋势")
+            trend_df = pd.DataFrame(data.get('trend', {}).get('trend_data', []))
+            if not trend_df.empty:
+                trend_df['date'] = pd.to_datetime(trend_df['date'])
+                st.line_chart(trend_df, x='date', y='count')
+            else:
+                st.info("暂无趋势数据。")
     with col2:
-        st.subheader("📈 今日统计")
-        if stats_data:
-            today = stats_data.get('today_detections', 0)
-            unique = stats_data.get('unique_persons', 0)
-            
-            st.metric("今日检测", today)
-            st.metric("今日人员", unique)
-            
-            # 显示最近检测
-            recent = stats_data.get('recent_detections', [])[:5]
+        with st.container(border=True, height=380):
+            st.subheader("⏱️ 最新检测记录")
+            recent = data.get('stats', {}).get('recent_detections', [])
             if recent:
-                st.subheader("最近检测")
-                for det in recent:
-                    st.markdown(f"""
-                    **{det.get('name')}**  
-                    <small>{format_datetime(det.get('detected_at'))}</small>
-                    """)
-    
+                for item in recent:
+                    col_img, col_info = st.columns([0.2, 0.8])
+                    col_img.image(item['image_url'], width=50)
+                    col_info.markdown(f"**{item['name']}** ({item['sn']})")
+                    col_info.caption(f"{datetime.fromisoformat(item['create_time']).strftime('%Y-%m-%d %H:%M:%S')}")
+            else:
+                st.info("暂无最近检测记录。")
+
     st.divider()
-    
-    # 图表区域
-    load_charts_data()
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("📊 7天趋势")
-        if st.session_state.get('weekly_trend'):
-            data = st.session_state.weekly_trend
-            df = pd.DataFrame({
-                '日期': data.get('dates', []),
-                '检测次数': data.get('counts', [])
-            })
-            
-            chart = alt.Chart(df).mark_line(point=True).encode(
-                x='日期',
-                y='检测次数',
-                tooltip=['日期', '检测次数']
-            ).properties(height=300)
-            
-            st.altair_chart(chart, use_container_width=True)
-        else:
-            st.info("暂无趋势数据")
-    
-    with col2:
-        st.subheader("🏆 检测排行")
-        if st.session_state.get('top_persons'):
-            data = st.session_state.top_persons
-            persons = data.get('persons', [])
-            
-            for i, person in enumerate(persons[:5]):
-                emoji = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"][i]
-                st.markdown(f"{emoji} **{person.get('name')}** - {person.get('count')}次")
-
-# ==============================================================================
-# 8. 人脸库管理页面
-# ==============================================================================
-
-def render_faces_management_page():
-    """人脸库管理页面"""
-    st.title("👥 人脸库管理")
-    
-    if not st.session_state.api_status[0]:
-        st.error("⚠️ API服务未连接")
-        return
-    
-    # 注册新人员
-    with st.expander("➕ 注册新人员", expanded=False):
-        with st.form("register_form"):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                name = st.text_input("姓名 *", placeholder="请输入人员姓名")
-                sn = st.text_input("编号(SN) *", placeholder="请输入唯一编号")
-            
-            with col2:
-                uploaded_files = st.file_uploader(
-                    "上传人脸照片 *",
-                    type=['jpg', 'jpeg', 'png'],
-                    accept_multiple_files=True,
-                    help="可上传多张图片"
-                )
-            
-            if st.form_submit_button("注册人员", type="primary"):
-                if not all([name, sn, uploaded_files]):
-                    st.error("请填写所有必填项")
-                else:
-                    success_count = 0
-                    for file in uploaded_files:
-                        files = {'image_file': (file.name, file.getvalue())}
-                        data = {'name': name, 'sn': sn}
-                        
-                        success, result, msg = make_api_request(
-                            'POST',
-                            API_ENDPOINTS['REGISTER_FACE'],
-                            data=data,
-                            files=files
-                        )
-                        
-                        if success:
-                            success_count += 1
-                    
-                    if success_count > 0:
-                        st.success(f"成功注册 {success_count} 张人脸图片！")
-                        st.rerun()
-                    else:
-                        st.error("注册失败")
-    
-    st.divider()
-    
-    # 加载人脸数据
-    faces_data = load_faces_data()
-    
-    if not faces_data['persons']:
-        st.info("人脸库为空，请先注册人员")
-        return
-    
-    # 搜索和筛选
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        search_term = st.text_input("🔍 搜索人员", placeholder="输入姓名或SN搜索")
-    with col2:
-        sort_by = st.selectbox("排序方式", ["姓名", "SN", "图片数量"])
-    
-    # 筛选人员
-    filtered_persons = {}
-    for sn, faces in faces_data['persons'].items():
-        if search_term:
-            if search_term.lower() not in faces[0]['name'].lower() and search_term.lower() not in sn.lower():
-                continue
-        filtered_persons[sn] = faces
-    
-    st.subheader(f"共找到 {len(filtered_persons)} 位人员")
-    
-    # 显示人员列表
-    cols = st.columns(3)
-    for idx, (sn, faces) in enumerate(filtered_persons.items()):
-        col = cols[idx % 3]
-        
-        with col:
-            with st.container():
-                st.markdown(f"""
-                <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 5px 0;">
-                    <h4>{faces[0]['name']}</h4>
-                    <p><strong>SN:</strong> {sn}</p>
-                    <p><strong>图片数:</strong> {len(faces)}</p>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                # 图片预览
-                if faces:
-                    image_urls = [format_image_url(f['image_path']) for f in faces[:3]]
-                    st.image(image_urls, width=100, caption=[f"图片{i+1}" for i in range(len(image_urls))])
-                
-                # 操作按钮
-                col_edit, col_delete = st.columns(2)
-                
-                with col_edit:
-                    if st.button("✏️ 编辑", key=f"edit_{sn}"):
-                        new_name = st.text_input("新姓名", value=faces[0]['name'], key=f"new_name_{sn}")
-                        if st.button("更新", key=f"update_{sn}"):
-                            endpoint = API_ENDPOINTS['UPDATE_FACE'].format(sn)
-                            success, _, msg = make_api_request('PUT', endpoint, json={'name': new_name})
-                            if success:
-                                st.success("更新成功！")
-                                st.rerun()
-                
-                with col_delete:
-                    if st.button("🗑️ 删除", key=f"delete_{sn}"):
-                        if st.checkbox(f"确认删除 {faces[0]['name']}？"):
-                            endpoint = API_ENDPOINTS['DELETE_FACE'].format(sn)
-                            success, _, msg = make_api_request('DELETE', endpoint)
-                            if success:
-                                st.success("删除成功！")
-                                st.rerun()
-
-# ==============================================================================
-# 9. 实时监测页面
-# ==============================================================================
-
-def render_monitoring_page():
-    """实时监测页面"""
-    st.title("📹 实时视频监测")
-    
-    if not st.session_state.api_status[0]:
-        st.error("⚠️ API服务未连接")
-        return
-    
-    # 启动新视频流
-    with st.expander("🚀 启动新监测", expanded=True):
-        with st.form("start_stream_form"):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                source = st.text_input("视频源", value="0", 
-                                     help="摄像头ID(0,1,2...) 或 RTSP/HTTP流地址")
-                lifetime = st.number_input("运行时长(分钟)", value=60, min_value=-1, 
-                                         help="-1为永久运行")
-            
-            with col2:
-                st.markdown("""
-                **示例:**
-                - `0` - 默认摄像头
-                - `rtsp://user:pass@ip:port/stream`
-                - `http://example.com/video.mp4`
-                """)
-            
-            if st.form_submit_button("启动监测", type="primary"):
-                payload = {'source': source, 'lifetime_minutes': lifetime}
-                success, data, msg = make_api_request('POST', API_ENDPOINTS['STREAMS_START'], json=payload)
-                
+    # --- 快速识别工具 ---
+    with st.expander("🧐 快速人脸识别", expanded=True):
+        uploaded_file = st.file_uploader("上传图片进行识别", type=["jpg", "png", "jpeg"], key="recognize_uploader")
+        if uploaded_file:
+            img_col, res_col = st.columns(2)
+            img_col.image(uploaded_file, caption="待识别图片")
+            with res_col:
+                with st.spinner("正在识别..."):
+                    files = {'image_file': (uploaded_file.name, uploaded_file.getvalue())}
+                    success, results = client.recognize_face(files)
                 if success:
-                    st.success(f"监测已启动！ID: {data['stream_id'][:8]}...")
+                    if results:
+                        st.success(f"识别成功！找到 {len(results)} 个匹配项。")
+                        for res in results:
+                            st.info(f"**姓名:** {res['name']} | **SN:** {res['sn']}\n**相似度:** {res['similarity']:.2%}")
+                    else:
+                        st.info("检测到人脸，但未在库中找到匹配项。")
+                else:
+                    st.error(f"识别失败: {results}")
+
+def render_management_page():
+    st.header("🗂️ 人脸库管理中心")
+    client = st.session_state.app_state['api_client']
+
+    # --- 注册弹窗 ---
+    @st.dialog("➕ 注册新人员", width="large")
+    def register_dialog():
+        with st.form("register_form"):
+            name = st.text_input("姓名", placeholder="例如：张三")
+            sn = st.text_input("唯一编号(SN)", placeholder="例如：EMP001")
+            image_file = st.file_uploader("上传人脸照片", type=["jpg", "png", "jpeg"])
+            submitted = st.form_submit_button("✔️ 确认注册", type="primary", use_container_width=True)
+            if submitted:
+                if not all([name, sn, image_file]):
+                    st.warning("所有字段均为必填项。")
+                    return
+                with st.spinner("注册中..."):
+                    success, msg = client.register_face(
+                        data={'name': name, 'sn': sn},
+                        files={'image_file': (image_file.name, image_file.getvalue())}
+                    )
+                if success:
+                    st.toast("注册成功！", icon="🎉")
+                    st.cache_data.clear()
+                    st.session_state.app_state['management']['show_register_dialog'] = False
                     st.rerun()
                 else:
-                    st.error(f"启动失败: {msg}")
-    
+                    st.error(f"注册失败: {msg}")
+
+    if st.button("➕ 注册新人员", type="primary"):
+        st.session_state.app_state['management']['show_register_dialog'] = True
+
+    if st.session_state.app_state['management']['show_register_dialog']:
+        register_dialog()
+
     st.divider()
-    
-    # 显示活动视频流
-    active_streams = load_active_streams()
-    
-    if not active_streams:
-        st.info("暂无活动的视频流")
+
+    # --- 人员列表与管理 ---
+    @st.cache_data(ttl=60)
+    def get_faces_data():
+        success, data = client.get_all_faces()
+        return pd.DataFrame(data.get('faces', [])) if success else pd.DataFrame()
+
+    faces_df = get_faces_data()
+    if faces_df.empty:
+        st.info("人脸库为空或加载失败，请尝试刷新。")
         return
+
+    # 按SN分组
+    persons_df = faces_df.groupby('sn').agg(
+        name=('name', 'first'),
+        registrations=('uuid', 'count')
+    ).reset_index()
+
+    st.subheader(f"👥 人员列表 (共 {len(persons_df)} 人)")
     
-    st.subheader(f"共有 {len(active_streams)} 个活动视频流")
-    
-    for stream in active_streams:
-        with st.container():
-            col1, col2, col3 = st.columns([3, 1, 1])
+    col_table, col_detail = st.columns([0.5, 0.5])
+
+    with col_table:
+        selected = st.radio(
+            "选择人员进行管理:",
+            options=persons_df['sn'],
+            format_func=lambda sn: f"{persons_df[persons_df['sn'] == sn]['name'].values[0]} ({sn})",
+            label_visibility="collapsed"
+        )
+        st.session_state.app_state['management']['selected_sn'] = selected
+
+    with col_detail, st.container(border=True):
+        sn = st.session_state.app_state['management']['selected_sn']
+        if sn:
+            person_details = faces_df[faces_df['sn'] == sn]
+            name = person_details.iloc[0]['name']
             
-            with col1:
-                st.markdown(f"""
-                **来源:** `{stream['source']}`  
-                **ID:** `{stream['stream_id']}`  
-                **启动时间:** {format_datetime(stream.get('started_at'))}  
-                **过期时间:** {format_datetime(stream.get('expires_at'))}
-                """)
+            st.subheader(f"👤 {name} (SN: {sn})")
             
-            with col2:
-                if st.button("观看", key=f"watch_{stream['stream_id']}"):
-                    st.session_state.selected_stream = stream
+            # 显示所有注册照片
+            st.write("**已注册照片:**")
+            img_urls = [row['image_url'] for _, row in person_details.iterrows()]
+            st.image(img_urls, width=80)
             
-            with col3:
-                if st.button("停止", key=f"stop_{stream['stream_id']}", type="secondary"):
-                    endpoint = API_ENDPOINTS['STREAMS_STOP'].format(stream['stream_id'])
-                    success, _, msg = make_api_request('POST', endpoint)
+            st.divider()
+
+            with st.expander("⚙️ 管理选项"):
+                # 更新
+                new_name = st.text_input("更新姓名", value=name, key=f"update_{sn}")
+                if st.button("✔️ 确认更新", key=f"update_btn_{sn}", use_container_width=True):
+                    if new_name and new_name != name:
+                        with st.spinner("更新中..."):
+                            success, msg = client.update_face(sn, new_name)
+                        if success:
+                            st.toast(f"'{name}' 已更新为 '{new_name}'", icon="✅")
+                            st.cache_data.clear()
+                            st.rerun()
+                        else:
+                            st.error(f"更新失败: {msg}")
+
+                # 删除
+                if st.button("🗑️ 删除此人所有记录", type="secondary", use_container_width=True, key=f"delete_{sn}"):
+                    with st.spinner("删除中..."):
+                        success, msg = client.delete_face(sn)
                     if success:
-                        st.success("视频流已停止")
+                        st.toast(f"'{name}' ({sn}) 已被删除。", icon="🗑️")
+                        st.cache_data.clear()
+                        st.session_state.app_state['management']['selected_sn'] = None
                         st.rerun()
-        
-        # 显示选中的视频流
-        if st.session_state.get('selected_stream') and st.session_state.selected_stream['stream_id'] == stream['stream_id']:
-            st.image(
-                stream['feed_url'],
-                caption=f"实时视频流 - {stream['source']}",
-                use_column_width=True
-            )
+                    else:
+                        st.error(f"删除失败: {msg}")
 
-# ==============================================================================
-# 10. 检测记录页面
-# ==============================================================================
+def render_monitoring_page():
+    st.header("🛰️ 实时视频监测")
+    client = st.session_state.app_state['api_client']
 
-def render_records_page():
-    """检测记录页面"""
-    st.title("📝 检测记录查询")
-    
-    if not st.session_state.api_status[0]:
-        st.error("⚠️ API服务未连接")
-        return
-    
-    # 筛选条件
-    with st.expander("🔍 高级筛选", expanded=True):
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            name_filter = st.text_input("按姓名筛选", key="filter_name")
-            sn_filter = st.text_input("按SN筛选", key="filter_sn")
-        
-        with col2:
-            start_date = st.date_input("开始日期", key="filter_start")
-            end_date = st.date_input("结束日期", key="filter_end")
-        
-        with col3:
-            page_size = st.selectbox("每页显示", [10, 20, 50, 100], key="page_size")
-        
-        col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 1])
-        with col_btn2:
-            if st.button("应用筛选", type="primary", use_container_width=True):
-                st.session_state.detection_page = 1
-                st.rerun()
-        
-        with col_btn3:
-            if st.button("重置筛选", use_column_width=True):
-                st.session_state.filters = {}
-                st.rerun()
-    
-    # 构建筛选条件
-    filters = {}
-    if name_filter:
-        filters['name'] = name_filter
-    if sn_filter:
-        filters['sn'] = sn_filter
-    if start_date:
-        filters['start_date'] = datetime.combine(start_date, datetime.min.time())
-    if end_date:
-        filters['end_date'] = datetime.combine(end_date, datetime.max.time())
-    
-    # 加载记录
-    records_data = load_detection_records(
-        page=st.session_state.detection_page,
-        page_size=page_size,
-        **filters
-    )
-    
-    if not records_data:
-        st.info("暂无检测记录")
-        return
-    
-    # 显示统计信息
-    total = records_data.get('total', 0)
-    st.subheader(f"共找到 {total} 条记录")
-    
-    # 显示记录列表
-    records = records_data.get('records', [])
-    
-    for record in records:
-        with st.expander(f"{record.get('name')} - {format_datetime(record.get('detected_at'))}"):
-            col1, col2 = st.columns([1, 2])
-            
-            with col1:
-                image_url = format_image_url(record.get('image_url'))
-                st.image(image_url, caption="检测图片", use_column_width=True)
-            
-            with col2:
-                similarity = record.get('similarity', 0) * 100
-                st.markdown(f"""
-                **姓名:** {record.get('name')}  
-                **SN:** {record.get('sn')}  
-                **检测时间:** {format_datetime(record.get('detected_at'))}  
-                **相似度:** <span class="success-text">{similarity:.1f}%</span>  
-                **记录ID:** {record.get('id')}
-                """)
-    
-    # 分页
-    total_pages = records_data.get('total_pages', 1)
-    current_page = records_data.get('page', 1)
-    
-    col1, col2, col3 = st.columns([1, 3, 1])
-    
-    with col2:
-        st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-        
-        if st.button("上一页", disabled=current_page <= 1):
-            st.session_state.detection_page = current_page - 1
-            st.rerun()
-        
-        st.write(f"第 {current_page} 页 / 共 {total_pages} 页")
-        
-        if st.button("下一页", disabled=current_page >= total_pages):
-            st.session_state.detection_page = current_page + 1
-            st.rerun()
-        
-        st.markdown("</div>", unsafe_allow_html=True)
+    with st.expander("▶️ 启动新监测任务", expanded=True):
+        with st.form("start_stream_form"):
+            source = st.text_input("视频源", "0", help="摄像头ID(0, 1) 或 视频文件/URL")
+            lifetime = st.number_input("生命周期(分钟)", min_value=-1, value=10, help="-1 代表永久")
+            if st.form_submit_button("🚀 开启监测", use_container_width=True, type="primary"):
+                with st.spinner("请求启动视频流..."):
+                    success, data = client.start_stream(source, lifetime)
+                if success:
+                    st.toast(f"视频流任务已启动！", icon="🚀")
+                    st.session_state.app_state['monitoring']['viewing_stream_info'] = data
+                    st.rerun()
+                else:
+                    st.error(f"启动失败: {data}")
 
-# ==============================================================================
-# 11. 统计分析页面
-# ==============================================================================
+    # 显示当前观看的视频流
+    stream_info = st.session_state.app_state['monitoring'].get('viewing_stream_info')
+    if stream_info:
+        with st.container(border=True):
+            st.subheader(f"正在播放: `{stream_info['source']}`")
+            st.caption(f"Stream ID: `{stream_info['stream_id']}`")
+            st.image(stream_info['feed_url'])
+    else:
+        st.info("请从下方列表选择一个流进行观看，或启动一个新任务。")
+    st.divider()
+
+    # 显示活动视频流列表
+    st.subheader("所有活动中的监测任务")
+    @st.cache_data(ttl=5)
+    def get_active_streams():
+        success, data = client.list_streams()
+        return data.get('streams', []) if success else []
+
+    active_streams = get_active_streams()
+    if not active_streams:
+        st.info("目前没有正在运行的视频监测任务。")
+    else:
+        for stream in active_streams:
+            with st.container(border=True):
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    expires_at_str = stream.get('expires_at')
+                    expires_display = datetime.fromisoformat(expires_at_str).strftime('%H:%M:%S') if expires_at_str else "永久"
+                    st.markdown(f"**来源:** `{stream['source']}` | **过期时间:** {expires_display}")
+                    st.caption(f"ID: `{stream['stream_id']}`")
+                with col2:
+                    btn_cols = st.columns(2)
+                    if btn_cols[0].button("👁️ 观看", key=f"view_{stream['stream_id']}", use_container_width=True):
+                        st.session_state.app_state['monitoring']['viewing_stream_info'] = stream
+                        st.rerun()
+                    if btn_cols[1].button("⏹️ 停止", key=f"stop_{stream['stream_id']}", use_container_width=True):
+                        with st.spinner("停止中..."):
+                            success, _ = client.stop_stream(stream['stream_id'])
+                        if success:
+                            st.toast("视频流已停止。", icon="✅")
+                            if stream_info and stream_info['stream_id'] == stream['stream_id']:
+                                st.session_state.app_state['monitoring']['viewing_stream_info'] = None
+                            st.rerun()
 
 def render_analytics_page():
-    """统计分析页面"""
-    st.title("📈 数据统计分析")
-    
-    if not st.session_state.api_status[0]:
-        st.error("⚠️ API服务未连接")
-        return
-    
-    # 加载所有图表数据
-    load_charts_data()
-    
-    # 基本统计
-    stats = load_detection_stats()
-    if stats:
-        col1, col2, col3, col4 = st.columns(4)
+    st.header("🔍 检测分析中心")
+    client = st.session_state.app_state['api_client']
+
+    tab1, tab2 = st.tabs(["📊 统计图表", "🗂️ 历史记录"])
+
+    with tab1:
+        col1, col2 = st.columns(2)
+        with col1, st.container(border=True, height=450):
+            st.subheader("👥 人员检测分布")
+            success, data = client.get_person_pie_data()
+            if success and data.get('pie_data'):
+                pie_df = pd.DataFrame(data['pie_data'])
+                # 为了美观，将占比小的合并为 "其他"
+                pie_df.loc[pie_df['percentage'] < 2, 'name'] = '其他'
+                pie_df = pie_df.groupby('name')['count'].sum().reset_index()
+                st.vega_lite_chart(pie_df, {
+                    'mark': {'type': 'arc', 'innerRadius': 50},
+                    'encoding': {
+                        'theta': {'field': 'count', 'type': 'quantitative'},
+                        'color': {'field': 'name', 'type': 'nominal', 'title': '姓名'},
+                    },
+                }, use_container_width=True)
+            else:
+                st.info("暂无饼图数据。")
         
-        metrics = [
-            ("总检测次数", stats.get('total_detections', 0), "🔢"),
-            ("检测人员数", stats.get('unique_persons', 0), "👥"),
-            ("今日检测", stats.get('today_detections', 0), "📅"),
-            ("本周检测", stats.get('week_detections', 0), "📊")
-        ]
+        with col2, st.container(border=True, height=450):
+            st.subheader("🏆 检测次数排行榜 (Top 10)")
+            success, data = client.get_top_persons_data(limit=10)
+            if success and data.get('top_persons'):
+                top_df = pd.DataFrame(data['top_persons'])
+                st.dataframe(top_df[['rank', 'name', 'sn', 'count']], hide_index=True, use_container_width=True)
+            else:
+                st.info("暂无排行数据。")
+
+        with st.container(border=True):
+            st.subheader("🕒 24小时检测活跃度")
+            success, data = client.get_hourly_trend_data()
+            if success and data.get('hourly_data'):
+                hourly_df = pd.DataFrame(data['hourly_data'])
+                st.bar_chart(hourly_df, x='hour', y='count')
+            else:
+                st.info("暂无小时趋势数据。")
+
+    with tab2:
+        st.subheader("历史检测记录查询")
+        # --- 筛选器 ---
+        with st.form("filter_form"):
+            cols = st.columns(4)
+            name = cols[0].text_input("按姓名筛选")
+            sn = cols[1].text_input("按SN筛选")
+            start_date = cols[2].date_input("开始日期", value=None)
+            end_date = cols[3].date_input("结束日期", value=None)
+            submitted = st.form_submit_button("🔍 查询")
+
+        # --- 数据查询与展示 ---
+        params = {
+            "page": st.session_state.app_state['analytics'].get('records_page', 1),
+            "page_size": 10,
+            "name": name if name else None,
+            "sn": sn if sn else None,
+            "start_date": start_date.strftime('%Y-%m-%dT00:00:00') if start_date else None,
+            "end_date": end_date.strftime('%Y-%m-%dT23:59:59') if end_date else None,
+        }
         
-        for col, (label, value, icon) in zip([col1, col2, col3, col4], metrics):
-            with col:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-icon">{icon}</div>
-                    <div class="metric-value">{value}</div>
-                    <div class="metric-label">{label}</div>
-                </div>
-                """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    # 图表区域
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("📊 7天检测趋势")
-        if st.session_state.get('weekly_trend'):
-            data = st.session_state.weekly_trend
-            df = pd.DataFrame({
-                '日期': data.get('dates', []),
-                '检测次数': data.get('counts', [])
-            })
+        @st.cache_data(ttl=10)
+        def get_records(p):
+            return client.get_detection_records(params={k: v for k, v in p.items() if v is not None})
+        
+        success, data = get_records(params)
+
+        if success and data.get('records'):
+            df = pd.DataFrame(data['records'])
+            df['detected_at'] = pd.to_datetime(df['create_time']).dt.strftime('%Y-%m-%d %H:%M:%S')
             
-            chart = alt.Chart(df).mark_line(point=True, color='#667eea').encode(
-                x=alt.X('日期', title='日期'),
-                y=alt.Y('检测次数', title='检测次数'),
-                tooltip=['日期', '检测次数']
-            ).properties(height=400)
-            
-            st.altair_chart(chart, use_container_width=True)
+            # --- 使用st.column_config美化表格 ---
+            st.dataframe(
+                df,
+                column_config={
+                    "image_url": st.column_config.ImageColumn("抓拍图", width="small"),
+                    "name": "姓名",
+                    "sn": "SN",
+                    "similarity": st.column_config.ProgressColumn("相似度", format="%.2f", min_value=0, max_value=1),
+                    "detected_at": "检测时间",
+                },
+                column_order=("image_url", "name", "sn", "similarity", "detected_at"),
+                hide_index=True,
+                use_container_width=True
+            )
+            # --- 分页 ---
+            total_pages = data.get('total_pages', 1)
+            page_cols = st.columns([0.8, 0.2])
+            page_cols[0].write(f"总计 {data.get('total')} 条记录，共 {total_pages} 页")
+            page_cols[1].number_input("页码", min_value=1, max_value=total_pages, key="analytics_records_page")
+
+        elif success:
+            st.info("在当前筛选条件下未找到任何记录。")
         else:
-            st.info("暂无趋势数据")
-    
-    with col2:
-        st.subheader("🍩 人员检测分布")
-        if st.session_state.get('person_pie_data'):
-            data = st.session_state.person_pie_data
-            df = pd.DataFrame({
-                '人员': data.get('labels', []),
-                '检测次数': data.get('values', [])
-            })
-            
-            chart = alt.Chart(df).mark_arc().encode(
-                theta='检测次数',
-                color=alt.Color('人员', legend=None),
-                tooltip=['人员', '检测次数']
-            ).properties(height=400)
-            
-            st.altair_chart(chart, use_container_width=True)
-        else:
-            st.info("暂无分布数据")
-    
-    col3, col4 = st.columns(2)
-    
-    with col3:
-        st.subheader("⏰ 检测时段分布")
-        if st.session_state.get('hourly_trend'):
-            data = st.session_state.hourly_trend
-            df = pd.DataFrame({
-                '小时': [f"{h:02d}:00" for h in data.get('hours', [])],
-                '检测次数': data.get('counts', [])
-            })
-            
-            chart = alt.Chart(df).mark_bar(color='#764ba2').encode(
-                x='小时',
-                y='检测次数',
-                color=alt.Color('检测次数', scale=alt.Scale(scheme='viridis'))
-            ).properties(height=400)
-            
-            st.altair_chart(chart, use_container_width=True)
-        else:
-            st.info("暂无时段数据")
-    
-    with col4:
-        st.subheader("🏆 检测排行榜")
-        if st.session_state.get('top_persons'):
-            data = st.session_state.top_persons
-            persons = data.get('persons', [])
-            
-            for i, person in enumerate(persons[:10]):
-                emoji = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"][i]
-                st.markdown(f"{emoji} **{person.get('name')}** - {person.get('count')} 次检测")
+            st.error(f"加载记录失败: {data}")
 
 # ==============================================================================
-# 12. 主应用
+# 5. 主程序入口 (Main Application)
 # ==============================================================================
-
 def main():
-    """主应用函数"""
     initialize_session_state()
     
-    # 渲染侧边栏
+    if not st.session_state.app_state['api_status'][0]:
+        st.warning("API服务未连接，请在左侧侧边栏配置正确的服务地址并确保后端服务已启动。页面功能将受限。")
+
     render_sidebar()
-    
-    # 根据当前页面渲染内容
+
     page_map = {
-        '仪表盘': render_dashboard_page,
-        '人脸库管理': render_faces_management_page,
-        '实时监测': render_monitoring_page,
-        '检测记录': render_records_page,
-        '统计分析': render_analytics_page
+        "数据看板": render_dashboard_page,
+        "人脸库管理": render_management_page,
+        "实时监测": render_monitoring_page,
+        "检测分析": render_analytics_page,
     }
     
-    current_page = st.session_state.current_page
-    if current_page in page_map:
-        page_map[current_page]()
-    else:
-        render_dashboard_page()
+    active_page_func = page_map.get(st.session_state.app_state['active_page'])
+    if active_page_func:
+        active_page_func()
 
 if __name__ == "__main__":
     main()
