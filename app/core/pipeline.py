@@ -15,107 +15,153 @@ from app.cfg.config import AppSettings
 from app.cfg.logging import app_logger
 from app.service.face_dao import LanceDBFaceDataDAO, FaceDataDAO
 
+# 全局字体配置（仅加载路径和默认参数，不固定字体大小）
+try:
+    from app.cfg.config import get_app_settings
+    settings = get_app_settings()
+    FONT_PATH = str(settings.app.chinese_font_path) if settings.app.chinese_font_path.exists() else None
+except Exception as e:
+    app_logger.debug(f"加载字体配置失败: {e}")
+    FONT_PATH = None
+
+# 字体大小边界（确保可读性：最小12，最大20）
+MIN_FONT_SIZE = 12
+MAX_FONT_SIZE = 20
 
 def _draw_results_on_frame(frame: np.ndarray, results: List[Dict[str, Any]]):
-    """在帧上绘制识别结果（边界框和标签）"""
+    """在帧上绘制识别结果（名称+相似度整体保留，动态调整字体大小）"""
     if not results:
         return
     
-    # 第一步：使用OpenCV绘制所有人脸边界框
-    for res in results:
-        box = res['box'].astype(int)
-        name = res['name'] if res['name'] else "Unknown"
-        
-        # 设置边界框颜色
-        box_color = (0, 255, 0) if name != "Unknown" else (0, 0, 255)
-        
-        # 绘制人脸边界框
-        cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), box_color, 2)
+    draw_items = []
+    frame_width, frame_height = frame.shape[1], frame.shape[0]
     
-    # 第二步：转换为PIL图像进行文本绘制
+    # 工具函数1：创建指定大小的字体（复用路径，避免重复加载）
+    def create_font(font_size: int) -> ImageFont.FreeTypeFont:
+        try:
+            if FONT_PATH and font_size >= MIN_FONT_SIZE:
+                return ImageFont.truetype(FONT_PATH, font_size)
+            else:
+                # 字体路径无效或尺寸过小，用默认字体
+                return ImageFont.load_default()
+        except Exception as e:
+            app_logger.debug(f"创建字体（大小{font_size}）失败: {e}")
+            return ImageFont.load_default()
+    
+    # 工具函数2：计算文本宽度（基于指定字体）
+    def calc_text_width(text: str, font: ImageFont.FreeTypeFont) -> int:
+        bbox = font.getbbox(text)
+        return bbox[2] - bbox[0]  # 宽度 = 右坐标 - 左坐标
+    
+    # 工具函数3：计算文本高度（基于指定字体）
+    def calc_text_height(text: str, font: ImageFont.FreeTypeFont) -> int:
+        bbox = font.getbbox(text)
+        return bbox[3] - bbox[1]  # 高度 = 下坐标 - 上坐标
+    
+    # 常量配置：边界保护与间距
+    MIN_BOX_WIDTH = 50  # 最小人脸框宽度（小于此值不显示文本）
+    TEXT_MARGIN_TOP = 5  # 文本与框上方的间距
+    TEXT_MARGIN_BOTTOM = 3  # 文本与框下方的间距
+
+    for res in results:
+        # 1. 边界框处理：仅一次类型转换，过滤过窄框
+        box = res['box'].astype(int)  # (x1, y1, x2, y2)
+        box_width = box[2] - box[0]
+        
+        # 过滤过窄框：仅画框不显示文本（避免字体过度压缩）
+        if box_width < MIN_BOX_WIDTH:
+            draw_items.append({
+                "box": box,
+                "color": (255, 0, 0) if res['name'] == "Unknown" else (0, 255, 0),
+                "label": "",
+                "font": create_font(MAX_FONT_SIZE),
+                "text_x": 0,
+                "text_y": 0
+            })
+            continue
+
+        # 2. 基础信息：构建完整文本（名称+相似度整体）
+        name = res['name'] if res['name'] else "Unknown"
+        color = (0, 255, 0) if name != "Unknown" else (255, 0, 0)  # PIL用RGB
+        similarity = res['similarity'] if res['similarity'] is not None else 0.0
+        # 强制保留整体格式（如“张三 (0.98)”，无相似度时仍显“Unknown (0.00)”）
+        label = f"{name} ({similarity:.2f})"
+
+        # 3. 核心逻辑：动态调整字体大小（确保文本宽度 ≤ 人脸框宽度）
+        target_width = box_width  # 文本最大允许宽度（等于人脸框宽度）
+        current_font_size = MAX_FONT_SIZE  # 初始字体大小（从最大开始尝试）
+        current_font = create_font(current_font_size)
+        current_text_width = calc_text_width(label, current_font)
+
+        # 逐步减小字体大小，直到宽度达标或达到最小尺寸
+        while current_text_width > target_width and current_font_size > MIN_FONT_SIZE:
+            current_font_size -= 1  # 字体大小递减1
+            current_font = create_font(current_font_size)
+            current_text_width = calc_text_width(label, current_font)
+
+        # 4. 兜底策略：若字体已最小仍超宽，截断名称（保留相似度）
+        if current_text_width > target_width:
+            # 计算名称可占用的最大宽度（总宽 - 相似度宽度 - 空格宽度）
+            sim_text = f"({similarity:.2f})"
+            sim_width = calc_text_width(sim_text, current_font)
+            space_width = calc_text_width(" ", current_font)
+            max_name_width = target_width - sim_width - space_width
+
+            # 截断名称（确保总宽度达标）
+            truncated_name = name
+            while calc_text_width(truncated_name, current_font) > max_name_width and len(truncated_name) > 1:
+                truncated_name = truncated_name[:-1]  # 每次删最后1个字符
+            # 名称至少保留1个字符，加省略号标识截断
+            if len(truncated_name) < len(name):
+                truncated_name += "..."
+            # 重新组合标签（截断后的名称 + 相似度）
+            label = f"{truncated_name} {sim_text}"
+            # 重新计算最终宽度（确保达标）
+            current_text_width = calc_text_width(label, current_font)
+
+        # 5. 文本位置计算（基于调整后的字体大小）
+        text_height = calc_text_height(label, current_font)
+        # 水平居中：(框宽 - 文本宽) / 2，且不超出帧左右边界
+        text_x = box[0] + (target_width - current_text_width) // 2
+        text_x = max(0, min(text_x, frame_width - current_text_width))
+        # 垂直位置：优先放框上方，超顶则放下方
+        text_y = box[1] - text_height - TEXT_MARGIN_TOP
+        if text_y < 0:
+            text_y = box[3] + TEXT_MARGIN_BOTTOM
+
+        # 收集绘制信息（含调整后的字体）
+        draw_items.append({
+            "box": box,
+            "color": color,
+            "label": label,
+            "font": current_font,
+            "text_x": text_x,
+            "text_y": text_y
+        })
+
+    # 6. 统一绘制：PIL一次完成边界框和文本
     frame_pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
     draw = ImageDraw.Draw(frame_pil)
     
-    # 使用配置中的中文字体
-    font = None
-    try:
-        from app.cfg.config import get_app_settings
-        settings = get_app_settings()
-        font_path = settings.app.chinese_font_path
-        if font_path.exists():
-            font = ImageFont.truetype(str(font_path), 28)
-    except Exception as e:
-        app_logger.debug(f"加载配置字体失败: {e}")
-    
-    # 如果配置字体加载失败，使用默认字体
-    if font is None:
-        font = ImageFont.load_default()
-    
-    # 第三步：在PIL图像上绘制文本标识
-    for res in results:
-        box = res['box'].astype(int)
-        name = res['name'] if res['name'] else "Unknown"
-        
-        # 构建标签文本
-        if res['similarity'] is not None:
-            label = f"{name} ({res['similarity']:.2f})"
-        else:
-            label = name
-        
-        # 设置文本颜色与框颜色一致 (PIL使用RGB)
-        text_color = (0, 255, 0) if name != "Unknown" else (255, 0, 0)
-        
-        # 计算人脸框宽度
-        box_width = box[2] - box[0]
-        
-        # 计算文本尺寸并确保不超过框宽度
-        bbox = draw.textbbox((0, 0), label, font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
-        
-        # 如果文本宽度超过框宽度，截断文本
-        if text_width > box_width:
-            # 逐步缩短文本直到适合框宽度
-            if res['similarity'] is not None:
-                # 先尝试只显示名字和简化的相似度
-                short_label = f"{name} ({res['similarity']:.1f})"
-                bbox = draw.textbbox((0, 0), short_label, font=font)
-                if bbox[2] - bbox[0] <= box_width:
-                    label = short_label
-                    text_width = bbox[2] - bbox[0]
-                else:
-                    # 如果还是太长，只显示名字
-                    label = name
-                    bbox = draw.textbbox((0, 0), label, font=font)
-                    text_width = bbox[2] - bbox[0]
-                    
-                    # 如果名字还是太长，截断名字
-                    if text_width > box_width:
-                        max_chars = int(box_width / (text_width / len(name))) - 1
-                        if max_chars > 0:
-                            label = name[:max_chars] + "..."
-                            bbox = draw.textbbox((0, 0), label, font=font)
-                            text_width = bbox[2] - bbox[0]
-        
-        # 计算文本位置，居中对齐到人脸框
-        text_x = box[0] + (box_width - text_width) // 2  # 居中对齐
-        text_y = box[1] - text_height - 8  # 文本在框上方
-        
-        # 如果文本会超出图像顶部，放到框下方
-        if text_y < 0:
-            text_y = box[3] + 5
-        
-        # 确保文本不会超出图像左右边界
-        text_x = max(0, min(text_x, frame.shape[1] - text_width))
-        
-        # 直接绘制文本，颜色与框一致，无阴影
-        draw.text((text_x, text_y), label, font=font, fill=text_color)
-    
-    # 第四步：转换回OpenCV格式，保留边界框
-    frame_with_text = cv2.cvtColor(np.array(frame_pil), cv2.COLOR_RGB2BGR)
-    
-    # 将绘制了文本的图像复制回原始frame
-    frame[:] = frame_with_text
+    for item in draw_items:
+        # 绘制边界框（线宽2，与原逻辑一致）
+        draw.rectangle(
+            xy=[item["box"][0], item["box"][1], item["box"][2], item["box"][3]],
+            outline=item["color"],
+            width=2
+        )
+        # 绘制文本（用调整后的字体）
+        if item["label"]:
+            draw.text(
+                xy=(item["text_x"], item["text_y"]),
+                text=item["label"],
+                font=item["font"],
+                fill=item["color"]
+            )
+
+    # 7. 格式回传：PIL → OpenCV，覆盖原帧
+    frame_with_results = cv2.cvtColor(np.array(frame_pil), cv2.COLOR_RGB2BGR)
+    frame[:] = frame_with_results
 
 
 class FaceStreamPipeline:
