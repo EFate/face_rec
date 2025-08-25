@@ -141,33 +141,33 @@ class DetectionQueryOps:
         Returns:
             WeeklyTrendResponseData: 最近七天的检测趋势数据
         """
-        # 根据数据库中的实际数据，我们看到时间是2025-08-21
-        # 让我们直接查询这个日期范围的数据
         from datetime import date
+        import pytz
 
-        # 设置固定的日期范围，包含数据库中的实际数据
-        end_date = date(2025, 8, 22)  # 今天
-        start_date = date(2025, 8, 16)  # 7天前
+        # 使用当前日期（本地时区）
+        local_tz = pytz.timezone('Asia/Shanghai')
+        today = datetime.now(local_tz).date()
+        start_date = today - timedelta(days=6)  # 最近7天
 
         # 准备日期列表（最近7天）
         date_list = []
         current_date = start_date
-        while current_date <= end_date:
+        while current_date <= today:
             date_list.append(current_date.strftime('%Y-%m-%d'))
             current_date += timedelta(days=1)
 
         # 使用原生SQL查询，直接查询数据库
         sql_query = text("""
-                         SELECT DATE (create_time) as date, COUNT (*) as count
+                         SELECT DATE(create_time) as date, COUNT(*) as count
                          FROM detected_faces
-                         WHERE DATE (create_time) BETWEEN :start_date AND :end_date
-                         GROUP BY DATE (create_time)
-                         ORDER BY DATE (create_time)
+                         WHERE DATE(create_time) BETWEEN :start_date AND :end_date
+                         GROUP BY DATE(create_time)
+                         ORDER BY DATE(create_time)
                          """)
 
         result = self.db.execute(sql_query, {
             'start_date': start_date.strftime('%Y-%m-%d'),
-            'end_date': end_date.strftime('%Y-%m-%d')
+            'end_date': today.strftime('%Y-%m-%d')
         }).fetchall()
 
         # 将查询结果转换为字典
@@ -190,6 +190,108 @@ class DetectionQueryOps:
         ]
 
         return WeeklyTrendResponseData(trend_data=trend_data)
+    
+    def get_person_detection_pie_data(self) -> 'PersonDetectionPieResponseData':
+        """
+        获取人员检测饼图数据
+        
+        Returns:
+            PersonDetectionPieResponseData: 人员检测饼图数据
+        """
+        from app.schema.detection_schema import PersonDetectionPieResponseData, PersonDetectionPieData
+        
+        # 查询每个人员的检测次数
+        person_stats = self.db.query(
+            DetectedFace.name,
+            DetectedFace.sn,
+            func.count(DetectedFace.id).label('count')
+        ).group_by(
+            DetectedFace.name, DetectedFace.sn
+        ).order_by(
+            func.count(DetectedFace.id).desc()
+        ).all()
+        
+        # 计算总检测次数和总人员数
+        total_detections = sum(stat.count for stat in person_stats)
+        total_persons = len(person_stats)
+        
+        # 构建饼图数据
+        pie_data = []
+        for stat in person_stats:
+            percentage = (stat.count / total_detections * 100) if total_detections > 0 else 0
+            pie_data.append(PersonDetectionPieData(
+                name=stat.name or "Unknown",
+                sn=stat.sn,
+                count=stat.count,
+                percentage=round(percentage, 2)
+            ))
+        
+        return PersonDetectionPieResponseData(
+            total_detections=total_detections,
+            total_persons=total_persons,
+            pie_data=pie_data
+        )
+    
+    def get_hourly_detection_data(self) -> 'HourlyDetectionResponseData':
+        """
+        获取按小时统计的检测数据
+        
+        Returns:
+            HourlyDetectionResponseData: 按小时检测数据
+        """
+        from app.schema.detection_schema import HourlyDetectionResponseData, HourlyDetectionData
+        
+        # 查询按小时统计的检测数据
+        hourly_stats = self.db.query(
+            func.extract('hour', DetectedFace.create_time).label('hour'),
+            func.count(DetectedFace.id).label('count')
+        ).group_by(
+            func.extract('hour', DetectedFace.create_time)
+        ).order_by('hour').all()
+        
+        # 创建24小时完整数据（0-23）
+        hourly_dict = {int(stat.hour): stat.count for stat in hourly_stats}
+        hourly_data = [
+            HourlyDetectionData(hour=hour, count=hourly_dict.get(hour, 0))
+            for hour in range(24)
+        ]
+        
+        return HourlyDetectionResponseData(hourly_data=hourly_data)
+    
+    def get_top_persons_data(self, limit: int = 10) -> 'TopPersonsResponseData':
+        """
+        获取检测次数排行数据
+        
+        Args:
+            limit: 返回的排行数量，默认10
+            
+        Returns:
+            TopPersonsResponseData: 检测排行数据
+        """
+        from app.schema.detection_schema import TopPersonsResponseData, TopPersonData
+        
+        # 查询检测次数最多的人员
+        top_stats = self.db.query(
+            DetectedFace.name,
+            DetectedFace.sn,
+            func.count(DetectedFace.id).label('count')
+        ).group_by(
+            DetectedFace.name, DetectedFace.sn
+        ).order_by(
+            func.count(DetectedFace.id).desc()
+        ).limit(limit).all()
+        
+        # 构建排行数据
+        top_persons = []
+        for rank, stat in enumerate(top_stats, 1):
+            top_persons.append(TopPersonData(
+                name=stat.name or "Unknown",
+                sn=stat.sn,
+                count=stat.count,
+                rank=rank
+            ))
+        
+        return TopPersonsResponseData(top_persons=top_persons)
 
     def get_detection_stats(self) -> DetectionStatsResponseData:
         """

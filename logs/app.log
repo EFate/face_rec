@@ -912,3 +912,1476 @@
 2025-08-25 11:07:25.377 | INFO     | app.core.model_manager:cleanup:159 - 清理模型池资源
 2025-08-25 11:07:25.488 | INFO     | app.core.model_manager:cleanup:165 - 模型池已清空
 2025-08-25 11:07:25.488 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 11:18:29.787 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 11:18:29.788 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 11:18:29.788 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 11:18:29.788 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 11:18:29.789 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 11:18:29.789 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 11:18:33.093 | INFO     | app.core.model_manager:_setup_environment:86 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 11:18:33.769 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 11:18:33.769 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 11:18:33.771 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 11:18:33.772 | INFO     | app.core.model_manager:load_models:98 - 开始加载3个模型实例到池中
+2025-08-25 11:18:33.772 | INFO     | app.core.model_manager:create_face_analysis_model:17 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:18:33.773 | INFO     | app.core.model_manager:create_face_analysis_model:17 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:18:33.773 | INFO     | app.core.model_manager:create_face_analysis_model:23 - 模型文件不存在，开始下载: buffalo_l
+2025-08-25 11:18:33.774 | INFO     | app.core.model_manager:create_face_analysis_model:23 - 模型文件不存在，开始下载: buffalo_l
+2025-08-25 11:18:33.774 | INFO     | app.core.model_manager:create_face_analysis_model:17 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:18:33.774 | ERROR    | app.core.model_manager:create_face_analysis_model:33 - 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:18:33.775 | ERROR    | app.core.model_manager:create_face_analysis_model:33 - 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:18:33.775 | INFO     | app.core.model_manager:create_face_analysis_model:23 - 模型文件不存在，开始下载: buffalo_l
+2025-08-25 11:18:33.776 | ERROR    | app.core.model_manager:create_face_analysis_model:55 - 创建InsightFace模型失败: 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:18:33.776 | ERROR    | app.core.model_manager:create_face_analysis_model:55 - 创建InsightFace模型失败: 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:18:33.777 | ERROR    | app.core.model_manager:load_models:118 - 模型加载失败: 模型创建失败: 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:18:33.778 | ERROR    | app.core.model_manager:create_face_analysis_model:33 - 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:18:33.779 | ERROR    | app.core.model_manager:create_face_analysis_model:55 - 创建InsightFace模型失败: 模型下载失败: 'function' object has no attribute 'download_onnx'
+2025-08-25 11:21:06.647 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 11:21:06.648 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 11:21:06.648 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 11:21:06.649 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 11:21:06.649 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 11:21:06.650 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 11:21:10.573 | INFO     | app.core.model_manager:_setup_environment:130 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 11:21:11.200 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 11:21:11.200 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 11:21:11.202 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 11:21:11.203 | INFO     | app.core.model_manager:load_models:142 - 开始加载3个模型实例到池中
+2025-08-25 11:21:11.203 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:21:11.203 | INFO     | app.core.model_manager:create_face_analysis_model:24 - 模型文件不存在，开始下载: buffalo_l
+2025-08-25 11:21:13.744 | INFO     | app.core.model_manager:create_face_analysis_model:46 - 模型下载成功: buffalo_l
+2025-08-25 11:21:13.744 | INFO     | app.core.model_manager:load_models:147 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 11:21:13.745 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:21:13.746 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:21:13.746 | INFO     | app.core.model_manager:create_face_analysis_model:24 - 模型文件不存在，开始下载: buffalo_l
+2025-08-25 11:21:13.747 | INFO     | app.core.model_manager:create_face_analysis_model:24 - 模型文件不存在，开始下载: buffalo_l
+2025-08-25 11:21:15.118 | INFO     | app.core.model_manager:create_face_analysis_model:46 - 模型下载成功: buffalo_l
+2025-08-25 11:21:15.251 | INFO     | app.core.model_manager:create_face_analysis_model:46 - 模型下载成功: buffalo_l
+2025-08-25 11:21:15.252 | INFO     | app.core.model_manager:load_models:163 - 成功加载3个模型到池中
+2025-08-25 11:21:15.252 | INFO     | app.core.model_manager:_startup_test:180 - 开始启动自检
+2025-08-25 11:21:17.041 | INFO     | app.core.model_manager:_startup_test:191 - 自检成功：检测到1张人脸
+2025-08-25 11:21:17.042 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 11:21:17.043 | INFO     | app.core.result_processor:_worker_loop:82 - 结果持久化处理器工作线程已启动
+2025-08-25 11:21:17.043 | INFO     | app.core.result_processor:start:60 - ✅ 结果持久化处理器已启动
+2025-08-25 11:21:17.044 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 11:21:17.044 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 11:21:17.050 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 11:21:17.053 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 11:21:17.054 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 11:21:17.054 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 11:21:17.054 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 11:21:17.054 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 11:21:50.461 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 11:21:50.461 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 11:21:50.461 | INFO     | app.core.result_processor:_worker_loop:112 - 结果持久化处理器工作线程已停止
+2025-08-25 11:21:50.462 | INFO     | app.core.result_processor:stop:78 - ✅ 结果持久化处理器已停止
+2025-08-25 11:21:50.462 | INFO     | app.core.model_manager:cleanup:246 - 清理模型池资源
+2025-08-25 11:21:50.574 | INFO     | app.core.model_manager:cleanup:252 - 模型池已清空
+2025-08-25 11:21:50.574 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 11:25:40.112 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 11:25:40.113 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 11:25:40.113 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 11:25:40.114 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 11:25:40.114 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 11:25:40.115 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 11:25:51.347 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 11:25:51.939 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 11:25:51.939 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 11:25:51.941 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 11:25:51.941 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 11:25:51.941 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:25:54.488 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 11:25:54.489 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 11:25:54.491 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:25:54.492 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 11:25:55.908 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 11:25:56.021 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 11:25:56.022 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 11:25:56.022 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 11:25:57.877 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 11:25:57.877 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 11:25:57.878 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 11:25:57.879 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 11:25:57.879 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 11:25:57.879 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 11:25:57.880 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 11:25:57.884 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 11:25:57.887 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 11:25:57.887 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 11:25:57.888 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 11:25:57.888 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 11:25:57.888 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 11:26:36.554 | INFO     | app.core.pipeline:__init__:46 - 【流水线 5daaaa8b-bc63-44ab-935d-ac01d598da4d】正在初始化...
+2025-08-25 11:26:36.555 | INFO     | app.service.face_service:start_stream:196 - 🚀 视频流线程已启动: ID=5daaaa8b-bc63-44ab-935d-ac01d598da4d, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 11:26:36.562 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 11:26:36.568 | INFO     | app.core.pipeline:start:63 - 【流水线 5daaaa8b-bc63-44ab-935d-ac01d598da4d】正在启动...
+2025-08-25 11:26:36.801 | INFO     | app.core.pipeline:_reader_thread:106 - 【T1:读帧 5daaaa8b-bc63-44ab-935d-ac01d598da4d】启动。
+2025-08-25 11:26:36.805 | INFO     | app.core.pipeline:_preprocessor_thread:152 - 【T2:预处理 5daaaa8b-bc63-44ab-935d-ac01d598da4d】启动。
+2025-08-25 11:26:36.807 | INFO     | app.core.pipeline:_inference_thread:166 - 【T3:推理 5daaaa8b-bc63-44ab-935d-ac01d598da4d】启动。
+2025-08-25 11:26:36.817 | INFO     | app.core.pipeline:_postprocessor_thread:208 - 【T4:后处理 5daaaa8b-bc63-44ab-935d-ac01d598da4d】启动。
+2025-08-25 11:26:42.348 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 11:26:47.415 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 11:26:52.473 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 11:26:57.506 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 11:27:03.155 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 11:27:08.166 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 11:27:13.814 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:27:18.831 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:27:23.888 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 11:27:28.926 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 11:27:34.008 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 11:27:39.039 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 11:27:44.100 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 11:27:49.124 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 11:27:54.185 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 11:28:00.379 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 11:28:05.387 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:28:11.122 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 11:28:16.137 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:28:21.206 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 11:28:26.353 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:28:31.438 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:28:36.466 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 11:28:41.535 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 11:28:46.561 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 11:28:51.595 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 11:28:57.096 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 11:29:02.217 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 11:29:02.817 | INFO     | app.core.pipeline:stop:73 - 【流水线 5daaaa8b-bc63-44ab-935d-ac01d598da4d】正在停止...
+2025-08-25 11:29:02.833 | INFO     | app.core.pipeline:_reader_thread:148 - 【T1:读帧 5daaaa8b-bc63-44ab-935d-ac01d598da4d】已停止。
+2025-08-25 11:29:02.877 | INFO     | app.core.pipeline:_postprocessor_thread:277 - 【T4:后处理 5daaaa8b-bc63-44ab-935d-ac01d598da4d】已停止。
+2025-08-25 11:29:02.962 | INFO     | app.core.pipeline:_inference_thread:202 - 【T3:推理 5daaaa8b-bc63-44ab-935d-ac01d598da4d】已停止。
+2025-08-25 11:29:04.868 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 11:29:04.868 | INFO     | app.core.pipeline:_preprocessor_thread:162 - 【T2:预处理 5daaaa8b-bc63-44ab-935d-ac01d598da4d】已停止。
+2025-08-25 11:29:04.868 | INFO     | app.core.pipeline:stop:87 - ✅【流水线 5daaaa8b-bc63-44ab-935d-ac01d598da4d】已安全停止。
+2025-08-25 11:29:04.869 | INFO     | app.service.face_service:_pipeline_worker_thread:175 - ✅【线程 5daaaa8b-bc63-44ab-935d-ac01d598da4d】处理工作已结束。
+2025-08-25 11:29:04.871 | INFO     | app.service.face_service:stop_stream:205 - ✅ 视频流已成功停止: ID=5daaaa8b-bc63-44ab-935d-ac01d598da4d
+2025-08-25 11:29:07.926 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:07:15.358 | ERROR    | app.main:generic_exception_handler:109 - 未处理的服务器内部错误: No module named 'app.models'
+Traceback (most recent call last):
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "D:\ABT\0-Project\face_rec\app\router\detection_router.py", line 153, in debug_weekly_trend
+    from app.models.detected_results import DetectedFace
+ModuleNotFoundError: No module named 'app.models'
+2025-08-25 13:08:59.589 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:08:59.590 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:08:59.591 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:08:59.592 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:08:59.592 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:09:00.057 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:09:00.058 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:09:02.855 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:09:02.855 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:09:02.856 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:09:02.856 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:09:02.856 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:09:02.857 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:09:09.620 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:09:10.434 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:09:10.434 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:09:10.437 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:09:10.437 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:09:10.437 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:09:12.371 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:09:12.372 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:09:12.374 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:09:12.375 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:09:14.181 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:09:14.181 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:09:14.182 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:09:14.183 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:09:16.125 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:09:16.125 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:09:16.126 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:09:16.127 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:09:16.127 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:09:16.127 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:09:16.127 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:09:16.131 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:09:16.136 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:09:16.136 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:09:16.136 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:09:16.137 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:09:16.137 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:20:13.666 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:20:13.666 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:20:13.667 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:20:13.667 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:20:13.667 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:20:13.785 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:20:13.785 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:20:15.491 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:20:15.491 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:20:15.491 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:20:15.493 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:20:15.493 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:20:15.493 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:20:21.423 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:20:22.011 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:20:22.011 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:20:22.013 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:20:22.013 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:20:22.014 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:20:23.491 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:20:23.491 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:20:23.493 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:20:23.493 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:20:24.988 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:20:24.988 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:20:24.989 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:20:24.990 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:20:27.089 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:20:27.090 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:20:27.090 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:20:27.091 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:20:27.091 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:20:27.092 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:20:27.092 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:20:27.097 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:20:27.100 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:20:27.101 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:20:27.101 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:20:27.102 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:20:27.102 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:30:28.580 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:30:28.581 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:30:28.581 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:30:28.582 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:30:28.582 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:30:28.697 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:30:28.697 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:30:31.648 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:30:31.648 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:30:31.649 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:30:31.649 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:30:31.650 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:30:31.651 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:30:36.287 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:30:36.869 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:30:36.870 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:30:36.872 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:30:36.872 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:30:36.872 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:30:38.490 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:30:38.490 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:30:38.492 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:30:38.493 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:30:39.876 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:30:39.877 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:30:39.878 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:30:39.878 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:30:41.793 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:30:41.794 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:30:41.794 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:30:41.796 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:30:41.797 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:30:41.798 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:30:41.798 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:30:41.803 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:30:41.808 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:30:41.809 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:30:41.809 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:30:41.810 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:30:41.810 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:33:09.769 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 1 条 SN 为 'sn001' 的记录。
+2025-08-25 13:33:36.232 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=sn002, Name=pang
+2025-08-25 13:36:31.310 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:36:31.311 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:36:31.311 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:36:31.312 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:36:31.312 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:36:31.474 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:36:31.475 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:36:39.795 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:36:39.796 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:36:39.797 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:36:39.797 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:36:39.798 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:36:39.798 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:36:44.121 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:36:44.729 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:36:44.729 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:36:44.731 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:36:44.731 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:36:44.732 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:36:47.275 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:36:47.276 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:36:47.277 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:36:47.278 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:36:48.681 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:36:48.682 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:36:48.682 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:36:48.683 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:36:50.587 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:36:50.587 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:36:50.588 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:36:50.589 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:36:50.589 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:36:50.590 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:36:50.590 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:36:50.595 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:36:50.598 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:36:50.599 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:36:50.599 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:36:50.599 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:36:50.600 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:38:30.049 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:38:30.050 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:38:30.051 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:38:30.051 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:38:30.052 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:38:30.200 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:38:30.200 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:39:41.055 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:39:41.056 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:39:41.057 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:39:41.057 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:39:41.058 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:39:41.058 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:39:48.095 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:39:48.682 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:39:48.683 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:39:48.684 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:39:48.684 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:39:48.685 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:39:51.231 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:39:51.232 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:39:51.233 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:39:51.233 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:39:52.785 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:39:52.786 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:39:52.787 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:39:52.787 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:39:54.679 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:39:54.680 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:39:54.680 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:39:54.682 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:39:54.682 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:39:54.683 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:39:54.683 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:39:54.686 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:39:54.690 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:39:54.690 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:39:54.691 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:39:54.691 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:39:54.691 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:39:55.689 | WARNING  | app.service.face_service:register_face:71 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-08-25 13:39:57.092 | INFO     | app.service.face_service:register_face:96 - 注册人脸检测成功: 姓名=pang, SN=sn002, 置信度=0.465
+2025-08-25 13:39:57.107 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=sn002, Name=pang
+2025-08-25 13:40:31.287 | INFO     | app.core.pipeline:__init__:46 - 【流水线 978c9281-83f8-409e-a3e1-fb7269fa7a66】正在初始化...
+2025-08-25 13:40:31.287 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=978c9281-83f8-409e-a3e1-fb7269fa7a66, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 13:40:31.294 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:40:31.301 | INFO     | app.core.pipeline:start:63 - 【流水线 978c9281-83f8-409e-a3e1-fb7269fa7a66】正在启动...
+2025-08-25 13:40:31.469 | INFO     | app.core.pipeline:_reader_thread:106 - 【T1:读帧 978c9281-83f8-409e-a3e1-fb7269fa7a66】启动。
+2025-08-25 13:40:31.469 | INFO     | app.core.pipeline:_preprocessor_thread:152 - 【T2:预处理 978c9281-83f8-409e-a3e1-fb7269fa7a66】启动。
+2025-08-25 13:40:31.470 | INFO     | app.core.pipeline:_inference_thread:166 - 【T3:推理 978c9281-83f8-409e-a3e1-fb7269fa7a66】启动。
+2025-08-25 13:40:31.473 | INFO     | app.core.pipeline:_postprocessor_thread:208 - 【T4:后处理 978c9281-83f8-409e-a3e1-fb7269fa7a66】启动。
+2025-08-25 13:40:35.045 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 13:40:35.045 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:40:38.112 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-25 13:40:38.113 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 13:40:41.152 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 13:40:41.154 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 13:40:44.166 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-25 13:40:44.167 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 13:40:47.217 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 13:40:47.217 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 13:40:50.237 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 13:40:50.238 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 13:40:53.249 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 9 条检测结果
+2025-08-25 13:40:53.250 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 9 条检测结果
+2025-08-25 13:40:56.275 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 9 条检测结果
+2025-08-25 13:40:56.276 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 9 条检测结果
+2025-08-25 13:40:59.324 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 13:40:59.325 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 13:41:02.360 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 13:41:02.360 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 13:41:05.441 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 9 条检测结果
+2025-08-25 13:41:05.442 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 9 条检测结果
+2025-08-25 13:41:07.767 | INFO     | app.core.pipeline:stop:73 - 【流水线 978c9281-83f8-409e-a3e1-fb7269fa7a66】正在停止...
+2025-08-25 13:41:07.778 | INFO     | app.core.pipeline:_inference_thread:202 - 【T3:推理 978c9281-83f8-409e-a3e1-fb7269fa7a66】已停止。
+2025-08-25 13:41:07.799 | INFO     | app.core.pipeline:_reader_thread:148 - 【T1:读帧 978c9281-83f8-409e-a3e1-fb7269fa7a66】已停止。
+2025-08-25 13:41:07.800 | INFO     | app.core.pipeline:_postprocessor_thread:277 - 【T4:后处理 978c9281-83f8-409e-a3e1-fb7269fa7a66】已停止。
+2025-08-25 13:41:08.800 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 13:41:08.801 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 13:41:09.829 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 13:41:09.830 | INFO     | app.core.pipeline:stop:87 - ✅【流水线 978c9281-83f8-409e-a3e1-fb7269fa7a66】已安全停止。
+2025-08-25 13:41:09.830 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 978c9281-83f8-409e-a3e1-fb7269fa7a66】处理工作已结束。
+2025-08-25 13:41:09.832 | INFO     | app.core.pipeline:_preprocessor_thread:162 - 【T2:预处理 978c9281-83f8-409e-a3e1-fb7269fa7a66】已停止。
+2025-08-25 13:41:09.833 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=978c9281-83f8-409e-a3e1-fb7269fa7a66
+2025-08-25 13:43:01.297 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:43:01.297 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:43:01.298 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:43:01.298 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:43:01.298 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:43:01.527 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:43:01.527 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:44:04.818 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:44:04.819 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:44:04.819 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:44:04.820 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:44:04.821 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:44:04.821 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:44:08.013 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:44:08.715 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:44:08.716 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:44:08.718 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:44:08.718 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:44:08.718 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:44:11.388 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:44:11.389 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:44:11.391 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:44:11.392 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:44:13.242 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:44:13.243 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:44:13.244 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:44:13.244 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:44:15.328 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:44:15.329 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:44:15.330 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:44:15.331 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:44:15.332 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:44:15.332 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:44:15.332 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:44:15.341 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:44:15.345 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:44:15.345 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:44:15.346 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:44:15.346 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:44:15.347 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:44:31.967 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-25 13:44:31.997 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 2 条 SN 为 'sn002' 的记录。
+2025-08-25 13:44:32.038 | INFO     | app.service.face_service:update_face_by_sn:147 - 人员信息已更新: SN=sn002, 新数据={'name': '胖'}, 影响记录数=2
+2025-08-25 13:44:37.144 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-25 13:44:37.180 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 3 条 SN 为 'sn003' 的记录。
+2025-08-25 13:44:37.214 | INFO     | app.service.face_service:update_face_by_sn:147 - 人员信息已更新: SN=sn003, 新数据={'name': '红'}, 影响记录数=3
+2025-08-25 13:44:42.724 | INFO     | app.core.pipeline:__init__:117 - 【流水线 57f54e26-80b1-445f-8c5f-90b5fc246bfb】正在初始化...
+2025-08-25 13:44:42.725 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=57f54e26-80b1-445f-8c5f-90b5fc246bfb, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 13:44:42.732 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:44:42.742 | INFO     | app.core.pipeline:start:134 - 【流水线 57f54e26-80b1-445f-8c5f-90b5fc246bfb】正在启动...
+2025-08-25 13:44:42.898 | INFO     | app.core.pipeline:_reader_thread:177 - 【T1:读帧 57f54e26-80b1-445f-8c5f-90b5fc246bfb】启动。
+2025-08-25 13:44:42.899 | INFO     | app.core.pipeline:_preprocessor_thread:223 - 【T2:预处理 57f54e26-80b1-445f-8c5f-90b5fc246bfb】启动。
+2025-08-25 13:44:42.951 | INFO     | app.core.pipeline:_inference_thread:237 - 【T3:推理 57f54e26-80b1-445f-8c5f-90b5fc246bfb】启动。
+2025-08-25 13:44:42.983 | INFO     | app.core.pipeline:_postprocessor_thread:279 - 【T4:后处理 57f54e26-80b1-445f-8c5f-90b5fc246bfb】启动。
+2025-08-25 13:44:48.076 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 13:44:48.080 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:44:51.170 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 13:44:51.170 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 13:44:54.213 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 13:44:54.213 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 13:44:55.137 | INFO     | app.core.pipeline:stop:144 - 【流水线 57f54e26-80b1-445f-8c5f-90b5fc246bfb】正在停止...
+2025-08-25 13:44:55.153 | INFO     | app.core.pipeline:_reader_thread:219 - 【T1:读帧 57f54e26-80b1-445f-8c5f-90b5fc246bfb】已停止。
+2025-08-25 13:44:55.190 | INFO     | app.core.pipeline:_postprocessor_thread:348 - 【T4:后处理 57f54e26-80b1-445f-8c5f-90b5fc246bfb】已停止。
+2025-08-25 13:44:55.202 | INFO     | app.core.pipeline:_inference_thread:273 - 【T3:推理 57f54e26-80b1-445f-8c5f-90b5fc246bfb】已停止。
+2025-08-25 13:44:57.191 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 13:44:57.191 | INFO     | app.core.pipeline:_preprocessor_thread:233 - 【T2:预处理 57f54e26-80b1-445f-8c5f-90b5fc246bfb】已停止。
+2025-08-25 13:44:57.192 | INFO     | app.core.pipeline:stop:158 - ✅【流水线 57f54e26-80b1-445f-8c5f-90b5fc246bfb】已安全停止。
+2025-08-25 13:44:57.193 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 57f54e26-80b1-445f-8c5f-90b5fc246bfb】处理工作已结束。
+2025-08-25 13:44:57.197 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=57f54e26-80b1-445f-8c5f-90b5fc246bfb
+2025-08-25 13:44:58.208 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 13:44:58.209 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:53:01.065 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:53:01.066 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:53:01.066 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:53:01.066 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:53:01.067 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:53:01.245 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:53:01.245 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:53:03.559 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:53:03.560 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:53:03.561 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:53:03.562 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:53:03.562 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:53:03.562 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:53:09.688 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:53:10.522 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:53:10.522 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:53:10.525 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:53:10.525 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:53:10.525 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:53:12.080 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:53:12.080 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:53:12.082 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:53:12.082 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:53:13.672 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:53:13.672 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:53:13.673 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:53:13.674 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:53:15.781 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:53:15.782 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:53:15.782 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:53:15.783 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:53:15.783 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:53:15.784 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:53:15.784 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:53:15.789 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:53:15.792 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:53:15.792 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:53:15.792 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:53:15.793 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:53:15.793 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:53:18.986 | INFO     | app.core.pipeline:__init__:123 - 【流水线 75713176-8f7b-4703-a110-33e0e2089b7a】正在初始化...
+2025-08-25 13:53:18.986 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=75713176-8f7b-4703-a110-33e0e2089b7a, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 13:53:18.991 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:53:18.995 | INFO     | app.core.pipeline:start:140 - 【流水线 75713176-8f7b-4703-a110-33e0e2089b7a】正在启动...
+2025-08-25 13:53:19.197 | INFO     | app.core.pipeline:_reader_thread:183 - 【T1:读帧 75713176-8f7b-4703-a110-33e0e2089b7a】启动。
+2025-08-25 13:53:19.202 | INFO     | app.core.pipeline:_preprocessor_thread:229 - 【T2:预处理 75713176-8f7b-4703-a110-33e0e2089b7a】启动。
+2025-08-25 13:53:19.204 | INFO     | app.core.pipeline:_inference_thread:243 - 【T3:推理 75713176-8f7b-4703-a110-33e0e2089b7a】启动。
+2025-08-25 13:53:19.205 | INFO     | app.core.pipeline:_postprocessor_thread:285 - 【T4:后处理 75713176-8f7b-4703-a110-33e0e2089b7a】启动。
+2025-08-25 13:53:21.426 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 13:53:21.427 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:53:24.471 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 13:53:24.471 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 13:53:27.486 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 13:53:27.487 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 13:53:30.527 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 13:53:30.528 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 13:53:33.553 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 13:53:33.554 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 13:53:35.388 | INFO     | app.core.pipeline:stop:150 - 【流水线 75713176-8f7b-4703-a110-33e0e2089b7a】正在停止...
+2025-08-25 13:53:35.389 | INFO     | app.core.pipeline:_reader_thread:225 - 【T1:读帧 75713176-8f7b-4703-a110-33e0e2089b7a】已停止。
+2025-08-25 13:53:35.390 | INFO     | app.core.pipeline:_postprocessor_thread:354 - 【T4:后处理 75713176-8f7b-4703-a110-33e0e2089b7a】已停止。
+2025-08-25 13:53:35.397 | INFO     | app.core.pipeline:_inference_thread:279 - 【T3:推理 75713176-8f7b-4703-a110-33e0e2089b7a】已停止。
+2025-08-25 13:53:37.211 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-25 13:53:37.213 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 13:53:37.412 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 13:53:37.412 | INFO     | app.core.pipeline:_preprocessor_thread:239 - 【T2:预处理 75713176-8f7b-4703-a110-33e0e2089b7a】已停止。
+2025-08-25 13:53:37.413 | INFO     | app.core.pipeline:stop:164 - ✅【流水线 75713176-8f7b-4703-a110-33e0e2089b7a】已安全停止。
+2025-08-25 13:53:37.413 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 75713176-8f7b-4703-a110-33e0e2089b7a】处理工作已结束。
+2025-08-25 13:53:37.415 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=75713176-8f7b-4703-a110-33e0e2089b7a
+2025-08-25 13:54:19.335 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:54:19.336 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:54:19.336 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:54:19.337 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:54:19.337 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:54:19.514 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:54:19.514 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 13:55:49.590 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 13:55:49.591 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 13:55:49.592 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 13:55:49.592 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 13:55:49.593 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 13:55:49.593 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 13:55:54.080 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 13:55:54.672 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 13:55:54.672 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 13:55:54.675 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 13:55:54.675 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 13:55:54.675 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:55:57.199 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:55:57.199 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 13:55:57.200 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:55:57.201 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 13:55:58.463 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:55:58.595 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 13:55:58.595 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 13:55:58.596 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 13:56:00.481 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 13:56:00.482 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 13:56:00.482 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 13:56:00.483 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 13:56:00.483 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 13:56:00.484 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 13:56:00.484 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 13:56:00.489 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:56:00.491 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 13:56:00.492 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 13:56:00.492 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 13:56:00.492 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 13:56:00.492 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 13:56:02.657 | INFO     | app.core.pipeline:__init__:162 - 【流水线 768d03c8-fc9e-42e8-85a4-014aa503cd8c】正在初始化...
+2025-08-25 13:56:02.657 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=768d03c8-fc9e-42e8-85a4-014aa503cd8c, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 13:56:02.662 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:56:02.665 | INFO     | app.core.pipeline:start:179 - 【流水线 768d03c8-fc9e-42e8-85a4-014aa503cd8c】正在启动...
+2025-08-25 13:56:02.851 | INFO     | app.core.pipeline:_reader_thread:222 - 【T1:读帧 768d03c8-fc9e-42e8-85a4-014aa503cd8c】启动。
+2025-08-25 13:56:02.852 | INFO     | app.core.pipeline:_preprocessor_thread:268 - 【T2:预处理 768d03c8-fc9e-42e8-85a4-014aa503cd8c】启动。
+2025-08-25 13:56:02.853 | INFO     | app.core.pipeline:_inference_thread:282 - 【T3:推理 768d03c8-fc9e-42e8-85a4-014aa503cd8c】启动。
+2025-08-25 13:56:02.854 | INFO     | app.core.pipeline:_postprocessor_thread:324 - 【T4:后处理 768d03c8-fc9e-42e8-85a4-014aa503cd8c】启动。
+2025-08-25 13:56:05.261 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 13:56:05.261 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:56:08.274 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 13:56:08.276 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 13:56:11.309 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 13:56:11.309 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 13:56:14.328 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 13:56:14.328 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 13:56:17.338 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 13:56:17.341 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 13:56:19.992 | INFO     | app.core.pipeline:stop:189 - 【流水线 768d03c8-fc9e-42e8-85a4-014aa503cd8c】正在停止...
+2025-08-25 13:56:19.999 | INFO     | app.core.pipeline:_inference_thread:318 - 【T3:推理 768d03c8-fc9e-42e8-85a4-014aa503cd8c】已停止。
+2025-08-25 13:56:20.009 | INFO     | app.core.pipeline:_reader_thread:264 - 【T1:读帧 768d03c8-fc9e-42e8-85a4-014aa503cd8c】已停止。
+2025-08-25 13:56:20.044 | INFO     | app.core.pipeline:_postprocessor_thread:393 - 【T4:后处理 768d03c8-fc9e-42e8-85a4-014aa503cd8c】已停止。
+2025-08-25 13:56:21.033 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 13:56:21.034 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 13:56:22.034 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 13:56:22.034 | INFO     | app.core.pipeline:_preprocessor_thread:278 - 【T2:预处理 768d03c8-fc9e-42e8-85a4-014aa503cd8c】已停止。
+2025-08-25 13:56:22.035 | INFO     | app.core.pipeline:stop:203 - ✅【流水线 768d03c8-fc9e-42e8-85a4-014aa503cd8c】已安全停止。
+2025-08-25 13:56:22.037 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 768d03c8-fc9e-42e8-85a4-014aa503cd8c】处理工作已结束。
+2025-08-25 13:56:22.039 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=768d03c8-fc9e-42e8-85a4-014aa503cd8c
+2025-08-25 13:56:27.939 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-25 13:56:27.969 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 3 条 SN 为 'sn003' 的记录。
+2025-08-25 13:56:28.010 | INFO     | app.service.face_service:update_face_by_sn:147 - 人员信息已更新: SN=sn003, 新数据={'name': 'hong'}, 影响记录数=3
+2025-08-25 13:56:33.267 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-25 13:56:33.296 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 2 条 SN 为 'sn002' 的记录。
+2025-08-25 13:56:33.327 | INFO     | app.service.face_service:update_face_by_sn:147 - 人员信息已更新: SN=sn002, 新数据={'name': 'pang'}, 影响记录数=2
+2025-08-25 13:56:35.082 | ERROR    | app.main:generic_exception_handler:109 - 未处理的服务器内部错误: Caught handled exception, but response already started.
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 77, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 271, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  | exceptiongroup.ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 76, in app
+    |     await response(scope, receive, send)
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 270, in __call__
+    |     with collapse_excgroups():
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    |     self.gen.throw(typ, value, traceback)
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 83, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 274, in wrap
+    |     await func()
+    |   File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 254, in stream_response
+    |     async for chunk in self.body_iterator:
+    |   File "D:\ABT\0-Project\face_rec\app\service\face_service.py", line 233, in get_stream_feed
+    |     if stream_id not in self.active_streams: raise HTTPException(status_code=404, detail="Stream not found.")
+    | fastapi.exceptions.HTTPException: 404: Stream not found.
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 76, in app
+    await response(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 270, in __call__
+    with collapse_excgroups():
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 83, in collapse_excgroups
+    raise exc
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 274, in wrap
+    await func()
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 254, in stream_response
+    async for chunk in self.body_iterator:
+  File "D:\ABT\0-Project\face_rec\app\service\face_service.py", line 233, in get_stream_feed
+    if stream_id not in self.active_streams: raise HTTPException(status_code=404, detail="Stream not found.")
+fastapi.exceptions.HTTPException: 404: Stream not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\31425\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 56, in wrapped_app
+    raise RuntimeError("Caught handled exception, but response already started.") from exc
+RuntimeError: Caught handled exception, but response already started.
+2025-08-25 13:56:35.640 | INFO     | app.core.pipeline:__init__:162 - 【流水线 aa223280-0a63-4363-9a2d-b3525d2b7c8d】正在初始化...
+2025-08-25 13:56:35.641 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=aa223280-0a63-4363-9a2d-b3525d2b7c8d, Source=0
+2025-08-25 13:56:35.647 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:56:35.653 | INFO     | app.core.pipeline:start:179 - 【流水线 aa223280-0a63-4363-9a2d-b3525d2b7c8d】正在启动...
+2025-08-25 13:56:39.502 | INFO     | app.core.pipeline:_reader_thread:222 - 【T1:读帧 aa223280-0a63-4363-9a2d-b3525d2b7c8d】启动。
+2025-08-25 13:56:39.502 | INFO     | app.core.pipeline:_preprocessor_thread:268 - 【T2:预处理 aa223280-0a63-4363-9a2d-b3525d2b7c8d】启动。
+2025-08-25 13:56:39.503 | INFO     | app.core.pipeline:_inference_thread:282 - 【T3:推理 aa223280-0a63-4363-9a2d-b3525d2b7c8d】启动。
+2025-08-25 13:56:39.504 | INFO     | app.core.pipeline:_postprocessor_thread:324 - 【T4:后处理 aa223280-0a63-4363-9a2d-b3525d2b7c8d】启动。
+2025-08-25 13:56:54.604 | INFO     | app.core.pipeline:stop:189 - 【流水线 aa223280-0a63-4363-9a2d-b3525d2b7c8d】正在停止...
+2025-08-25 13:56:54.608 | INFO     | app.core.pipeline:_postprocessor_thread:393 - 【T4:后处理 aa223280-0a63-4363-9a2d-b3525d2b7c8d】已停止。
+2025-08-25 13:56:54.651 | INFO     | app.core.pipeline:_reader_thread:264 - 【T1:读帧 aa223280-0a63-4363-9a2d-b3525d2b7c8d】已停止。
+2025-08-25 13:56:54.654 | INFO     | app.core.pipeline:_inference_thread:318 - 【T3:推理 aa223280-0a63-4363-9a2d-b3525d2b7c8d】已停止。
+2025-08-25 13:56:56.984 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 13:56:56.985 | INFO     | app.core.pipeline:_preprocessor_thread:278 - 【T2:预处理 aa223280-0a63-4363-9a2d-b3525d2b7c8d】已停止。
+2025-08-25 13:56:56.986 | INFO     | app.core.pipeline:stop:203 - ✅【流水线 aa223280-0a63-4363-9a2d-b3525d2b7c8d】已安全停止。
+2025-08-25 13:56:56.987 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 aa223280-0a63-4363-9a2d-b3525d2b7c8d】处理工作已结束。
+2025-08-25 13:56:56.987 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=aa223280-0a63-4363-9a2d-b3525d2b7c8d
+2025-08-25 13:57:05.010 | INFO     | app.core.pipeline:__init__:162 - 【流水线 f784b1b9-c832-442e-b41a-f318f0f26de1】正在初始化...
+2025-08-25 13:57:05.010 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=f784b1b9-c832-442e-b41a-f318f0f26de1, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 13:57:05.016 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 13:57:05.023 | INFO     | app.core.pipeline:start:179 - 【流水线 f784b1b9-c832-442e-b41a-f318f0f26de1】正在启动...
+2025-08-25 13:57:05.287 | INFO     | app.core.pipeline:_reader_thread:222 - 【T1:读帧 f784b1b9-c832-442e-b41a-f318f0f26de1】启动。
+2025-08-25 13:57:05.288 | INFO     | app.core.pipeline:_preprocessor_thread:268 - 【T2:预处理 f784b1b9-c832-442e-b41a-f318f0f26de1】启动。
+2025-08-25 13:57:05.289 | INFO     | app.core.pipeline:_inference_thread:282 - 【T3:推理 f784b1b9-c832-442e-b41a-f318f0f26de1】启动。
+2025-08-25 13:57:05.291 | INFO     | app.core.pipeline:_postprocessor_thread:324 - 【T4:后处理 f784b1b9-c832-442e-b41a-f318f0f26de1】启动。
+2025-08-25 13:57:06.052 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 13:57:06.057 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 13:57:09.074 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-25 13:57:09.074 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 13:57:11.350 | INFO     | app.core.pipeline:stop:189 - 【流水线 f784b1b9-c832-442e-b41a-f318f0f26de1】正在停止...
+2025-08-25 13:57:11.353 | INFO     | app.core.pipeline:_postprocessor_thread:393 - 【T4:后处理 f784b1b9-c832-442e-b41a-f318f0f26de1】已停止。
+2025-08-25 13:57:11.363 | INFO     | app.core.pipeline:_inference_thread:318 - 【T3:推理 f784b1b9-c832-442e-b41a-f318f0f26de1】已停止。
+2025-08-25 13:57:11.380 | INFO     | app.core.pipeline:_reader_thread:264 - 【T1:读帧 f784b1b9-c832-442e-b41a-f318f0f26de1】已停止。
+2025-08-25 13:57:12.379 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-25 13:57:12.380 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 13:57:13.411 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 13:57:13.411 | INFO     | app.core.pipeline:_preprocessor_thread:278 - 【T2:预处理 f784b1b9-c832-442e-b41a-f318f0f26de1】已停止。
+2025-08-25 13:57:13.412 | INFO     | app.core.pipeline:stop:203 - ✅【流水线 f784b1b9-c832-442e-b41a-f318f0f26de1】已安全停止。
+2025-08-25 13:57:13.414 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 f784b1b9-c832-442e-b41a-f318f0f26de1】处理工作已结束。
+2025-08-25 13:57:13.419 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=f784b1b9-c832-442e-b41a-f318f0f26de1
+2025-08-25 13:58:40.266 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 13:58:40.267 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 13:58:40.268 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 13:58:40.269 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 13:58:40.269 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 13:58:40.517 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 13:58:40.518 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:01:52.455 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:01:52.456 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:01:52.456 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:01:52.457 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:01:52.457 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:01:52.458 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:01:56.115 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:01:56.740 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:01:56.740 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:01:56.742 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:01:56.742 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:01:56.742 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:01:59.327 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:01:59.328 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:01:59.329 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:01:59.329 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:02:00.615 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:02:00.731 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:02:00.731 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:02:00.732 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:02:02.625 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:02:02.626 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:02:02.626 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:02:02.627 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:02:02.627 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:02:02.628 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:02:02.628 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:02:02.633 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:02:02.635 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:02:02.636 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:02:02.636 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:02:02.636 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:02:02.636 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:02:05.067 | INFO     | app.core.pipeline:__init__:136 - 【流水线 3af4746f-3960-478e-85fe-ff06fe150429】正在初始化...
+2025-08-25 14:02:05.067 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=3af4746f-3960-478e-85fe-ff06fe150429, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:02:05.072 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:02:05.075 | INFO     | app.core.pipeline:start:153 - 【流水线 3af4746f-3960-478e-85fe-ff06fe150429】正在启动...
+2025-08-25 14:02:05.221 | INFO     | app.core.pipeline:_reader_thread:196 - 【T1:读帧 3af4746f-3960-478e-85fe-ff06fe150429】启动。
+2025-08-25 14:02:05.225 | INFO     | app.core.pipeline:_preprocessor_thread:242 - 【T2:预处理 3af4746f-3960-478e-85fe-ff06fe150429】启动。
+2025-08-25 14:02:05.227 | INFO     | app.core.pipeline:_inference_thread:256 - 【T3:推理 3af4746f-3960-478e-85fe-ff06fe150429】启动。
+2025-08-25 14:02:05.228 | INFO     | app.core.pipeline:_postprocessor_thread:298 - 【T4:后处理 3af4746f-3960-478e-85fe-ff06fe150429】启动。
+2025-08-25 14:02:07.388 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1009), np.int64(-3)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:07.466 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1013), np.int64(-5)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:07.747 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:02:07.747 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:02:10.787 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:02:10.788 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:02:11.112 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1221), np.int64(-1)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.175 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1253), np.int64(-35)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.235 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1255), np.int64(-45)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.293 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1265), np.int64(-61)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.356 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1272), np.int64(-73)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.461 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1282), np.int64(-103)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.496 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1301), np.int64(-129)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.569 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1308), np.int64(-136)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.629 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1312), np.int64(-154)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.686 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1319), np.int64(-161)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.749 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1325), np.int64(-162)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.825 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1343), np.int64(-158)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.896 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1369), np.int64(-137)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:11.955 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1384), np.int64(-117)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.025 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1393), np.int64(-112)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.094 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1405), np.int64(-116)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.179 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1412), np.int64(-112)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.262 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1422), np.int64(-105)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.331 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1441), np.int64(-104)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.399 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1449), np.int64(-109)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.463 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1452), np.int64(-103)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.541 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1461), np.int64(-98)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.610 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1477), np.int64(-93)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.693 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1484), np.int64(-100)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:12.741 | WARNING  | app.core.pipeline:_draw_chinese_text_on_frame:40 - 文本位置超出图像范围: (np.int64(1487), np.int64(-94)), 图像尺寸: (1080, 1920, 3)
+2025-08-25 14:02:13.828 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 9 条检测结果
+2025-08-25 14:02:13.829 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 9 条检测结果
+2025-08-25 14:02:14.301 | INFO     | app.core.pipeline:stop:163 - 【流水线 3af4746f-3960-478e-85fe-ff06fe150429】正在停止...
+2025-08-25 14:02:14.329 | INFO     | app.core.pipeline:_postprocessor_thread:367 - 【T4:后处理 3af4746f-3960-478e-85fe-ff06fe150429】已停止。
+2025-08-25 14:02:14.332 | INFO     | app.core.pipeline:_reader_thread:238 - 【T1:读帧 3af4746f-3960-478e-85fe-ff06fe150429】已停止。
+2025-08-25 14:02:14.347 | INFO     | app.core.pipeline:_inference_thread:292 - 【T3:推理 3af4746f-3960-478e-85fe-ff06fe150429】已停止。
+2025-08-25 14:02:16.352 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:02:16.352 | INFO     | app.core.pipeline:_preprocessor_thread:252 - 【T2:预处理 3af4746f-3960-478e-85fe-ff06fe150429】已停止。
+2025-08-25 14:02:16.353 | INFO     | app.core.pipeline:stop:177 - ✅【流水线 3af4746f-3960-478e-85fe-ff06fe150429】已安全停止。
+2025-08-25 14:02:16.354 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 3af4746f-3960-478e-85fe-ff06fe150429】处理工作已结束。
+2025-08-25 14:02:16.355 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=3af4746f-3960-478e-85fe-ff06fe150429
+2025-08-25 14:02:17.313 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-25 14:02:17.313 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 14:04:20.928 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:04:20.928 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:04:20.929 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:04:20.929 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:04:20.929 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:04:21.079 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:04:21.079 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:04:22.800 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:04:22.800 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:04:22.801 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:04:22.802 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:04:22.802 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:04:22.802 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:04:30.405 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:04:31.036 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:04:31.036 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:04:31.039 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:04:31.039 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:04:31.039 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:04:32.545 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:04:32.545 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:04:32.546 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:04:32.547 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:04:33.904 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:04:34.031 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:04:34.032 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:04:34.033 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:04:35.915 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:04:35.915 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:04:35.916 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:04:35.917 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:04:35.917 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:04:35.917 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:04:35.918 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:04:35.922 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:04:35.925 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:04:35.925 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:04:35.925 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:04:35.925 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:04:35.925 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:04:37.623 | INFO     | app.core.pipeline:__init__:146 - 【流水线 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】正在初始化...
+2025-08-25 14:04:37.624 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=28bd49fc-5c0c-4e62-a0fd-d61c833ab53e, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:04:37.628 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:04:37.633 | INFO     | app.core.pipeline:start:163 - 【流水线 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】正在启动...
+2025-08-25 14:04:37.787 | INFO     | app.core.pipeline:_reader_thread:206 - 【T1:读帧 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】启动。
+2025-08-25 14:04:37.789 | INFO     | app.core.pipeline:_preprocessor_thread:252 - 【T2:预处理 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】启动。
+2025-08-25 14:04:37.791 | INFO     | app.core.pipeline:_inference_thread:266 - 【T3:推理 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】启动。
+2025-08-25 14:04:37.793 | INFO     | app.core.pipeline:_postprocessor_thread:308 - 【T4:后处理 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】启动。
+2025-08-25 14:04:40.006 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:04:40.007 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:04:43.033 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:04:43.034 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:04:46.100 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:04:46.101 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:04:49.109 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:04:49.110 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:04:52.146 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-25 14:04:52.147 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 14:04:55.181 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:04:55.183 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:04:57.954 | INFO     | app.core.pipeline:stop:173 - 【流水线 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】正在停止...
+2025-08-25 14:04:57.969 | INFO     | app.core.pipeline:_reader_thread:248 - 【T1:读帧 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】已停止。
+2025-08-25 14:04:58.023 | INFO     | app.core.pipeline:_postprocessor_thread:377 - 【T4:后处理 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】已停止。
+2025-08-25 14:04:58.035 | INFO     | app.core.pipeline:_inference_thread:302 - 【T3:推理 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】已停止。
+2025-08-25 14:04:58.976 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:04:58.976 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:04:59.991 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:04:59.991 | INFO     | app.core.pipeline:_preprocessor_thread:262 - 【T2:预处理 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】已停止。
+2025-08-25 14:04:59.991 | INFO     | app.core.pipeline:stop:187 - ✅【流水线 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】已安全停止。
+2025-08-25 14:04:59.992 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 28bd49fc-5c0c-4e62-a0fd-d61c833ab53e】处理工作已结束。
+2025-08-25 14:04:59.992 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=28bd49fc-5c0c-4e62-a0fd-d61c833ab53e
+2025-08-25 14:05:02.184 | INFO     | app.core.pipeline:__init__:146 - 【流水线 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】正在初始化...
+2025-08-25 14:05:02.185 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9, Source=0
+2025-08-25 14:05:02.191 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:05:02.196 | INFO     | app.core.pipeline:start:163 - 【流水线 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】正在启动...
+2025-08-25 14:05:05.760 | INFO     | app.core.pipeline:_reader_thread:206 - 【T1:读帧 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】启动。
+2025-08-25 14:05:05.761 | INFO     | app.core.pipeline:_preprocessor_thread:252 - 【T2:预处理 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】启动。
+2025-08-25 14:05:05.762 | INFO     | app.core.pipeline:_inference_thread:266 - 【T3:推理 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】启动。
+2025-08-25 14:05:05.763 | INFO     | app.core.pipeline:_postprocessor_thread:308 - 【T4:后处理 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】启动。
+2025-08-25 14:05:27.918 | INFO     | app.core.pipeline:stop:173 - 【流水线 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】正在停止...
+2025-08-25 14:05:27.921 | INFO     | app.core.pipeline:_inference_thread:302 - 【T3:推理 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】已停止。
+2025-08-25 14:05:27.949 | INFO     | app.core.pipeline:_reader_thread:248 - 【T1:读帧 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】已停止。
+2025-08-25 14:05:27.956 | INFO     | app.core.pipeline:_postprocessor_thread:377 - 【T4:后处理 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】已停止。
+2025-08-25 14:05:30.250 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:05:30.251 | INFO     | app.core.pipeline:_preprocessor_thread:262 - 【T2:预处理 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】已停止。
+2025-08-25 14:05:30.252 | INFO     | app.core.pipeline:stop:187 - ✅【流水线 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】已安全停止。
+2025-08-25 14:05:30.253 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9】处理工作已结束。
+2025-08-25 14:05:30.254 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=572d1ab0-9ea4-45bd-9817-d2ba5cd8eba9
+2025-08-25 14:08:31.449 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:08:31.451 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:08:31.451 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:08:31.452 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:08:31.452 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:08:31.678 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:08:31.679 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:08:33.367 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:08:33.367 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:08:33.368 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:08:33.368 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:08:33.368 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:08:33.369 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:08:39.147 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:08:39.830 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:08:39.830 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:08:39.832 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:08:39.832 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:08:39.833 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:08:41.508 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:08:41.508 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:08:41.510 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:08:41.510 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:08:43.164 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:08:43.165 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:08:43.167 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:08:43.168 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:08:46.673 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:08:46.674 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:08:46.675 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:08:46.676 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:08:46.676 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:08:46.677 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:08:46.677 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:08:46.688 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:08:46.692 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:08:46.692 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:08:46.692 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:08:46.693 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:08:46.693 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:08:47.058 | INFO     | app.core.pipeline:__init__:108 - 【流水线 13139586-d6d7-4696-bfd7-cab1860a9287】正在初始化...
+2025-08-25 14:08:47.058 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=13139586-d6d7-4696-bfd7-cab1860a9287, Source=0
+2025-08-25 14:08:47.063 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:08:47.069 | INFO     | app.core.pipeline:start:125 - 【流水线 13139586-d6d7-4696-bfd7-cab1860a9287】正在启动...
+2025-08-25 14:08:50.030 | INFO     | app.core.pipeline:_reader_thread:168 - 【T1:读帧 13139586-d6d7-4696-bfd7-cab1860a9287】启动。
+2025-08-25 14:08:50.030 | INFO     | app.core.pipeline:_preprocessor_thread:214 - 【T2:预处理 13139586-d6d7-4696-bfd7-cab1860a9287】启动。
+2025-08-25 14:08:50.031 | INFO     | app.core.pipeline:_inference_thread:228 - 【T3:推理 13139586-d6d7-4696-bfd7-cab1860a9287】启动。
+2025-08-25 14:08:50.031 | INFO     | app.core.pipeline:_postprocessor_thread:270 - 【T4:后处理 13139586-d6d7-4696-bfd7-cab1860a9287】启动。
+2025-08-25 14:09:07.135 | INFO     | app.core.pipeline:stop:135 - 【流水线 13139586-d6d7-4696-bfd7-cab1860a9287】正在停止...
+2025-08-25 14:09:07.146 | INFO     | app.core.pipeline:_inference_thread:264 - 【T3:推理 13139586-d6d7-4696-bfd7-cab1860a9287】已停止。
+2025-08-25 14:09:07.151 | INFO     | app.core.pipeline:_reader_thread:210 - 【T1:读帧 13139586-d6d7-4696-bfd7-cab1860a9287】已停止。
+2025-08-25 14:09:07.162 | INFO     | app.core.pipeline:_postprocessor_thread:339 - 【T4:后处理 13139586-d6d7-4696-bfd7-cab1860a9287】已停止。
+2025-08-25 14:09:09.464 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:09:09.464 | INFO     | app.core.pipeline:_preprocessor_thread:224 - 【T2:预处理 13139586-d6d7-4696-bfd7-cab1860a9287】已停止。
+2025-08-25 14:09:09.464 | INFO     | app.core.pipeline:stop:149 - ✅【流水线 13139586-d6d7-4696-bfd7-cab1860a9287】已安全停止。
+2025-08-25 14:09:09.465 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 13139586-d6d7-4696-bfd7-cab1860a9287】处理工作已结束。
+2025-08-25 14:09:09.466 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=13139586-d6d7-4696-bfd7-cab1860a9287
+2025-08-25 14:09:24.925 | INFO     | app.core.pipeline:__init__:108 - 【流水线 7ab8d826-30e8-4fd3-a273-ab519b437b0f】正在初始化...
+2025-08-25 14:09:24.925 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=7ab8d826-30e8-4fd3-a273-ab519b437b0f, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:09:24.931 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:09:24.938 | INFO     | app.core.pipeline:start:125 - 【流水线 7ab8d826-30e8-4fd3-a273-ab519b437b0f】正在启动...
+2025-08-25 14:09:25.152 | INFO     | app.core.pipeline:_reader_thread:168 - 【T1:读帧 7ab8d826-30e8-4fd3-a273-ab519b437b0f】启动。
+2025-08-25 14:09:25.153 | INFO     | app.core.pipeline:_preprocessor_thread:214 - 【T2:预处理 7ab8d826-30e8-4fd3-a273-ab519b437b0f】启动。
+2025-08-25 14:09:25.154 | INFO     | app.core.pipeline:_inference_thread:228 - 【T3:推理 7ab8d826-30e8-4fd3-a273-ab519b437b0f】启动。
+2025-08-25 14:09:25.154 | INFO     | app.core.pipeline:_postprocessor_thread:270 - 【T4:后处理 7ab8d826-30e8-4fd3-a273-ab519b437b0f】启动。
+2025-08-25 14:09:27.568 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:09:27.568 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:09:30.627 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:09:30.628 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:09:33.197 | INFO     | app.core.pipeline:stop:135 - 【流水线 7ab8d826-30e8-4fd3-a273-ab519b437b0f】正在停止...
+2025-08-25 14:09:33.231 | INFO     | app.core.pipeline:_postprocessor_thread:339 - 【T4:后处理 7ab8d826-30e8-4fd3-a273-ab519b437b0f】已停止。
+2025-08-25 14:09:33.244 | INFO     | app.core.pipeline:_reader_thread:210 - 【T1:读帧 7ab8d826-30e8-4fd3-a273-ab519b437b0f】已停止。
+2025-08-25 14:09:33.256 | INFO     | app.core.pipeline:_inference_thread:264 - 【T3:推理 7ab8d826-30e8-4fd3-a273-ab519b437b0f】已停止。
+2025-08-25 14:09:34.203 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-25 14:09:34.204 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 14:09:35.264 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:09:35.264 | INFO     | app.core.pipeline:stop:149 - ✅【流水线 7ab8d826-30e8-4fd3-a273-ab519b437b0f】已安全停止。
+2025-08-25 14:09:35.264 | INFO     | app.core.pipeline:_preprocessor_thread:224 - 【T2:预处理 7ab8d826-30e8-4fd3-a273-ab519b437b0f】已停止。
+2025-08-25 14:09:35.264 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 7ab8d826-30e8-4fd3-a273-ab519b437b0f】处理工作已结束。
+2025-08-25 14:09:35.266 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=7ab8d826-30e8-4fd3-a273-ab519b437b0f
+2025-08-25 14:10:02.740 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:10:02.741 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:10:02.741 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:10:02.742 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:10:02.742 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:10:02.972 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:10:02.973 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:10:48.376 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:10:48.377 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:10:48.377 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:10:48.378 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:10:48.378 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:10:48.379 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:10:55.039 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:10:55.824 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:10:55.825 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:10:55.827 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:10:55.827 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:10:55.827 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:10:58.448 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:10:58.449 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:10:58.450 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:10:58.451 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:11:00.276 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:11:00.277 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:11:00.278 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:11:00.278 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:11:02.383 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:11:02.383 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:11:02.384 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:11:02.385 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:11:02.386 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:11:02.386 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:11:02.386 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:11:02.391 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:11:02.395 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:11:02.395 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:11:02.395 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:11:02.395 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:11:02.396 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:11:10.863 | INFO     | app.core.pipeline:__init__:113 - 【流水线 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】正在初始化...
+2025-08-25 14:11:10.864 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=b7ed45e5-7eaf-4079-aecf-aea676ad03d7, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:11:10.870 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:11:10.876 | INFO     | app.core.pipeline:start:130 - 【流水线 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】正在启动...
+2025-08-25 14:11:11.072 | INFO     | app.core.pipeline:_reader_thread:173 - 【T1:读帧 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】启动。
+2025-08-25 14:11:11.073 | INFO     | app.core.pipeline:_preprocessor_thread:219 - 【T2:预处理 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】启动。
+2025-08-25 14:11:11.075 | INFO     | app.core.pipeline:_inference_thread:233 - 【T3:推理 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】启动。
+2025-08-25 14:11:11.076 | INFO     | app.core.pipeline:_postprocessor_thread:275 - 【T4:后处理 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】启动。
+2025-08-25 14:11:13.557 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:11:13.558 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:11:16.569 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:11:16.570 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:11:19.619 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:11:19.620 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:11:22.662 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:11:22.663 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:11:25.755 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:11:25.756 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:11:28.806 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:11:28.809 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:11:30.249 | INFO     | app.core.pipeline:stop:140 - 【流水线 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】正在停止...
+2025-08-25 14:11:30.289 | INFO     | app.core.pipeline:_reader_thread:215 - 【T1:读帧 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】已停止。
+2025-08-25 14:11:30.294 | INFO     | app.core.pipeline:_postprocessor_thread:344 - 【T4:后处理 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】已停止。
+2025-08-25 14:11:30.325 | INFO     | app.core.pipeline:_inference_thread:269 - 【T3:推理 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】已停止。
+2025-08-25 14:11:32.294 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:11:32.295 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:11:32.338 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:11:32.339 | INFO     | app.core.pipeline:_preprocessor_thread:229 - 【T2:预处理 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】已停止。
+2025-08-25 14:11:32.339 | INFO     | app.core.pipeline:stop:154 - ✅【流水线 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】已安全停止。
+2025-08-25 14:11:32.340 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 b7ed45e5-7eaf-4079-aecf-aea676ad03d7】处理工作已结束。
+2025-08-25 14:11:32.343 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=b7ed45e5-7eaf-4079-aecf-aea676ad03d7
+2025-08-25 14:13:04.281 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:13:04.282 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:13:04.282 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:13:04.283 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:13:04.283 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:13:04.464 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:13:04.464 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:13:07.729 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:13:07.730 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:13:07.730 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:13:07.730 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:13:07.731 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:13:07.731 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:13:12.258 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:13:13.032 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:13:13.032 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:13:13.035 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:13:13.035 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:13:13.036 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:13:14.542 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:13:14.542 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:13:14.543 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:13:14.544 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:13:16.003 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:13:16.004 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:13:16.004 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:13:16.005 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:13:18.118 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:13:18.118 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:13:18.119 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:13:18.120 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:13:18.120 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:13:18.121 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:13:18.121 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:13:18.125 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:13:18.128 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:13:18.128 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:13:18.129 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:13:18.129 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:13:18.129 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:13:18.352 | INFO     | app.core.pipeline:__init__:116 - 【流水线 fb4f8835-ac25-4582-8302-250983f94dbf】正在初始化...
+2025-08-25 14:13:18.352 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=fb4f8835-ac25-4582-8302-250983f94dbf, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:13:18.356 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:13:18.361 | INFO     | app.core.pipeline:start:133 - 【流水线 fb4f8835-ac25-4582-8302-250983f94dbf】正在启动...
+2025-08-25 14:13:18.550 | INFO     | app.core.pipeline:_reader_thread:176 - 【T1:读帧 fb4f8835-ac25-4582-8302-250983f94dbf】启动。
+2025-08-25 14:13:18.551 | INFO     | app.core.pipeline:_preprocessor_thread:222 - 【T2:预处理 fb4f8835-ac25-4582-8302-250983f94dbf】启动。
+2025-08-25 14:13:18.551 | INFO     | app.core.pipeline:_inference_thread:236 - 【T3:推理 fb4f8835-ac25-4582-8302-250983f94dbf】启动。
+2025-08-25 14:13:18.552 | INFO     | app.core.pipeline:_postprocessor_thread:278 - 【T4:后处理 fb4f8835-ac25-4582-8302-250983f94dbf】启动。
+2025-08-25 14:13:21.145 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-25 14:13:21.148 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 14:13:24.216 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:13:24.218 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:13:27.263 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:13:27.263 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:13:30.329 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:13:30.330 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:13:33.375 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:13:33.376 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:13:36.430 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:13:36.431 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:13:39.446 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:13:39.448 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:13:42.496 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:13:42.496 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:13:43.783 | INFO     | app.core.pipeline:stop:143 - 【流水线 fb4f8835-ac25-4582-8302-250983f94dbf】正在停止...
+2025-08-25 14:13:43.802 | INFO     | app.core.pipeline:_postprocessor_thread:347 - 【T4:后处理 fb4f8835-ac25-4582-8302-250983f94dbf】已停止。
+2025-08-25 14:13:43.815 | INFO     | app.core.pipeline:_reader_thread:218 - 【T1:读帧 fb4f8835-ac25-4582-8302-250983f94dbf】已停止。
+2025-08-25 14:13:43.831 | INFO     | app.core.pipeline:_inference_thread:272 - 【T3:推理 fb4f8835-ac25-4582-8302-250983f94dbf】已停止。
+2025-08-25 14:13:45.775 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:13:45.775 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:13:45.849 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:13:45.850 | INFO     | app.core.pipeline:_preprocessor_thread:232 - 【T2:预处理 fb4f8835-ac25-4582-8302-250983f94dbf】已停止。
+2025-08-25 14:13:45.850 | INFO     | app.core.pipeline:stop:157 - ✅【流水线 fb4f8835-ac25-4582-8302-250983f94dbf】已安全停止。
+2025-08-25 14:13:45.851 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 fb4f8835-ac25-4582-8302-250983f94dbf】处理工作已结束。
+2025-08-25 14:13:45.853 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=fb4f8835-ac25-4582-8302-250983f94dbf
+2025-08-25 14:14:27.652 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:14:27.652 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:14:27.653 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:14:27.653 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:14:27.653 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:14:27.827 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:14:27.827 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:15:25.725 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:15:25.726 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:15:25.726 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:15:25.727 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:15:25.727 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:15:25.728 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:15:30.203 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:15:30.838 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:15:30.838 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:15:30.840 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:15:30.840 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:15:30.840 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:15:33.384 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:15:33.385 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:15:33.386 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:15:33.387 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:15:34.791 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:15:34.909 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:15:34.910 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:15:34.911 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:15:37.006 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:15:37.007 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:15:37.007 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:15:37.008 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:15:37.008 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:15:37.008 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:15:37.009 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:15:37.013 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:15:37.017 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:15:37.017 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:15:37.017 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:15:37.018 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:15:37.018 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:16:18.165 | INFO     | app.core.pipeline:__init__:116 - 【流水线 ade29264-2011-4a63-822c-2ca24db03887】正在初始化...
+2025-08-25 14:16:18.166 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=ade29264-2011-4a63-822c-2ca24db03887, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:16:18.172 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:16:18.177 | INFO     | app.core.pipeline:start:133 - 【流水线 ade29264-2011-4a63-822c-2ca24db03887】正在启动...
+2025-08-25 14:16:18.345 | INFO     | app.core.pipeline:_reader_thread:176 - 【T1:读帧 ade29264-2011-4a63-822c-2ca24db03887】启动。
+2025-08-25 14:16:18.346 | INFO     | app.core.pipeline:_preprocessor_thread:222 - 【T2:预处理 ade29264-2011-4a63-822c-2ca24db03887】启动。
+2025-08-25 14:16:18.347 | INFO     | app.core.pipeline:_inference_thread:236 - 【T3:推理 ade29264-2011-4a63-822c-2ca24db03887】启动。
+2025-08-25 14:16:18.349 | INFO     | app.core.pipeline:_postprocessor_thread:278 - 【T4:后处理 ade29264-2011-4a63-822c-2ca24db03887】启动。
+2025-08-25 14:16:20.927 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:16:20.928 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:16:23.941 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 14:16:23.942 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 14:16:26.983 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-25 14:16:26.984 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 14:16:30.029 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-25 14:16:30.030 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 14:16:33.090 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-25 14:16:33.092 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 14:16:36.143 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:16:36.144 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:16:38.552 | INFO     | app.core.pipeline:stop:143 - 【流水线 ade29264-2011-4a63-822c-2ca24db03887】正在停止...
+2025-08-25 14:16:38.569 | INFO     | app.core.pipeline:_inference_thread:272 - 【T3:推理 ade29264-2011-4a63-822c-2ca24db03887】已停止。
+2025-08-25 14:16:38.583 | INFO     | app.core.pipeline:_reader_thread:218 - 【T1:读帧 ade29264-2011-4a63-822c-2ca24db03887】已停止。
+2025-08-25 14:16:38.602 | INFO     | app.core.pipeline:_postprocessor_thread:347 - 【T4:后处理 ade29264-2011-4a63-822c-2ca24db03887】已停止。
+2025-08-25 14:16:39.589 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-25 14:16:39.589 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 14:16:40.599 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:16:40.599 | INFO     | app.core.pipeline:_preprocessor_thread:232 - 【T2:预处理 ade29264-2011-4a63-822c-2ca24db03887】已停止。
+2025-08-25 14:16:40.600 | INFO     | app.core.pipeline:stop:157 - ✅【流水线 ade29264-2011-4a63-822c-2ca24db03887】已安全停止。
+2025-08-25 14:16:40.600 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 ade29264-2011-4a63-822c-2ca24db03887】处理工作已结束。
+2025-08-25 14:16:40.601 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=ade29264-2011-4a63-822c-2ca24db03887
+2025-08-25 14:19:35.922 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:19:35.923 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:19:35.923 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:19:35.923 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:19:35.924 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:19:36.095 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:19:36.096 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:19:37.679 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:19:37.680 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:19:37.680 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:19:37.681 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:19:37.681 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:19:37.681 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:19:48.767 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:19:49.785 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:19:49.785 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:19:49.788 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:19:49.789 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:19:49.789 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:19:52.703 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:19:52.704 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:19:52.705 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:19:52.706 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:19:54.229 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:19:54.230 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:19:54.230 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:19:54.231 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:19:56.055 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:19:56.055 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:19:56.056 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:19:56.057 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:19:56.057 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:19:56.057 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:19:56.057 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:19:56.062 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:19:56.066 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:19:56.066 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:19:56.066 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:19:56.066 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:19:56.066 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:19:58.871 | INFO     | app.core.pipeline:__init__:103 - 【流水线 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】正在初始化...
+2025-08-25 14:19:58.871 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=bc92fb98-1ad1-40eb-817e-b3d7d9aedc35, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:19:58.875 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:19:58.880 | INFO     | app.core.pipeline:start:120 - 【流水线 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】正在启动...
+2025-08-25 14:19:59.028 | INFO     | app.core.pipeline:_reader_thread:163 - 【T1:读帧 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】启动。
+2025-08-25 14:19:59.028 | INFO     | app.core.pipeline:_preprocessor_thread:209 - 【T2:预处理 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】启动。
+2025-08-25 14:19:59.029 | INFO     | app.core.pipeline:_inference_thread:223 - 【T3:推理 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】启动。
+2025-08-25 14:19:59.030 | INFO     | app.core.pipeline:_postprocessor_thread:265 - 【T4:后处理 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】启动。
+2025-08-25 14:20:01.215 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:20:01.215 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:20:04.271 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:20:04.272 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:20:06.075 | INFO     | app.core.pipeline:stop:130 - 【流水线 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】正在停止...
+2025-08-25 14:20:06.101 | INFO     | app.core.pipeline:_inference_thread:259 - 【T3:推理 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】已停止。
+2025-08-25 14:20:06.106 | INFO     | app.core.pipeline:_reader_thread:205 - 【T1:读帧 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】已停止。
+2025-08-25 14:20:06.141 | INFO     | app.core.pipeline:_postprocessor_thread:334 - 【T4:后处理 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】已停止。
+2025-08-25 14:20:08.124 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:20:08.124 | INFO     | app.core.pipeline:_preprocessor_thread:219 - 【T2:预处理 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】已停止。
+2025-08-25 14:20:08.125 | INFO     | app.core.pipeline:stop:144 - ✅【流水线 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】已安全停止。
+2025-08-25 14:20:08.126 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 bc92fb98-1ad1-40eb-817e-b3d7d9aedc35】处理工作已结束。
+2025-08-25 14:20:08.127 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=bc92fb98-1ad1-40eb-817e-b3d7d9aedc35
+2025-08-25 14:20:08.142 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:20:08.143 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:20:16.409 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-25 14:20:16.449 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 2 条 SN 为 'sn002' 的记录。
+2025-08-25 14:20:16.487 | INFO     | app.service.face_service:update_face_by_sn:147 - 人员信息已更新: SN=sn002, 新数据={'name': '胖'}, 影响记录数=2
+2025-08-25 14:20:20.821 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-25 14:20:20.853 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 3 条 SN 为 'sn003' 的记录。
+2025-08-25 14:20:20.886 | INFO     | app.service.face_service:update_face_by_sn:147 - 人员信息已更新: SN=sn003, 新数据={'name': '女'}, 影响记录数=3
+2025-08-25 14:20:29.691 | INFO     | app.core.pipeline:__init__:103 - 【流水线 0b42c265-b04c-40b1-a8e8-23f753789a5d】正在初始化...
+2025-08-25 14:20:29.691 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=0b42c265-b04c-40b1-a8e8-23f753789a5d, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:20:29.697 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:20:29.703 | INFO     | app.core.pipeline:start:120 - 【流水线 0b42c265-b04c-40b1-a8e8-23f753789a5d】正在启动...
+2025-08-25 14:20:29.888 | INFO     | app.core.pipeline:_reader_thread:163 - 【T1:读帧 0b42c265-b04c-40b1-a8e8-23f753789a5d】启动。
+2025-08-25 14:20:29.889 | INFO     | app.core.pipeline:_preprocessor_thread:209 - 【T2:预处理 0b42c265-b04c-40b1-a8e8-23f753789a5d】启动。
+2025-08-25 14:20:29.890 | INFO     | app.core.pipeline:_inference_thread:223 - 【T3:推理 0b42c265-b04c-40b1-a8e8-23f753789a5d】启动。
+2025-08-25 14:20:29.891 | INFO     | app.core.pipeline:_postprocessor_thread:265 - 【T4:后处理 0b42c265-b04c-40b1-a8e8-23f753789a5d】启动。
+2025-08-25 14:20:32.579 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:20:32.580 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:20:35.603 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-25 14:20:35.604 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-25 14:20:38.637 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-25 14:20:38.637 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 14:20:41.668 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-25 14:20:41.668 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-25 14:20:44.691 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-25 14:20:44.692 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-25 14:20:47.749 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:20:47.750 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:20:48.055 | INFO     | app.core.pipeline:stop:130 - 【流水线 0b42c265-b04c-40b1-a8e8-23f753789a5d】正在停止...
+2025-08-25 14:20:48.087 | INFO     | app.core.pipeline:_reader_thread:205 - 【T1:读帧 0b42c265-b04c-40b1-a8e8-23f753789a5d】已停止。
+2025-08-25 14:20:48.091 | INFO     | app.core.pipeline:_postprocessor_thread:334 - 【T4:后处理 0b42c265-b04c-40b1-a8e8-23f753789a5d】已停止。
+2025-08-25 14:20:48.117 | INFO     | app.core.pipeline:_inference_thread:259 - 【T3:推理 0b42c265-b04c-40b1-a8e8-23f753789a5d】已停止。
+2025-08-25 14:20:50.116 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:20:50.117 | INFO     | app.core.pipeline:_preprocessor_thread:219 - 【T2:预处理 0b42c265-b04c-40b1-a8e8-23f753789a5d】已停止。
+2025-08-25 14:20:50.117 | INFO     | app.core.pipeline:stop:144 - ✅【流水线 0b42c265-b04c-40b1-a8e8-23f753789a5d】已安全停止。
+2025-08-25 14:20:50.118 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 0b42c265-b04c-40b1-a8e8-23f753789a5d】处理工作已结束。
+2025-08-25 14:20:50.119 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=0b42c265-b04c-40b1-a8e8-23f753789a5d
+2025-08-25 14:20:51.071 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-25 14:20:51.072 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-25 14:21:46.838 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:21:46.839 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:21:46.839 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:21:46.840 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:21:46.840 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:21:47.063 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:21:47.064 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:22:22.053 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:22:22.054 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:22:22.055 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:22:22.055 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:22:22.056 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:22:22.056 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:22:25.179 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:22:25.872 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:22:25.873 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:22:25.874 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:22:25.874 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:22:25.875 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:22:28.480 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:22:28.481 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:22:28.482 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:22:28.482 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:22:29.816 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:22:29.886 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:22:29.887 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:22:29.887 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:22:31.639 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:22:31.639 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:22:31.640 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:22:31.641 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:22:31.641 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:22:31.642 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:22:31.642 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:22:31.646 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:22:31.649 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:22:31.650 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:22:31.650 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:22:31.650 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:22:31.651 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:22:35.320 | INFO     | app.core.pipeline:__init__:110 - 【流水线 bc61e830-b9eb-437e-97c2-c887128d7396】正在初始化...
+2025-08-25 14:22:35.321 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=bc61e830-b9eb-437e-97c2-c887128d7396, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-25 14:22:35.325 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:22:35.328 | INFO     | app.core.pipeline:start:127 - 【流水线 bc61e830-b9eb-437e-97c2-c887128d7396】正在启动...
+2025-08-25 14:22:35.531 | INFO     | app.core.pipeline:_reader_thread:170 - 【T1:读帧 bc61e830-b9eb-437e-97c2-c887128d7396】启动。
+2025-08-25 14:22:35.532 | INFO     | app.core.pipeline:_preprocessor_thread:216 - 【T2:预处理 bc61e830-b9eb-437e-97c2-c887128d7396】启动。
+2025-08-25 14:22:35.533 | INFO     | app.core.pipeline:_inference_thread:230 - 【T3:推理 bc61e830-b9eb-437e-97c2-c887128d7396】启动。
+2025-08-25 14:22:35.533 | INFO     | app.core.pipeline:_postprocessor_thread:272 - 【T4:后处理 bc61e830-b9eb-437e-97c2-c887128d7396】启动。
+2025-08-25 14:22:37.715 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-25 14:22:37.716 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-25 14:22:40.760 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-25 14:22:40.761 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-25 14:22:43.821 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-25 14:22:43.822 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-25 14:22:46.622 | INFO     | app.core.pipeline:stop:137 - 【流水线 bc61e830-b9eb-437e-97c2-c887128d7396】正在停止...
+2025-08-25 14:22:46.648 | INFO     | app.core.pipeline:_postprocessor_thread:341 - 【T4:后处理 bc61e830-b9eb-437e-97c2-c887128d7396】已停止。
+2025-08-25 14:22:46.651 | INFO     | app.core.pipeline:_reader_thread:212 - 【T1:读帧 bc61e830-b9eb-437e-97c2-c887128d7396】已停止。
+2025-08-25 14:22:46.688 | INFO     | app.core.pipeline:_inference_thread:266 - 【T3:推理 bc61e830-b9eb-437e-97c2-c887128d7396】已停止。
+2025-08-25 14:22:47.633 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-25 14:22:47.633 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-25 14:22:48.668 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:22:48.668 | INFO     | app.core.pipeline:_preprocessor_thread:226 - 【T2:预处理 bc61e830-b9eb-437e-97c2-c887128d7396】已停止。
+2025-08-25 14:22:48.669 | INFO     | app.core.pipeline:stop:151 - ✅【流水线 bc61e830-b9eb-437e-97c2-c887128d7396】已安全停止。
+2025-08-25 14:22:48.669 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 bc61e830-b9eb-437e-97c2-c887128d7396】处理工作已结束。
+2025-08-25 14:22:48.670 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=bc61e830-b9eb-437e-97c2-c887128d7396
+2025-08-25 14:22:50.474 | INFO     | app.core.pipeline:__init__:110 - 【流水线 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】正在初始化...
+2025-08-25 14:22:50.475 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1, Source=0
+2025-08-25 14:22:50.481 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:22:50.489 | INFO     | app.core.pipeline:start:127 - 【流水线 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】正在启动...
+2025-08-25 14:22:53.865 | INFO     | app.core.pipeline:_reader_thread:170 - 【T1:读帧 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】启动。
+2025-08-25 14:22:53.866 | INFO     | app.core.pipeline:_preprocessor_thread:216 - 【T2:预处理 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】启动。
+2025-08-25 14:22:53.867 | INFO     | app.core.pipeline:_inference_thread:230 - 【T3:推理 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】启动。
+2025-08-25 14:22:53.867 | INFO     | app.core.pipeline:_postprocessor_thread:272 - 【T4:后处理 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】启动。
+2025-08-25 14:23:16.074 | INFO     | app.core.pipeline:stop:137 - 【流水线 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】正在停止...
+2025-08-25 14:23:16.090 | INFO     | app.core.pipeline:_reader_thread:212 - 【T1:读帧 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】已停止。
+2025-08-25 14:23:16.093 | INFO     | app.core.pipeline:_inference_thread:266 - 【T3:推理 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】已停止。
+2025-08-25 14:23:16.116 | INFO     | app.core.pipeline:_postprocessor_thread:341 - 【T4:后处理 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】已停止。
+2025-08-25 14:23:18.398 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:23:18.398 | INFO     | app.core.pipeline:stop:151 - ✅【流水线 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】已安全停止。
+2025-08-25 14:23:18.398 | INFO     | app.core.pipeline:_preprocessor_thread:226 - 【T2:预处理 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】已停止。
+2025-08-25 14:23:18.399 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1】处理工作已结束。
+2025-08-25 14:23:18.401 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=dc8f6c79-a6ce-4d4d-b64a-bb727b8a69e1
+2025-08-25 14:23:26.186 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:23:26.187 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:23:26.187 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:23:26.188 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:23:26.188 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:23:26.376 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:23:26.376 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 14:24:32.301 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 14:24:32.302 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 14:24:32.302 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 14:24:32.303 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 14:24:32.303 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 14:24:32.303 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 14:24:35.784 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 14:24:36.442 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 14:24:36.442 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 14:24:36.445 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 14:24:36.446 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 14:24:36.446 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:24:39.084 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:24:39.085 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 14:24:39.085 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:24:39.086 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 14:24:40.695 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:24:40.815 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 14:24:40.816 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 14:24:40.817 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 14:24:42.837 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 14:24:42.838 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 14:24:42.839 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 14:24:42.840 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 14:24:42.840 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 14:24:42.840 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 14:24:42.841 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 14:24:42.844 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:24:42.848 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 14:24:42.848 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 14:24:42.849 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 14:24:42.849 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 14:24:42.849 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-25 14:24:43.284 | INFO     | app.core.pipeline:__init__:135 - 【流水线 f30c323f-db69-415e-9faa-7cac75a03662】正在初始化...
+2025-08-25 14:24:43.285 | INFO     | app.service.face_service:start_stream:219 - 🚀 视频流线程已启动: ID=f30c323f-db69-415e-9faa-7cac75a03662, Source=0
+2025-08-25 14:24:43.289 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 14:24:43.295 | INFO     | app.core.pipeline:start:152 - 【流水线 f30c323f-db69-415e-9faa-7cac75a03662】正在启动...
+2025-08-25 14:24:45.830 | INFO     | app.core.pipeline:_reader_thread:195 - 【T1:读帧 f30c323f-db69-415e-9faa-7cac75a03662】启动。
+2025-08-25 14:24:45.831 | INFO     | app.core.pipeline:_preprocessor_thread:241 - 【T2:预处理 f30c323f-db69-415e-9faa-7cac75a03662】启动。
+2025-08-25 14:24:45.832 | INFO     | app.core.pipeline:_inference_thread:255 - 【T3:推理 f30c323f-db69-415e-9faa-7cac75a03662】启动。
+2025-08-25 14:24:45.833 | INFO     | app.core.pipeline:_postprocessor_thread:297 - 【T4:后处理 f30c323f-db69-415e-9faa-7cac75a03662】启动。
+2025-08-25 14:25:05.025 | INFO     | app.core.pipeline:stop:162 - 【流水线 f30c323f-db69-415e-9faa-7cac75a03662】正在停止...
+2025-08-25 14:25:05.070 | INFO     | app.core.pipeline:_reader_thread:237 - 【T1:读帧 f30c323f-db69-415e-9faa-7cac75a03662】已停止。
+2025-08-25 14:25:05.075 | INFO     | app.core.pipeline:_inference_thread:291 - 【T3:推理 f30c323f-db69-415e-9faa-7cac75a03662】已停止。
+2025-08-25 14:25:05.105 | INFO     | app.core.pipeline:_postprocessor_thread:366 - 【T4:后处理 f30c323f-db69-415e-9faa-7cac75a03662】已停止。
+2025-08-25 14:25:07.369 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-25 14:25:07.369 | INFO     | app.core.pipeline:_preprocessor_thread:251 - 【T2:预处理 f30c323f-db69-415e-9faa-7cac75a03662】已停止。
+2025-08-25 14:25:07.370 | INFO     | app.core.pipeline:stop:176 - ✅【流水线 f30c323f-db69-415e-9faa-7cac75a03662】已安全停止。
+2025-08-25 14:25:07.372 | INFO     | app.service.face_service:_pipeline_worker_thread:198 - ✅【线程 f30c323f-db69-415e-9faa-7cac75a03662】处理工作已结束。
+2025-08-25 14:25:07.374 | INFO     | app.service.face_service:stop_stream:228 - ✅ 视频流已成功停止: ID=f30c323f-db69-415e-9faa-7cac75a03662
+2025-08-25 14:25:09.674 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-25 14:25:09.675 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-25 14:25:09.675 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-25 14:25:09.676 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-25 14:25:09.676 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-25 14:25:10.001 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-25 14:25:10.002 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。

@@ -66,12 +66,35 @@ class FaceService:
         model = await self.model_manager.acquire_model_async()
         try:
             faces = model.get(img)
-            if not faces: raise HTTPException(status_code=400, detail="未在图像中检测到任何人脸。")
-            if len(faces) > 1: raise HTTPException(status_code=400,
-                                                   detail=f"检测到 {len(faces)} 张人脸，注册时必须确保只有一张。")
+            if not faces: 
+                # 如果没有检测到人脸，尝试降低检测阈值重新检测
+                app_logger.warning(f"使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测")
+                # 临时降低检测阈值
+                original_det_thresh = model.det_model.det_thresh
+                model.det_model.det_thresh = 0.1  # 使用更低的阈值
+                try:
+                    faces = model.get(img)
+                finally:
+                    # 恢复原始阈值
+                    model.det_model.det_thresh = original_det_thresh
+                
+                if not faces:
+                    raise HTTPException(status_code=400, detail="未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。")
+            
+            if len(faces) > 1: 
+                raise HTTPException(status_code=400, detail=f"检测到 {len(faces)} 张人脸，注册时必须确保只有一张。")
+            
             face = faces[0]
-            if face.det_score < self.settings.insightface.recognition_det_score_threshold:
-                raise HTTPException(status_code=400, detail=f"人脸质量不佳，检测置信度({face.det_score:.2f})过低。")
+            # 使用专门的注册检测阈值，比识别阈值更宽松
+            registration_threshold = self.settings.insightface.registration_det_score_threshold
+            if face.det_score < registration_threshold:
+                raise HTTPException(
+                    status_code=400, 
+                    detail=f"人脸质量不佳，检测置信度({face.det_score:.2f})低于注册要求({registration_threshold})。请使用更清晰的正面人脸图片。"
+                )
+            
+            app_logger.info(f"注册人脸检测成功: 姓名={name}, SN={sn}, 置信度={face.det_score:.3f}")
+            
             x1, y1, x2, y2 = face.bbox.astype(int)
             face_img = img[y1:y2, x1:x2]
             saved_path = self._save_face_image(face_img, sn)

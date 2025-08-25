@@ -1,7 +1,9 @@
-# app/core/model_manager.py
 import os
 import asyncio
 import queue
+import shutil
+import subprocess
+import sys
 from typing import Optional, List
 from pathlib import Path
 import cv2
@@ -16,11 +18,12 @@ def create_face_analysis_model(settings: AppSettings) -> FaceAnalysis:
     app_logger.info(f"创建InsightFace模型: {settings.insightface.model_pack_name}")
     
     try:
-        # 创建模型实例
+        # 创建模型实例 - 设置download=True以便在需要时自动下载
         model = FaceAnalysis(
             name=settings.insightface.model_pack_name,
             root=str(settings.insightface.home),
-            providers=settings.insightface.providers
+            providers=settings.insightface.providers,
+            download=True  # 启用自动下载，仅在模型不存在时下载
         )
         
         # 准备模型参数
@@ -28,10 +31,10 @@ def create_face_analysis_model(settings: AppSettings) -> FaceAnalysis:
         det_thresh = settings.insightface.recognition_det_score_threshold
         det_size = tuple(settings.insightface.detection_size)
         
-        # 初始化模型
+        # 初始化模型 - 如果模型不存在，这一步会触发下载
         model.prepare(ctx_id=ctx_id, det_size=det_size, det_thresh=det_thresh)
         
-        app_logger.info("InsightFace模型创建成功")
+        app_logger.info(f"模型下载成功: {settings.insightface.model_pack_name}")
         return model
         
     except Exception as e:
@@ -67,6 +70,9 @@ class ModelManager:
         model_home = str(self.settings.insightface.home)
         os.environ["INSIGHTFACE_HOME"] = model_home
         app_logger.info(f"设置INSIGHTFACE_HOME: {model_home}")
+        
+        # 确保模型目录存在
+        Path(model_home).mkdir(parents=True, exist_ok=True)
     
     async def load_models(self):
         """异步加载模型到池中"""
@@ -77,17 +83,24 @@ class ModelManager:
         try:
             app_logger.info(f"开始加载{self.pool_size}个模型实例到池中")
             
-            # 并发创建模型
-            loop = asyncio.get_running_loop()
-            tasks = [
-                loop.run_in_executor(None, create_face_analysis_model, self.settings)
-                for _ in range(self.pool_size)
-            ]
-            models = await asyncio.gather(*tasks)
+            # 先尝试创建一个模型，确保模型文件存在
+            first_model = create_face_analysis_model(self.settings)
+            self._pool.put_nowait(first_model)
+            app_logger.info("第一个模型加载成功，继续加载剩余模型")
             
-            # 将模型放入池中
-            for model in models:
-                self._pool.put_nowait(model)
+            # 并发创建剩余模型
+            remaining_count = self.pool_size - 1
+            if remaining_count > 0:
+                loop = asyncio.get_running_loop()
+                tasks = [
+                    loop.run_in_executor(None, create_face_analysis_model, self.settings)
+                    for _ in range(remaining_count)
+                ]
+                models = await asyncio.gather(*tasks)
+                
+                # 将模型放入池中
+                for model in models:
+                    self._pool.put_nowait(model)
             
             app_logger.info(f"成功加载{self.pool_size}个模型到池中")
             
@@ -135,12 +148,28 @@ class ModelManager:
     def acquire_model(self) -> FaceAnalysis:
         """从池中获取模型（同步）"""
         app_logger.debug(f"获取模型 (可用: {self._pool.qsize()}/{self.pool_size})")
+        
+        # 如果池为空，尝试创建一个新模型
+        if self._pool.empty():
+            app_logger.warning("模型池为空，尝试创建新模型")
+            try:
+                model = create_face_analysis_model(self.settings)
+                app_logger.info("成功创建新模型")
+                return model
+            except Exception as e:
+                app_logger.error(f"创建新模型失败: {e}")
+                raise RuntimeError("无法获取模型：模型池为空且无法创建新模型") from e
+        
         model = self._pool.get()
         app_logger.debug(f"模型已获取 (剩余: {self._pool.qsize()}/{self.pool_size})")
         return model
     
     def release_model(self, model: FaceAnalysis):
         """释放模型到池中（同步）"""
+        if self._pool.full():
+            app_logger.debug("模型池已满，丢弃模型")
+            return
+            
         self._pool.put_nowait(model)
         app_logger.debug(f"模型已释放 (可用: {self._pool.qsize()}/{self.pool_size})")
     

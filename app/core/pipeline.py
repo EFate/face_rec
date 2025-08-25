@@ -7,6 +7,7 @@ from typing import List, Dict, Any
 
 import cv2
 import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 from insightface.app.common import Face
 from insightface.app import FaceAnalysis  # 引入 FaceAnalysis 类型注解
 
@@ -17,16 +18,104 @@ from app.service.face_dao import LanceDBFaceDataDAO, FaceDataDAO
 
 def _draw_results_on_frame(frame: np.ndarray, results: List[Dict[str, Any]]):
     """在帧上绘制识别结果（边界框和标签）"""
+    if not results:
+        return
+    
+    # 第一步：使用OpenCV绘制所有人脸边界框
     for res in results:
         box = res['box'].astype(int)
-        label = f"{res['name']}"
+        name = res['name'] if res['name'] else "Unknown"
+        
+        # 设置边界框颜色
+        box_color = (0, 255, 0) if name != "Unknown" else (0, 0, 255)
+        
+        # 绘制人脸边界框
+        cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), box_color, 2)
+    
+    # 第二步：转换为PIL图像进行文本绘制
+    frame_pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(frame_pil)
+    
+    # 使用配置中的中文字体
+    font = None
+    try:
+        from app.cfg.config import get_app_settings
+        settings = get_app_settings()
+        font_path = settings.app.chinese_font_path
+        if font_path.exists():
+            font = ImageFont.truetype(str(font_path), 28)
+    except Exception as e:
+        app_logger.debug(f"加载配置字体失败: {e}")
+    
+    # 如果配置字体加载失败，使用默认字体
+    if font is None:
+        font = ImageFont.load_default()
+    
+    # 第三步：在PIL图像上绘制文本标识
+    for res in results:
+        box = res['box'].astype(int)
+        name = res['name'] if res['name'] else "Unknown"
+        
+        # 构建标签文本
         if res['similarity'] is not None:
-            label += f" ({res['similarity']:.2f})"
-        color = (0, 255, 0) if res['name'] != "Unknown" else (0, 0, 255)
-        cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), color, 2)
-        (lw, lh), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
-        cv2.rectangle(frame, (box[0], box[1] - lh - 10), (box[0] + lw, box[1]), color, cv2.FILLED)
-        cv2.putText(frame, label, (box[0] + 5, box[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            label = f"{name} ({res['similarity']:.2f})"
+        else:
+            label = name
+        
+        # 设置文本颜色与框颜色一致 (PIL使用RGB)
+        text_color = (0, 255, 0) if name != "Unknown" else (255, 0, 0)
+        
+        # 计算人脸框宽度
+        box_width = box[2] - box[0]
+        
+        # 计算文本尺寸并确保不超过框宽度
+        bbox = draw.textbbox((0, 0), label, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        
+        # 如果文本宽度超过框宽度，截断文本
+        if text_width > box_width:
+            # 逐步缩短文本直到适合框宽度
+            if res['similarity'] is not None:
+                # 先尝试只显示名字和简化的相似度
+                short_label = f"{name} ({res['similarity']:.1f})"
+                bbox = draw.textbbox((0, 0), short_label, font=font)
+                if bbox[2] - bbox[0] <= box_width:
+                    label = short_label
+                    text_width = bbox[2] - bbox[0]
+                else:
+                    # 如果还是太长，只显示名字
+                    label = name
+                    bbox = draw.textbbox((0, 0), label, font=font)
+                    text_width = bbox[2] - bbox[0]
+                    
+                    # 如果名字还是太长，截断名字
+                    if text_width > box_width:
+                        max_chars = int(box_width / (text_width / len(name))) - 1
+                        if max_chars > 0:
+                            label = name[:max_chars] + "..."
+                            bbox = draw.textbbox((0, 0), label, font=font)
+                            text_width = bbox[2] - bbox[0]
+        
+        # 计算文本位置，居中对齐到人脸框
+        text_x = box[0] + (box_width - text_width) // 2  # 居中对齐
+        text_y = box[1] - text_height - 8  # 文本在框上方
+        
+        # 如果文本会超出图像顶部，放到框下方
+        if text_y < 0:
+            text_y = box[3] + 5
+        
+        # 确保文本不会超出图像左右边界
+        text_x = max(0, min(text_x, frame.shape[1] - text_width))
+        
+        # 直接绘制文本，颜色与框一致，无阴影
+        draw.text((text_x, text_y), label, font=font, fill=text_color)
+    
+    # 第四步：转换回OpenCV格式，保留边界框
+    frame_with_text = cv2.cvtColor(np.array(frame_pil), cv2.COLOR_RGB2BGR)
+    
+    # 将绘制了文本的图像复制回原始frame
+    frame[:] = frame_with_text
 
 
 class FaceStreamPipeline:

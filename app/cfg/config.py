@@ -40,8 +40,9 @@ class AppConfig(BaseModel):
     detected_imgs_path: FilePath = Field(DATA_DIR / "detected_imgs", description="检测图片保存路径")
     stream_default_lifetime_minutes: int = Field(10, description="视频流默认生命周期（分钟）")
     stream_cleanup_interval_seconds: int = Field(60, description="清理过期视频流的间隔（秒）")
-    recognition_save_interval_seconds: float = Field(1.5, description="同一人识别结果的最小保存间隔（秒）")
+    recognition_save_interval_seconds: float = Field(0.6, description="同一人识别结果的最小保存间隔（秒）")
     recognition_frame_interval: int = Field(10, description="同一人识别结果的最小帧间隔（每隔多少帧保存一次）")
+    chinese_font_path: FilePath = Field(BASE_DIR / "app" / "static" / "SimHei.ttf", description="中文字体文件路径")
 
     def model_post_init__(self, __context: Any) -> None:
         """模型初始化后的处理"""
@@ -83,7 +84,8 @@ class InsightFaceConfig(BaseModel):
         description="ONNX Runtime执行提供者列表"
     )
     recognition_similarity_threshold: float = Field(0.5, description="人脸识别相似度阈值")
-    recognition_det_score_threshold: float = Field(0.5, description="人脸检测置信度阈值")
+    recognition_det_score_threshold: float = Field(0.4, description="人脸检测置信度阈值（识别时使用）")
+    registration_det_score_threshold: float = Field(0.2, description="人脸检测置信度阈值（注册时使用，更宽松）")
     detection_size: List[int] = Field([640, 640], description="人脸检测模型输入尺寸")
     home: FilePath = Field(DATA_DIR / ".insightface", description="InsightFace模型存储目录")
     image_db_path: FilePath = Field(DATA_DIR / "faces", description="注册人脸图像存储目录")

@@ -9,7 +9,8 @@ from app.core.database.query_ops import DetectionQueryOps
 from app.schema.face_schema import ApiResponse
 from app.schema.detection_schema import (
     DetectionListResponseData, DetectionStatsResponseData,
-    DetectionQueryParams, DetectionRecordInfo, WeeklyTrendResponseData
+    DetectionQueryParams, DetectionRecordInfo, WeeklyTrendResponseData,
+    PersonDetectionPieResponseData, HourlyDetectionResponseData, TopPersonsResponseData
 )
 
 router = APIRouter()
@@ -121,10 +122,62 @@ async def get_detection_stats(
 
 
 @router.get(
+    "/person-pie",
+    response_model=ApiResponse[PersonDetectionPieResponseData],
+    summary="获取人员检测饼图数据",
+    tags=["检测统计"]
+)
+async def get_person_detection_pie(
+        request: Request,
+        db: Session = Depends(get_db_session)
+):
+    """获取不同检测人员的占比数据，用于饼图展示"""
+    query_service = DetectionQueryOps(db)
+    result = query_service.get_person_detection_pie_data()
+    
+    return ApiResponse(data=result)
+
+
+@router.get(
+    "/hourly-trend",
+    response_model=ApiResponse[HourlyDetectionResponseData],
+    summary="获取按小时检测趋势",
+    tags=["检测统计"]
+)
+async def get_hourly_detection_trend(
+        request: Request,
+        db: Session = Depends(get_db_session)
+):
+    """获取24小时检测活跃度数据，用于热力图或柱状图展示"""
+    query_service = DetectionQueryOps(db)
+    result = query_service.get_hourly_detection_data()
+    
+    return ApiResponse(data=result)
+
+
+@router.get(
+    "/top-persons",
+    response_model=ApiResponse[TopPersonsResponseData],
+    summary="获取检测排行榜",
+    tags=["检测统计"]
+)
+async def get_top_persons(
+        request: Request,
+        limit: int = Query(10, ge=1, le=50, description="返回排行数量，最大50"),
+        db: Session = Depends(get_db_session)
+):
+    """获取检测次数最多的人员排行，用于排行榜展示"""
+    query_service = DetectionQueryOps(db)
+    result = query_service.get_top_persons_data(limit=limit)
+    
+    return ApiResponse(data=result)
+
+
+@router.get(
     "/weekly-trend",
     response_model=ApiResponse[WeeklyTrendResponseData],
     summary="获取最近七天的检测趋势",
-    tags=["检测记录"]
+    tags=["检测统计"]
 )
 async def get_weekly_trend(
         request: Request,
@@ -135,80 +188,6 @@ async def get_weekly_trend(
     result = query_service.get_weekly_trend()
 
     return ApiResponse(data=result)
-
-
-@router.get(
-    "/debug-trend",
-    summary="调试检测趋势数据",
-    tags=["检测记录"]
-)
-async def debug_weekly_trend(
-        request: Request,
-        db: Session = Depends(get_db_session)
-):
-    """调试接口：查看检测趋势数据的详细信息"""
-    from datetime import datetime, timedelta, date
-    import pytz
-    from sqlalchemy import text, cast, Date, func
-    from app.models.detected_results import DetectedFace
-
-    local_tz = pytz.timezone('Asia/Shanghai')
-    now = datetime.now(local_tz)
-    today = now.date()
-    seven_days_ago = today - timedelta(days=6)
-
-    # 查询所有记录
-    all_records = db.query(DetectedFace).all()
-
-    # 查询特定日期的记录
-    target_date = date(2025, 8, 21)
-    records_on_target = db.query(DetectedFace).filter(
-        cast(DetectedFace.create_time, Date) == target_date
-    ).all()
-
-    # 使用原生SQL查询
-    sql_query = text("""
-                     SELECT DATE (create_time) as date, COUNT (*) as count
-                     FROM detected_faces
-                     WHERE DATE (create_time) >= :start_date
-                       AND DATE (create_time) <= :end_date
-                     GROUP BY DATE (create_time)
-                     ORDER BY DATE (create_time)
-                     """)
-
-    sql_result = db.execute(sql_query, {
-        'start_date': seven_days_ago.strftime('%Y-%m-%d'),
-        'end_date': today.strftime('%Y-%m-%d')
-    }).fetchall()
-
-    debug_data = {
-        'current_time': now.isoformat(),
-        'today': today.strftime('%Y-%m-%d'),
-        'seven_days_ago': seven_days_ago.strftime('%Y-%m-%d'),
-        'total_records_count': len(all_records),
-        'first_record': {
-            'id': all_records[0].id,
-            'create_time': all_records[0].create_time.isoformat(),
-            'sn': all_records[0].sn,
-            'name': all_records[0].name
-        } if all_records else None,
-        'records_on_2025_08_21': len(records_on_target),
-        'sql_query_result': [
-            {
-                'date': str(row.date),
-                'count': row.count
-            } for row in sql_result
-        ],
-        'sample_records_on_target': [
-            {
-                'id': r.id,
-                'create_time': r.create_time.isoformat(),
-                'sn': r.sn
-            } for r in records_on_target[:3]
-        ]
-    }
-
-    return {"code": 0, "data": debug_data}
 
 
 @router.get(

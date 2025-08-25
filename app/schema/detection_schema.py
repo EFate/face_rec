@@ -90,3 +90,42 @@ class DetectionStatsResponseData(BaseModel):
     unique_persons: int = Field(..., description="检测到的不同人员数")
     today_detections: int = Field(..., description="今日检测次数")
     recent_detections: List[DetectionRecordInfo] = Field(..., description="最近检测记录")
+
+
+class PersonDetectionPieData(BaseModel):
+    """人员检测饼图数据点"""
+    name: str = Field(..., description="人员姓名")
+    sn: str = Field(..., description="人员SN")
+    count: int = Field(..., description="检测次数")
+    percentage: float = Field(..., description="占比百分比")
+
+
+class PersonDetectionPieResponseData(BaseModel):
+    """人员检测饼图响应数据"""
+    total_detections: int = Field(..., description="总检测次数")
+    total_persons: int = Field(..., description="总人员数")
+    pie_data: List[PersonDetectionPieData] = Field(..., description="饼图数据")
+
+
+class HourlyDetectionData(BaseModel):
+    """按小时检测数据点"""
+    hour: int = Field(..., description="小时(0-23)")
+    count: int = Field(..., description="检测次数")
+
+
+class HourlyDetectionResponseData(BaseModel):
+    """按小时检测响应数据"""
+    hourly_data: List[HourlyDetectionData] = Field(..., description="24小时检测数据")
+
+
+class TopPersonData(BaseModel):
+    """检测排行数据点"""
+    name: str = Field(..., description="人员姓名")
+    sn: str = Field(..., description="人员SN")
+    count: int = Field(..., description="检测次数")
+    rank: int = Field(..., description="排名")
+
+
+class TopPersonsResponseData(BaseModel):
+    """检测排行响应数据"""
+    top_persons: List[TopPersonData] = Field(..., description="检测排行数据")
