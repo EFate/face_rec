@@ -14,11 +14,12 @@ from app.cfg.logging import app_logger
 from app.core.model_manager import model_manager, load_models_on_startup, release_models_on_shutdown
 from app.core.database.database import init_db
 from app.router.face_router import router as face_router
+from app.router.detection_router import router as detection_router
 from app.service.face_service import FaceService
 from app.schema.face_schema import ApiResponse
 from app.cfg.config import DATA_DIR
 # --- 导入新的服务 ---
-from app.core.result_processor import ResultPersistenceService
+from app.core.result_processor import ResultPersistenceProcessor
 
 
 @asynccontextmanager
@@ -40,7 +41,7 @@ async def lifespan(app: FastAPI):
 
     # 2. 创建用于结果持久化的共享队列和后台服务
     result_persistence_queue = queue.Queue(maxsize=256)
-    result_service = ResultPersistenceService(settings=settings, result_queue=result_persistence_queue)
+    result_service = ResultPersistenceProcessor(settings=settings, result_queue=result_persistence_queue)
     app.state.result_service = result_service
     result_service.start()
     app_logger.info("✅ 结果持久化服务已启动。")
@@ -76,7 +77,7 @@ async def lifespan(app: FastAPI):
     if hasattr(app.state, 'result_service'):
         app.state.result_service.stop()
 
-    # 3. 优雅地关闭所有活动的视频流
+    # 3. 关闭所有活动的视频流
     if hasattr(app.state, 'face_service'):
         await app.state.face_service.stop_all_streams()
 
@@ -109,6 +110,7 @@ def create_app() -> FastAPI:
         return JSONResponse(status_code=500, content=ApiResponse(code=500, msg="服务器内部错误").model_dump())
 
     app.include_router(face_router, prefix="/api/face", tags=["人脸服务"])
+    app.include_router(detection_router, prefix="/api/detection", tags=["检测结果信息"])
 
     STATIC_FILES_DIR = Path("app/static")
     if STATIC_FILES_DIR.exists(): app.mount("/static", StaticFiles(directory=STATIC_FILES_DIR), name="static")

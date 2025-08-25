@@ -4,7 +4,7 @@
 from sqlalchemy.orm import Session
 
 # 导入结果模型
-from ...models.detected_results import DetectedFace
+from .models.detected_results import DetectedFace
 
 def insert_new_result(
     db: Session,

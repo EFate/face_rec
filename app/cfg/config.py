@@ -35,11 +35,13 @@ class AppConfig(BaseModel):
     description: str = Field("基于FastAPI、InsightFace和LanceDB构建的高性能人脸识别服务", description="应用程序描述")
     version: str = Field("4.5.0-Final", description="应用程序版本")
     debug: bool = Field(False, description="是否开启调试模式")
+    host_ip: str = Field(f"{IMAGE_URL_IP}", description="宿主机ip，用于访问保存的图片资源")
     max_concurrent_tasks: int = Field(3, description="最大并发AI任务数（模型池大小）")
     detected_imgs_path: FilePath = Field(DATA_DIR / "detected_imgs", description="检测图片保存路径")
     stream_default_lifetime_minutes: int = Field(10, description="视频流默认生命周期（分钟）")
     stream_cleanup_interval_seconds: int = Field(60, description="清理过期视频流的间隔（秒）")
-    recognition_save_interval_seconds: float = Field(0.6, description="同一人识别结果的最小保存间隔（秒）")
+    recognition_save_interval_seconds: float = Field(1.5, description="同一人识别结果的最小保存间隔（秒）")
+    recognition_frame_interval: int = Field(10, description="同一人识别结果的最小帧间隔（每隔多少帧保存一次）")
 
     def model_post_init__(self, __context: Any) -> None:
         """模型初始化后的处理"""

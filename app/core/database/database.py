@@ -44,5 +44,5 @@ def init_db():
     导入所有相关的模型并创建对应的数据库表。
     在函数内部导入模型可以避免循环依赖问题。
     """
-    from app.models.detected_results import DetectedFace
+    from app.core.database.models.detected_results import DetectedFace
     Base.metadata.create_all(bind=engine)
