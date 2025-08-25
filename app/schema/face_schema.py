@@ -23,6 +23,7 @@ class FaceInfo(BaseModel):
     sn: str = Field(..., description="人脸所属人员的唯一标识SN。")
     registration_time: datetime = Field(..., description="人脸注册时间。")
     image_path: str = Field(..., description="注册图像在文件系统中的路径。")
+    image_url: Optional[str] = Field(None, description="注册图像的HTTP访问URL。")
     extra_info: Optional[Dict[str, Any]] = Field(None, description="预留的额外信息字段。")
 
     class Config:

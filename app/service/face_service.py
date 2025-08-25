@@ -125,13 +125,50 @@ class FaceService:
 
     async def get_all_faces(self) -> List[FaceInfo]:
         all_faces_data = self.face_dao.get_all()
-        return [FaceInfo.model_validate(face) for face in all_faces_data]
+        faces = []
+        for face_data in all_faces_data:
+            face_info = FaceInfo.model_validate(face_data)
+            # 将image_path转换为可访问的URL
+            if face_info.image_path:
+                try:
+                    # 将本地文件路径转换为相对路径
+                    image_path = Path(face_info.image_path)
+                    # 构建相对URL路径，相对于data/faces目录
+                    if "faces" in str(image_path):
+                        # 提取相对于data/faces的路径
+                        rel_path = str(image_path).split("faces", 1)[-1].lstrip("/\\")
+                        face_info.image_url = f"http://{self.settings.app.host_ip}:{self.settings.server.port}/api/static/faces/{rel_path}"
+                    else:
+                        # 使用完整的相对路径
+                        face_info.image_url = f"http://{self.settings.app.host_ip}:{self.settings.server.port}/api/static/{image_path.name}"
+                except Exception as e:
+                    app_logger.warning(f"转换图片路径为URL失败: {e}")
+                    face_info.image_url = None
+            faces.append(face_info)
+        return faces
 
     async def get_face_by_sn(self, sn: str) -> List[FaceInfo]:
         faces_data = self.face_dao.get_features_by_sn(sn)
         if not faces_data:
             raise HTTPException(status_code=404, detail=f"未找到SN为 '{sn}' 的人脸记录。")
-        return [FaceInfo.model_validate(face) for face in faces_data]
+        
+        faces = []
+        for face_data in faces_data:
+            face_info = FaceInfo.model_validate(face_data)
+            # 将image_path转换为可访问的URL
+            if face_info.image_path:
+                try:
+                    image_path = Path(face_info.image_path)
+                    if "faces" in str(image_path):
+                        rel_path = str(image_path).split("faces", 1)[-1].lstrip("/\\")
+                        face_info.image_url = f"/api/static/faces/{rel_path}"
+                    else:
+                        face_info.image_url = f"/api/static/{image_path.name}"
+                except Exception as e:
+                    app_logger.warning(f"转换图片路径为URL失败: {e}")
+                    face_info.image_url = None
+            faces.append(face_info)
+        return faces
 
     async def update_face_by_sn(self, sn: str, update_data: UpdateFaceRequest) -> Tuple[int, FaceInfo]:
         update_dict = update_data.model_dump(exclude_unset=True)

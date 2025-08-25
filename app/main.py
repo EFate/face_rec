@@ -115,6 +115,10 @@ def create_app() -> FastAPI:
     STATIC_FILES_DIR = Path("app/static")
     if STATIC_FILES_DIR.exists(): app.mount("/static", StaticFiles(directory=STATIC_FILES_DIR), name="static")
     if DATA_DIR.exists(): app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")
+    if DATA_DIR.exists():
+        faces_dir = DATA_DIR / "faces"
+        if faces_dir.exists():
+            app.mount("/api/static/faces", StaticFiles(directory=faces_dir), name="faces")
 
     @app.get("/docs", include_in_schema=False)
     async def custom_swagger_ui_html():
