@@ -212,17 +212,17 @@ class DetectionQueryOps:
         ).all()
         
         # 计算总检测次数和总人员数
-        total_detections = sum(stat.count for stat in person_stats)
+        total_detections = sum(int(stat.count) for stat in person_stats)
         total_persons = len(person_stats)
         
         # 构建饼图数据
         pie_data = []
         for stat in person_stats:
-            percentage = (stat.count / total_detections * 100) if total_detections > 0 else 0
+            percentage = (int(stat.count) / total_detections * 100) if total_detections > 0 else 0
             pie_data.append(PersonDetectionPieData(
                 name=stat.name or "Unknown",
                 sn=stat.sn,
-                count=stat.count,
+                count=int(stat.count),
                 percentage=round(percentage, 2)
             ))
         
@@ -303,8 +303,15 @@ class DetectionQueryOps:
         # 总检测次数
         total_detections = self.db.query(DetectedFace).count()
 
-        # 注册人员数量（从人脸库获取不同的SN数量）
-        unique_persons = self.db.query(DetectedFace.sn).distinct().count()
+        # 修复：从人脸库获取不同的SN数量，需要从face_dao获取真实的人脸库人员数
+        try:
+            from app.service.face_dao import FaceDAO
+            face_dao = FaceDAO()
+            # 获取人脸库中的唯一SN数量
+            unique_persons = len(face_dao.get_all_unique_sns())
+        except Exception:
+            # 如果无法获取人脸库数据，则从检测记录中获取不同SN数量作为备选
+            unique_persons = self.db.query(DetectedFace.sn).distinct().count()
 
         # 今日检测数（使用本地时区）
         from datetime import datetime, timezone

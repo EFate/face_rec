@@ -2721,3 +2721,660 @@ RuntimeError: Caught handled exception, but response already started.
 2025-08-25 15:47:12.056 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
 2025-08-25 15:47:12.214 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
 2025-08-25 15:47:12.214 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-25 16:10:55.958 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-25 16:10:55.961 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-25 16:10:55.961 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-25 16:10:55.964 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-25 16:10:55.964 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-25 16:10:55.964 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-25 16:10:59.484 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-25 16:11:00.872 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-25 16:11:00.873 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-25 16:11:00.882 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-25 16:11:00.882 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-25 16:11:00.882 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 16:11:05.295 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 16:11:05.296 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-25 16:11:05.297 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 16:11:05.298 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-25 16:11:08.213 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 16:11:08.214 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-25 16:11:08.215 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-25 16:11:08.216 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-25 16:11:12.812 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-25 16:11:12.813 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-25 16:11:12.815 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-25 16:11:12.817 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-25 16:11:12.817 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-25 16:11:12.818 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-25 16:11:12.819 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-25 16:11:12.878 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-25 16:11:12.920 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-25 16:11:12.920 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-25 16:11:12.921 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-25 16:11:12.921 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-25 16:11:12.922 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-26 08:54:42.582 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-26 08:54:42.584 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-26 08:54:42.584 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-26 08:54:42.585 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-26 08:54:42.585 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-26 08:54:42.585 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-26 08:54:50.775 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-26 08:54:52.511 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-26 08:54:52.511 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-26 08:54:52.523 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-26 08:54:52.523 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-26 08:54:52.523 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 08:54:56.736 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 08:54:56.736 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-26 08:54:56.739 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 08:54:56.740 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 08:54:58.739 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 08:54:58.740 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 08:54:58.742 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-26 08:54:58.742 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-26 08:55:04.880 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-26 08:55:04.881 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-26 08:55:04.881 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-26 08:55:04.882 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-26 08:55:04.883 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-26 08:55:04.883 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-26 08:55:04.883 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-26 08:55:04.890 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-26 08:55:04.905 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-26 08:55:04.906 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-26 08:55:04.906 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-26 08:55:04.906 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-26 08:55:04.906 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-26 09:14:15.343 | INFO     | app.core.pipeline:__init__:181 - 【流水线 a8d4cefc-29d8-46f5-bbb3-9e677780f679】正在初始化...
+2025-08-26 09:14:15.344 | INFO     | app.service.face_service:start_stream:256 - 🚀 视频流线程已启动: ID=a8d4cefc-29d8-46f5-bbb3-9e677780f679, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-08-26 09:14:15.349 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-26 09:14:15.356 | INFO     | app.core.pipeline:start:198 - 【流水线 a8d4cefc-29d8-46f5-bbb3-9e677780f679】正在启动...
+2025-08-26 09:14:15.644 | INFO     | app.core.pipeline:_reader_thread:241 - 【T1:读帧 a8d4cefc-29d8-46f5-bbb3-9e677780f679】启动。
+2025-08-26 09:14:15.645 | INFO     | app.core.pipeline:_preprocessor_thread:287 - 【T2:预处理 a8d4cefc-29d8-46f5-bbb3-9e677780f679】启动。
+2025-08-26 09:14:15.647 | INFO     | app.core.pipeline:_inference_thread:301 - 【T3:推理 a8d4cefc-29d8-46f5-bbb3-9e677780f679】启动。
+2025-08-26 09:14:15.647 | INFO     | app.core.pipeline:_postprocessor_thread:343 - 【T4:后处理 a8d4cefc-29d8-46f5-bbb3-9e677780f679】启动。
+2025-08-26 09:14:16.801 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-26 09:14:16.805 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-26 09:14:19.832 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:14:19.835 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:14:22.859 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:14:22.860 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:14:25.870 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:14:25.878 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:14:28.917 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:14:28.918 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:14:31.934 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:14:31.935 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:14:35.025 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:14:35.025 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:14:38.115 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:14:38.120 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:14:41.182 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:14:41.183 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:14:44.243 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:14:44.244 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:14:47.373 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:14:47.374 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:14:50.386 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:14:50.387 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:14:53.420 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:14:53.421 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:14:56.450 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:14:56.450 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:14:59.462 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:14:59.462 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:15:02.528 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:15:02.528 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:15:05.559 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:15:05.560 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:15:08.603 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:15:08.603 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:15:11.641 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:15:11.642 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:15:14.658 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:15:14.660 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:15:17.774 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:15:17.775 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:15:20.853 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:15:20.854 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:15:23.909 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:15:23.910 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:15:26.972 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:15:26.973 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:15:30.053 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:15:30.054 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:15:33.469 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:15:33.469 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:15:36.487 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:15:36.488 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:15:39.510 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:15:39.511 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:15:42.713 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:15:42.714 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:15:47.777 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-26 09:15:47.778 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-26 09:15:49.893 | WARNING  | app.service.face_dao:update_by_sn:111 - LanceDB 的更新操作通过“删除+新增”实现，可能影响性能。
+2025-08-26 09:15:50.034 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 2 条 SN 为 'sn002' 的记录。
+2025-08-26 09:15:50.142 | INFO     | app.service.face_service:update_face_by_sn:184 - 人员信息已更新: SN=sn002, 新数据={'name': 'pang'}, 影响记录数=2
+2025-08-26 09:15:50.813 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:15:50.814 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:15:53.881 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:15:53.882 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:15:56.927 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:15:56.928 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:15:59.969 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:15:59.971 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:16:03.155 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:16:03.156 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:16:06.177 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:16:06.178 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:16:09.371 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:16:09.372 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:16:12.434 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:16:12.434 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:16:15.528 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:16:15.530 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:16:18.556 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:16:18.556 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:16:19.399 | WARNING  | app.service.face_service:register_face:71 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-08-26 09:16:19.479 | INFO     | app.service.face_service:register_face:96 - 注册人脸检测成功: 姓名=sn002, SN=sn002, 置信度=0.465
+2025-08-26 09:16:19.541 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=sn002, Name=sn002
+2025-08-26 09:16:21.614 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:16:21.614 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:16:24.642 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:16:24.643 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:16:27.704 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:16:27.704 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:16:30.731 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:16:30.732 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:16:33.764 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:16:33.765 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:16:37.662 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:16:37.662 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:16:39.850 | WARNING  | app.service.face_service:register_face:71 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-08-26 09:16:39.937 | INFO     | app.service.face_service:register_face:96 - 注册人脸检测成功: 姓名=sn002, SN=sn002, 置信度=0.465
+2025-08-26 09:16:39.989 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=sn002, Name=sn002
+2025-08-26 09:16:40.751 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:16:40.751 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:16:43.849 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:16:43.850 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:16:46.890 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:16:46.890 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:16:49.919 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:16:49.920 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:16:53.020 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:16:53.023 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:16:56.108 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:16:56.111 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:16:59.149 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:16:59.150 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:17:02.230 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:17:02.232 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:17:05.332 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:17:05.333 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:17:08.360 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:08.360 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:11.447 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:17:11.448 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:17:14.489 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:17:14.490 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:17:17.518 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:17:17.518 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:17:20.552 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:20.555 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:23.579 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:23.579 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:26.618 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:26.620 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:29.636 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:29.636 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:32.648 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:17:32.648 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:17:35.684 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:17:35.684 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:17:38.738 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:17:38.739 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:17:41.776 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:41.776 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:44.801 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:17:44.802 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:17:47.825 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:47.826 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:50.837 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:17:50.840 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:17:53.857 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:17:53.858 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:17:56.903 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:17:56.904 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:17:59.920 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:17:59.920 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:18:02.988 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:18:02.991 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:18:06.073 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:18:06.074 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:18:09.160 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:18:09.161 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:18:12.238 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:18:12.238 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:18:15.292 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:18:15.292 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:18:18.351 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:18:18.353 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:18:21.411 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:18:21.411 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:18:24.462 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:18:24.463 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:18:27.553 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:18:27.558 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:18:30.584 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:18:30.587 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:18:33.888 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:18:33.890 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:18:36.931 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:18:36.931 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:18:39.938 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:18:39.938 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:18:42.994 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:18:42.994 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:18:46.009 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:18:46.010 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:18:49.062 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:18:49.062 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:18:52.111 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:18:52.114 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:18:55.153 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:18:55.156 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:18:58.169 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:18:58.169 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:19:01.226 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:19:01.228 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:19:04.305 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:19:04.306 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:19:07.345 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:07.345 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:10.380 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:10.382 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:13.440 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:13.443 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:16.477 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:19:16.477 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:19:19.536 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:19.537 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:22.602 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:19:22.606 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:19:25.624 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:19:25.625 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:19:28.687 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:28.690 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:31.757 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:31.758 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:34.835 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:19:34.836 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:19:37.897 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:19:37.897 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:19:40.923 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:19:40.924 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:19:43.940 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:19:43.941 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:19:47.714 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 1 条检测结果
+2025-08-26 09:19:47.715 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 1 条检测结果
+2025-08-26 09:19:50.806 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:19:50.807 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:19:53.856 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:19:53.857 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:19:56.862 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:19:56.863 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:19:59.934 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:19:59.935 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:20:02.994 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:20:02.994 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:20:06.051 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:20:06.053 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:20:09.066 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:09.067 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:12.086 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:12.087 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:15.111 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:20:15.112 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:20:18.147 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:20:18.148 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:20:21.196 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:20:21.197 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:20:24.221 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:24.221 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:27.261 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:20:27.261 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:20:30.292 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:30.292 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:33.601 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:20:33.601 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:20:36.611 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:20:36.611 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:20:39.653 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:20:39.654 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:20:42.721 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:20:42.724 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:20:45.777 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:45.778 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:48.806 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:48.807 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:51.866 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:20:51.866 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:20:54.881 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:20:54.882 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:20:57.951 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:20:57.953 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:21:00.976 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:00.977 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:04.019 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:21:04.020 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:21:07.060 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:21:07.061 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:21:10.109 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:10.109 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:13.119 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:13.120 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:16.153 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:16.154 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:19.163 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:19.163 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:22.196 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:21:22.197 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:21:25.213 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:21:25.213 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:21:28.256 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:21:28.256 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:21:31.292 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:21:31.292 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:21:34.368 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:21:34.369 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:21:37.395 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:21:37.395 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:21:40.439 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:40.440 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:43.491 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:21:43.493 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:21:46.533 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:21:46.534 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:21:49.557 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:21:49.558 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:21:52.625 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 9 条检测结果
+2025-08-26 09:21:52.625 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 9 条检测结果
+2025-08-26 09:21:55.652 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:21:55.653 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:21:58.712 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:21:58.713 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:01.774 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:22:01.775 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:22:04.810 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:22:04.812 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:07.864 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:22:07.865 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:22:10.893 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:22:10.895 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:22:13.948 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:22:13.948 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:16.957 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:22:16.958 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:20.011 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:22:20.012 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:23.040 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:22:23.040 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:22:26.074 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:22:26.075 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:29.084 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:22:29.087 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:22:32.098 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:22:32.099 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:22:35.158 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:22:35.159 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:22:38.205 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:22:38.205 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:22:41.212 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:22:41.213 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:22:44.224 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:22:44.225 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:22:47.236 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:22:47.236 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:22:50.272 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:22:50.273 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:22:53.782 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:22:53.783 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:22:56.815 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:22:56.815 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:22:59.825 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:22:59.825 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:23:02.854 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:23:02.855 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:23:05.868 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:23:05.869 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:23:08.883 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:23:08.884 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:23:11.948 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:23:11.949 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:23:14.966 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:23:14.966 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:23:17.981 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:23:17.982 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:23:21.010 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:23:21.011 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:23:24.149 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:23:24.150 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:23:27.226 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:23:27.226 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:23:30.289 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:23:30.294 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:23:33.460 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:23:33.460 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:23:36.488 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:23:36.489 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:23:39.550 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:23:39.552 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:23:42.619 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:23:42.620 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:23:45.672 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:23:45.676 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:23:48.737 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:23:48.738 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:23:51.780 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:23:51.783 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:23:54.808 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:23:54.810 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:23:57.782 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 10 条检测结果
+2025-08-26 09:23:57.783 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 10 条检测结果
+2025-08-26 09:24:00.841 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:00.842 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:03.863 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:24:03.864 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:24:06.915 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 7 条检测结果
+2025-08-26 09:24:06.915 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 7 条检测结果
+2025-08-26 09:24:09.944 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:24:09.944 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:24:12.998 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:12.998 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:16.021 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:16.021 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:18.622 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 10 条检测结果
+2025-08-26 09:24:18.625 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 10 条检测结果
+2025-08-26 09:24:21.669 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:21.669 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:24.708 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:24:24.709 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:24:27.737 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:27.738 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:30.814 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:24:30.815 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:24:33.855 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:33.855 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:36.920 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 6 条检测结果
+2025-08-26 09:24:36.920 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 6 条检测结果
+2025-08-26 09:24:39.948 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 10 条检测结果
+2025-08-26 09:24:39.949 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 10 条检测结果
+2025-08-26 09:24:43.000 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:43.001 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:46.023 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 9 条检测结果
+2025-08-26 09:24:46.026 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 9 条检测结果
+2025-08-26 09:24:49.040 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:24:49.040 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:24:52.085 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 8 条检测结果
+2025-08-26 09:24:52.086 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 8 条检测结果
+2025-08-26 09:24:55.162 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 4 条检测结果
+2025-08-26 09:24:55.163 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 4 条检测结果
+2025-08-26 09:24:58.206 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 5 条检测结果
+2025-08-26 09:24:58.207 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 5 条检测结果
+2025-08-26 09:25:01.261 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 3 条检测结果
+2025-08-26 09:25:01.261 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 3 条检测结果
+2025-08-26 09:25:05.169 | INFO     | app.core.database.results_ops:insert_batch_results:131 - 成功批量插入 2 条检测结果
+2025-08-26 09:25:05.170 | INFO     | app.core.result_processor:_save_batch_buffer:209 - 成功批量保存 2 条检测结果
+2025-08-26 09:25:05.297 | INFO     | app.service.face_service:cleanup_expired_streams:305 - 正在清理过期视频流: ['a8d4cefc-29d8-46f5-bbb3-9e677780f679']
+2025-08-26 09:25:05.605 | INFO     | app.core.pipeline:stop:208 - 【流水线 a8d4cefc-29d8-46f5-bbb3-9e677780f679】正在停止...
+2025-08-26 09:25:05.617 | INFO     | app.core.pipeline:_inference_thread:337 - 【T3:推理 a8d4cefc-29d8-46f5-bbb3-9e677780f679】已停止。
+2025-08-26 09:25:05.638 | INFO     | app.core.pipeline:_reader_thread:283 - 【T1:读帧 a8d4cefc-29d8-46f5-bbb3-9e677780f679】已停止。
+2025-08-26 09:25:05.671 | INFO     | app.core.pipeline:_postprocessor_thread:412 - 【T4:后处理 a8d4cefc-29d8-46f5-bbb3-9e677780f679】已停止。
+2025-08-26 09:25:07.677 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-26 09:25:07.677 | INFO     | app.core.pipeline:_preprocessor_thread:297 - 【T2:预处理 a8d4cefc-29d8-46f5-bbb3-9e677780f679】已停止。
+2025-08-26 09:25:07.678 | INFO     | app.core.pipeline:stop:222 - ✅【流水线 a8d4cefc-29d8-46f5-bbb3-9e677780f679】已安全停止。
+2025-08-26 09:25:07.680 | INFO     | app.service.face_service:_pipeline_worker_thread:235 - ✅【线程 a8d4cefc-29d8-46f5-bbb3-9e677780f679】处理工作已结束。
+2025-08-26 09:25:07.685 | INFO     | app.service.face_service:stop_stream:265 - ✅ 视频流已成功停止: ID=a8d4cefc-29d8-46f5-bbb3-9e677780f679
+2025-08-26 09:26:26.545 | INFO     | app.main:lifespan:65 - 应用程序正在关闭... 开始执行清理任务。
+2025-08-26 09:26:26.548 | INFO     | app.main:lifespan:74 - ✅ 视频流清理任务已取消。
+2025-08-26 09:26:26.551 | INFO     | app.core.result_processor:_worker_loop:116 - 结果持久化处理器工作线程已停止
+2025-08-26 09:26:26.552 | INFO     | app.core.result_processor:stop:82 - ✅ 结果持久化处理器已停止
+2025-08-26 09:26:26.553 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-08-26 09:26:27.180 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-08-26 09:26:27.181 | INFO     | app.main:lifespan:87 - ✅ 所有清理任务完成。
+2025-08-26 09:26:29.756 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-26 09:26:29.758 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-26 09:26:29.758 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-26 09:26:29.759 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-26 09:26:29.759 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-26 09:26:29.760 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-26 09:26:33.550 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-26 09:26:34.473 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-26 09:26:34.473 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-26 09:26:34.475 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-26 09:26:34.475 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-26 09:26:34.475 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 09:26:37.213 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 09:26:37.214 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-26 09:26:37.215 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 09:26:37.216 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 09:26:38.588 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 09:26:38.698 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 09:26:38.698 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-26 09:26:38.699 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-26 09:26:40.559 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-26 09:26:40.559 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-26 09:26:40.560 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-26 09:26:40.561 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-26 09:26:40.561 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-26 09:26:40.561 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-26 09:26:40.561 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-26 09:26:40.565 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-26 09:26:40.568 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-26 09:26:40.568 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-26 09:26:40.568 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-26 09:26:40.568 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-26 09:26:40.568 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-26 09:37:06.262 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-08-26 09:37:06.263 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-08-26 09:37:06.264 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-08-26 09:37:06.264 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-08-26 09:37:06.264 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-08-26 09:37:06.264 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-08-26 09:37:10.123 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-08-26 09:37:11.458 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-08-26 09:37:11.458 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-08-26 09:37:11.466 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-08-26 09:37:11.466 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-08-26 09:37:11.467 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 09:37:14.601 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 09:37:14.601 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-08-26 09:37:14.603 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 09:37:14.604 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-08-26 09:37:16.220 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 09:37:16.356 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-08-26 09:37:16.357 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-08-26 09:37:16.357 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-08-26 09:37:18.309 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-08-26 09:37:18.310 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-08-26 09:37:18.311 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-08-26 09:37:18.311 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-08-26 09:37:18.311 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-08-26 09:37:18.312 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-08-26 09:37:18.312 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-08-26 09:37:18.338 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-26 09:37:18.370 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-08-26 09:37:18.370 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-08-26 09:37:18.370 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-08-26 09:37:18.371 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-08-26 09:37:18.371 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-08-26 10:49:56.931 | INFO     | app.core.pipeline:__init__:181 - 【流水线 f7c6c21a-717d-4891-9927-72fdf4f017ed】正在初始化...
+2025-08-26 10:49:56.931 | INFO     | app.service.face_service:start_stream:256 - 🚀 视频流线程已启动: ID=f7c6c21a-717d-4891-9927-72fdf4f017ed, Source=0
+2025-08-26 10:49:56.940 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-08-26 10:49:56.947 | INFO     | app.core.pipeline:start:198 - 【流水线 f7c6c21a-717d-4891-9927-72fdf4f017ed】正在启动...
+2025-08-26 10:50:01.108 | INFO     | app.core.pipeline:_reader_thread:241 - 【T1:读帧 f7c6c21a-717d-4891-9927-72fdf4f017ed】启动。
+2025-08-26 10:50:01.109 | INFO     | app.core.pipeline:_preprocessor_thread:287 - 【T2:预处理 f7c6c21a-717d-4891-9927-72fdf4f017ed】启动。
+2025-08-26 10:50:01.110 | INFO     | app.core.pipeline:_inference_thread:301 - 【T3:推理 f7c6c21a-717d-4891-9927-72fdf4f017ed】启动。
+2025-08-26 10:50:01.111 | INFO     | app.core.pipeline:_postprocessor_thread:343 - 【T4:后处理 f7c6c21a-717d-4891-9927-72fdf4f017ed】启动。
+2025-08-26 10:50:16.238 | INFO     | app.core.pipeline:stop:208 - 【流水线 f7c6c21a-717d-4891-9927-72fdf4f017ed】正在停止...
+2025-08-26 10:50:16.251 | INFO     | app.core.pipeline:_inference_thread:337 - 【T3:推理 f7c6c21a-717d-4891-9927-72fdf4f017ed】已停止。
+2025-08-26 10:50:16.285 | INFO     | app.core.pipeline:_reader_thread:283 - 【T1:读帧 f7c6c21a-717d-4891-9927-72fdf4f017ed】已停止。
+2025-08-26 10:50:16.288 | INFO     | app.core.pipeline:_postprocessor_thread:412 - 【T4:后处理 f7c6c21a-717d-4891-9927-72fdf4f017ed】已停止。
+2025-08-26 10:50:18.681 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-08-26 10:50:18.682 | INFO     | app.core.pipeline:_preprocessor_thread:297 - 【T2:预处理 f7c6c21a-717d-4891-9927-72fdf4f017ed】已停止。
+2025-08-26 10:50:18.682 | INFO     | app.core.pipeline:stop:222 - ✅【流水线 f7c6c21a-717d-4891-9927-72fdf4f017ed】已安全停止。
+2025-08-26 10:50:18.683 | INFO     | app.service.face_service:_pipeline_worker_thread:235 - ✅【线程 f7c6c21a-717d-4891-9927-72fdf4f017ed】处理工作已结束。
+2025-08-26 10:50:18.688 | INFO     | app.service.face_service:stop_stream:265 - ✅ 视频流已成功停止: ID=f7c6c21a-717d-4891-9927-72fdf4f017ed
+2025-09-02 16:39:14.348 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-02 16:39:14.350 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-02 16:39:14.350 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-02 16:39:14.353 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-02 16:39:14.354 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-09-02 16:39:14.354 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-02 16:39:19.310 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-09-02 16:39:21.265 | INFO     | app.main:lifespan:31 - 应用程序启动... 开始执行启动任务。
+2025-09-02 16:39:21.266 | INFO     | app.main:lifespan:34 - 应用启动，开始初始化数据库...
+2025-09-02 16:39:21.281 | INFO     | app.main:lifespan:36 - 数据库初始化完成。
+2025-09-02 16:39:21.281 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-09-02 16:39:21.282 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-09-02 16:39:25.589 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-09-02 16:39:25.589 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-09-02 16:39:25.593 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-09-02 16:39:25.595 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-09-02 16:39:27.481 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-09-02 16:39:27.646 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-09-02 16:39:27.647 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-09-02 16:39:27.647 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-09-02 16:39:31.548 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-09-02 16:39:31.549 | INFO     | app.main:lifespan:40 - ✅ 模型池加载完成。
+2025-09-02 16:39:31.550 | INFO     | app.core.result_processor:__init__:49 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-02 16:39:31.550 | INFO     | app.core.result_processor:_worker_loop:86 - 结果持久化处理器工作线程已启动
+2025-09-02 16:39:31.550 | INFO     | app.core.result_processor:start:64 - ✅ 结果持久化处理器已启动
+2025-09-02 16:39:31.550 | INFO     | app.main:lifespan:47 - ✅ 结果持久化服务已启动。
+2025-09-02 16:39:31.550 | INFO     | app.service.face_service:__init__:30 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-02 16:39:31.575 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-02 16:39:31.606 | INFO     | app.service.face_service:initialize:44 - FaceService 正在初始化...
+2025-09-02 16:39:31.607 | INFO     | app.service.face_service:initialize:45 - ✅ FaceService 初始化完毕。
+2025-09-02 16:39:31.607 | INFO     | app.main:lifespan:55 - ✅ FaceService 初始化完成。
+2025-09-02 16:39:31.608 | INFO     | app.main:lifespan:60 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-02 16:39:31.608 | INFO     | app.main:lifespan:62 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-02 17:23:35.527 | INFO     | app.core.pipeline:__init__:181 - 【流水线 8f125337-ce50-4359-8aef-89445c476b77】正在初始化...
+2025-09-02 17:23:35.534 | INFO     | app.service.face_service:start_stream:256 - 🚀 视频流线程已启动: ID=8f125337-ce50-4359-8aef-89445c476b77, Source=0
+2025-09-02 17:23:35.629 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-02 17:23:35.665 | INFO     | app.core.pipeline:start:198 - 【流水线 8f125337-ce50-4359-8aef-89445c476b77】正在启动...
+2025-09-02 17:23:38.883 | INFO     | app.core.pipeline:_reader_thread:241 - 【T1:读帧 8f125337-ce50-4359-8aef-89445c476b77】启动。
+2025-09-02 17:23:38.886 | INFO     | app.core.pipeline:_preprocessor_thread:287 - 【T2:预处理 8f125337-ce50-4359-8aef-89445c476b77】启动。
+2025-09-02 17:23:38.891 | INFO     | app.core.pipeline:_inference_thread:301 - 【T3:推理 8f125337-ce50-4359-8aef-89445c476b77】启动。
+2025-09-02 17:23:38.905 | INFO     | app.core.pipeline:_postprocessor_thread:343 - 【T4:后处理 8f125337-ce50-4359-8aef-89445c476b77】启动。
+2025-09-02 17:24:20.778 | INFO     | app.core.pipeline:stop:208 - 【流水线 8f125337-ce50-4359-8aef-89445c476b77】正在停止...
+2025-09-02 17:24:20.807 | INFO     | app.core.pipeline:_reader_thread:283 - 【T1:读帧 8f125337-ce50-4359-8aef-89445c476b77】已停止。
+2025-09-02 17:24:20.873 | INFO     | app.core.pipeline:_inference_thread:337 - 【T3:推理 8f125337-ce50-4359-8aef-89445c476b77】已停止。
+2025-09-02 17:24:20.915 | INFO     | app.core.pipeline:_postprocessor_thread:412 - 【T4:后处理 8f125337-ce50-4359-8aef-89445c476b77】已停止。
+2025-09-02 17:24:23.112 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-09-02 17:24:23.112 | INFO     | app.core.pipeline:_preprocessor_thread:297 - 【T2:预处理 8f125337-ce50-4359-8aef-89445c476b77】已停止。
+2025-09-02 17:24:23.112 | INFO     | app.core.pipeline:stop:222 - ✅【流水线 8f125337-ce50-4359-8aef-89445c476b77】已安全停止。
+2025-09-02 17:24:23.114 | INFO     | app.service.face_service:_pipeline_worker_thread:235 - ✅【线程 8f125337-ce50-4359-8aef-89445c476b77】处理工作已结束。
+2025-09-02 17:24:23.125 | INFO     | app.service.face_service:stop_stream:265 - ✅ 视频流已成功停止: ID=8f125337-ce50-4359-8aef-89445c476b77

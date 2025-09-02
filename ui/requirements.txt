@@ -1,0 +1,33 @@
+# 人脸识别智能管理系统 - UI依赖包
+
+# 核心框架
+streamlit>=1.28.0
+streamlit-option-menu>=0.3.6
+
+# 数据处理
+pandas>=1.5.0
+numpy>=1.21.0
+
+# 图表可视化
+plotly>=5.15.0
+altair>=5.0.0
+
+# HTTP客户端
+requests>=2.28.0
+
+# 图像处理
+Pillow>=9.0.0
+
+# 日期时间处理
+python-dateutil>=2.8.0
+
+# 环境变量管理
+python-dotenv>=0.19.0
+
+# 类型提示支持
+typing-extensions>=4.0.0
+
+# 开发工具（可选）
+# streamlit-authenticator>=0.2.0
+# streamlit-aggrid>=0.3.0
+# streamlit-plotly-events>=0.0.7
