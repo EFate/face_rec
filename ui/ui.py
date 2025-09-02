@@ -125,10 +125,14 @@ st.markdown("""
         border: 2px solid var(--border-color);
         box-shadow: 0 8px 25px var(--shadow-color);
         transition: all 0.3s ease;
-        height: 100%;
+        height: 180px;
+        min-height: 180px;
         position: relative;
         overflow: hidden;
         color: var(--text-primary);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .metric-card::before {
         content: '';
@@ -148,16 +152,24 @@ st.markdown("""
         font-size: 1.1rem;
         font-weight: 600;
         color: var(--text-secondary);
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        flex-shrink: 0;
     }
     .metric-card .value {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
         font-weight: 800;
         background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         line-height: 1.1;
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
     }
     .metric-card.ok { border-left: 6px solid var(--success-color); }
     .metric-card.error { border-left: 6px solid var(--error-color); }
@@ -167,8 +179,10 @@ st.markdown("""
     .metric-card .status {
         font-size: 0.8rem;
         color: var(--text-secondary);
-        margin-top: 8px;
+        margin-top: auto;
         font-weight: 500;
+        text-align: center;
+        flex-shrink: 0;
     }
     
     .metric-card.action {
@@ -269,6 +283,11 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
     }
 
+    /* 列布局优化 */
+    [data-testid="column"] {
+        padding: 0 10px;
+    }
+    
     /* 分页控件样式 */
     .pagination-container {
         display: flex;
@@ -785,8 +804,8 @@ def render_dashboard_page():
     stats = data.get('stats', {})
     faces = data.get('faces', {})
     
-    # 第一行：主要指标
-    col1, col2, col3, col4 = st.columns(4)
+    # 核心指标 - 只保留4个主要指标，确保完美对齐
+    col1, col2, col3, col4 = st.columns(4, gap="medium")
     
     with col1: 
         # 人脸库人员总数
@@ -856,62 +875,10 @@ def render_dashboard_page():
             <div class="status">{'✅ 连接正常' if api_status == '在线' else '❌ 连接异常'}</div>
         </div>
         """)
-    
-    # 第二行：扩展指标
-    st.markdown("<br>", unsafe_allow_html=True)
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        # 平均检测频率
-        if total > 0 and count > 0:
-            avg_freq = round(total / count, 1)
-            freq_text = f"{avg_freq} 次/人"
-            freq_class = "ok"
-        else:
-            freq_text = "0 次/人"
-            freq_class = "error"
-        
-        st.html(f"""
-        <div class="metric-card {freq_class}">
-            <div class="title">📊 平均检测频率</div>
-            <div class="value">{freq_text}</div>
-            <div class="status">统计指标</div>
-        </div>
-        """)
-    
-    with col2:
-        # 系统运行状态
-        st.html(f"""
-        <div class="metric-card ok">
-            <div class="title">⚡ 系统运行状态</div>
-            <div class="value">正常</div>
-            <div class="status">✅ 运行中</div>
-        </div>
-        """)
-    
-    with col3:
-        # 数据更新时间
-        from datetime import datetime
-        update_time = datetime.now().strftime("%H:%M")
-        st.html(f"""
-        <div class="metric-card info">
-            <div class="title">🕐 数据更新时间</div>
-            <div class="value">{update_time}</div>
-            <div class="status">实时更新</div>
-        </div>
-        """)
-    
-    with col4:
-        # 快速操作
-        st.html(f"""
-        <div class="metric-card action">
-            <div class="title">🚀 快速操作</div>
-            <div class="value">管理</div>
-            <div class="status">点击进入</div>
-        </div>
-        """)
 
     st.markdown("<br>", unsafe_allow_html=True)
+
+
 
     # 趋势图表和最新记录
     st.markdown("### 📊 数据趋势分析")
