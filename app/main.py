@@ -10,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import HTTPException
 
 from app.cfg.config import get_app_settings
-from app.cfg.logging import app_logger
+from app.cfg.logging import app_logger, setup_logging
 from app.core.model_manager import model_manager, load_models_on_startup, release_models_on_shutdown
 from app.core.database.database import init_db
 from app.router.face_router import router as face_router
@@ -20,6 +20,7 @@ from app.schema.face_schema import ApiResponse
 from app.cfg.config import DATA_DIR
 # --- 导入新的服务 ---
 from app.core.result_processor import ResultPersistenceProcessor
+from app.cfg.mqtt_manager import MQTTManager
 
 
 @asynccontextmanager
@@ -28,9 +29,10 @@ async def lifespan(app: FastAPI):
     应用生命周期管理器
     """
     # --- 启动任务 ---
-    app_logger.info("应用程序启动... 开始执行启动任务。")
     settings = get_app_settings()
+    setup_logging(settings)  # 设置日志配置
     app.state.settings = settings
+    app_logger.info("应用程序启动... 开始执行启动任务。")
     app_logger.info("应用启动，开始初始化数据库...")
     init_db()
     app_logger.info("数据库初始化完成。")
@@ -39,22 +41,28 @@ async def lifespan(app: FastAPI):
     await load_models_on_startup()
     app_logger.info("✅ 模型池加载完成。")
 
-    # 2. 创建用于结果持久化的共享队列和后台服务
+    # 2. 初始化MQTT管理器
+    mqtt_manager = MQTTManager(settings.mqtt)
+    app.state.mqtt_manager = mqtt_manager
+    mqtt_manager.start()
+    app_logger.info("✅ MQTT管理器已启动。")
+
+    # 3. 创建用于结果持久化的共享队列和后台服务
     result_persistence_queue = queue.Queue(maxsize=256)
-    result_service = ResultPersistenceProcessor(settings=settings, result_queue=result_persistence_queue)
+    result_service = ResultPersistenceProcessor(settings=settings, result_queue=result_persistence_queue, mqtt_manager=mqtt_manager)
     app.state.result_service = result_service
     result_service.start()
     app_logger.info("✅ 结果持久化服务已启动。")
 
-    # 3. 初始化服务，并注入模型管理器和结果队列
-    face_service = FaceService(settings=settings, model_manager=model_manager, result_queue=result_persistence_queue)
+    # 4. 初始化服务，并注入模型管理器和结果队列
+    face_service = FaceService(settings=settings, model_manager=model_manager, result_queue=result_persistence_queue, mqtt_manager=mqtt_manager)
     app.state.face_service = face_service
 
-    # 4. 调用服务自身的初始化方法
+    # 5. 调用服务自身的初始化方法
     await face_service.initialize()
     app_logger.info("✅ FaceService 初始化完成。")
 
-    # 5. 启动周期性清理过期流的后台任务
+    # 6. 启动周期性清理过期流的后台任务
     cleanup_task = asyncio.create_task(face_service.cleanup_expired_streams())
     app.state.cleanup_task = cleanup_task
     app_logger.info("✅ 启动了周期性清理过期视频流的后台任务。")
@@ -73,15 +81,19 @@ async def lifespan(app: FastAPI):
             pass
         app_logger.info("✅ 视频流清理任务已取消。")
 
-    # 2. 停止结果持久化服务 (在停止视频流之前)
+    # 2. 停止MQTT管理器
+    if hasattr(app.state, 'mqtt_manager'):
+        app.state.mqtt_manager.stop()
+
+    # 3. 停止结果持久化服务 (在停止视频流之前)
     if hasattr(app.state, 'result_service'):
         app.state.result_service.stop()
 
-    # 3. 关闭所有活动的视频流
+    # 4. 关闭所有活动的视频流
     if hasattr(app.state, 'face_service'):
         await app.state.face_service.stop_all_streams()
 
-    # 4. 释放模型资源
+    # 5. 释放模型资源
     await release_models_on_shutdown()
 
     app_logger.info("✅ 所有清理任务完成。")

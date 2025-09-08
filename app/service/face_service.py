@@ -20,17 +20,19 @@ from app.schema.face_schema import FaceInfo, FaceRecognitionResult, UpdateFaceRe
     StreamStartRequest
 from app.cfg.logging import app_logger
 from app.core.model_manager import ModelManager  # 引入 ModelManager
+from app.cfg.mqtt_manager import MQTTManager
 
 
 
 
 class FaceService:
     # --- 修改 __init__ 方法以接收队列 ---
-    def __init__(self, settings: AppSettings, model_manager: ModelManager, result_queue: queue.Queue):
+    def __init__(self, settings: AppSettings, model_manager: ModelManager, result_queue: queue.Queue, mqtt_manager: MQTTManager):
         app_logger.info("正在初始化 FaceService (多线程 + 模型池)...")
         self.settings = settings
         self.model_manager = model_manager  # 注入模型管理器
         self.result_persistence_queue = result_queue  # 注入结果持久化队列
+        self.mqtt_manager = mqtt_manager  # 注入MQTT管理器
         self.face_dao: FaceDataDAO = LanceDBFaceDataDAO(
             db_uri=self.settings.insightface.lancedb_uri,
             table_name=self.settings.insightface.lancedb_table_name,
@@ -196,7 +198,7 @@ class FaceService:
         return deleted_count
 
     def _pipeline_worker_thread(self, stream_id: str, video_source: str, result_queue: queue.Queue,
-                                stop_event: threading.Event):
+                                stop_event: threading.Event, task_id: int, app_id: int, app_name: str, domain_name: str):
         """在独立线程中运行，管理单个视频流管道的生命周期。"""
         if video_source.startswith("rtsp://"):
             os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;tcp"
@@ -210,7 +212,9 @@ class FaceService:
             pipeline = FaceStreamPipeline(
                 settings=self.settings, stream_id=stream_id, video_source=video_source,
                 output_queue=result_queue, model=model,
-                result_persistence_queue=self.result_persistence_queue
+                result_persistence_queue=self.result_persistence_queue,
+                task_id=task_id, app_id=app_id, app_name=app_name, domain_name=domain_name,
+                mqtt_manager=self.mqtt_manager
             )
             pipeline.start()  # 启动内部读帧、推理等线程
 
@@ -243,17 +247,26 @@ class FaceService:
             stop_event = threading.Event()
             thread = threading.Thread(
                 target=self._pipeline_worker_thread,
-                args=(stream_id, req.source, result_queue, stop_event),
+                args=(stream_id, req.source, result_queue, stop_event, req.taskId, req.appId, req.appName, req.domainName),
                 daemon=True
             )
             thread.start()
             started_at = datetime.now()
             expires_at = None if lifetime == -1 else started_at + timedelta(minutes=lifetime)
-            stream_info = ActiveStreamInfo(stream_id=stream_id, source=req.source, started_at=started_at,
-                                           expires_at=expires_at, lifetime_minutes=lifetime)
+            stream_info = ActiveStreamInfo(
+                stream_id=stream_id, 
+                task_id=req.taskId,
+                app_id=req.appId,
+                app_name=req.appName,
+                domain_name=req.domainName,
+                source=req.source, 
+                started_at=started_at,
+                expires_at=expires_at, 
+                lifetime_minutes=lifetime
+            )
             self.active_streams[stream_id] = {"info": stream_info, "queue": result_queue, "stop_event": stop_event,
                                               "thread": thread}
-            app_logger.info(f"🚀 视频流线程已启动: ID={stream_id}, Source={req.source}")
+            app_logger.info(f"🚀 视频流线程已启动: ID={stream_id}, TaskID={req.taskId}, Source={req.source}")
             return stream_info
 
     async def stop_stream(self, stream_id: str) -> bool:
@@ -263,6 +276,26 @@ class FaceService:
         stream["stop_event"].set()
         stream["thread"].join(timeout=5.0)
         app_logger.info(f"✅ 视频流已成功停止: ID={stream_id}")
+        return True
+
+    async def stop_stream_by_task_id(self, task_id: int) -> bool:
+        """根据task_id停止视频流"""
+        async with self.stream_lock:
+            stream_to_stop = None
+            for stream_id, stream in self.active_streams.items():
+                if stream["info"].task_id == task_id:
+                    stream_to_stop = stream_id
+                    break
+            
+            if not stream_to_stop:
+                return False
+                
+            stream = self.active_streams.pop(stream_to_stop, None)
+            if not stream: return False
+            
+        stream["stop_event"].set()
+        stream["thread"].join(timeout=5.0)
+        app_logger.info(f"✅ 视频流已成功停止: TaskID={task_id}, StreamID={stream_to_stop}")
         return True
 
     async def get_stream_feed(self, stream_id: str):
@@ -280,6 +313,31 @@ class FaceService:
                 yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         except (ValueError, asyncio.CancelledError):
             app_logger.info(f"客户端从流 {stream_id} 断开。")
+
+    async def get_stream_feed_by_task_id(self, task_id: int):
+        """根据task_id获取视频流"""
+        async with self.stream_lock:
+            stream_id = None
+            for sid, stream in self.active_streams.items():
+                if stream["info"].task_id == task_id:
+                    stream_id = sid
+                    break
+            
+            if not stream_id:
+                raise HTTPException(status_code=404, detail="Stream not found.")
+                
+            frame_queue = self.active_streams[stream_id]["queue"]
+        try:
+            while True:
+                try:
+                    frame_bytes = frame_queue.get(timeout=0.02)
+                except queue.Empty:
+                    await asyncio.sleep(0.01)
+                    continue
+                if frame_bytes is None: break
+                yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+        except (ValueError, asyncio.CancelledError):
+            app_logger.info(f"客户端从流 TaskID={task_id} 断开。")
 
     async def get_all_active_streams_info(self) -> List[ActiveStreamInfo]:
         async with self.stream_lock:

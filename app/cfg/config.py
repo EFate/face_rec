@@ -101,6 +101,25 @@ class InsightFaceConfig(BaseModel):
         Path(self.lancedb_uri).mkdir(parents=True, exist_ok=True)
 
 
+class MQTTConfig(BaseModel):
+    """MQTT配置"""
+    enabled: bool = Field(True, description="是否启用MQTT功能")
+    broker_host: str = Field("172.16.104.108", description="MQTT服务器地址")
+    broker_port: int = Field(1883, description="MQTT服务器端口")
+    username: str = Field("abtnet", description="MQTT用户名")
+    password: str = Field("Abt@Rabbit#123", description="MQTT密码")
+    keepalive: int = Field(60, description="保持连接的时间间隔(秒)")
+    topic_prefix: str = Field("abt/visio/face", description="MQTT主题前缀")
+    device_address: str = Field(default_factory=lambda: os.getenv("HOST__IP", "172.16.104.111"), description="设备地址，从环境变量HOST__IP获取")
+    app_type: str = Field("FACE_DETECT", description="应用类型")
+    max_queue_size: int = Field(1000, description="MQTT消息队列最大大小")
+    publish_interval: float = Field(0.1, description="MQTT消息发布间隔(秒)")
+    
+    def get_detection_topic(self) -> str:
+        """获取检测结果主题，格式：abt/visio/face/ip"""
+        return f"{self.topic_prefix}/{self.device_address}"
+
+
 class AppSettings(BaseSettings):
     """应用程序设置 - 完全通过环境变量配置"""
     app: AppConfig = Field(default_factory=AppConfig)
@@ -108,6 +127,7 @@ class AppSettings(BaseSettings):
     logging: LoggingConfig = Field(default_factory=LoggingConfig)
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
     insightface: InsightFaceConfig = Field(default_factory=InsightFaceConfig)
+    mqtt: MQTTConfig = Field(default_factory=MQTTConfig)
 
     model_config = SettingsConfigDict(
         env_file=ENV_FILE,

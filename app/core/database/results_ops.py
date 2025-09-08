@@ -26,7 +26,7 @@ def _validate_result_data(result: Dict[str, Any]) -> None:
         raise ValueError("检测结果必须是字典类型")
     
     # 检查必需字段
-    required_fields = {'sn', 'name'}
+    required_fields = {'sn', 'name', 'task_id', 'app_id', 'app_name', 'domain_name'}
     missing_fields = required_fields - set(result.keys())
     if missing_fields:
         raise ValueError(f"缺少必需字段: {missing_fields}")
@@ -37,6 +37,18 @@ def _validate_result_data(result: Dict[str, Any]) -> None:
     
     if not result.get('name') or not isinstance(result['name'], str):
         raise ValueError("name字段必须是非空字符串")
+    
+    if not isinstance(result.get('task_id'), int):
+        raise ValueError("task_id字段必须是整数")
+    
+    if not isinstance(result.get('app_id'), int):
+        raise ValueError("app_id字段必须是整数")
+    
+    if not result.get('app_name') or not isinstance(result['app_name'], str):
+        raise ValueError("app_name字段必须是非空字符串")
+    
+    if not result.get('domain_name') or not isinstance(result['domain_name'], str):
+        raise ValueError("domain_name字段必须是非空字符串")
     
     # 验证相似度范围（如果存在）
     similarity = result.get('similarity')

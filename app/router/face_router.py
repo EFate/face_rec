@@ -173,14 +173,14 @@ async def start_stream(
     - **lifetime_minutes**: 流的生命周期（分钟），-1表示永久，不传则使用默认配置。
     """
     stream_info = await face_service.start_stream(start_request)
-    feed_url = request.url_for('get_stream_feed', stream_id=stream_info.stream_id)
+    feed_url = request.url_for('get_stream_feed', task_id=stream_info.task_id)
     response_data = StreamDetail(**stream_info.model_dump(), feed_url=str(feed_url))
     return ApiResponse(data=response_data)
 
 
 @router.get(
-    "/streams/feed/{stream_id}",
-    summary="获取指定ID的视频流数据",
+    "/streams/feed/{task_id}",
+    summary="获取指定taskId的视频流数据",
     tags=["视频流管理"],
     name="get_stream_feed",
     responses={
@@ -192,7 +192,7 @@ async def start_stream(
     }
 )
 async def get_stream_feed(
-        stream_id: str,
+        task_id: int,
         face_service: FaceService = Depends(get_face_service)
 ):
     """
@@ -200,26 +200,26 @@ async def get_stream_feed(
     此端点专为用在HTML `<img>` 标签的 `src` 属性或类似的流媒体播放器中而设计。
     """
     return StreamingResponse(
-        face_service.get_stream_feed(stream_id),
+        face_service.get_stream_feed_by_task_id(task_id),
         media_type="multipart/x-mixed-replace; boundary=frame"
     )
 
 
 @router.post(
-    "/streams/stop/{stream_id}",
+    "/streams/stop/{task_id}",
     response_model=ApiResponse[StopStreamResponseData],
     summary="停止一个指定的视频流",
     tags=["视频流管理"]
 )
 async def stop_stream(
-        stream_id: str,
+        task_id: int,
         face_service: FaceService = Depends(get_face_service)
 ):
-    """根据 `stream_id` 手动停止一个正在运行的视频流任务。"""
-    success = await face_service.stop_stream(stream_id)
+    """根据 `task_id` 手动停止一个正在运行的视频流任务。"""
+    success = await face_service.stop_stream_by_task_id(task_id)
     if not success:
-        raise HTTPException(status_code=404, detail=f"Stream with ID '{stream_id}' not found or already stopped.")
-    return ApiResponse(data=StopStreamResponseData(stream_id=stream_id))
+        raise HTTPException(status_code=404, detail=f"Stream with task ID '{task_id}' not found or already stopped.")
+    return ApiResponse(data=StopStreamResponseData(stream_id=str(task_id)))
 
 
 @router.get(
@@ -238,7 +238,7 @@ async def get_all_streams(
     streams_with_details = [
         StreamDetail(
             **info.model_dump(),
-            feed_url=str(request.url_for('get_stream_feed', stream_id=info.stream_id))
+            feed_url=str(request.url_for('get_stream_feed', task_id=info.task_id))
         )
         for info in active_streams_info
     ]

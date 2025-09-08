@@ -96,11 +96,19 @@ class StreamStartRequest(BaseModel):
         description="视频流生命周期（分钟）。-1表示永久，不填则使用配置默认值。",
         example=10
     )
+    taskId: int = Field(..., description="任务ID，用于唯一标识一个视频流任务。", example="1234567890")
+    appId : int = Field(..., description="应用id", example="31")
+    appName : str = Field(..., description="应用名称", example="人脸应用")
+    domainName: str = Field(..., description="域名", example="video.com")
 
 
 class ActiveStreamInfo(BaseModel):
     """单个活动流的基础状态信息（内部使用）"""
     stream_id: str = Field(..., description="流的唯一ID。")
+    task_id: int = Field(..., description="任务ID。")
+    app_id: int = Field(..., description="应用ID。")
+    app_name: str = Field(..., description="应用名称。")
+    domain_name: str = Field(..., description="域名。")
     source: str = Field(..., description="视频源。")
     started_at: datetime = Field(..., description="流启动时间。")
     expires_at: Optional[datetime] = Field(None, description="流过期时间，None表示永不过期。")

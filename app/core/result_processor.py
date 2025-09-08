@@ -12,6 +12,7 @@ from app.cfg.config import AppSettings
 from app.cfg.logging import app_logger
 from app.core.database.database import get_db_session
 from app.core.database.results_ops import insert_batch_results
+from app.cfg.mqtt_manager import MQTTManager
 
 
 class ResultPersistenceProcessor:
@@ -20,9 +21,10 @@ class ResultPersistenceProcessor:
     负责异步处理pipeline检测到的结果并批量保存到数据库
     """
 
-    def __init__(self, settings: AppSettings, result_queue: queue.Queue):
+    def __init__(self, settings: AppSettings, result_queue: queue.Queue, mqtt_manager: MQTTManager = None):
         self.settings = settings
         self.result_queue = result_queue
+        self.mqtt_manager = mqtt_manager
         self.stop_event = threading.Event()
         self.worker_thread = None
         
@@ -123,8 +125,12 @@ class ResultPersistenceProcessor:
             similarity = data.get('similarity')
             face_crop = data.get('face_crop')
             timestamp = data.get('timestamp', datetime.now())
+            task_id = data.get('task_id')
+            app_id = data.get('app_id')
+            app_name = data.get('app_name')
+            domain_name = data.get('domain_name')
 
-            if not all([sn, name, face_crop is not None]):
+            if not all([sn, name, face_crop is not None, task_id is not None, app_id is not None, app_name, domain_name]):
                 app_logger.warning(f"检测结果数据不完整，跳过处理: {data}")
                 return
                 
@@ -172,11 +178,29 @@ class ResultPersistenceProcessor:
                 'similarity': similarity,
                 'image_url': image_url,
                 'create_time': timestamp,
-                'update_time': timestamp
+                'update_time': timestamp,
+                'task_id': task_id,
+                'app_id': app_id,
+                'app_name': app_name,
+                'domain_name': domain_name
             }
 
             # 添加到批处理缓冲区
             self.batch_buffer.append(detection_record)
+            
+            # 发送MQTT检测消息
+            if self.mqtt_manager:
+                self.mqtt_manager.queue_detection_message(
+                    task_id=task_id,
+                    app_id=app_id,
+                    app_name=app_name,
+                    domain_name=domain_name,
+                    record_id=0,  # 这里暂时使用0，实际应该使用数据库插入后的ID
+                    sn=sn,
+                    name=name,
+                    similarity=similarity,
+                    image_url=image_url
+                )
             
             # 检查是否达到批处理大小
             if len(self.batch_buffer) >= self.batch_size:

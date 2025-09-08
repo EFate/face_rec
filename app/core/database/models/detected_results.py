@@ -20,9 +20,15 @@ class DetectedFace(Base):
     # 记录更新时间，每次更新时自动刷新
     update_time = Column(DateTime, onupdate=func.now())
 
+    # 任务相关字段
+    task_id = Column(Integer, nullable=False, index=True)
+    app_id = Column(Integer, nullable=False)
+    app_name = Column(String, nullable=False)
+    domain_name = Column(String, nullable=False)
+
     # 识别出的sn
     sn = Column(String, nullable=False, index=True)
-    # 识别出的姓名（例如：“Unknown”或实际姓名）
+    # 识别出的姓名（例如："Unknown"或实际姓名）
     name = Column(String)
 
     # 识别相似度分数
@@ -32,7 +38,7 @@ class DetectedFace(Base):
     image_url = Column(String, nullable=False)
 
     def __repr__(self):
-        return (f"<DetectedFace(id={self.id}, sn='{self.sn}', name='{self.name}', "
+        return (f"<DetectedFace(id={self.id}, task_id={self.task_id}, sn='{self.sn}', name='{self.name}', "
                 f"similarity={self.similarity:.2f}, url='{self.image_url}')>")
 
 

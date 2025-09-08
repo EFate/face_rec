@@ -92,5 +92,7 @@ def setup_logging(settings: AppSettings) -> None:
     # 禁用所有上层 `logging` 记录器的传播，以避免日志重复
     # 遍历所有已知的 logger，并将其 `propagate` 属性设置为 False
     for name in logging.root.manager.loggerDict:
-        logging.getLogger(name).handlers = [] # 清空处理器
-        logging.getLogger(name).propagate = False # 禁用传播
+        logger = logging.getLogger(name)
+        logger.handlers = []  # 清空处理器
+        logger.propagate = False  # 禁用传播
+        logger.setLevel(logging.CRITICAL)  # 设置高日志级别，减少干扰
