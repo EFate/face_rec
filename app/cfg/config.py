@@ -1,9 +1,9 @@
 # app/cfg/config.py
 import os
 from pathlib import Path
-from typing import List, Any
+from typing import List, Any, Dict
 from functools import lru_cache
-from pydantic import BaseModel, Field, BeforeValidator
+from pydantic import BaseModel, Field, BeforeValidator, validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing_extensions import Annotated
 
@@ -76,8 +76,111 @@ class DatabaseConfig(BaseModel):
     echo: bool = Field(False, description="是否打印SQL语句")
 
 
+class CudaConfig(BaseModel):
+    """CUDA推理配置"""
+    model_pack_name: str = Field("buffalo_l", description="InsightFace模型包名称")
+    providers: List[str] = Field(
+        default_factory=lambda: ["CUDAExecutionProvider", "CPUExecutionProvider"],
+        description="ONNX Runtime执行提供者列表"
+    )
+    detection_size: List[int] = Field([640, 640], description="人脸检测模型输入尺寸")
+    det_thresh: float = Field(0.4, description="人脸检测置信度阈值")
+    home: FilePath = Field(DATA_DIR / ".insightface", description="InsightFace模型存储目录")
+
+    def model_post_init__(self, __context: Any) -> None:
+        """模型初始化后的处理"""
+        if self.home:
+            self.home.mkdir(parents=True, exist_ok=True)
+
+
+class Hailo8Config(BaseModel):
+    """Hailo8推理配置"""
+    zoo_path: FilePath = Field(DATA_DIR / "zoo", description="模型仓库路径")
+    detection_model: str = Field("scrfd_10g--640x640_quant_hailort_hailo8_1", description="检测模型名称")
+    recognition_model: str = Field("arcface_mobilefacenet--112x112_quant_hailort_hailo8_1", description="识别模型名称")
+    detection_size: List[int] = Field([640, 640], description="检测模型输入尺寸")
+    recognition_size: List[int] = Field([112, 112], description="识别模型输入尺寸")
+
+    def model_post_init__(self, __context: Any) -> None:
+        """模型初始化后的处理"""
+        if self.zoo_path:
+            self.zoo_path.mkdir(parents=True, exist_ok=True)
+
+
+class RK3588Config(BaseModel):
+    """RK3588推理配置"""
+    zoo_path: FilePath = Field(DATA_DIR / "zoo", description="模型仓库路径")
+    detection_model: str = Field("yolov8s_relu6_widerface_kpts--640x640_quant_rknn_rk3588_1", description="检测模型名称")
+    recognition_model: str = Field("mbf_w600k--112x112_float_rknn_rk3588_1", description="识别模型名称")
+    detection_size: List[int] = Field([640, 640], description="检测模型输入尺寸")
+    recognition_size: List[int] = Field([112, 112], description="识别模型输入尺寸")
+
+    def model_post_init__(self, __context: Any) -> None:
+        """模型初始化后的处理"""
+        if self.zoo_path:
+            self.zoo_path.mkdir(parents=True, exist_ok=True)
+
+
+class InferenceConfig(BaseModel):
+    """推理引擎配置"""
+    device_type: str = Field("cuda", description="推理设备类型: cuda, hailo8, rk3588")
+    cuda: CudaConfig = Field(default_factory=CudaConfig, description="CUDA推理配置")
+    hailo8: Hailo8Config = Field(default_factory=Hailo8Config, description="Hailo8推理配置")
+    rk3588: RK3588Config = Field(default_factory=RK3588Config, description="RK3588推理配置")
+    recognition_similarity_threshold: float = Field(0.5, description="人脸识别相似度阈值")
+    recognition_det_score_threshold: float = Field(0.4, description="人脸检测置信度阈值（识别时使用）")
+    registration_det_score_threshold: float = Field(0.2, description="人脸检测置信度阈值（注册时使用，更宽松）")
+    image_db_path: FilePath = Field(DATA_DIR / "faces", description="注册人脸图像存储目录")
+    lancedb_uri: str = Field(str(DATA_DIR / "lancedb"), description="LanceDB数据库存储目录")
+    lancedb_table_name: str = Field("faces_v2", description="人脸特征表名")
+
+    @validator('device_type')
+    def validate_device_type(cls, v):
+        """验证设备类型"""
+        supported_devices = ['cuda', 'hailo8', 'rk3588']
+        if v not in supported_devices:
+            raise ValueError(f'device_type must be one of: {supported_devices}')
+        return v
+
+    def model_post_init__(self, __context: Any) -> None:
+        """模型初始化后的处理"""
+        if self.image_db_path:
+            self.image_db_path.mkdir(parents=True, exist_ok=True)
+        Path(self.lancedb_uri).mkdir(parents=True, exist_ok=True)
+    
+    def get_device_config(self) -> Dict[str, Any]:
+        """获取当前设备类型的配置"""
+        if self.device_type == "cuda":
+            return {
+                "model_pack_name": self.cuda.model_pack_name,
+                "providers": self.cuda.providers,
+                "home": str(self.cuda.home),
+                "detection_size": self.cuda.detection_size,
+                "det_thresh": self.cuda.det_thresh
+            }
+        elif self.device_type == "hailo8":
+            return {
+                "zoo_path": str(self.hailo8.zoo_path),
+                "detection_model": self.hailo8.detection_model,
+                "recognition_model": self.hailo8.recognition_model,
+                "detection_size": self.hailo8.detection_size,
+                "recognition_size": self.hailo8.recognition_size
+            }
+        elif self.device_type == "rk3588":
+            return {
+                "zoo_path": str(self.rk3588.zoo_path),
+                "detection_model": self.rk3588.detection_model,
+                "recognition_model": self.rk3588.recognition_model,
+                "detection_size": self.rk3588.detection_size,
+                "recognition_size": self.rk3588.recognition_size
+            }
+        else:
+            raise ValueError(f"Unsupported device type: {self.device_type}")
+
+
+# 保持向后兼容性
 class InsightFaceConfig(BaseModel):
-    """InsightFace配置"""
+    """InsightFace配置（向后兼容）"""
     model_pack_name: str = Field("buffalo_l", description="InsightFace模型包名称")
     providers: List[str] = Field(
         default_factory=lambda: ["CUDAExecutionProvider", "CPUExecutionProvider"],
@@ -126,7 +229,8 @@ class AppSettings(BaseSettings):
     server: ServerConfig = Field(default_factory=ServerConfig)
     logging: LoggingConfig = Field(default_factory=LoggingConfig)
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
-    insightface: InsightFaceConfig = Field(default_factory=InsightFaceConfig)
+    inference: InferenceConfig = Field(default_factory=InferenceConfig)
+    insightface: InsightFaceConfig = Field(default_factory=InsightFaceConfig)  # 保持向后兼容
     mqtt: MQTTConfig = Field(default_factory=MQTTConfig)
 
     model_config = SettingsConfigDict(

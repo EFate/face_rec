@@ -20,6 +20,7 @@ from app.schema.face_schema import FaceInfo, FaceRecognitionResult, UpdateFaceRe
     StreamStartRequest
 from app.cfg.logging import app_logger
 from app.core.model_manager import ModelManager  # 引入 ModelManager
+from app.core.inference_adapter import InferenceAdapter  # 引入推理适配器
 from app.cfg.mqtt_manager import MQTTManager
 
 
@@ -31,6 +32,7 @@ class FaceService:
         app_logger.info("正在初始化 FaceService (多线程 + 模型池)...")
         self.settings = settings
         self.model_manager = model_manager  # 注入模型管理器
+        self.inference_adapter = InferenceAdapter(model_manager)  # 创建推理适配器
         self.result_persistence_queue = result_queue  # 注入结果持久化队列
         self.mqtt_manager = mqtt_manager  # 注入MQTT管理器
         self.face_dao: FaceDataDAO = LanceDBFaceDataDAO(
@@ -65,65 +67,70 @@ class FaceService:
 
     async def register_face(self, name: str, sn: str, image_bytes: bytes) -> FaceInfo:
         img = self._decode_image(image_bytes)
-        model = await self.model_manager.acquire_model_async()
-        try:
-            faces = model.get(img)
-            if not faces: 
-                # 如果没有检测到人脸，尝试降低检测阈值重新检测
-                app_logger.warning(f"使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测")
-                # 临时降低检测阈值
-                original_det_thresh = model.det_model.det_thresh
-                model.det_model.det_thresh = 0.1  # 使用更低的阈值
-                try:
-                    faces = model.get(img)
-                finally:
-                    # 恢复原始阈值
-                    model.det_model.det_thresh = original_det_thresh
-                
-                if not faces:
-                    raise HTTPException(status_code=400, detail="未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。")
+        
+        # 使用推理适配器获取人脸
+        faces = await self.inference_adapter.get_faces(
+            img, 
+            extract_embeddings=True, 
+            detection_threshold=self.settings.insightface.registration_det_score_threshold
+        )
+        
+        if not faces: 
+            # 如果没有检测到人脸，尝试使用更宽松的阈值重新检测
+            app_logger.warning(f"使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测")
+            faces = await self.inference_adapter.get_faces(
+                img, 
+                extract_embeddings=True, 
+                detection_threshold=0.1  # 使用更低的阈值
+            )
             
-            if len(faces) > 1: 
-                raise HTTPException(status_code=400, detail=f"检测到 {len(faces)} 张人脸，注册时必须确保只有一张。")
-            
-            face = faces[0]
-            # 使用专门的注册检测阈值，比识别阈值更宽松
-            registration_threshold = self.settings.insightface.registration_det_score_threshold
-            if face.det_score < registration_threshold:
-                raise HTTPException(
-                    status_code=400, 
-                    detail=f"人脸质量不佳，检测置信度({face.det_score:.2f})低于注册要求({registration_threshold})。请使用更清晰的正面人脸图片。"
-                )
-            
-            app_logger.info(f"注册人脸检测成功: 姓名={name}, SN={sn}, 置信度={face.det_score:.3f}")
-            
-            x1, y1, x2, y2 = face.bbox.astype(int)
-            face_img = img[y1:y2, x1:x2]
-            saved_path = self._save_face_image(face_img, sn)
-            new_record = self.face_dao.create(name, sn, face.normed_embedding, saved_path)
-            return FaceInfo.model_validate(new_record)
-        finally:
-            await self.model_manager.release_model_async(model)
+            if not faces:
+                raise HTTPException(status_code=400, detail="未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。")
+        
+        if len(faces) > 1: 
+            raise HTTPException(status_code=400, detail=f"检测到 {len(faces)} 张人脸，注册时必须确保只有一张。")
+        
+        face = faces[0]
+        # 使用专门的注册检测阈值，比识别阈值更宽松
+        registration_threshold = self.settings.insightface.registration_det_score_threshold
+        if face.det_score < registration_threshold:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"人脸质量不佳，检测置信度({face.det_score:.2f})低于注册要求({registration_threshold})。请使用更清晰的正面人脸图片。"
+            )
+        
+        app_logger.info(f"注册人脸检测成功: 姓名={name}, SN={sn}, 置信度={face.det_score:.3f}")
+        
+        x1, y1, x2, y2 = face.bbox.astype(int)
+        face_img = img[y1:y2, x1:x2]
+        saved_path = self._save_face_image(face_img, sn)
+        new_record = self.face_dao.create(name, sn, face.normed_embedding, saved_path)
+        return FaceInfo.model_validate(new_record)
 
     async def recognize_face(self, image_bytes: bytes) -> List[FaceRecognitionResult]:
         img = self._decode_image(image_bytes)
-        model = await self.model_manager.acquire_model_async()
-        try:
-            detected_faces = model.get(img)
-            if not detected_faces: return []
-            results = []
-            for face in detected_faces:
-                search_res = self.face_dao.search(face.normed_embedding,
-                                                  self.settings.insightface.recognition_similarity_threshold)
-                if search_res:
-                    name, sn, similarity = search_res
-                    results.append(FaceRecognitionResult(
-                        name=name, sn=sn, similarity=similarity, box=face.bbox.astype(int).tolist(),
-                        detection_confidence=float(face.det_score), landmark=face.landmark_2d_106
-                    ))
-            return results
-        finally:
-            await self.model_manager.release_model_async(model)
+        
+        # 使用推理适配器获取人脸
+        detected_faces = await self.inference_adapter.get_faces(
+            img, 
+            extract_embeddings=True, 
+            detection_threshold=self.settings.insightface.recognition_det_score_threshold
+        )
+        
+        if not detected_faces: 
+            return []
+        
+        results = []
+        for face in detected_faces:
+            search_res = self.face_dao.search(face.normed_embedding,
+                                              self.settings.insightface.recognition_similarity_threshold)
+            if search_res:
+                name, sn, similarity = search_res
+                results.append(FaceRecognitionResult(
+                    name=name, sn=sn, similarity=similarity, box=face.bbox.astype(int).tolist(),
+                    detection_confidence=float(face.det_score), landmark=face.landmark_2d_106
+                ))
+        return results
 
     async def get_all_faces(self) -> List[FaceInfo]:
         all_faces_data = self.face_dao.get_all()
@@ -197,6 +204,21 @@ class FaceService:
                     app_logger.error(f"删除图片文件 {record.image_path} 失败: {e}")
         return deleted_count
 
+    def _get_model_sync(self):
+        """同步获取模型，用于在线程中调用"""
+        try:
+            return self.model_manager.acquire_model()
+        except Exception as e:
+            app_logger.error(f"同步获取模型失败: {e}")
+            raise
+
+    def _release_model_sync(self, model):
+        """同步释放模型，用于在线程中调用"""
+        try:
+            self.model_manager.release_model(model)
+        except Exception as e:
+            app_logger.error(f"同步释放模型失败: {e}")
+
     def _pipeline_worker_thread(self, stream_id: str, video_source: str, result_queue: queue.Queue,
                                 stop_event: threading.Event, task_id: int, app_id: int, app_name: str, domain_name: str):
         """在独立线程中运行，管理单个视频流管道的生命周期。"""
@@ -207,8 +229,12 @@ class FaceService:
         model = None
         pipeline = None
         try:
-            # 获取模型
-            model = self.model_manager.acquire_model()
+            # 在独立线程中异步获取模型
+            # 使用线程安全的方式获取模型，避免创建新的事件循环
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(self._get_model_sync)
+                model = future.result(timeout=30.0)  # 30秒超时
             
             # --- 在创建流水线时注入持久化队列 ---
             pipeline = FaceStreamPipeline(
@@ -240,7 +266,8 @@ class FaceService:
             
             try:
                 if model:
-                    self.model_manager.release_model(model)
+                    # 同步释放模型
+                    self._release_model_sync(model)
             except Exception as e:
                 app_logger.error(f"【线程 {stream_id}】释放模型时出错: {e}")
             
@@ -364,13 +391,17 @@ class FaceService:
         try:
             while True:
                 try:
-                    frame_bytes = frame_queue.get(timeout=0.02)
+                    # 使用非阻塞方式获取帧数据
+                    frame_bytes = frame_queue.get_nowait()
                 except queue.Empty:
+                    # 队列为空时，异步等待一小段时间
                     await asyncio.sleep(0.01)
                     continue
+                
                 if frame_bytes is None: 
                     app_logger.info(f"视频流 {stream_id} 已结束")
                     break
+                    
                 yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         except (ValueError, asyncio.CancelledError) as e:
             app_logger.info(f"客户端从流 {stream_id} 断开: {e}")
@@ -405,13 +436,17 @@ class FaceService:
         try:
             while True:
                 try:
-                    frame_bytes = frame_queue.get(timeout=0.02)
+                    # 使用非阻塞方式获取帧数据
+                    frame_bytes = frame_queue.get_nowait()
                 except queue.Empty:
+                    # 队列为空时，异步等待一小段时间
                     await asyncio.sleep(0.01)
                     continue
+                
                 if frame_bytes is None: 
                     app_logger.info(f"视频流 TaskID={task_id} 已结束")
                     break
+                    
                 yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         except (ValueError, asyncio.CancelledError) as e:
             app_logger.info(f"客户端从流 TaskID={task_id} 断开: {e}")

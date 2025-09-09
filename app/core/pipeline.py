@@ -170,7 +170,7 @@ class FaceStreamPipeline:
     每个实例对应一个独立的视频源，并管理其下的所有处理线程。
     """
     # --- 修改 __init__ 方法以接收持久化队列 ---
-    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model: FaceAnalysis, result_persistence_queue: queue.Queue, task_id: int, app_id: int, app_name: str, domain_name: str, mqtt_manager=None):
+    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model, result_persistence_queue: queue.Queue, task_id: int, app_id: int, app_name: str, domain_name: str, mqtt_manager=None):
         self.settings = settings
         self.stream_id = stream_id
         self.video_source = video_source
@@ -351,7 +351,51 @@ class FaceStreamPipeline:
                     
                     # 执行推理
                     try:
-                        detected_faces: List[Face] = self.model.get(frame)
+                        # 检查是否使用新的推理引擎
+                        if hasattr(self.model, 'predict'):
+                            # 新推理引擎 - 需要在线程中处理异步调用
+                            from app.inference.models import InferenceInput
+                            import asyncio
+                            
+                            def run_async_inference():
+                                # 使用线程安全的方式处理异步调用
+                                import concurrent.futures
+                                import threading
+                                
+                                def run_in_thread():
+                                    loop = asyncio.new_event_loop()
+                                    asyncio.set_event_loop(loop)
+                                    try:
+                                        input_data = InferenceInput(
+                                            image=frame,
+                                            extract_embeddings=True,
+                                            detection_threshold=self.settings.insightface.recognition_det_score_threshold
+                                        )
+                                        output = loop.run_until_complete(self.model.predict(input_data))
+                                        if output.success:
+                                            # 转换为InsightFace的Face对象格式
+                                            detected_faces = []
+                                            for face_detection in output.result.faces:
+                                                face = self._convert_to_insightface_face(face_detection, frame.shape)
+                                                detected_faces.append(face)
+                                            return detected_faces
+                                        else:
+                                            app_logger.error(f"【T2:推理 {self.stream_id}】推理失败: {output.error_message}")
+                                            return []
+                                    finally:
+                                        loop.close()
+                                
+                                # 使用线程池执行异步操作
+                                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                                    future = executor.submit(run_in_thread)
+                                    return future.result(timeout=10.0)  # 10秒超时
+                            
+                            detected_faces = run_async_inference()
+                            if not detected_faces:
+                                continue
+                        else:
+                            # 传统InsightFace
+                            detected_faces: List[Face] = self.model.get(frame)
                     except Exception as e:
                         app_logger.error(f"【T2:推理 {self.stream_id}】模型推理失败: {e}", exc_info=True)
                         continue
@@ -400,7 +444,15 @@ class FaceStreamPipeline:
                         for face in detected_faces:
                             try:
                                 # 快速执行人脸搜索
-                                search_res = self.face_dao.search(face.normed_embedding, threshold)
+                                # 尝试获取embedding，优先使用embedding属性
+                                embedding = getattr(face, 'embedding', None)
+                                if embedding is None:
+                                    embedding = getattr(face, 'normed_embedding', None)
+                                
+                                if embedding is not None:
+                                    search_res = self.face_dao.search(embedding, threshold)
+                                else:
+                                    search_res = None
                                 result_item = {"box": face.bbox, "name": "Unknown", "similarity": None}
                                 
                                 if search_res:
@@ -470,3 +522,35 @@ class FaceStreamPipeline:
             except (queue.Full, ValueError):
                 pass
             app_logger.info(f"【T3:后处理 {self.stream_id}】已停止。")
+    
+    def _convert_to_insightface_face(self, face_detection, image_shape) -> Face:
+        """将推理引擎的结果转换为InsightFace的Face对象"""
+        # 创建Face对象
+        face = Face()
+        
+        # 设置边界框
+        face.bbox = np.array(face_detection.bbox, dtype=np.float32)
+        
+        # 设置检测置信度
+        face.det_score = face_detection.confidence
+        
+        # 设置关键点
+        if face_detection.landmarks:
+            face.landmark_2d_106 = np.array(face_detection.landmarks, dtype=np.float32)
+        
+        # 设置特征向量 - 使用embedding属性而不是normed_embedding
+        if face_detection.embedding:
+            try:
+                face.embedding = np.array(face_detection.embedding, dtype=np.float32)
+            except AttributeError:
+                # 如果embedding属性不可写，尝试使用normed_embedding
+                try:
+                    face.normed_embedding = np.array(face_detection.embedding, dtype=np.float32)
+                except AttributeError:
+                    # 如果都不可写，使用setattr
+                    setattr(face, 'embedding', np.array(face_detection.embedding, dtype=np.float32))
+        
+        # 设置其他属性
+        face.img_shape = image_shape[:2]  # (height, width)
+        
+        return face
