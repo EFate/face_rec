@@ -208,12 +208,26 @@ class FaceStreamPipeline:
 
     def stop(self):
         """停止所有流水线工作线程并释放资源。"""
-        if self.stop_event.is_set(): return
+        if self.stop_event.is_set(): 
+            return
         app_logger.info(f"【流水线 {self.stream_id}】正在停止...")
         self.stop_event.set()
 
-        for t in self.threads: t.join(timeout=2.0)
-        if self.cap and self.cap.isOpened(): self.cap.release()
+        # 等待所有线程安全退出
+        for t in self.threads: 
+            if t.is_alive():
+                t.join(timeout=3.0)
+                if t.is_alive():
+                    app_logger.warning(f"【流水线 {self.stream_id}】线程 {t.name} 未能及时退出")
+        
+        # 安全释放视频捕获资源
+        if self.cap and self.cap.isOpened(): 
+            try:
+                self.cap.release()
+            except Exception as e:
+                app_logger.warning(f"【流水线 {self.stream_id}】释放视频捕获资源时出错: {e}")
+        
+        # 清空队列，避免内存泄漏
         for q in [self.inference_queue, self.postprocess_queue]:
             while not q.empty():
                 try:
@@ -221,8 +235,13 @@ class FaceStreamPipeline:
                 except queue.Empty:
                     break
 
+        # 安全释放数据库连接
         if self.face_dao:
-            self.face_dao.dispose()
+            try:
+                self.face_dao.dispose()
+            except Exception as e:
+                app_logger.warning(f"【流水线 {self.stream_id}】释放数据库连接时出错: {e}")
+        
         app_logger.info(f"✅【流水线 {self.stream_id}】已安全停止。")
 
     def _start_threads(self):

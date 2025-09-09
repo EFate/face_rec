@@ -106,11 +106,11 @@ def start_server(
 
 if __name__ == "__main__":
     # 设置多进程启动方式
-    import multiprocessing as mp
-    try:
-        mp.set_start_method('spawn', force=True)
-        logger.info("多进程启动方式设置为 'spawn'")
-    except RuntimeError:
-        pass
+    # import multiprocessing as mp
+    # try:
+    #     mp.set_start_method('spawn', force=True)
+    #     logger.info("多进程启动方式设置为 'spawn'")
+    # except RuntimeError:
+    #     pass
     
     app()

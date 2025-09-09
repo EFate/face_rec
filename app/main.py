@@ -91,10 +91,18 @@ async def lifespan(app: FastAPI):
 
     # 4. 关闭所有活动的视频流
     if hasattr(app.state, 'face_service'):
-        await app.state.face_service.stop_all_streams()
+        try:
+            await app.state.face_service.stop_all_streams()
+            app_logger.info("✅ 所有视频流已停止。")
+        except Exception as e:
+            app_logger.error(f"停止视频流时出错: {e}", exc_info=True)
 
     # 5. 释放模型资源
-    await release_models_on_shutdown()
+    try:
+        await release_models_on_shutdown()
+        app_logger.info("✅ 模型资源已释放。")
+    except Exception as e:
+        app_logger.error(f"释放模型资源时出错: {e}", exc_info=True)
 
     app_logger.info("✅ 所有清理任务完成。")
 
@@ -118,8 +126,14 @@ def create_app() -> FastAPI:
 
     @app.exception_handler(Exception)
     async def generic_exception_handler(request: Request, exc: Exception):
-        app_logger.exception(f"未处理的服务器内部错误: {exc}")
-        return JSONResponse(status_code=500, content=ApiResponse(code=500, msg="服务器内部错误").model_dump())
+        # 检查是否是流媒体相关的异常
+        if "stream" in str(request.url).lower() or "feed" in str(request.url).lower():
+            app_logger.warning(f"流媒体请求异常: {request.url} - {exc}")
+            # 对于流媒体请求，不返回JSON响应，让客户端自然断开
+            return JSONResponse(status_code=500, content=ApiResponse(code=500, msg="流媒体服务暂时不可用").model_dump())
+        else:
+            app_logger.exception(f"未处理的服务器内部错误: {exc}")
+            return JSONResponse(status_code=500, content=ApiResponse(code=500, msg="服务器内部错误").model_dump())
 
     app.include_router(face_router, prefix="/api/face", tags=["人脸服务"])
     app.include_router(detection_router, prefix="/api/detection", tags=["检测结果信息"])
