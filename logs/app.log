@@ -88,3 +88,104 @@
 2025-09-08 16:11:24.666 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
 2025-09-08 16:11:24.834 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
 2025-09-08 16:11:24.834 | INFO     | app.main:lifespan:99 - ✅ 所有清理任务完成。
+2025-09-09 10:44:56.696 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-09 10:44:56.697 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-09 10:44:56.697 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-09 10:44:56.698 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-09 10:44:56.698 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.4.155:12010
+2025-09-09 10:44:56.698 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-09 10:44:59.425 | INFO     | app.core.model_manager:_setup_environment:72 - 设置INSIGHTFACE_HOME: D:\ABT\0-Project\face_rec\data\.insightface
+2025-09-09 10:45:00.812 | INFO     | app.main:lifespan:35 - 应用程序启动... 开始执行启动任务。
+2025-09-09 10:45:00.812 | INFO     | app.main:lifespan:36 - 应用启动，开始初始化数据库...
+2025-09-09 10:45:00.823 | INFO     | app.main:lifespan:38 - 数据库初始化完成。
+2025-09-09 10:45:00.823 | INFO     | app.core.model_manager:load_models:84 - 开始加载3个模型实例到池中
+2025-09-09 10:45:00.824 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-09-09 10:45:04.731 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-09-09 10:45:04.731 | INFO     | app.core.model_manager:load_models:89 - 第一个模型加载成功，继续加载剩余模型
+2025-09-09 10:45:04.733 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-09-09 10:45:04.734 | INFO     | app.core.model_manager:create_face_analysis_model:18 - 创建InsightFace模型: buffalo_l
+2025-09-09 10:45:06.756 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-09-09 10:45:06.973 | INFO     | app.core.model_manager:create_face_analysis_model:37 - 模型下载成功: buffalo_l
+2025-09-09 10:45:06.975 | INFO     | app.core.model_manager:load_models:105 - 成功加载3个模型到池中
+2025-09-09 10:45:06.977 | INFO     | app.core.model_manager:_startup_test:122 - 开始启动自检
+2025-09-09 10:45:11.590 | INFO     | app.core.model_manager:_startup_test:133 - 自检成功：检测到1张人脸
+2025-09-09 10:45:11.591 | INFO     | app.main:lifespan:42 - ✅ 模型池加载完成。
+2025-09-09 10:45:11.702 | INFO     | app.cfg.mqtt_manager:_worker_loop:93 - MQTT工作线程已启动
+2025-09-09 10:45:11.703 | INFO     | app.cfg.mqtt_manager:start:63 - ✅ MQTT管理器已启动
+2025-09-09 10:45:11.703 | INFO     | app.main:lifespan:48 - ✅ MQTT管理器已启动。
+2025-09-09 10:45:11.704 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-09 10:45:11.705 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-09 10:45:11.705 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-09 10:45:11.705 | INFO     | app.main:lifespan:55 - ✅ 结果持久化服务已启动。
+2025-09-09 10:45:11.706 | INFO     | app.service.face_service:__init__:31 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-09 10:45:11.751 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-09 10:45:11.797 | INFO     | app.service.face_service:initialize:46 - FaceService 正在初始化...
+2025-09-09 10:45:11.797 | INFO     | app.service.face_service:initialize:47 - ✅ FaceService 初始化完毕。
+2025-09-09 10:45:11.797 | INFO     | app.main:lifespan:63 - ✅ FaceService 初始化完成。
+2025-09-09 10:45:11.797 | INFO     | app.main:lifespan:68 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-09 10:45:11.798 | INFO     | app.main:lifespan:70 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-09 10:45:55.379 | INFO     | app.core.pipeline:__init__:186 - 【流水线 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】正在初始化...
+2025-09-09 10:45:55.381 | INFO     | app.service.face_service:start_stream:283 - 🚀 视频流线程已启动: ID=16298362-092f-4ec4-92a3-ca1dc6eeaa6c, TaskID=1234567890, Source=http://demo-videos.qnsdk.com/only-video-1080p-60fps.m4s
+2025-09-09 10:45:55.389 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-09 10:45:55.393 | INFO     | app.core.pipeline:start:202 - 【流水线 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】正在启动...
+2025-09-09 10:45:55.764 | INFO     | app.core.pipeline:_reader_thread:269 - 【T1:读帧 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】启动。
+2025-09-09 10:45:55.764 | INFO     | app.core.pipeline:_inference_thread:331 - 【T2:推理 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】启动。
+2025-09-09 10:45:55.765 | INFO     | app.core.pipeline:_postprocessor_thread:385 - 【T3:后处理 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】启动。
+2025-09-09 10:45:58.204 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 1 条检测结果
+2025-09-09 10:46:01.246 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 6 条检测结果
+2025-09-09 10:46:04.339 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:46:07.408 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:46:10.526 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:46:13.591 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 3 条检测结果
+2025-09-09 10:46:16.673 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:46:19.752 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 5 条检测结果
+2025-09-09 10:46:22.926 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 9 条检测结果
+2025-09-09 10:46:26.014 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:46:29.140 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 6 条检测结果
+2025-09-09 10:46:32.185 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 6 条检测结果
+2025-09-09 10:46:35.312 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 9 条检测结果
+2025-09-09 10:46:38.457 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 9 条检测结果
+2025-09-09 10:46:41.513 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:46:45.299 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 5 条检测结果
+2025-09-09 10:46:48.364 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:46:51.421 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 7 条检测结果
+2025-09-09 10:46:54.700 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:46:57.802 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:47:00.885 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 3 条检测结果
+2025-09-09 10:47:04.068 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 3 条检测结果
+2025-09-09 10:47:07.120 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:47:10.156 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 10 条检测结果
+2025-09-09 10:47:13.244 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:47:16.336 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 7 条检测结果
+2025-09-09 10:47:19.419 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:47:22.499 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 7 条检测结果
+2025-09-09 10:47:25.560 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 4 条检测结果
+2025-09-09 10:47:28.630 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 6 条检测结果
+2025-09-09 10:47:31.806 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:47:34.917 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 10 条检测结果
+2025-09-09 10:47:38.035 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 8 条检测结果
+2025-09-09 10:47:41.161 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 6 条检测结果
+2025-09-09 10:47:44.245 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 6 条检测结果
+2025-09-09 10:47:46.860 | INFO     | app.main:lifespan:73 - 应用程序正在关闭... 开始执行清理任务。
+2025-09-09 10:47:46.860 | INFO     | app.main:lifespan:82 - ✅ 视频流清理任务已取消。
+2025-09-09 10:47:46.862 | INFO     | app.cfg.mqtt_manager:_worker_loop:115 - MQTT工作线程已停止
+2025-09-09 10:47:46.926 | INFO     | app.cfg.mqtt_manager:stop:89 - ✅ MQTT管理器已停止
+2025-09-09 10:47:47.008 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 5 条检测结果
+2025-09-09 10:47:47.059 | INFO     | app.core.result_processor:_save_batch_buffer:253 - 成功批量保存 5 条检测结果
+2025-09-09 10:47:47.060 | INFO     | app.core.result_processor:_worker_loop:118 - 结果持久化处理器工作线程已停止
+2025-09-09 10:47:47.060 | INFO     | app.core.result_processor:stop:84 - ✅ 结果持久化处理器已停止
+2025-09-09 10:47:47.061 | INFO     | app.service.face_service:stop_all_streams:452 - 正在停止所有活动流: ['16298362-092f-4ec4-92a3-ca1dc6eeaa6c']
+2025-09-09 10:47:48.039 | INFO     | app.core.pipeline:stop:213 - 【流水线 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】正在停止...
+2025-09-09 10:47:48.050 | INFO     | app.core.pipeline:_reader_thread:326 - 【T1:读帧 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】已停止。
+2025-09-09 10:47:48.066 | INFO     | app.core.pipeline:_postprocessor_thread:472 - 【T3:后处理 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】已停止。
+2025-09-09 10:47:48.120 | INFO     | app.core.pipeline:_inference_thread:379 - 【T2:推理 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】已停止。
+2025-09-09 10:47:48.142 | INFO     | app.service.face_dao:dispose:159 - LanceDB DAO 无需显式资源释放。
+2025-09-09 10:47:48.143 | INFO     | app.core.pipeline:stop:245 - ✅【流水线 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】已安全停止。
+2025-09-09 10:47:48.143 | INFO     | app.service.face_service:_pipeline_worker_thread:253 - ✅【线程 16298362-092f-4ec4-92a3-ca1dc6eeaa6c】处理工作已结束。
+2025-09-09 10:47:48.154 | INFO     | app.service.face_service:stop_stream:303 - ✅ 视频流已成功停止: ID=16298362-092f-4ec4-92a3-ca1dc6eeaa6c
+2025-09-09 10:47:48.156 | INFO     | app.service.face_service:stop_all_streams:462 - 停止视频流完成: 成功=1, 错误=0
+2025-09-09 10:47:48.156 | INFO     | app.main:lifespan:96 - ✅ 所有视频流已停止。
+2025-09-09 10:47:48.156 | INFO     | app.core.model_manager:cleanup:188 - 清理模型池资源
+2025-09-09 10:47:48.419 | INFO     | app.core.model_manager:cleanup:194 - 模型池已清空
+2025-09-09 10:47:48.419 | INFO     | app.main:lifespan:103 - ✅ 模型资源已释放。
+2025-09-09 10:47:48.420 | INFO     | app.main:lifespan:107 - ✅ 所有清理任务完成。

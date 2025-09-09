@@ -188,19 +188,7 @@ class ResultPersistenceProcessor:
             # 添加到批处理缓冲区
             self.batch_buffer.append(detection_record)
             
-            # 发送MQTT检测消息
-            if self.mqtt_manager:
-                self.mqtt_manager.queue_detection_message(
-                    task_id=task_id,
-                    app_id=app_id,
-                    app_name=app_name,
-                    domain_name=domain_name,
-                    record_id=0,  # 这里暂时使用0，实际应该使用数据库插入后的ID
-                    sn=sn,
-                    name=name,
-                    similarity=similarity,
-                    image_url=image_url
-                )
+            # 注意：MQTT消息将在批量保存后发送，使用真实的record_id
             
             # 检查是否达到批处理大小
             if len(self.batch_buffer) >= self.batch_size:
@@ -228,9 +216,59 @@ class ResultPersistenceProcessor:
         # 获取数据库会话
         db_session = next(get_db_session())
         try:
-            # 批量插入记录
-            insert_batch_results(db_session, self.batch_buffer)
-            app_logger.info(f"成功批量保存 {batch_size} 条检测结果")
+            # 使用单条插入来获取记录ID，而不是批量插入
+            inserted_records = []
+            for record in self.batch_buffer:
+                try:
+                    # 使用单条插入获取ID
+                    from app.core.database.results_ops import insert_single_result
+                    record_id = insert_single_result(db_session, record)
+                    
+                    # 保存记录信息用于MQTT消息
+                    inserted_records.append({
+                        'record_id': record_id,
+                        'task_id': record.get('task_id'),
+                        'app_id': record.get('app_id'),
+                        'app_name': record.get('app_name'),
+                        'domain_name': record.get('domain_name'),
+                        'sn': record.get('sn'),
+                        'name': record.get('name'),
+                        'similarity': record.get('similarity'),
+                        'image_url': record.get('image_url')
+                    })
+                    
+                except Exception as e:
+                    app_logger.error(f"插入单条记录失败: {e}")
+                    # 删除对应的图片文件
+                    try:
+                        image_url = record.get('image_url', '')
+                        if image_url:
+                            filename = image_url.split('/')[-1]
+                            image_path = self.detected_imgs_path / filename
+                            if image_path.exists():
+                                os.remove(image_path)
+                    except Exception as img_e:
+                        app_logger.error(f"删除图片文件失败: {img_e}")
+            
+            app_logger.info(f"成功批量保存 {len(inserted_records)} 条检测结果")
+            
+            # 发送MQTT消息（使用真实的record_id）
+            if self.mqtt_manager and inserted_records:
+                for record_info in inserted_records:
+                    try:
+                        self.mqtt_manager.queue_detection_message(
+                            task_id=record_info['task_id'],
+                            app_id=record_info['app_id'],
+                            app_name=record_info['app_name'],
+                            domain_name=record_info['domain_name'],
+                            record_id=record_info['record_id'],  # 使用真实的数据库记录ID
+                            sn=record_info['sn'],
+                            name=record_info['name'],
+                            similarity=record_info['similarity'],
+                            image_url=record_info['image_url']
+                        )
+                    except Exception as mqtt_e:
+                        app_logger.error(f"发送MQTT消息失败: {mqtt_e}")
             
             # 清空缓冲区
             self.batch_buffer = []
