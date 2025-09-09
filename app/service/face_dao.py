@@ -144,15 +144,28 @@ class LanceDBFaceDataDAO(FaceDataDAO):
 
     def search(self, embedding: np.ndarray, threshold: float, top_k: int = 1) -> Optional[Tuple[str, str, float]]:
         try:
-            if self.table.count_rows() == 0: return None
+            if self.table.count_rows() == 0: 
+                app_logger.info("数据库中没有人脸记录")
+                return None
+            
+            app_logger.info(f"开始搜索，相似度阈值: {threshold}")
             search_result = self.table.search(embedding).metric("cosine").limit(top_k).to_list()
-            if not search_result: return None
+            if not search_result: 
+                app_logger.info("搜索无结果")
+                return None
+            
             best_match = search_result[0]
             similarity = 1 - best_match["_distance"]
+            app_logger.info(f"最佳匹配: {best_match.get('name', 'Unknown')} (SN: {best_match.get('sn', 'Unknown')}), 相似度: {similarity:.3f}")
+            
             if similarity >= threshold:
+                app_logger.info(f"相似度 {similarity:.3f} >= 阈值 {threshold}，识别成功")
                 return best_match["name"], best_match["sn"], float(similarity)
-            return None
-        except Exception:
+            else:
+                app_logger.info(f"相似度 {similarity:.3f} < 阈值 {threshold}，识别失败")
+                return None
+        except Exception as e:
+            app_logger.error(f"搜索过程中出错: {e}")
             return None
 
     def dispose(self):

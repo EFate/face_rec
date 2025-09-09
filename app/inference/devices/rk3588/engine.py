@@ -113,8 +113,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             # 连接模型仓库
             self.zoo = dg.connect(
                 inference_host_address=dg.LOCAL,
-                zoo_url=f"file://{self.zoo_path}",
-                image_backend='opencv'
+                zoo_url=f"file://{self.zoo_path}"
             )
             
             # 加载检测模型
@@ -175,7 +174,19 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                 # 获取关键点
                 landmarks = None
                 if 'landmarks' in result:
-                    landmarks = result['landmarks']
+                    raw_landmarks = result['landmarks']
+                    # 转换landmarks格式：从dict转换为List[List[float]]
+                    if isinstance(raw_landmarks, list):
+                        landmarks = []
+                        for landmark in raw_landmarks:
+                            if isinstance(landmark, dict) and 'x' in landmark and 'y' in landmark:
+                                landmarks.append([float(landmark['x']), float(landmark['y'])])
+                            elif isinstance(landmark, (list, tuple)) and len(landmark) >= 2:
+                                landmarks.append([float(landmark[0]), float(landmark[1])])
+                    elif isinstance(raw_landmarks, dict):
+                        # 如果是单个dict，尝试提取坐标
+                        if 'x' in raw_landmarks and 'y' in raw_landmarks:
+                            landmarks = [[float(raw_landmarks['x']), float(raw_landmarks['y'])]]
                 
                 # 提取人脸特征向量
                 embedding = None
@@ -309,11 +320,26 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                 except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                     continue
             
-            # 终止工作进程
+            # 先尝试优雅终止，再强制终止
             for pid in worker_pids:
                 try:
-                    os.kill(pid, signal.SIGKILL)
-                    app_logger.info(f"已终止Degirum工作进程 PID: {pid}")
+                    # 先发送SIGTERM信号
+                    os.kill(pid, signal.SIGTERM)
+                    app_logger.info(f"已发送SIGTERM信号到Degirum工作进程 PID: {pid}")
+                    
+                    # 等待进程退出
+                    import time
+                    time.sleep(0.5)
+                    
+                    # 检查进程是否还存在
+                    try:
+                        os.kill(pid, 0)  # 检查进程是否存在
+                        # 如果还存在，强制终止
+                        os.kill(pid, signal.SIGKILL)
+                        app_logger.info(f"已强制终止Degirum工作进程 PID: {pid}")
+                    except ProcessLookupError:
+                        app_logger.info(f"Degirum工作进程 PID {pid} 已正常退出")
+                        
                 except ProcessLookupError:
                     app_logger.debug(f"进程 PID {pid} 已不存在")
                 except Exception as e:
@@ -329,7 +355,11 @@ class RK3588InferenceEngine(BaseInferenceEngine):
         """程序退出时的清理函数"""
         try:
             if self._initialized:
-                asyncio.run(self.cleanup())
+                # 直接清理资源，不使用asyncio.run()
+                self._cleanup_degirum_workers()
+                self._models_loaded = False
+                self._initialized = False
+                app_logger.info("RK3588推理引擎资源清理完成")
         except Exception as e:
             app_logger.error(f"程序退出时清理资源失败: {e}")
     

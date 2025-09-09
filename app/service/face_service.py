@@ -118,18 +118,39 @@ class FaceService:
         )
         
         if not detected_faces: 
+            app_logger.info("未检测到任何人脸")
             return []
         
+        app_logger.info(f"检测到 {len(detected_faces)} 张人脸，开始识别")
+        
         results = []
-        for face in detected_faces:
-            search_res = self.face_dao.search(face.normed_embedding,
+        for i, face in enumerate(detected_faces):
+            app_logger.info(f"处理第 {i+1} 张人脸，检测置信度: {face.det_score:.3f}")
+            
+            # 尝试获取embedding
+            embedding = getattr(face, 'normed_embedding', None)
+            if embedding is None:
+                embedding = getattr(face, 'embedding', None)
+            
+            if embedding is None:
+                app_logger.warning(f"第 {i+1} 张人脸无法获取特征向量")
+                continue
+            
+            # 执行搜索
+            search_res = self.face_dao.search(embedding,
                                               self.settings.insightface.recognition_similarity_threshold)
+            
             if search_res:
                 name, sn, similarity = search_res
+                app_logger.info(f"识别成功: {name} (SN: {sn}), 相似度: {similarity:.3f}")
                 results.append(FaceRecognitionResult(
                     name=name, sn=sn, similarity=similarity, box=face.bbox.astype(int).tolist(),
                     detection_confidence=float(face.det_score), landmark=face.landmark_2d_106
                 ))
+            else:
+                app_logger.info(f"第 {i+1} 张人脸未匹配到已知身份，相似度阈值: {self.settings.insightface.recognition_similarity_threshold}")
+                
+        app_logger.info(f"识别完成，匹配到 {len(results)} 个身份")
         return results
 
     async def get_all_faces(self) -> List[FaceInfo]:

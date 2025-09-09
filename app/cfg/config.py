@@ -127,8 +127,8 @@ class InferenceConfig(BaseModel):
     cuda: CudaConfig = Field(default_factory=CudaConfig, description="CUDA推理配置")
     hailo8: Hailo8Config = Field(default_factory=Hailo8Config, description="Hailo8推理配置")
     rk3588: RK3588Config = Field(default_factory=RK3588Config, description="RK3588推理配置")
-    recognition_similarity_threshold: float = Field(0.5, description="人脸识别相似度阈值")
-    recognition_det_score_threshold: float = Field(0.4, description="人脸检测置信度阈值（识别时使用）")
+    recognition_similarity_threshold: float = Field(0.3, description="人脸识别相似度阈值")
+    recognition_det_score_threshold: float = Field(0.2, description="人脸检测置信度阈值（识别时使用）")
     registration_det_score_threshold: float = Field(0.2, description="人脸检测置信度阈值（注册时使用，更宽松）")
     image_db_path: FilePath = Field(DATA_DIR / "faces", description="注册人脸图像存储目录")
     lancedb_uri: str = Field(str(DATA_DIR / "lancedb"), description="LanceDB数据库存储目录")
@@ -141,6 +141,56 @@ class InferenceConfig(BaseModel):
         if v not in supported_devices:
             raise ValueError(f'device_type must be one of: {supported_devices}')
         return v
+    
+    def get_device_config(self) -> Dict[str, Any]:
+        """获取当前设备的配置"""
+        if self.device_type == 'cuda':
+            return {
+                'device_type': self.device_type,
+                'model_pack_name': self.cuda.model_pack_name,
+                'providers': self.cuda.providers,
+                'detection_size': self.cuda.detection_size,
+                'recognition_size': self.cuda.recognition_size,
+                'recognition_similarity_threshold': self.recognition_similarity_threshold,
+                'recognition_det_score_threshold': self.recognition_det_score_threshold,
+                'registration_det_score_threshold': self.registration_det_score_threshold,
+                'image_db_path': str(self.image_db_path),
+                'lancedb_uri': self.lancedb_uri,
+                'lancedb_table_name': self.lancedb_table_name,
+                'home': str(self.cuda.home)
+            }
+        elif self.device_type == 'hailo8':
+            return {
+                'device_type': self.device_type,
+                'zoo_path': str(self.hailo8.zoo_path),
+                'detection_model': self.hailo8.detection_model,
+                'recognition_model': self.hailo8.recognition_model,
+                'detection_size': self.hailo8.detection_size,
+                'recognition_size': self.hailo8.recognition_size,
+                'recognition_similarity_threshold': self.recognition_similarity_threshold,
+                'recognition_det_score_threshold': self.recognition_det_score_threshold,
+                'registration_det_score_threshold': self.registration_det_score_threshold,
+                'image_db_path': str(self.image_db_path),
+                'lancedb_uri': self.lancedb_uri,
+                'lancedb_table_name': self.lancedb_table_name
+            }
+        elif self.device_type == 'rk3588':
+            return {
+                'device_type': self.device_type,
+                'zoo_path': str(self.rk3588.zoo_path),
+                'detection_model': self.rk3588.detection_model,
+                'recognition_model': self.rk3588.recognition_model,
+                'detection_size': self.rk3588.detection_size,
+                'recognition_size': self.rk3588.recognition_size,
+                'recognition_similarity_threshold': self.recognition_similarity_threshold,
+                'recognition_det_score_threshold': self.recognition_det_score_threshold,
+                'registration_det_score_threshold': self.registration_det_score_threshold,
+                'image_db_path': str(self.image_db_path),
+                'lancedb_uri': self.lancedb_uri,
+                'lancedb_table_name': self.lancedb_table_name
+            }
+        else:
+            raise ValueError(f"Unsupported device type: {self.device_type}")
 
     def model_post_init__(self, __context: Any) -> None:
         """模型初始化后的处理"""
