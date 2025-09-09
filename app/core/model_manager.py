@@ -78,6 +78,9 @@ class ModelManager:
         self._engine_config = None
         if self._use_new_inference:
             self._engine_config = self._build_engine_config()
+            app_logger.info(f"使用新推理引擎，设备类型: {self.settings.inference.device_type}")
+        else:
+            app_logger.info("使用传统InsightFace推理引擎")
         self._setup_environment()
         self._initialized = True
     

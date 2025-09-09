@@ -320,33 +320,33 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
                 except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                     continue
             
-            # 先尝试优雅终止，再强制终止
-            for pid in worker_pids:
-                try:
-                    # 先发送SIGTERM信号
-                    os.kill(pid, signal.SIGTERM)
-                    app_logger.info(f"已发送SIGTERM信号到Degirum工作进程 PID: {pid}")
-                    
-                    # 等待进程退出
-                    import time
-                    time.sleep(0.5)
-                    
-                    # 检查进程是否还存在
-                    try:
-                        os.kill(pid, 0)  # 检查进程是否存在
-                        # 如果还存在，强制终止
-                        os.kill(pid, signal.SIGKILL)
-                        app_logger.info(f"已强制终止Degirum工作进程 PID: {pid}")
-                    except ProcessLookupError:
-                        app_logger.info(f"Degirum工作进程 PID {pid} 已正常退出")
-                        
-                except ProcessLookupError:
-                    app_logger.debug(f"进程 PID {pid} 已不存在")
-                except Exception as e:
-                    app_logger.warning(f"终止进程 PID {pid} 时出错: {e}")
-            
+            # 使用pkill命令清理，更可靠
             if worker_pids:
-                app_logger.info(f"成功清理了 {len(worker_pids)} 个Degirum工作进程")
+                try:
+                    # 使用pkill按父进程ID清理
+                    import subprocess
+                    result = subprocess.run(
+                        f"pkill -f 'pproc_worker.py.*--parent_pid {current_pid}'",
+                        shell=True,
+                        capture_output=True,
+                        text=True
+                    )
+                    if result.returncode == 0:
+                        app_logger.info(f"成功清理了 {len(worker_pids)} 个Degirum工作进程")
+                    else:
+                        app_logger.warning(f"pkill命令执行失败: {result.stderr}")
+                except Exception as e:
+                    app_logger.warning(f"使用pkill清理失败，尝试手动清理: {e}")
+                    
+                    # 手动清理作为备选方案
+                    for pid in worker_pids:
+                        try:
+                            os.kill(pid, signal.SIGKILL)
+                            app_logger.info(f"已强制终止Degirum工作进程 PID: {pid}")
+                        except ProcessLookupError:
+                            app_logger.debug(f"进程 PID {pid} 已不存在")
+                        except Exception as e:
+                            app_logger.warning(f"终止进程 PID {pid} 时出错: {e}")
                 
         except Exception as e:
             app_logger.error(f"清理Degirum工作进程时出错: {e}")

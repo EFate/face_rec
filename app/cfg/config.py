@@ -59,7 +59,7 @@ class ServerConfig(BaseModel):
 
 class LoggingConfig(BaseModel):
     """日志配置"""
-    level: str = Field("INFO", description="日志级别")
+    level: str = Field("ERROR", description="日志级别")
     file_path: FilePath = Field(LOGS_DIR / "app.log", description="日志文件路径")
     max_bytes: int = Field(50 * 1024 * 1024, description="单个日志文件最大字节数（50MB）")
     backup_count: int = Field(10, description="日志文件备份数量")
@@ -123,7 +123,7 @@ class RK3588Config(BaseModel):
 
 class InferenceConfig(BaseModel):
     """推理引擎配置"""
-    device_type: str = Field("cuda", description="推理设备类型: cuda, hailo8, rk3588")
+    device_type: str = Field("hailo8", description="推理设备类型: cuda, hailo8, rk3588")
     cuda: CudaConfig = Field(default_factory=CudaConfig, description="CUDA推理配置")
     hailo8: Hailo8Config = Field(default_factory=Hailo8Config, description="Hailo8推理配置")
     rk3588: RK3588Config = Field(default_factory=RK3588Config, description="RK3588推理配置")
