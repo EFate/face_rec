@@ -21,8 +21,6 @@ from app.cfg.config import DATA_DIR
 # --- 导入新的服务 ---
 from app.core.result_processor import ResultPersistenceProcessor
 from app.cfg.mqtt_manager import MQTTManager
-# --- 导入Degirum资源清理 ---
-from app.core.degirum_cleanup import register_degirum_cleanup, cleanup_degirum_resources
 
 
 @asynccontextmanager
@@ -35,10 +33,6 @@ async def lifespan(app: FastAPI):
     setup_logging(settings)  # 设置日志配置
     app.state.settings = settings
     app_logger.info("应用程序启动... 开始执行启动任务。")
-    
-    # 注册Degirum资源清理
-    register_degirum_cleanup()
-    app_logger.info("Degirum资源清理已注册。")
     
     app_logger.info("应用启动，开始初始化数据库...")
     init_db()
@@ -127,13 +121,6 @@ async def lifespan(app: FastAPI):
         app_logger.info("✅ 模型资源已释放。")
     except Exception as e:
         app_logger.error(f"释放模型资源时出错: {e}", exc_info=True)
-
-    # 6. 清理Degirum资源
-    try:
-        cleanup_degirum_resources()
-        app_logger.info("✅ Degirum资源已清理。")
-    except Exception as e:
-        app_logger.error(f"清理Degirum资源时出错: {e}", exc_info=True)
 
     app_logger.info("✅ 所有清理任务完成。")
 

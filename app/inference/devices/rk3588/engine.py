@@ -306,50 +306,130 @@ class RK3588InferenceEngine(BaseInferenceEngine):
     def _cleanup_degirum_workers(self):
         """清理Degirum工作进程"""
         try:
-            current_pid = os.getpid()
-            worker_pids = set()
+            app_logger.info("开始清理Degirum工作进程")
             
-            # 查找所有Degirum工作进程
-            for proc in psutil.process_iter(['pid', 'cmdline']):
-                try:
-                    cmdline = proc.info.get('cmdline')
-                    if cmdline and any("degirum/pproc_worker.py" in s for s in cmdline):
-                        # 检查是否是当前进程的子进程
-                        if any(f"--parent_pid {current_pid}" in s for s in cmdline):
-                            worker_pids.add(proc.info['pid'])
-                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                    continue
+            # 1. 首先尝试使用Python的os模块和signal模块来清理进程
+            import os
+            import signal
+            import time
+            import psutil
             
-            # 使用pkill命令清理，更可靠
-            if worker_pids:
-                try:
-                    # 使用pkill按父进程ID清理
-                    import subprocess
-                    result = subprocess.run(
-                        f"pkill -f 'pproc_worker.py.*--parent_pid {current_pid}'",
-                        shell=True,
-                        capture_output=True,
-                        text=True
-                    )
-                    if result.returncode == 0:
-                        app_logger.info(f"成功清理了 {len(worker_pids)} 个Degirum工作进程")
-                    else:
-                        app_logger.warning(f"pkill命令执行失败: {result.stderr}")
-                except Exception as e:
-                    app_logger.warning(f"使用pkill清理失败，尝试手动清理: {e}")
-                    
-                    # 手动清理作为备选方案
-                    for pid in worker_pids:
-                        try:
-                            os.kill(pid, signal.SIGKILL)
-                            app_logger.info(f"已强制终止Degirum工作进程 PID: {pid}")
-                        except ProcessLookupError:
-                            app_logger.debug(f"进程 PID {pid} 已不存在")
-                        except Exception as e:
-                            app_logger.warning(f"终止进程 PID {pid} 时出错: {e}")
+            try:
+                # 查找所有degirum工作进程
+                degirum_processes = []
+                for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                    try:
+                        if proc.info['cmdline'] and any('degirum/pproc_worker.py' in cmd for cmd in proc.info['cmdline']):
+                            degirum_processes.append(proc)
+                    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                        pass
                 
+                if degirum_processes:
+                    app_logger.info(f"找到 {len(degirum_processes)} 个Degirum工作进程")
+                    
+                    # 先尝试优雅终止
+                    for proc in degirum_processes:
+                        try:
+                            os.kill(proc.info['pid'], signal.SIGTERM)
+                            app_logger.debug(f"发送SIGTERM信号到进程 {proc.info['pid']}")
+                        except Exception as e:
+                            app_logger.error(f"发送SIGTERM到进程 {proc.info['pid']} 时出错: {e}")
+                    
+                    # 等待进程终止
+                    time.sleep(1.0)
+                    
+                    # 检查是否还有残留进程
+                    remaining_processes = []
+                    for proc in degirum_processes:
+                        try:
+                            if psutil.pid_exists(proc.info['pid']):
+                                remaining_processes.append(proc)
+                        except Exception:
+                            pass
+                    
+                    if remaining_processes:
+                        # 还有残留进程，强制终止
+                        app_logger.warning(f"发现 {len(remaining_processes)} 个残留的Degirum工作进程，强制终止")
+                        for proc in remaining_processes:
+                            try:
+                                os.kill(proc.info['pid'], signal.SIGKILL)
+                                app_logger.debug(f"发送SIGKILL信号到进程 {proc.info['pid']}")
+                            except Exception as e:
+                                app_logger.error(f"发送SIGKILL到进程 {proc.info['pid']} 时出错: {e}")
+                    
+                    # 最终检查
+                    time.sleep(0.5)
+                    final_remaining = []
+                    for proc in degirum_processes:
+                        try:
+                            if psutil.pid_exists(proc.info['pid']):
+                                final_remaining.append(proc.info['pid'])
+                        except Exception:
+                            pass
+                    
+                    if final_remaining:
+                        # 2. 如果Python方法清理不完全，尝试使用subprocess调用pkill命令
+                        app_logger.warning(f"Python方法清理后仍有Degirum进程: {final_remaining}，尝试使用pkill命令")
+                        self._cleanup_with_pkill()
+                    else:
+                        app_logger.info("所有Degirum工作进程已清理完成")
+                else:
+                    app_logger.info("未找到Degirum工作进程")
+                    
+            except Exception as e:
+                app_logger.error(f"使用Python方法清理Degirum工作进程时出错: {e}")
+                # 尝试使用pkill命令作为备选方案
+                self._cleanup_with_pkill()
+                import traceback
+                app_logger.error(f"错误详情: {traceback.format_exc()}")
+            
         except Exception as e:
             app_logger.error(f"清理Degirum工作进程时出错: {e}")
+    
+    def _cleanup_with_pkill(self):
+        """使用pkill命令清理Degirum工作进程的备选方案"""
+        try:
+            import subprocess
+            import time
+            
+            app_logger.info("使用pkill命令尝试清理Degirum工作进程")
+            
+            # 先尝试优雅终止
+            try:
+                result = subprocess.run(['pkill', '-TERM', '-f', 'degirum/pproc_worker.py'], 
+                                      capture_output=True, text=True, timeout=5)
+                app_logger.info("发送SIGTERM信号到所有Degirum工作进程")
+                
+                # 等待进程终止
+                time.sleep(1.0)
+                
+                # 检查是否还有残留进程
+                check_result = subprocess.run(['pgrep', '-f', 'degirum/pproc_worker.py'], 
+                                            capture_output=True, text=True, timeout=5)
+                
+                if check_result.returncode == 0 and check_result.stdout.strip():
+                    # 还有残留进程，强制终止
+                    app_logger.warning("发现残留的Degirum工作进程，强制终止")
+                    kill_result = subprocess.run(['pkill', '-KILL', '-f', 'degirum/pproc_worker.py'], 
+                                               capture_output=True, text=True, timeout=5)
+                    app_logger.info("强制终止所有残留的Degirum工作进程")
+                
+                # 最终检查
+                time.sleep(0.5)
+                final_check = subprocess.run(['pgrep', '-f', 'degirum/pproc_worker.py'], 
+                                           capture_output=True, text=True, timeout=5)
+                
+                if final_check.returncode == 0 and final_check.stdout.strip():
+                    app_logger.warning(f"pkill清理后仍有Degirum进程: {final_check.stdout.strip()}")
+                else:
+                    app_logger.info("pkill成功清理所有Degirum工作进程")
+                    
+            except subprocess.TimeoutExpired:
+                app_logger.error("使用pkill清理Degirum工作进程超时")
+            except Exception as e:
+                app_logger.error(f"使用pkill清理Degirum工作进程时出错: {e}")
+        except Exception as e:
+            app_logger.error(f"执行pkill备选方案时出错: {e}")
     
     def _cleanup_on_exit(self):
         """程序退出时的清理函数"""
