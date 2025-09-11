@@ -321,9 +321,34 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
                 degirum_processes = []
                 for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
                     try:
-                        if proc.info['cmdline'] and any('degirum/pproc_worker.py' in cmd for cmd in proc.info['cmdline']):
-                            # 检查是否是当前进程的子进程
-                            if any(f"--parent_pid {current_pid}" in s for s in proc.info['cmdline']):
+                        cmdline = proc.info['cmdline']
+                        if cmdline and any('degirum/pproc_worker.py' in cmd for cmd in cmdline):
+                            # 检查是否是当前进程创建的工作进程
+                            parent_pid = None
+                            for arg in cmdline:
+                                if not arg.startswith('--parent_pid'):
+                                    continue
+                                    
+                                try:
+                                    parts = arg.split('=', 1)
+                                    if len(parts) == 2:
+                                        # 格式: --parent_pid=123
+                                        parent_pid = int(parts[1])
+                                    else:
+                                        # 格式: --parent_pid 123
+                                        idx = cmdline.index(arg)
+                                        if idx + 1 < len(cmdline) and cmdline[idx+1].isdigit():
+                                            parent_pid = int(cmdline[idx + 1])
+                                    break
+                                except (IndexError, ValueError) as e:
+                                    app_logger.warning(f"解析parent_pid参数失败: {arg}, 错误: {e}")
+                                    continue
+                                    
+                            # 如果没有找到parent_pid，则跳过该进程
+                            if parent_pid is None:
+                                continue
+                            
+                            if parent_pid is None or parent_pid == current_pid:
                                 degirum_processes.append(proc)
                     except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                         pass
@@ -375,6 +400,48 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
                         # 2. 如果Python方法清理不完全，尝试使用subprocess调用pkill命令
                         app_logger.warning(f"Python方法清理后仍有Degirum进程: {final_remaining}，尝试使用pkill命令")
                         self._cleanup_with_pkill()
+                        
+                        # 再次检查残留进程
+                        time.sleep(1.0)  # 增加等待时间确保进程终止
+                        final_remaining = []
+                        for pid in final_remaining:
+                            try:
+                                if psutil.pid_exists(pid):
+                                    final_remaining.append(pid)
+                                    proc = psutil.Process(pid)
+                                    app_logger.error(f"残留进程详细信息[PID={pid}]: "
+                                                    f"cmdline={proc.cmdline()}, "
+                                                    f"status={proc.status()}, "
+                                                    f"create_time={proc.create_time()}, "
+                                                    f"ppid={proc.ppid()}")
+                            except Exception as e:
+                                app_logger.error(f"检查进程{pid}失败: {e}")
+                        
+                        if final_remaining:
+                            app_logger.error(f"最终清理后仍有{len(final_remaining)}个残留进程")
+                            # 尝试终极清理方案
+                            for pid in final_remaining:
+                                try:
+                                    os.kill(pid, signal.SIGKILL)
+                                    time.sleep(0.1)
+                                    if psutil.pid_exists(pid):
+                                        app_logger.critical(f"无法终止的顽固进程: {pid}")
+                                except Exception as e:
+                                    app_logger.error(f"终止进程{pid}失败: {e}")
+                        
+                        # 3. 终极清理方案 - 强制杀死所有相关进程
+                        time.sleep(0.5)
+                        still_running = []
+                        for pid in final_remaining:
+                            if psutil.pid_exists(pid):
+                                still_running.append(pid)
+                                try:
+                                    os.kill(pid, signal.SIGKILL)
+                                except:
+                                    pass
+                        
+                        if still_running:
+                            app_logger.error(f"无法完全清理的Degirum进程: {still_running}")
                     else:
                         app_logger.debug("所有Degirum工作进程已清理完成")
                 else:
