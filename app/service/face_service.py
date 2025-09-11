@@ -99,7 +99,7 @@ class FaceService:
                 detail=f"人脸质量不佳，检测置信度({face.det_score:.2f})低于注册要求({registration_threshold})。请使用更清晰的正面人脸图片。"
             )
         
-        app_logger.info(f"注册人脸检测成功: 姓名={name}, SN={sn}, 置信度={face.det_score:.3f}")
+        app_logger.debug(f"注册人脸检测成功: 姓名={name}, SN={sn}, 置信度={face.det_score:.3f}")
         
         x1, y1, x2, y2 = face.bbox.astype(int)
         face_img = img[y1:y2, x1:x2]
@@ -121,11 +121,11 @@ class FaceService:
             app_logger.info("未检测到任何人脸")
             return []
         
-        app_logger.info(f"检测到 {len(detected_faces)} 张人脸，开始识别")
+        app_logger.debug(f"检测到 {len(detected_faces)} 张人脸，开始识别")
         
         results = []
         for i, face in enumerate(detected_faces):
-            app_logger.info(f"处理第 {i+1} 张人脸，检测置信度: {face.det_score:.3f}")
+            app_logger.debug(f"处理第 {i+1} 张人脸，检测置信度: {face.det_score:.3f}")
             
             # 尝试获取embedding
             embedding = getattr(face, 'normed_embedding', None)
@@ -142,15 +142,15 @@ class FaceService:
             
             if search_res:
                 name, sn, similarity = search_res
-                app_logger.info(f"识别成功: {name} (SN: {sn}), 相似度: {similarity:.3f}")
+                app_logger.debug(f"识别成功: {name} (SN: {sn}), 相似度: {similarity:.3f}")
                 results.append(FaceRecognitionResult(
                     name=name, sn=sn, similarity=similarity, box=face.bbox.astype(int).tolist(),
                     detection_confidence=float(face.det_score), landmark=face.landmark_2d_106
                 ))
             else:
-                app_logger.info(f"第 {i+1} 张人脸未匹配到已知身份，相似度阈值: {self.settings.insightface.recognition_similarity_threshold}")
+                app_logger.debug(f"第 {i+1} 张人脸未匹配到已知身份，相似度阈值: {self.settings.insightface.recognition_similarity_threshold}")
                 
-        app_logger.info(f"识别完成，匹配到 {len(results)} 个身份")
+        app_logger.debug(f"识别完成，匹配到 {len(results)} 个身份")
         return results
 
     async def get_all_faces(self) -> List[FaceInfo]:
@@ -211,7 +211,7 @@ class FaceService:
         updated_face_info_list = self.face_dao.get_features_by_sn(sn)
         if not updated_face_info_list:
             raise HTTPException(status_code=500, detail="更新后无法找回记录，数据可能不一致。")
-        app_logger.info(f"人员信息已更新: SN={sn}, 新数据={update_dict}, 影响记录数={updated_count}")
+        app_logger.debug(f"人员信息已更新: SN={sn}, 新数据={update_dict}, 影响记录数={updated_count}")
         return updated_count, FaceInfo.model_validate(updated_face_info_list[0])
 
     async def delete_face_by_sn(self, sn: str) -> int:
@@ -298,7 +298,7 @@ class FaceService:
             except (queue.Full, ValueError):
                 pass
             
-            app_logger.info(f"✅【线程 {stream_id}】处理工作已结束。")
+            app_logger.debug(f"✅【线程 {stream_id}】处理工作已结束。")
 
     async def start_stream(self, req: StreamStartRequest) -> ActiveStreamInfo:
         stream_id = str(uuid.uuid4())
@@ -328,7 +328,7 @@ class FaceService:
             )
             self.active_streams[stream_id] = {"info": stream_info, "queue": result_queue, "stop_event": stop_event,
                                               "thread": thread}
-            app_logger.info(f"🚀 视频流线程已启动: ID={stream_id}, TaskID={req.taskId}, Source={req.source}")
+            app_logger.debug(f"🚀 视频流线程已启动: ID={stream_id}, TaskID={req.taskId}, Source={req.source}")
             return stream_info
 
     async def stop_stream(self, stream_id: str) -> bool:
@@ -348,9 +348,9 @@ class FaceService:
                 if stream["thread"].is_alive():
                     app_logger.warning(f"视频流线程 {stream_id} 未能及时退出")
                 else:
-                    app_logger.info(f"✅ 视频流已成功停止: ID={stream_id}")
+                    app_logger.debug(f"✅ 视频流已成功停止: ID={stream_id}")
             else:
-                app_logger.info(f"✅ 视频流线程已自然结束: ID={stream_id}")
+                app_logger.debug(f"✅ 视频流线程已自然结束: ID={stream_id}")
             
             return True
         except Exception as e:
@@ -385,9 +385,9 @@ class FaceService:
                 if stream["thread"].is_alive():
                     app_logger.warning(f"视频流线程 TaskID={task_id} 未能及时退出")
                 else:
-                    app_logger.info(f"✅ 视频流已成功停止: TaskID={task_id}, StreamID={stream_to_stop}")
+                    app_logger.debug(f"✅ 视频流已成功停止: TaskID={task_id}, StreamID={stream_to_stop}")
             else:
-                app_logger.info(f"✅ 视频流线程已自然结束: TaskID={task_id}, StreamID={stream_to_stop}")
+                app_logger.debug(f"✅ 视频流线程已自然结束: TaskID={task_id}, StreamID={stream_to_stop}")
             
             return True
         except Exception as e:
@@ -420,12 +420,12 @@ class FaceService:
                     continue
                 
                 if frame_bytes is None: 
-                    app_logger.info(f"视频流 {stream_id} 已结束")
+                    app_logger.debug(f"视频流 {stream_id} 已结束")
                     break
                     
                 yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         except (ValueError, asyncio.CancelledError) as e:
-            app_logger.info(f"客户端从流 {stream_id} 断开: {e}")
+            app_logger.debug(f"客户端从流 {stream_id} 断开: {e}")
         except Exception as e:
             app_logger.error(f"获取视频流 {stream_id} 时发生错误: {e}", exc_info=True)
             raise
@@ -465,12 +465,12 @@ class FaceService:
                     continue
                 
                 if frame_bytes is None: 
-                    app_logger.info(f"视频流 TaskID={task_id} 已结束")
+                    app_logger.debug(f"视频流 TaskID={task_id} 已结束")
                     break
                     
                 yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         except (ValueError, asyncio.CancelledError) as e:
-            app_logger.info(f"客户端从流 TaskID={task_id} 断开: {e}")
+            app_logger.debug(f"客户端从流 TaskID={task_id} 断开: {e}")
         except Exception as e:
             app_logger.error(f"获取视频流 TaskID={task_id} 时发生错误: {e}", exc_info=True)
             raise
@@ -515,7 +515,7 @@ class FaceService:
             success_count = sum(1 for r in results if r is True)
             error_count = sum(1 for r in results if isinstance(r, Exception))
             
-            app_logger.info(f"停止视频流完成: 成功={success_count}, 错误={error_count}")
+            app_logger.debug(f"停止视频流完成: 成功={success_count}, 错误={error_count}")
             
             # 记录错误详情
             for i, result in enumerate(results):

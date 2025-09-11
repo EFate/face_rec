@@ -56,10 +56,10 @@ class LanceDBFaceDataDAO(FaceDataDAO):
     def _initialize_table(self) -> lancedb.table.Table:
         try:
             if self.table_name not in self.db.table_names():
-                app_logger.info(f"LanceDB 表 '{self.table_name}' 不存在，正在创建...")
+                app_logger.debug(f"LanceDB 表 '{self.table_name}' 不存在，正在创建...")
                 return self.db.create_table(self.table_name, schema=LanceFaceSchema)
             else:
-                app_logger.info(f"成功连接到已存在的 LanceDB 表: '{self.table_name}'")
+                app_logger.debug(f"成功连接到已存在的 LanceDB 表: '{self.table_name}'")
                 return self.db.open_table(self.table_name)
         except Exception as e:
             app_logger.error(f"初始化 LanceDB 表失败: {e}", exc_info=True)
@@ -71,7 +71,7 @@ class LanceDBFaceDataDAO(FaceDataDAO):
             new_record = LanceFaceSchema(uuid=str(uuid.uuid4()), vector=features, name=name, sn=sn,
                                          image_path=str(image_path))
             self.table.add([new_record.model_dump()])
-            app_logger.info(f"成功向 LanceDB 添加记录: SN={sn}, Name={name}")
+            app_logger.debug(f"成功向 LanceDB 添加记录: SN={sn}, Name={name}")
             return new_record.model_dump()
         except Exception as e:
             app_logger.error(f"向 LanceDB 添加记录失败: {e}", exc_info=True)
@@ -99,7 +99,7 @@ class LanceDBFaceDataDAO(FaceDataDAO):
             final_count = self.table.count_rows()
             deleted_count = initial_count - final_count
             if deleted_count > 0:
-                app_logger.info(f"成功从 LanceDB 中删除 {deleted_count} 条 SN 为 '{sn}' 的记录。")
+                app_logger.debug(f"成功从 LanceDB 中删除 {deleted_count} 条 SN 为 '{sn}' 的记录。")
             return deleted_count
         except Exception as e:
             app_logger.error(f"从 LanceDB 删除 SN='{sn}' 的记录失败: {e}", exc_info=True)
@@ -145,29 +145,29 @@ class LanceDBFaceDataDAO(FaceDataDAO):
     def search(self, embedding: np.ndarray, threshold: float, top_k: int = 1) -> Optional[Tuple[str, str, float]]:
         try:
             if self.table.count_rows() == 0: 
-                app_logger.info("数据库中没有人脸记录")
+                app_logger.debug("数据库中没有人脸记录")
                 return None
             
-            app_logger.info(f"开始搜索，相似度阈值: {threshold}")
+            app_logger.debug(f"开始搜索，相似度阈值: {threshold}")
             search_result = self.table.search(embedding).metric("cosine").limit(top_k).to_list()
             if not search_result: 
-                app_logger.info("搜索无结果")
+                app_logger.debug("搜索无结果")
                 return None
             
             best_match = search_result[0]
             similarity = 1 - best_match["_distance"]
-            app_logger.info(f"最佳匹配: {best_match.get('name', 'Unknown')} (SN: {best_match.get('sn', 'Unknown')}), 相似度: {similarity:.3f}")
+            app_logger.debug(f"最佳匹配: {best_match.get('name', 'Unknown')} (SN: {best_match.get('sn', 'Unknown')}), 相似度: {similarity:.3f}")
             
             if similarity >= threshold:
-                app_logger.info(f"相似度 {similarity:.3f} >= 阈值 {threshold}，识别成功")
+                app_logger.debug(f"相似度 {similarity:.3f} >= 阈值 {threshold}，识别成功")
                 return best_match["name"], best_match["sn"], float(similarity)
             else:
-                app_logger.info(f"相似度 {similarity:.3f} < 阈值 {threshold}，识别失败")
+                app_logger.debug(f"相似度 {similarity:.3f} < 阈值 {threshold}，识别失败")
                 return None
         except Exception as e:
             app_logger.error(f"搜索过程中出错: {e}")
             return None
 
     def dispose(self):
-        app_logger.info("LanceDB DAO 无需显式资源释放。")
+        app_logger.debug("LanceDB DAO 无需显式资源释放。")
         pass

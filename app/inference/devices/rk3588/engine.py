@@ -72,7 +72,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             bool: 初始化是否成功
         """
         try:
-            app_logger.info(f"初始化RK3588推理引擎: {self.zoo_path}")
+            app_logger.debug(f"初始化RK3588推理引擎: {self.zoo_path}")
             
             # 检查模型仓库路径
             if not os.path.exists(self.zoo_path):
@@ -90,7 +90,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             
             self._initialized = True
             self._initialization_time = time.time()
-            app_logger.info("RK3588推理引擎初始化成功")
+            app_logger.debug("RK3588推理引擎初始化成功")
             return True
             
         except Exception as e:
@@ -108,7 +108,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             if not self._initialized:
                 raise RuntimeError("推理引擎未初始化")
             
-            app_logger.info(f"加载RK3588模型: {self.detection_model_name}, {self.recognition_model_name}")
+            app_logger.debug(f"加载RK3588模型: {self.detection_model_name}, {self.recognition_model_name}")
             
             # 连接模型仓库
             self.zoo = dg.connect(
@@ -118,15 +118,15 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             
             # 加载检测模型
             self.detection_model = self.zoo.load_model(self.detection_model_name)
-            app_logger.info(f"检测模型加载成功: {self.detection_model_name}")
+            app_logger.debug(f"检测模型加载成功: {self.detection_model_name}")
             
             # 加载识别模型
             self.recognition_model = self.zoo.load_model(self.recognition_model_name)
-            app_logger.info(f"识别模型加载成功: {self.recognition_model_name}")
+            app_logger.debug(f"识别模型加载成功: {self.recognition_model_name}")
             
             self._models_loaded = True
             self._model_loading_time = time.time()
-            app_logger.info("RK3588模型加载成功")
+            app_logger.debug("RK3588模型加载成功")
             return True
             
         except Exception as e:
@@ -325,7 +325,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                         pass
                 
                 if degirum_processes:
-                    app_logger.info(f"找到 {len(degirum_processes)} 个Degirum工作进程")
+                    app_logger.debug(f"找到 {len(degirum_processes)} 个Degirum工作进程")
                     
                     # 先尝试优雅终止
                     for proc in degirum_processes:
@@ -372,9 +372,9 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                         app_logger.warning(f"Python方法清理后仍有Degirum进程: {final_remaining}，尝试使用pkill命令")
                         self._cleanup_with_pkill()
                     else:
-                        app_logger.info("所有Degirum工作进程已清理完成")
+                        app_logger.debug("所有Degirum工作进程已清理完成")
                 else:
-                    app_logger.info("未找到Degirum工作进程")
+                    app_logger.debug("未找到Degirum工作进程")
                     
             except Exception as e:
                 app_logger.error(f"使用Python方法清理Degirum工作进程时出错: {e}")
@@ -392,13 +392,13 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             import subprocess
             import time
             
-            app_logger.info("使用pkill命令尝试清理Degirum工作进程")
+            app_logger.debug("使用pkill命令尝试清理Degirum工作进程")
             
             # 先尝试优雅终止
             try:
                 result = subprocess.run(['pkill', '-TERM', '-f', 'degirum/pproc_worker.py'], 
                                       capture_output=True, text=True, timeout=5)
-                app_logger.info("发送SIGTERM信号到所有Degirum工作进程")
+                app_logger.debug("发送SIGTERM信号到所有Degirum工作进程")
                 
                 # 等待进程终止
                 time.sleep(1.0)
@@ -412,7 +412,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                     app_logger.warning("发现残留的Degirum工作进程，强制终止")
                     kill_result = subprocess.run(['pkill', '-KILL', '-f', 'degirum/pproc_worker.py'], 
                                                capture_output=True, text=True, timeout=5)
-                    app_logger.info("强制终止所有残留的Degirum工作进程")
+                    app_logger.debug("强制终止所有残留的Degirum工作进程")
                 
                 # 最终检查
                 time.sleep(0.5)
@@ -422,7 +422,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                 if final_check.returncode == 0 and final_check.stdout.strip():
                     app_logger.warning(f"pkill清理后仍有Degirum进程: {final_check.stdout.strip()}")
                 else:
-                    app_logger.info("pkill成功清理所有Degirum工作进程")
+                    app_logger.debug("pkill成功清理所有Degirum工作进程")
                     
             except subprocess.TimeoutExpired:
                 app_logger.error("使用pkill清理Degirum工作进程超时")

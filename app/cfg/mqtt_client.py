@@ -4,6 +4,7 @@ import json
 import time
 
 from typing import Optional, Dict, Any
+from app.cfg.logging import app_logger
 
 class MQTTClient:
     def __init__(self, broker_host: str, broker_port: int = 1883, 
@@ -40,7 +41,7 @@ class MQTTClient:
         """连接回调函数"""
         if rc == 0:
             self.connected = True
-            print(f"客户端 {self.client_id} 连接成功")
+            app_logger.info(f"客户端 {self.client_id} 连接成功")
         else:
             self.connected = False
             error_messages = {
@@ -51,19 +52,19 @@ class MQTTClient:
                 5: "连接被拒绝 - 未授权"
             }
             error_msg = error_messages.get(rc, f"连接失败，错误代码: {rc}")
-            print(f"客户端 {self.client_id} {error_msg}")
+            app_logger.error(f"客户端 {self.client_id} {error_msg}")
 
     def _on_disconnect(self, client: mqtt.Client, userdata: Any, rc: int) -> None:
         """断开连接回调函数"""
         self.connected = False
         if rc != 0:
-            print(f"客户端 {self.client_id} 意外断开连接，错误代码: {rc}")
+            app_logger.warning(f"客户端 {self.client_id} 意外断开连接，错误代码: {rc}")
         else:
-            print(f"客户端 {self.client_id} 已正常断开连接")
+            app_logger.info(f"客户端 {self.client_id} 已正常断开连接")
 
     def _on_publish(self, client: mqtt.Client, userdata: Any, mid: int) -> None:
         """发布消息回调函数"""
-        print(f"消息发布成功，消息ID: {mid}")
+        app_logger.debug(f"消息发布成功，消息ID: {mid}")
 
     def _on_log(self, client: mqtt.Client, userdata: Any, level: int, buf: str) -> None:
         """日志回调函数，用于调试"""
@@ -76,14 +77,14 @@ class MQTTClient:
         try:
             topic = msg.topic
             payload = msg.payload.decode('utf-8')
-            print(f"收到来自主题 {topic} 的消息: {payload}")
+            app_logger.debug(f"收到来自主题 {topic} 的消息: {payload}")
             
             # 将消息传递给消息处理器
             if hasattr(self, 'message_handler'):
                 self.message_handler(topic, payload)
                 
         except Exception as e:
-            print(f"处理MQTT消息时发生错误: {str(e)}")
+            app_logger.error(f"处理MQTT消息时发生错误: {str(e)}")
 
     def subscribe_topic(self, topic: str, qos: int = 1) -> bool:
         """
@@ -94,19 +95,19 @@ class MQTTClient:
         :return: 订阅是否成功
         """
         if not self.connected:
-            print("未连接到MQTT服务器，无法订阅主题")
+            app_logger.warning("未连接到MQTT服务器，无法订阅主题")
             return False
             
         try:
             result, mid = self.client.subscribe(topic, qos=qos)
             if result == mqtt.MQTT_ERR_SUCCESS:
-                print(f"成功订阅主题: {topic}, QoS: {qos}")
+                app_logger.info(f"成功订阅主题: {topic}, QoS: {qos}")
                 return True
             else:
-                print(f"订阅主题 {topic} 失败，错误代码: {result}")
+                app_logger.error(f"订阅主题 {topic} 失败，错误代码: {result}")
                 return False
         except Exception as e:
-            print(f"订阅主题 {topic} 时发生错误: {str(e)}")
+            app_logger.error(f"订阅主题 {topic} 时发生错误: {str(e)}")
             return False
 
     def set_message_handler(self, handler):
@@ -127,7 +128,7 @@ class MQTTClient:
         :return: 连接是否成功
         """
         if self.connected:
-            print("已经处于连接状态，无需重复连接")
+            app_logger.debug("已经处于连接状态，无需重复连接")
             return True
             
         try:
@@ -148,27 +149,27 @@ class MQTTClient:
                 time.sleep(0.1)
                 
             if not self.connected:
-                print(f"连接超时，未能在{timeout}秒内建立连接")
+                app_logger.warning(f"连接超时，未能在{timeout}秒内建立连接")
                 self.client.loop_stop()
                 
             return self.connected
         except Exception as e:
-            print(f"连接过程中发生错误: {str(e)}")
+            app_logger.error(f"连接过程中发生错误: {str(e)}")
             return False
 
     def disconnect(self) -> bool:
         """断开与MQTT服务器的连接"""
         if not self.connected:
-            print("未处于连接状态，无需断开连接")
+            app_logger.debug("未处于连接状态，无需断开连接")
             return True
             
         try:
             self.client.loop_stop()
             self.client.disconnect()
-            print(f"客户端 {self.client_id} 已主动断开连接")
+            app_logger.info(f"客户端 {self.client_id} 已主动断开连接")
             return True
         except Exception as e:
-            print(f"断开连接过程中发生错误: {str(e)}")
+            app_logger.error(f"断开连接过程中发生错误: {str(e)}")
             return False
 
     def push_message(self, topic: str, message_data: Optional[Dict[str, Any]] = None, qos: int = 1) -> bool:
@@ -182,12 +183,12 @@ class MQTTClient:
         """
         # 没有信息则不发布
         if message_data is None:
-            print("没有消息数据，不发布任何内容")
+            app_logger.debug("没有消息数据，不发布任何内容")
             return False
             
         # 检查连接状态
         if not self.connected:
-            print("未连接到MQTT服务器，无法发布消息")
+            app_logger.warning("未连接到MQTT服务器，无法发布消息")
             return False
             
         try:
@@ -195,7 +196,7 @@ class MQTTClient:
             required_fields = ["taskId", "appId", "appName", "recordId"]
             for field in required_fields:
                 if field not in message_data:
-                    print(f"消息数据缺少必要字段: {field}")
+                    app_logger.error(f"消息数据缺少必要字段: {field}")
                     return False
             
             # 将消息转换为JSON字符串
@@ -208,17 +209,17 @@ class MQTTClient:
             result.wait_for_publish()
             
             if result.is_published():
-                print(f"消息已成功发布到主题: {topic}")
+                app_logger.info(f"消息已成功发布到主题: {topic}")
                 return True
             else:
-                print(f"消息发布到主题 {topic} 失败")
+                app_logger.error(f"消息发布到主题 {topic} 失败")
                 return False
                 
         except json.JSONDecodeError:
-            print("消息数据转换为JSON时发生错误")
+            app_logger.error("消息数据转换为JSON时发生错误")
             return False
         except Exception as e:
-            print(f"发布消息过程中发生错误: {str(e)}")
+            app_logger.error(f"发布消息过程中发生错误: {str(e)}")
             return False
 
 # 使用示例
@@ -254,4 +255,4 @@ if __name__ == "__main__":
         # 断开连接
         mqtt_client.disconnect()
     else:
-        print("无法连接到MQTT服务器，程序退出")
+        app_logger.error("无法连接到MQTT服务器，程序退出")
