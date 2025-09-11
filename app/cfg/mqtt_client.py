@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import uuid
 import json
 import time
+
 from typing import Optional, Dict, Any
 
 class MQTTClient:
@@ -70,6 +71,53 @@ class MQTTClient:
         # print(f"日志: {buf}")
         pass
 
+    def _on_message(self, client: mqtt.Client, userdata: Any, msg: mqtt.MQTTMessage) -> None:
+        """消息接收回调函数"""
+        try:
+            topic = msg.topic
+            payload = msg.payload.decode('utf-8')
+            print(f"收到来自主题 {topic} 的消息: {payload}")
+            
+            # 将消息传递给消息处理器
+            if hasattr(self, 'message_handler'):
+                self.message_handler(topic, payload)
+                
+        except Exception as e:
+            print(f"处理MQTT消息时发生错误: {str(e)}")
+
+    def subscribe_topic(self, topic: str, qos: int = 1) -> bool:
+        """
+        订阅指定主题
+        
+        :param topic: 要订阅的主题
+        :param qos: 服务质量等级，默认为1
+        :return: 订阅是否成功
+        """
+        if not self.connected:
+            print("未连接到MQTT服务器，无法订阅主题")
+            return False
+            
+        try:
+            result, mid = self.client.subscribe(topic, qos=qos)
+            if result == mqtt.MQTT_ERR_SUCCESS:
+                print(f"成功订阅主题: {topic}, QoS: {qos}")
+                return True
+            else:
+                print(f"订阅主题 {topic} 失败，错误代码: {result}")
+                return False
+        except Exception as e:
+            print(f"订阅主题 {topic} 时发生错误: {str(e)}")
+            return False
+
+    def set_message_handler(self, handler):
+        """
+        设置消息处理器
+        
+        :param handler: 消息处理函数，接收(topic, payload)参数
+        """
+        self.message_handler = handler
+        self.client.on_message = self._on_message
+
     def connect(self, username: Optional[str] = None, password: Optional[str] = None) -> bool:
         """
         连接到MQTT服务器
@@ -123,12 +171,13 @@ class MQTTClient:
             print(f"断开连接过程中发生错误: {str(e)}")
             return False
 
-    def push_message(self, topic: str, message_data: Optional[Dict[str, Any]] = None) -> bool:
+    def push_message(self, topic: str, message_data: Optional[Dict[str, Any]] = None, qos: int = 1) -> bool:
         """
         推送消息到指定主题
         
         :param topic: 消息主题
         :param message_data: 消息数据字典，若为None则不发布
+        :param qos: 服务质量等级，默认为1
         :return: 发布是否成功
         """
         # 没有信息则不发布
@@ -152,8 +201,8 @@ class MQTTClient:
             # 将消息转换为JSON字符串
             message_json = json.dumps(message_data, ensure_ascii=False)
             
-            # 发布消息，QoS设置为1确保消息至少被送达一次
-            result = self.client.publish(topic, message_json, qos=1)
+            # 发布消息
+            result = self.client.publish(topic, message_json, qos=qos)
             
             # 等待消息发布完成
             result.wait_for_publish()

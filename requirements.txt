@@ -19,3 +19,4 @@ sqlalchemy>=2.0.41
 paho-mqtt
 degirum>=0.17.2
 degirum_tools>=0.18.0
+requests

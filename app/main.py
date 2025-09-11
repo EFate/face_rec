@@ -48,25 +48,42 @@ async def lifespan(app: FastAPI):
     await load_models_on_startup()
     app_logger.info("✅ 模型池加载完成。")
 
-    # 2. 初始化MQTT管理器
-    mqtt_manager = MQTTManager(settings.mqtt)
-    app.state.mqtt_manager = mqtt_manager
-    mqtt_manager.start()
-    app_logger.info("✅ MQTT管理器已启动。")
-
-    # 3. 创建用于结果持久化的共享队列和后台服务
+    # 2. 创建用于结果持久化的共享队列
     result_persistence_queue = queue.Queue(maxsize=256)
-    result_service = ResultPersistenceProcessor(settings=settings, result_queue=result_persistence_queue, mqtt_manager=mqtt_manager)
-    app.state.result_service = result_service
-    result_service.start()
-    app_logger.info("✅ 结果持久化服务已启动。")
 
-    # 4. 初始化服务，并注入模型管理器和结果队列
-    face_service = FaceService(settings=settings, model_manager=model_manager, result_queue=result_persistence_queue, mqtt_manager=mqtt_manager)
-    app.state.face_service = face_service
-
-    # 5. 调用服务自身的初始化方法
-    await face_service.initialize()
+    try:
+        # 3. 创建MQTT管理器
+        mqtt_manager = MQTTManager(settings.mqtt, settings.server)
+        app.state.mqtt_manager = mqtt_manager
+        
+        # 4. 创建结果持久化服务
+        result_service = ResultPersistenceProcessor(settings=settings, result_queue=result_persistence_queue, mqtt_manager=mqtt_manager)
+        app.state.result_service = result_service
+        
+        # 5. 初始化FaceService(传入所有必需参数)
+        face_service = FaceService(
+            settings=settings,
+            model_manager=model_manager,
+            result_queue=result_persistence_queue,
+            mqtt_manager=mqtt_manager
+        )
+        app.state.face_service = face_service
+        
+        # 初始化FaceService
+        await face_service.initialize()
+        app_logger.info("✅ FaceService 初始化完成。")
+        
+        # 启动MQTT管理器
+        mqtt_manager.start()
+        app_logger.info("✅ MQTT管理器已启动。")
+        
+        # 启动结果持久化服务
+        result_service.start()
+        app_logger.info("✅ 结果持久化服务已启动。")
+        
+    except Exception as e:
+        app_logger.error(f"服务初始化失败: {str(e)}", exc_info=True)
+        raise
     app_logger.info("✅ FaceService 初始化完成。")
 
     # 6. 启动周期性清理过期流的后台任务

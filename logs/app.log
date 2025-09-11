@@ -11217,3 +11217,1437 @@ landmarks.4
 2025-09-10 17:20:56.930 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
 2025-09-10 17:20:56.931 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
 2025-09-10 17:20:56.939 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 14:54:46.659 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 14:54:46.659 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 14:54:46.660 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 14:54:46.660 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 14:54:46.660 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 14:54:46.660 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 14:54:49.616 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 14:54:49.617 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 14:54:50.011 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 14:54:50.028 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 14:54:50.028 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 14:54:50.029 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 14:54:50.029 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 14:54:50.030 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 14:54:50.030 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 14:54:50.030 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 14:54:50.131 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 14:54:50.131 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 14:54:50.131 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 14:54:50.131 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 14:54:50.131 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 14:54:50.132 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 14:54:50.326 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 14:54:50.328 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 14:54:50.329 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 14:54:50.329 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 14:54:50.329 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 14:54:50.330 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 14:54:50.331 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 14:54:50.331 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 14:54:50.331 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 14:54:50.332 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 14:54:50.332 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 14:54:50.373 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 14:54:50.375 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 14:54:50.375 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 14:54:50.375 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 14:54:50.376 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 14:54:50.376 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 14:54:50.376 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 14:54:50.377 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 14:54:50.377 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 14:54:50.378 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 14:54:50.420 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 14:54:50.422 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 14:54:50.422 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 14:54:50.423 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 14:54:50.423 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 14:54:50.424 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 14:54:51.398 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 14:54:51.398 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 14:54:51.500 | INFO     | app.cfg.mqtt_manager:_worker_loop:93 - MQTT工作线程已启动
+2025-09-11 14:54:51.501 | INFO     | app.cfg.mqtt_manager:start:63 - ✅ MQTT管理器已启动
+2025-09-11 14:54:51.502 | INFO     | app.main:lifespan:55 - ✅ MQTT管理器已启动。
+2025-09-11 14:54:51.503 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 14:54:51.504 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 14:54:51.504 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 14:54:51.505 | INFO     | app.main:lifespan:62 - ✅ 结果持久化服务已启动。
+2025-09-11 14:54:51.505 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 14:54:51.533 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 14:54:51.566 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 14:54:51.566 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 14:54:51.567 | INFO     | app.main:lifespan:70 - ✅ FaceService 初始化完成。
+2025-09-11 14:54:51.567 | INFO     | app.main:lifespan:75 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 14:54:51.567 | INFO     | app.main:lifespan:77 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 14:54:53.491 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 14:54:53.514 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 14:54:53.522 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 14:54:53.528 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 14:54:53.529 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 14:54:53.529 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 14:54:53.534 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:03:03.277 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:03:03.277 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:03:03.277 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:03:03.277 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:03:03.277 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:03:03.277 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:03:08.291 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:03:08.291 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:03:08.643 | CRITICAL | __main__:start_server:103 - 服务器启动失败: name 'List' is not defined
+2025-09-11 15:03:23.277 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:03:23.277 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:03:23.277 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:03:23.278 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:03:23.278 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:03:23.278 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:03:29.135 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:03:29.135 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:03:29.521 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:03:29.538 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:03:29.538 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:03:29.538 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:03:29.538 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:03:29.539 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:03:29.539 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:03:29.540 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:03:29.602 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:03:29.602 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:03:29.602 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:03:29.603 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:03:29.603 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:03:29.603 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:03:29.688 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:03:29.690 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:03:29.690 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:03:29.690 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:03:29.691 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:03:29.691 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:03:29.692 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:03:29.692 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:03:29.693 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:03:29.693 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:03:29.694 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:03:29.735 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:03:29.737 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:03:29.737 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:03:29.737 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:03:29.737 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:03:29.738 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:03:29.738 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:03:29.738 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:03:29.738 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:03:29.739 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:03:29.777 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:03:29.779 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:03:29.779 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:03:29.779 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:03:29.780 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:03:29.781 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:03:30.655 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:03:30.655 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:03:30.757 | INFO     | app.cfg.mqtt_manager:_worker_loop:99 - MQTT工作线程已启动
+2025-09-11 15:03:30.759 | INFO     | app.cfg.mqtt_manager:start:69 - ✅ MQTT管理器已启动
+2025-09-11 15:03:30.759 | INFO     | app.main:lifespan:55 - ✅ MQTT管理器已启动。
+2025-09-11 15:03:30.760 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:03:30.761 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:03:30.761 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:03:30.762 | INFO     | app.main:lifespan:62 - ✅ 结果持久化服务已启动。
+2025-09-11 15:03:30.762 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:03:30.771 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:03:30.774 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:03:30.775 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:03:30.775 | INFO     | app.main:lifespan:70 - ✅ FaceService 初始化完成。
+2025-09-11 15:03:30.775 | INFO     | app.main:lifespan:75 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:03:30.776 | INFO     | app.main:lifespan:77 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:03:59.003 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:155 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:03:59.004 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:224 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:03:59.004 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:268 - 处理sync操作时发生错误: name 'asyncio' is not defined
+2025-09-11 15:04:48.762 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:04:48.786 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:04:48.792 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:04:48.798 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:04:48.798 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:04:48.798 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:04:48.803 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:05:01.378 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:05:01.379 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:05:01.379 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:05:01.379 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:05:01.379 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:05:01.379 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:05:05.363 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:05:05.363 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:05:05.744 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:05:05.761 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:05:05.761 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:05:05.761 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:05:05.761 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:05:05.762 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:05:05.762 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:05:05.763 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:05:05.825 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:05:05.825 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:05:05.825 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:05:05.825 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:05:05.825 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:05:05.826 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:05:05.923 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:05:05.924 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:05:05.925 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:05:05.925 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:05:05.925 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:05:05.926 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:05:05.926 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:05:05.926 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:05:05.928 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:05:05.928 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:05:05.929 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:05:05.971 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:05:05.972 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:05:05.973 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:05:05.973 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:05:05.973 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:05:05.974 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:05:05.974 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:05:05.975 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:05:05.975 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:05:05.975 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:05:06.018 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:05:06.019 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:05:06.020 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:05:06.020 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:05:06.021 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:05:06.021 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:05:06.895 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:05:06.895 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:05:06.997 | INFO     | app.cfg.mqtt_manager:_worker_loop:99 - MQTT工作线程已启动
+2025-09-11 15:05:06.999 | INFO     | app.cfg.mqtt_manager:start:69 - ✅ MQTT管理器已启动
+2025-09-11 15:05:06.999 | INFO     | app.main:lifespan:55 - ✅ MQTT管理器已启动。
+2025-09-11 15:05:07.000 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:05:07.001 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:05:07.002 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:05:07.003 | INFO     | app.main:lifespan:62 - ✅ 结果持久化服务已启动。
+2025-09-11 15:05:07.003 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:05:07.007 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:05:07.010 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:05:07.011 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:05:07.011 | INFO     | app.main:lifespan:70 - ✅ FaceService 初始化完成。
+2025-09-11 15:05:07.011 | INFO     | app.main:lifespan:75 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:05:07.011 | INFO     | app.main:lifespan:77 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:05:41.327 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:155 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:05:41.328 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:224 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:05:41.328 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:268 - 处理sync操作时发生错误: name 'asyncio' is not defined
+2025-09-11 15:06:04.101 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:06:04.125 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:06:04.133 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:06:04.138 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:06:04.139 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:06:04.139 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:06:04.144 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:06:15.015 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:06:15.016 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:06:15.016 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:06:15.016 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:06:15.016 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:06:15.016 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:06:19.929 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:06:19.929 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:06:20.273 | CRITICAL | __main__:start_server:103 - 服务器启动失败: invalid syntax (mqtt_manager.py, line 11)
+2025-09-11 15:06:56.021 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:06:56.021 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:06:56.021 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:06:56.021 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:06:56.022 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:06:56.022 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:06:58.770 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:06:58.770 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:06:59.103 | CRITICAL | __main__:start_server:103 - 服务器启动失败: invalid syntax (mqtt_manager.py, line 11)
+2025-09-11 15:08:47.452 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:08:47.453 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:08:47.453 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:08:47.453 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:08:47.453 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:08:47.453 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:08:49.590 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:08:49.590 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:08:49.978 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:08:49.996 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:08:49.996 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:08:49.996 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:08:49.996 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:08:49.997 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:08:49.997 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:08:49.997 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:08:50.058 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:08:50.058 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:08:50.058 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:08:50.059 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:08:50.059 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:08:50.059 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:08:50.142 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:08:50.143 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:08:50.143 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:08:50.144 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:08:50.144 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:08:50.145 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:08:50.146 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:08:50.146 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:08:50.147 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:08:50.147 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:08:50.148 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:08:50.192 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:08:50.194 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:08:50.194 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:08:50.194 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:08:50.195 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:08:50.195 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:08:50.195 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:08:50.196 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:08:50.197 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:08:50.198 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:08:50.242 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:08:50.244 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:08:50.244 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:08:50.244 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:08:50.245 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:08:50.246 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:08:51.135 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:08:51.136 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:08:51.238 | INFO     | app.cfg.mqtt_manager:_worker_loop:100 - MQTT工作线程已启动
+2025-09-11 15:08:51.239 | INFO     | app.cfg.mqtt_manager:start:70 - ✅ MQTT管理器已启动
+2025-09-11 15:08:51.240 | INFO     | app.main:lifespan:55 - ✅ MQTT管理器已启动。
+2025-09-11 15:08:51.241 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:08:51.242 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:08:51.242 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:08:51.243 | INFO     | app.main:lifespan:62 - ✅ 结果持久化服务已启动。
+2025-09-11 15:08:51.243 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:08:51.248 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:08:51.251 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:08:51.251 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:08:51.252 | INFO     | app.main:lifespan:70 - ✅ FaceService 初始化完成。
+2025-09-11 15:08:51.252 | INFO     | app.main:lifespan:75 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:08:51.252 | INFO     | app.main:lifespan:77 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:09:03.908 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:09:03.909 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:09:03.910 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:266 - 处理sync操作时发生错误: 'NoneType' object has no attribute 'get_all_faces'
+2025-09-11 15:09:42.967 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 6 条 SN 为 'sn002' 的记录。
+2025-09-11 15:09:46.871 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 1 条 SN 为 'sn003' 的记录。
+2025-09-11 15:10:03.030 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 2 条 SN 为 'TEST001' 的记录。
+2025-09-11 15:10:53.022 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:10:53.047 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:10:53.053 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:10:53.058 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:10:53.059 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:10:53.059 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:10:53.063 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:11:08.043 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:11:08.043 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:11:08.043 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:11:08.044 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:11:08.044 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:11:08.044 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:11:12.411 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:11:12.412 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:11:12.797 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:11:12.814 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:11:12.814 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:11:12.814 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:11:12.814 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:11:12.815 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:11:12.816 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:11:12.816 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:11:12.877 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:11:12.877 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:11:12.878 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:11:12.878 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:11:12.878 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:11:12.878 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:11:12.980 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:11:12.981 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:11:12.982 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:11:12.982 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:11:12.982 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:11:12.983 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:11:12.983 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:11:12.984 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:11:12.984 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:11:12.985 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:11:12.985 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:11:13.028 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:11:13.029 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:11:13.030 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:11:13.030 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:11:13.030 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:11:13.031 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:11:13.031 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:11:13.032 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:11:13.033 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:11:13.034 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:11:13.074 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:11:13.076 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:11:13.076 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:11:13.077 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:11:13.077 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:11:13.078 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:11:13.964 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:11:13.964 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:11:14.067 | INFO     | app.cfg.mqtt_manager:_worker_loop:100 - MQTT工作线程已启动
+2025-09-11 15:11:14.068 | INFO     | app.cfg.mqtt_manager:start:70 - ✅ MQTT管理器已启动
+2025-09-11 15:11:14.068 | INFO     | app.main:lifespan:55 - ✅ MQTT管理器已启动。
+2025-09-11 15:11:14.070 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:11:14.071 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:11:14.071 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:11:14.072 | INFO     | app.main:lifespan:62 - ✅ 结果持久化服务已启动。
+2025-09-11 15:11:14.072 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:11:14.077 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:11:14.080 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:11:14.081 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:11:14.082 | INFO     | app.main:lifespan:70 - ✅ FaceService 初始化完成。
+2025-09-11 15:11:14.082 | INFO     | app.main:lifespan:75 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:11:14.082 | INFO     | app.main:lifespan:77 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:11:20.570 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=1, 置信度=0.651
+2025-09-11 15:11:20.597 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=1, Name=1
+2025-09-11 15:12:36.378 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:12:36.378 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:12:36.379 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:266 - 处理sync操作时发生错误: 'NoneType' object has no attribute 'get_all_faces'
+2025-09-11 15:12:36.594 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:12:36.595 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:12:36.597 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:266 - 处理sync操作时发生错误: 'NoneType' object has no attribute 'get_all_faces'
+2025-09-11 15:12:36.775 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:12:36.776 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:12:36.777 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:266 - 处理sync操作时发生错误: 'NoneType' object has no attribute 'get_all_faces'
+2025-09-11 15:12:36.984 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:12:36.985 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:12:36.986 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:266 - 处理sync操作时发生错误: 'NoneType' object has no attribute 'get_all_faces'
+2025-09-11 15:14:34.978 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:14:35.002 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:14:35.009 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:14:35.014 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:14:35.014 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:14:35.014 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:14:35.019 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:15:37.773 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:15:37.774 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:15:37.774 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:15:37.774 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:15:37.774 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:15:37.774 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:15:41.639 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:15:41.639 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:15:42.029 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:15:42.047 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:15:42.047 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:15:42.047 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:15:42.047 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:15:42.049 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:15:42.049 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:15:42.049 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:15:42.112 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:15:42.112 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:15:42.112 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:15:42.112 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:15:42.112 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:15:42.112 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:15:42.214 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:15:42.215 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:15:42.215 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:15:42.215 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:15:42.215 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:15:42.216 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:15:42.216 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:15:42.216 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:15:42.216 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:15:42.216 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:15:42.217 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:15:42.250 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:15:42.251 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:15:42.251 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:15:42.251 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:15:42.251 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:15:42.252 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:15:42.252 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:15:42.252 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:15:42.252 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:15:42.252 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:15:42.286 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:15:42.288 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:15:42.288 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:15:42.288 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:15:42.289 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:15:42.290 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:15:43.173 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:15:43.174 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:15:43.276 | INFO     | app.cfg.mqtt_manager:_worker_loop:100 - MQTT工作线程已启动
+2025-09-11 15:15:43.277 | INFO     | app.cfg.mqtt_manager:start:70 - ✅ MQTT管理器已启动
+2025-09-11 15:15:43.278 | INFO     | app.main:lifespan:55 - ✅ MQTT管理器已启动。
+2025-09-11 15:15:43.278 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:15:43.279 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:15:43.280 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:15:43.280 | INFO     | app.main:lifespan:62 - ✅ 结果持久化服务已启动。
+2025-09-11 15:15:43.281 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:15:43.285 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:15:43.289 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:15:43.289 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:15:43.290 | INFO     | app.main:lifespan:70 - ✅ FaceService 初始化完成。
+2025-09-11 15:15:43.290 | INFO     | app.main:lifespan:75 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:15:43.290 | INFO     | app.main:lifespan:77 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:15:58.777 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:15:58.778 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:15:58.778 | ERROR    | app.cfg.mqtt_manager:_handle_sync_action:225 - 无法执行sync操作: face_service未初始化
+2025-09-11 15:16:09.385 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:16:09.408 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:16:09.415 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:16:09.419 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:16:09.419 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:16:09.420 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:16:09.425 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:17:53.600 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:17:53.601 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:17:53.601 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:17:53.601 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:17:53.601 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:17:53.601 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:17:56.562 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:17:56.563 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:17:56.944 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:17:56.961 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:17:56.961 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:17:56.961 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:17:56.961 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:17:56.963 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:17:56.963 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:17:56.963 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:17:57.026 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:17:57.027 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:17:57.027 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:17:57.027 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:17:57.027 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:17:57.027 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:17:57.122 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:17:57.124 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:17:57.124 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:17:57.124 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:17:57.125 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:17:57.125 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:17:57.126 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:17:57.126 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:17:57.127 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:17:57.128 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:17:57.128 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:17:57.170 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:17:57.172 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:17:57.172 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:17:57.172 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:17:57.173 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:17:57.173 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:17:57.173 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:17:57.174 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:17:57.174 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:17:57.175 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:17:57.215 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:17:57.217 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:17:57.217 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:17:57.217 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:17:57.218 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:17:57.219 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:17:58.123 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:17:58.123 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:17:58.135 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:17:58.140 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:17:58.145 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:17:58.145 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:17:58.145 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:17:58.150 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:18:01.454 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:18:01.454 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:18:01.454 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:18:01.455 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:18:01.455 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:18:01.455 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:18:04.367 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:18:04.367 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:18:04.751 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:18:04.768 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:18:04.768 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:18:04.769 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:18:04.769 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:18:04.770 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:18:04.770 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:18:04.770 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:18:04.831 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:18:04.832 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:18:04.832 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:18:04.832 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:18:04.832 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:04.832 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:18:04.927 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:18:04.928 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:04.928 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:18:04.929 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:18:04.929 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:18:04.930 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:18:04.930 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:18:04.930 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:18:04.931 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:18:04.931 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:04.932 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:18:04.972 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:18:04.973 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:04.974 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:18:04.974 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:18:04.974 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:18:04.975 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:18:04.975 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:18:04.976 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:18:04.977 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:04.977 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:18:05.016 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:18:05.017 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:05.018 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:18:05.018 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:18:05.019 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:18:05.020 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:18:05.919 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:18:05.920 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:18:05.931 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:18:05.936 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:18:05.941 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:18:05.941 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:18:05.941 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:18:05.946 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:18:30.778 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:18:30.778 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:18:30.779 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:18:30.779 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:18:30.779 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:18:30.779 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:18:34.763 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:18:34.763 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:18:35.147 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:18:35.164 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:18:35.164 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:18:35.164 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:18:35.164 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:18:35.165 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:18:35.165 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:18:35.166 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:18:35.227 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:18:35.227 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:18:35.227 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:18:35.227 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:18:35.227 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:35.227 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:18:35.313 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:18:35.315 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:35.316 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:18:35.316 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:18:35.316 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:18:35.317 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:18:35.317 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:18:35.318 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:18:35.319 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:18:35.319 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:35.320 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:18:35.366 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:18:35.367 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:35.368 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:18:35.368 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:18:35.368 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:18:35.369 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:18:35.369 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:18:35.370 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:18:35.370 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:35.370 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:18:35.414 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:18:35.416 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:18:35.416 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:18:35.416 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:18:35.417 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:18:35.418 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:18:36.316 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:18:36.316 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:18:36.326 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:18:36.331 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:18:36.336 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:18:36.336 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:18:36.336 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:18:36.341 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:19:59.730 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:19:59.730 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:19:59.731 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:19:59.731 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:19:59.731 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:19:59.731 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:20:02.491 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:20:02.491 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:20:02.887 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:20:02.904 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:20:02.905 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:20:02.905 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:20:02.905 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:20:02.906 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:20:02.906 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:20:02.906 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:20:02.968 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:20:02.969 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:20:02.969 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:20:02.969 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:20:02.969 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:20:02.969 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:20:03.065 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:20:03.067 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:20:03.067 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:20:03.068 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:20:03.068 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:20:03.069 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:20:03.069 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:20:03.069 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:20:03.070 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:20:03.070 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:20:03.071 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:20:03.118 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:20:03.120 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:20:03.120 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:20:03.121 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:20:03.121 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:20:03.121 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:20:03.122 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:20:03.122 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:20:03.122 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:20:03.123 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:20:03.162 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:20:03.164 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:20:03.164 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:20:03.164 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:20:03.165 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:20:03.166 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:20:04.039 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:20:04.040 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:20:04.040 | ERROR    | app.main:lifespan:83 - 服务初始化失败: FaceService.__init__() missing 1 required positional argument: 'mqtt_manager'
+2025-09-11 15:20:04.050 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:20:04.055 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:20:04.059 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:20:04.060 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:20:04.060 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:20:04.065 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:21:16.859 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:21:16.859 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:21:16.859 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:21:16.860 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:21:16.860 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:21:16.860 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:21:19.787 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:21:19.787 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:21:20.173 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:21:20.191 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:21:20.191 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:21:20.191 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:21:20.191 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:21:20.192 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:21:20.192 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:21:20.192 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:21:20.253 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:21:20.254 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:21:20.254 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:21:20.254 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:21:20.254 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:21:20.254 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:21:20.346 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:21:20.348 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:21:20.348 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:21:20.349 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:21:20.349 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:21:20.350 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:21:20.350 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:21:20.350 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:21:20.352 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:21:20.352 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:21:20.353 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:21:20.400 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:21:20.401 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:21:20.402 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:21:20.402 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:21:20.402 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:21:20.403 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:21:20.403 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:21:20.404 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:21:20.404 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:21:20.405 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:21:20.444 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:21:20.445 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:21:20.446 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:21:20.446 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:21:20.447 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:21:20.447 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:21:21.325 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:21:21.325 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:21:21.326 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:21:21.326 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:21:21.327 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:21:21.328 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:21:21.328 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:21:21.328 | INFO     | app.main:lifespan:77 - ✅ FaceService 初始化完成。
+2025-09-11 15:21:21.437 | INFO     | app.cfg.mqtt_manager:_worker_loop:100 - MQTT工作线程已启动
+2025-09-11 15:21:21.438 | INFO     | app.cfg.mqtt_manager:start:70 - ✅ MQTT管理器已启动
+2025-09-11 15:21:21.439 | INFO     | app.main:lifespan:81 - ✅ MQTT管理器已启动。
+2025-09-11 15:21:21.440 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:21:21.440 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:21:21.441 | INFO     | app.main:lifespan:85 - ✅ 结果持久化服务已启动。
+2025-09-11 15:21:21.441 | INFO     | app.main:lifespan:90 - ✅ FaceService 初始化完成。
+2025-09-11 15:21:21.442 | INFO     | app.main:lifespan:95 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:21:21.442 | INFO     | app.main:lifespan:97 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:21:27.625 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:21:27.625 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:222 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:21:27.655 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 1 条 SN 为 '1' 的记录。
+2025-09-11 15:21:27.656 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:249 - 同步删除多余数据: SN=1, 删除记录数=1
+2025-09-11 15:21:27.656 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:21:27.657 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:21:27.777 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:21:27.816 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:215 - 注册人脸失败: SN=P202509111116361, 错误: 400: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:21:56.227 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=1, 置信度=0.651
+2025-09-11 15:21:56.236 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=1, Name=1
+2025-09-11 15:25:23.603 | INFO     | app.service.face_service:recognize_face:124 - 检测到 1 张人脸，开始识别
+2025-09-11 15:25:23.603 | INFO     | app.service.face_service:recognize_face:128 - 处理第 1 张人脸，检测置信度: 0.812
+2025-09-11 15:25:23.604 | INFO     | app.service.face_dao:search:151 - 开始搜索，相似度阈值: 0.5
+2025-09-11 15:25:23.617 | INFO     | app.service.face_dao:search:159 - 最佳匹配: 1 (SN: 1), 相似度: 0.299
+2025-09-11 15:25:23.617 | INFO     | app.service.face_dao:search:165 - 相似度 0.299 < 阈值 0.5，识别失败
+2025-09-11 15:25:23.617 | INFO     | app.service.face_service:recognize_face:151 - 第 1 张人脸未匹配到已知身份，相似度阈值: 0.5
+2025-09-11 15:25:23.617 | INFO     | app.service.face_service:recognize_face:153 - 识别完成，匹配到 0 个身份
+2025-09-11 15:25:29.624 | INFO     | app.service.face_service:recognize_face:124 - 检测到 1 张人脸，开始识别
+2025-09-11 15:25:29.625 | INFO     | app.service.face_service:recognize_face:128 - 处理第 1 张人脸，检测置信度: 0.651
+2025-09-11 15:25:29.626 | INFO     | app.service.face_dao:search:151 - 开始搜索，相似度阈值: 0.5
+2025-09-11 15:25:29.631 | INFO     | app.service.face_dao:search:159 - 最佳匹配: 1 (SN: 1), 相似度: 1.000
+2025-09-11 15:25:29.631 | INFO     | app.service.face_dao:search:162 - 相似度 1.000 >= 阈值 0.5，识别成功
+2025-09-11 15:25:29.631 | INFO     | app.service.face_service:recognize_face:145 - 识别成功: 1 (SN: 1), 相似度: 1.000
+2025-09-11 15:25:29.632 | INFO     | app.service.face_service:recognize_face:153 - 识别完成，匹配到 1 个身份
+2025-09-11 15:27:48.496 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:27:48.508 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:27:48.517 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:27:48.522 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:27:48.522 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:27:48.522 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:27:48.527 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:40:13.885 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:40:13.885 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:40:13.885 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:40:13.886 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:40:13.886 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:40:13.886 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:40:15.901 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:40:15.901 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:40:16.273 | CRITICAL | __main__:start_server:103 - 服务器启动失败: name 'ServerConfig' is not defined
+2025-09-11 15:41:02.445 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:41:02.446 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:41:02.446 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:41:02.446 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:41:02.446 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:41:02.446 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:41:11.697 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:41:11.697 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:41:12.097 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:41:12.114 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:41:12.114 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:41:12.114 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:41:12.114 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:41:12.115 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:41:12.116 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:41:12.116 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:41:12.177 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:41:12.178 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:41:12.178 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:41:12.178 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:41:12.178 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:41:12.178 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:41:12.263 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:41:12.265 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:41:12.265 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:41:12.266 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:41:12.266 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:41:12.267 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:41:12.267 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:41:12.268 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:41:12.268 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:41:12.269 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:41:12.270 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:41:12.318 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:41:12.320 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:41:12.321 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:41:12.321 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:41:12.321 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:41:12.322 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:41:12.322 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:41:12.323 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:41:12.323 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:41:12.325 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:41:12.373 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:41:12.375 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:41:12.375 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:41:12.376 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:41:12.376 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:41:12.377 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:41:13.256 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:41:13.256 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:41:13.257 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:41:13.257 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:41:13.258 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:41:13.259 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:41:13.259 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:41:13.259 | INFO     | app.main:lifespan:74 - ✅ FaceService 初始化完成。
+2025-09-11 15:41:13.361 | INFO     | app.cfg.mqtt_manager:_worker_loop:100 - MQTT工作线程已启动
+2025-09-11 15:41:13.362 | INFO     | app.cfg.mqtt_manager:start:70 - ✅ MQTT管理器已启动
+2025-09-11 15:41:13.363 | INFO     | app.main:lifespan:78 - ✅ MQTT管理器已启动。
+2025-09-11 15:41:13.364 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:41:13.365 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:41:13.365 | INFO     | app.main:lifespan:82 - ✅ 结果持久化服务已启动。
+2025-09-11 15:41:13.365 | INFO     | app.main:lifespan:87 - ✅ FaceService 初始化完成。
+2025-09-11 15:41:13.366 | INFO     | app.main:lifespan:92 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:41:13.366 | INFO     | app.main:lifespan:94 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:41:20.345 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:20.346 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:20.381 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 1 条 SN 为 '1' 的记录。
+2025-09-11 15:41:20.383 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:240 - 同步删除多余数据: SN=1, 删除记录数=1
+2025-09-11 15:41:20.384 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:20.384 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:20.503 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:20.543 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:39.871 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:39.872 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:39.883 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:39.883 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:39.976 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:39.993 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:40.715 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:40.715 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:40.727 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:40.728 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:40.808 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:40.838 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:41.433 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:41.434 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:41.445 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:41.446 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:41.524 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:41.551 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:42.256 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:42.256 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:42.268 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:42.269 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:42.356 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:42.383 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:42.487 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:42.488 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:42.499 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:42.500 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:42.584 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:42.611 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:42.691 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:42.692 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:42.704 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:42.704 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:42.778 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:42.805 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:42.895 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:42.896 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:42.907 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:42.908 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:42.982 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:43.006 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:43.137 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:43.137 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:43.141 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:43.141 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:43.214 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:43.226 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:43.362 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:43.362 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:43.373 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:43.374 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:43.463 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:43.482 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:43.600 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:43.601 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:43.612 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:43.613 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:43.689 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:43.717 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:55.867 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:55.868 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:55.880 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:55.881 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:55.950 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:55.978 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:41:56.561 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:41:56.562 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:220 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:41:56.573 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:41:56.573 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:41:56.644 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:41:56.670 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:208 - 注册人脸失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:42:45.554 | INFO     | app.service.face_service:recognize_face:124 - 检测到 1 张人脸，开始识别
+2025-09-11 15:42:45.555 | INFO     | app.service.face_service:recognize_face:128 - 处理第 1 张人脸，检测置信度: 0.651
+2025-09-11 15:42:45.556 | INFO     | app.service.face_dao:search:148 - 数据库中没有人脸记录
+2025-09-11 15:42:45.557 | INFO     | app.service.face_service:recognize_face:151 - 第 1 张人脸未匹配到已知身份，相似度阈值: 0.5
+2025-09-11 15:42:45.557 | INFO     | app.service.face_service:recognize_face:153 - 识别完成，匹配到 0 个身份
+2025-09-11 15:42:55.412 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=1, 置信度=0.651
+2025-09-11 15:42:55.422 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=1, Name=1
+2025-09-11 15:47:47.730 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:47:47.742 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:47:47.754 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:47:47.764 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:47:47.764 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:47:47.764 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:47:47.769 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:49:19.797 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:49:19.798 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:49:19.798 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:49:19.798 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:49:19.798 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:49:19.798 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:49:22.950 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:49:22.950 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:49:23.343 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:49:23.360 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:49:23.360 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:49:23.360 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:49:23.360 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:49:23.361 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:49:23.362 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:49:23.362 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:49:23.424 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:49:23.425 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:49:23.425 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:49:23.425 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:49:23.425 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:49:23.425 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:49:23.508 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:49:23.509 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:49:23.510 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:49:23.510 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:49:23.510 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:49:23.511 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:49:23.511 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:49:23.511 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:49:23.513 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:49:23.513 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:49:23.514 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:49:23.551 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:49:23.553 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:49:23.553 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:49:23.553 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:49:23.554 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:49:23.554 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:49:23.554 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:49:23.555 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:49:23.555 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:49:23.556 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:49:23.602 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:49:23.603 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:49:23.604 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:49:23.604 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:49:23.604 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:49:23.605 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:49:24.486 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:49:24.486 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:49:24.487 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:49:24.487 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:49:24.488 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:49:24.489 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:49:24.489 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:49:24.489 | INFO     | app.main:lifespan:74 - ✅ FaceService 初始化完成。
+2025-09-11 15:49:24.591 | INFO     | app.cfg.mqtt_manager:_worker_loop:100 - MQTT工作线程已启动
+2025-09-11 15:49:24.593 | INFO     | app.cfg.mqtt_manager:start:70 - ✅ MQTT管理器已启动
+2025-09-11 15:49:24.593 | INFO     | app.main:lifespan:78 - ✅ MQTT管理器已启动。
+2025-09-11 15:49:24.594 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:49:24.595 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:49:24.595 | INFO     | app.main:lifespan:82 - ✅ 结果持久化服务已启动。
+2025-09-11 15:49:24.596 | INFO     | app.main:lifespan:87 - ✅ FaceService 初始化完成。
+2025-09-11 15:49:24.596 | INFO     | app.main:lifespan:92 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:49:24.596 | INFO     | app.main:lifespan:94 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:49:27.828 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=1, 置信度=0.651
+2025-09-11 15:49:27.840 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=1, Name=1
+2025-09-11 15:49:34.110 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:156 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:49:34.110 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:277 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:49:34.152 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 2 条 SN 为 '1' 的记录。
+2025-09-11 15:49:34.155 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:297 - 同步删除多余数据: SN=1, 删除记录数=2
+2025-09-11 15:49:34.155 | INFO     | app.cfg.mqtt_manager:_handle_save_action:175 - 开始处理save操作，共 1 条记录
+2025-09-11 15:49:34.156 | INFO     | app.cfg.mqtt_manager:_handle_save_action:187 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:49:34.232 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:270 - 注册人脸失败: SN=P202509111116361, 错误: name 'Path' is not defined
+2025-09-11 15:50:00.698 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 15:50:00.710 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:50:00.716 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:50:00.721 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 15:50:00.721 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 15:50:00.721 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 15:50:00.726 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 15:50:18.078 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:50:18.079 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:50:18.079 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:50:18.079 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:50:18.079 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:50:18.079 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:50:22.554 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:50:22.554 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:50:22.907 | CRITICAL | __main__:start_server:103 - 服务器启动失败: No module named 'Path'
+2025-09-11 15:50:55.491 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 15:50:55.492 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 15:50:55.492 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 15:50:55.492 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 15:50:55.492 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 15:50:55.492 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 15:51:02.120 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 15:51:02.120 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 15:51:02.521 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 15:51:02.539 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 15:51:02.539 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 15:51:02.540 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 15:51:02.540 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 15:51:02.541 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 15:51:02.541 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 15:51:02.541 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 15:51:02.619 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:51:02.619 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:51:02.619 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:51:02.620 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:51:02.620 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:51:02.620 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:51:02.699 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:51:02.701 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:51:02.701 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:51:02.702 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:51:02.702 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 15:51:02.703 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:51:02.703 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:51:02.703 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:51:02.704 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:51:02.704 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:51:02.705 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:51:02.742 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:51:02.744 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:51:02.744 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:51:02.744 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:51:02.745 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 15:51:02.745 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 15:51:02.745 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 15:51:02.746 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 15:51:02.746 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:51:02.747 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 15:51:02.787 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 15:51:02.789 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 15:51:02.789 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 15:51:02.790 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 15:51:02.790 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 15:51:02.791 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 15:51:03.668 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 15:51:03.668 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 15:51:03.668 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 15:51:03.668 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 15:51:03.670 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 15:51:03.671 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 15:51:03.671 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 15:51:03.671 | INFO     | app.main:lifespan:74 - ✅ FaceService 初始化完成。
+2025-09-11 15:51:03.776 | INFO     | app.cfg.mqtt_manager:_worker_loop:101 - MQTT工作线程已启动
+2025-09-11 15:51:03.777 | INFO     | app.cfg.mqtt_manager:start:71 - ✅ MQTT管理器已启动
+2025-09-11 15:51:03.778 | INFO     | app.main:lifespan:78 - ✅ MQTT管理器已启动。
+2025-09-11 15:51:03.778 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 15:51:03.779 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 15:51:03.779 | INFO     | app.main:lifespan:82 - ✅ 结果持久化服务已启动。
+2025-09-11 15:51:03.780 | INFO     | app.main:lifespan:87 - ✅ FaceService 初始化完成。
+2025-09-11 15:51:03.780 | INFO     | app.main:lifespan:92 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 15:51:03.780 | INFO     | app.main:lifespan:94 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 15:51:08.592 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:51:08.592 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:278 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:51:08.618 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 15:51:08.618 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:51:08.731 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:51:08.766 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:223 - 注册人脸失败: SN=P202509111116361, 错误: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:51:08.829 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:51:08.842 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:248 - 调整图片后注册仍然失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:51:30.867 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 15:51:30.867 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:278 - 开始处理sync操作，共 1 条记录
+2025-09-11 15:51:30.878 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 15:51:30.879 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 15:51:30.964 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:51:30.991 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:223 - 注册人脸失败: SN=P202509111116361, 错误: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:51:31.028 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 15:51:31.048 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:248 - 调整图片后注册仍然失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 15:57:40.948 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=1, 置信度=0.651
+2025-09-11 15:57:40.957 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=1, Name=1
+2025-09-11 16:02:04.594 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 16:02:04.607 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:02:04.614 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:02:04.619 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:02:04.620 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 16:02:04.620 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 16:02:04.624 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 16:02:10.040 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 16:02:10.040 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 16:02:10.041 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 16:02:10.041 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 16:02:10.041 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 16:02:10.041 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 16:02:12.951 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 16:02:12.952 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 16:02:13.343 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 16:02:13.360 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 16:02:13.361 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 16:02:13.361 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 16:02:13.361 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 16:02:13.362 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 16:02:13.362 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 16:02:13.362 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 16:02:13.425 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:02:13.425 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:02:13.425 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:02:13.425 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:02:13.425 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:02:13.425 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:02:13.516 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:02:13.517 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:02:13.518 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:02:13.518 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:02:13.518 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 16:02:13.519 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:02:13.519 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:02:13.520 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:02:13.521 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:02:13.521 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:02:13.522 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:02:13.557 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:02:13.559 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:02:13.560 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:02:13.560 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:02:13.561 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:02:13.561 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:02:13.561 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:02:13.562 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:02:13.562 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:02:13.563 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:02:13.610 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:02:13.612 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:02:13.612 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:02:13.612 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:02:13.613 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 16:02:13.613 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 16:02:14.475 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 16:02:14.475 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 16:02:14.475 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 16:02:14.476 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 16:02:14.477 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 16:02:14.478 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 16:02:14.478 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 16:02:14.478 | INFO     | app.main:lifespan:74 - ✅ FaceService 初始化完成。
+2025-09-11 16:02:14.580 | INFO     | app.cfg.mqtt_manager:_worker_loop:101 - MQTT工作线程已启动
+2025-09-11 16:02:14.581 | INFO     | app.cfg.mqtt_manager:start:71 - ✅ MQTT管理器已启动
+2025-09-11 16:02:14.582 | INFO     | app.main:lifespan:78 - ✅ MQTT管理器已启动。
+2025-09-11 16:02:14.582 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 16:02:14.583 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 16:02:14.583 | INFO     | app.main:lifespan:82 - ✅ 结果持久化服务已启动。
+2025-09-11 16:02:14.584 | INFO     | app.main:lifespan:87 - ✅ FaceService 初始化完成。
+2025-09-11 16:02:14.584 | INFO     | app.main:lifespan:92 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 16:02:14.584 | INFO     | app.main:lifespan:94 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 16:02:26.721 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 16:02:26.722 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:296 - 开始处理sync操作，共 1 条记录
+2025-09-11 16:02:26.770 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 1 条 SN 为 '1' 的记录。
+2025-09-11 16:02:26.773 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:316 - 同步删除多余数据: SN=1, 删除记录数=1
+2025-09-11 16:02:26.773 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 16:02:26.773 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 16:02:26.880 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 16:02:26.912 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:238 - 注册人脸失败: SN=P202509111116361, 错误: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 16:02:26.950 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 16:02:26.975 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:266 - 调整图片后注册仍然失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 16:05:15.677 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 16:05:15.701 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:05:15.708 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:05:15.714 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:05:15.714 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 16:05:15.714 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 16:05:15.720 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 16:05:22.123 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 16:05:22.123 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 16:05:22.124 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 16:05:22.124 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 16:05:22.124 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 16:05:22.124 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 16:05:29.080 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 16:05:29.080 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 16:05:29.468 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 16:05:29.486 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 16:05:29.486 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 16:05:29.486 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 16:05:29.486 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 16:05:29.487 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 16:05:29.487 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 16:05:29.487 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 16:05:29.549 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:05:29.549 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:05:29.549 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:05:29.549 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:05:29.549 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:05:29.549 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:05:29.641 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:05:29.643 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:05:29.643 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:05:29.644 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:05:29.644 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 16:05:29.645 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:05:29.645 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:05:29.645 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:05:29.646 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:05:29.646 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:05:29.647 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:05:29.691 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:05:29.693 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:05:29.693 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:05:29.693 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:05:29.694 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:05:29.695 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:05:29.695 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:05:29.697 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:05:29.697 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:05:29.697 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:05:29.739 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:05:29.740 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:05:29.741 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:05:29.741 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:05:29.742 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 16:05:29.742 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 16:05:30.637 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 16:05:30.637 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 16:05:30.638 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 16:05:30.638 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 16:05:30.639 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 16:05:30.640 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 16:05:30.640 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 16:05:30.640 | INFO     | app.main:lifespan:74 - ✅ FaceService 初始化完成。
+2025-09-11 16:05:30.742 | INFO     | app.cfg.mqtt_manager:_worker_loop:101 - MQTT工作线程已启动
+2025-09-11 16:05:30.744 | INFO     | app.cfg.mqtt_manager:start:71 - ✅ MQTT管理器已启动
+2025-09-11 16:05:30.745 | INFO     | app.main:lifespan:78 - ✅ MQTT管理器已启动。
+2025-09-11 16:05:30.746 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 16:05:30.747 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 16:05:30.747 | INFO     | app.main:lifespan:82 - ✅ 结果持久化服务已启动。
+2025-09-11 16:05:30.748 | INFO     | app.main:lifespan:87 - ✅ FaceService 初始化完成。
+2025-09-11 16:05:30.748 | INFO     | app.main:lifespan:92 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 16:05:30.748 | INFO     | app.main:lifespan:94 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 16:06:04.786 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=1, 置信度=0.812
+2025-09-11 16:06:04.791 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=1, Name=1
+2025-09-11 16:06:13.252 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 16:06:13.252 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:301 - 开始处理sync操作，共 1 条记录
+2025-09-11 16:06:13.285 | INFO     | app.service.face_dao:delete_by_sn:102 - 成功从 LanceDB 中删除 1 条 SN 为 '1' 的记录。
+2025-09-11 16:06:13.288 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:321 - 同步删除多余数据: SN=1, 删除记录数=1
+2025-09-11 16:06:13.288 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 16:06:13.289 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111116361, 姓名=aaa, 共 1 张图片
+2025-09-11 16:06:13.351 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:228 - 图片处理失败: name 'Path' is not defined
+2025-09-11 16:06:13.385 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 16:06:13.409 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:246 - 注册人脸失败: SN=P202509111116361, 错误: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 16:06:13.447 | WARNING  | app.service.face_service:register_face:80 - 使用默认阈值未检测到人脸，尝试使用更宽松的阈值重新检测
+2025-09-11 16:06:13.469 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:271 - 调整图片后注册仍然失败: 未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。
+2025-09-11 16:06:41.462 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: delete, 共 1 条记录
+2025-09-11 16:06:41.463 | INFO     | app.cfg.mqtt_manager:_handle_delete_action:345 - 开始处理delete操作，共 1 条记录
+2025-09-11 16:06:41.476 | ERROR    | app.cfg.mqtt_manager:_handle_delete_action:359 - 删除SN=P202509111116361失败: 未找到SN为 'P202509111116361' 的人脸记录。
+2025-09-11 16:07:32.422 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: save, 共 1 条记录
+2025-09-11 16:07:32.422 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 16:07:32.422 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111607291, 姓名=1, 共 1 张图片
+2025-09-11 16:07:32.484 | ERROR    | app.cfg.mqtt_manager:_handle_save_action:228 - 图片处理失败: name 'Path' is not defined
+2025-09-11 16:07:32.521 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=1, SN=P202509111607291, 置信度=0.635
+2025-09-11 16:07:32.529 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=P202509111607291, Name=1
+2025-09-11 16:07:32.532 | INFO     | app.cfg.mqtt_manager:_handle_save_action:243 - 成功注册人脸: SN=P202509111607291, 图片URL=http://172.16.104.108:58080/admin-api/infra/file/25/get/e1d32c45d3cddfda87c73e7030bcd405eaa9e903e6ccfa30d99da9dfe658dc11.png
+2025-09-11 16:07:34.002 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 16:07:34.002 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:301 - 开始处理sync操作，共 1 条记录
+2025-09-11 16:07:45.847 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 1 条记录
+2025-09-11 16:07:45.848 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:301 - 开始处理sync操作，共 1 条记录
+2025-09-11 16:12:34.121 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 16:12:34.134 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:12:34.142 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:12:34.148 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:12:34.148 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 16:12:34.148 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 16:12:34.153 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
+2025-09-11 16:12:46.471 | INFO     | __main__:init_app_state:25 - 应用配置加载完成
+2025-09-11 16:12:46.471 | INFO     | __main__:start_server:83 - 启动服务器: FastAPI人脸识别服务 v0.1.0
+2025-09-11 16:12:46.472 | INFO     | __main__:start_server:84 - 监听地址: http://0.0.0.0:12010
+2025-09-11 16:12:46.472 | INFO     | __main__:start_server:88 - 本机访问: http://127.0.0.1:12010
+2025-09-11 16:12:46.472 | INFO     | __main__:start_server:89 - 局域网访问: http://172.16.13.3:12010
+2025-09-11 16:12:46.472 | INFO     | __main__:start_server:91 - 热重载: 关闭
+2025-09-11 16:12:51.510 | INFO     | app.core.model_manager:__init__:81 - 使用新推理引擎，设备类型: hailo8
+2025-09-11 16:12:51.510 | INFO     | app.core.model_manager:_setup_environment:97 - 设置INSIGHTFACE_HOME: /home/abt/lx/face_rec/data/.insightface
+2025-09-11 16:12:51.915 | INFO     | app.core.degirum_cleanup:__init__:33 - Degirum资源清理管理器已初始化
+2025-09-11 16:12:51.933 | INFO     | app.main:lifespan:37 - 应用程序启动... 开始执行启动任务。
+2025-09-11 16:12:51.933 | INFO     | app.core.degirum_cleanup:register_cleanup:48 - Degirum资源清理函数已注册
+2025-09-11 16:12:51.933 | INFO     | app.main:lifespan:41 - Degirum资源清理已注册。
+2025-09-11 16:12:51.933 | INFO     | app.main:lifespan:43 - 应用启动，开始初始化数据库...
+2025-09-11 16:12:51.934 | INFO     | app.main:lifespan:45 - 数据库初始化完成。
+2025-09-11 16:12:51.934 | INFO     | app.core.model_manager:_load_new_inference_models:116 - 开始加载3个推理引擎实例到池中
+2025-09-11 16:12:51.934 | INFO     | app.core.model_manager:_load_new_inference_models:117 - 使用设备类型: hailo8
+2025-09-11 16:12:51.997 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:12:51.997 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:12:51.998 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:12:51.998 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:12:51.998 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:12:51.998 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:12:52.080 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:12:52.081 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:12:52.082 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:12:52.082 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:12:52.082 | INFO     | app.core.model_manager:_load_new_inference_models:122 - 第一个推理引擎加载成功，继续加载剩余引擎
+2025-09-11 16:12:52.083 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:12:52.084 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:12:52.084 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:12:52.085 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:12:52.085 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:12:52.086 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:12:52.126 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:12:52.128 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:12:52.128 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:12:52.129 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:12:52.129 | INFO     | app.inference.factory:create_engine:60 - 创建 hailo8 推理引擎
+2025-09-11 16:12:52.130 | INFO     | app.inference.factory:create_engine_with_fallback:136 - 成功创建 hailo8 推理引擎
+2025-09-11 16:12:52.131 | INFO     | app.inference.devices.hailo8.engine:initialize:75 - 初始化Hailo8推理引擎: /home/abt/lx/face_rec/data/zoo
+2025-09-11 16:12:52.132 | INFO     | app.inference.devices.hailo8.engine:initialize:93 - Hailo8推理引擎初始化成功
+2025-09-11 16:12:52.132 | INFO     | app.inference.devices.hailo8.engine:load_models:111 - 加载Hailo8模型: scrfd_10g--640x640_quant_hailort_hailo8_1, arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:12:52.133 | INFO     | logging:_log:1624 - Local inference with local zoo from '/home/abt/lx/face_rec/data/zoo' dir
+2025-09-11 16:12:52.178 | INFO     | app.inference.devices.hailo8.engine:load_models:121 - 检测模型加载成功: scrfd_10g--640x640_quant_hailort_hailo8_1
+2025-09-11 16:12:52.180 | INFO     | app.inference.devices.hailo8.engine:load_models:125 - 识别模型加载成功: arcface_mobilefacenet--112x112_quant_hailort_hailo8_1
+2025-09-11 16:12:52.180 | INFO     | app.inference.devices.hailo8.engine:load_models:129 - Hailo8模型加载成功
+2025-09-11 16:12:52.180 | INFO     | app.core.model_manager:_create_inference_engine:202 - 推理引擎创建成功: hailo8
+2025-09-11 16:12:52.181 | INFO     | app.core.model_manager:_load_new_inference_models:137 - 成功加载3个推理引擎到池中
+2025-09-11 16:12:52.181 | INFO     | app.core.model_manager:_startup_test:217 - 开始启动自检
+2025-09-11 16:12:53.089 | INFO     | app.core.model_manager:_startup_test_new_inference:245 - 自检成功：检测到1张人脸
+2025-09-11 16:12:53.089 | INFO     | app.main:lifespan:49 - ✅ 模型池加载完成。
+2025-09-11 16:12:53.090 | INFO     | app.core.result_processor:__init__:51 - 结果持久化处理器初始化完成，保存间隔：0.6秒，帧间隔：每10帧
+2025-09-11 16:12:53.090 | INFO     | app.service.face_service:__init__:32 - 正在初始化 FaceService (多线程 + 模型池)...
+2025-09-11 16:12:53.091 | INFO     | app.service.face_dao:_initialize_table:62 - 成功连接到已存在的 LanceDB 表: 'faces_v2'
+2025-09-11 16:12:53.092 | INFO     | app.service.face_service:initialize:48 - FaceService 正在初始化...
+2025-09-11 16:12:53.092 | INFO     | app.service.face_service:initialize:49 - ✅ FaceService 初始化完毕。
+2025-09-11 16:12:53.092 | INFO     | app.main:lifespan:74 - ✅ FaceService 初始化完成。
+2025-09-11 16:12:53.194 | INFO     | app.cfg.mqtt_manager:_worker_loop:101 - MQTT工作线程已启动
+2025-09-11 16:12:53.196 | INFO     | app.cfg.mqtt_manager:start:71 - ✅ MQTT管理器已启动
+2025-09-11 16:12:53.196 | INFO     | app.main:lifespan:78 - ✅ MQTT管理器已启动。
+2025-09-11 16:12:53.197 | INFO     | app.core.result_processor:_worker_loop:88 - 结果持久化处理器工作线程已启动
+2025-09-11 16:12:53.198 | INFO     | app.core.result_processor:start:66 - ✅ 结果持久化处理器已启动
+2025-09-11 16:12:53.198 | INFO     | app.main:lifespan:82 - ✅ 结果持久化服务已启动。
+2025-09-11 16:12:53.198 | INFO     | app.main:lifespan:87 - ✅ FaceService 初始化完成。
+2025-09-11 16:12:53.199 | INFO     | app.main:lifespan:92 - ✅ 启动了周期性清理过期视频流的后台任务。
+2025-09-11 16:12:53.199 | INFO     | app.main:lifespan:94 - 🎉 所有启动任务完成，应用程序准备就绪。
+2025-09-11 16:13:15.382 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: sync, 共 2 条记录
+2025-09-11 16:13:15.383 | INFO     | app.cfg.mqtt_manager:_handle_sync_action:294 - 开始处理sync操作，共 2 条记录
+2025-09-11 16:13:15.408 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 16:13:15.409 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111620131, 姓名=2, 共 1 张图片
+2025-09-11 16:13:15.498 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=2, SN=P202509111620131, 置信度=0.525
+2025-09-11 16:13:15.504 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=P202509111620131, Name=2
+2025-09-11 16:13:15.506 | INFO     | app.cfg.mqtt_manager:_handle_save_action:236 - 成功注册人脸: SN=P202509111620131, 图片URL=http://172.16.104.108:58080/admin-api/infra/file/25/get/57cd2264d30b429b2decb0af63fca5c2373542dba93bf0622aa25420bd04e137.png
+2025-09-11 16:16:15.086 | INFO     | app.cfg.mqtt_manager:_handle_face_register_message:157 - 处理人脸注册消息, actionType: save, 共 1 条记录
+2025-09-11 16:16:15.087 | INFO     | app.cfg.mqtt_manager:_handle_save_action:176 - 开始处理save操作，共 1 条记录
+2025-09-11 16:16:15.087 | INFO     | app.cfg.mqtt_manager:_handle_save_action:188 - 正在注册人脸: SN=P202509111616121, 姓名=李胜, 共 1 张图片
+2025-09-11 16:16:15.275 | INFO     | app.service.face_service:register_face:102 - 注册人脸检测成功: 姓名=李胜, SN=P202509111616121, 置信度=0.502
+2025-09-11 16:16:15.280 | INFO     | app.service.face_dao:create:74 - 成功向 LanceDB 添加记录: SN=P202509111616121, Name=李胜
+2025-09-11 16:16:15.281 | INFO     | app.cfg.mqtt_manager:_handle_save_action:236 - 成功注册人脸: SN=P202509111616121, 图片URL=http://172.16.104.108:58080/admin-api/infra/file/25/get/513a941805ecf2958326338d017a8c2d078608e7dec5527118301d51c030de71.png
+2025-09-11 16:19:02.014 | INFO     | app.inference.devices.hailo8.engine:_signal_handler:368 - 收到信号 2，开始清理资源
+2025-09-11 16:19:02.037 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:19:02.045 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:19:02.050 | INFO     | app.inference.devices.hailo8.engine:_cleanup_on_exit:362 - Hailo8推理引擎资源清理完成
+2025-09-11 16:19:02.050 | INFO     | app.core.degirum_cleanup:_cleanup_on_exit:141 - 程序退出，开始清理Degirum资源
+2025-09-11 16:19:02.051 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:107 - 开始清理Degirum工作进程
+2025-09-11 16:19:02.056 | INFO     | app.core.degirum_cleanup:cleanup_all_degirum_workers:116 - 未发现需要清理的Degirum工作进程
