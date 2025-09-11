@@ -25,8 +25,7 @@ services:
       - LOGGING__LEVEL=${LOGGING__LEVEL:-INFO}
 
     volumes:
-      - ./data:/app/data
-      - ./logs:/app/logs
+      - ./.env:/app/.env
 
     # GPU 资源配置
     deploy:

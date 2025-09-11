@@ -26,6 +26,7 @@ services:
       - /lib/firmware:/lib/firmware
       - /lib/udev/rules.d:/lib/udev/rules.d
       - /lib/modules:/lib/modules
+      - ./.env:/app/.env
     devices:
       - /dev/hailo0:/dev/hailo0
     privileged: true
