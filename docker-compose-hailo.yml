@@ -9,7 +9,7 @@ services:
       # 'context'：构建上下文的路径。'.' 表示当前目录（即项目根目录）。
       context: .
       # 'dockerfile'：Dockerfile 的文件名，相对于 context。
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-hailo
 
     # 容器名称
     container_name: face_recognition_hailo_service
