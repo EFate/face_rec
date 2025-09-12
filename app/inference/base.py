@@ -30,7 +30,7 @@ class BaseInferenceEngine(ABC):
         self._model_loading_time = None
     
     @abstractmethod
-    async def initialize(self) -> bool:
+    def initialize(self) -> bool:
         """
         初始化推理引擎
         
@@ -40,7 +40,7 @@ class BaseInferenceEngine(ABC):
         pass
     
     @abstractmethod
-    async def load_models(self) -> bool:
+    def load_models(self) -> bool:
         """
         加载模型
         
@@ -50,7 +50,7 @@ class BaseInferenceEngine(ABC):
         pass
     
     @abstractmethod
-    async def predict(self, input_data: InferenceInput) -> InferenceOutput:
+    def predict(self, input_data: InferenceInput) -> InferenceOutput:
         """
         执行推理预测
         
@@ -63,7 +63,7 @@ class BaseInferenceEngine(ABC):
         pass
     
     @abstractmethod
-    async def cleanup(self) -> bool:
+    def cleanup(self) -> bool:
         """
         清理资源
         

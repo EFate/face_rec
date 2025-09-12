@@ -4,6 +4,7 @@ import time
 import cv2
 import os
 from datetime import datetime
+import pytz
 from pathlib import Path
 from typing import Dict, Any, List
 from sqlalchemy.orm import Session
@@ -124,7 +125,9 @@ class ResultPersistenceProcessor:
             name = data.get('name')
             similarity = data.get('similarity')
             face_crop = data.get('face_crop')
-            timestamp = data.get('timestamp', datetime.now())
+            # 使用中国时区 (Asia/Shanghai)
+            china_tz = pytz.timezone('Asia/Shanghai')
+            timestamp = data.get('timestamp', datetime.now(china_tz))
             task_id = data.get('task_id')
             app_id = data.get('app_id')
             app_name = data.get('app_name')

@@ -53,7 +53,7 @@ class CudaInferenceEngine(BaseInferenceEngine):
         self.detection_size = tuple(config.get("detection_size", [640, 640]))
         self.det_thresh = config.get("det_thresh", 0.4)
     
-    async def initialize(self) -> bool:
+    def initialize(self) -> bool:
         """
         初始化推理引擎
         
@@ -78,7 +78,7 @@ class CudaInferenceEngine(BaseInferenceEngine):
             app_logger.error(f"CUDA推理引擎初始化失败: {e}")
             return False
     
-    async def load_models(self) -> bool:
+    def load_models(self) -> bool:
         """
         加载InsightFace模型
         
@@ -118,7 +118,7 @@ class CudaInferenceEngine(BaseInferenceEngine):
                 app_logger.error("GPU环境配置错误，请检查CUDA、cuDNN版本或使用CPU模式")
             return False
     
-    async def predict(self, input_data: InferenceInput) -> InferenceOutput:
+    def predict(self, input_data: InferenceInput) -> InferenceOutput:
         """
         执行人脸检测和识别
         
@@ -187,7 +187,7 @@ class CudaInferenceEngine(BaseInferenceEngine):
             output = self._create_inference_output(result, success=False, error_message=str(e))
             return output
     
-    async def cleanup(self) -> bool:
+    def cleanup(self) -> bool:
         """
         清理资源
         

@@ -64,7 +64,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
         signal.signal(signal.SIGTERM, self._signal_handler)
         signal.signal(signal.SIGINT, self._signal_handler)
     
-    async def initialize(self) -> bool:
+    def initialize(self) -> bool:
         """
         初始化推理引擎
         
@@ -97,7 +97,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             app_logger.error(f"RK3588推理引擎初始化失败: {e}")
             return False
     
-    async def load_models(self) -> bool:
+    def load_models(self) -> bool:
         """
         加载RK3588模型
         
@@ -133,7 +133,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             app_logger.error(f"RK3588模型加载失败: {e}")
             return False
     
-    async def predict(self, input_data: InferenceInput) -> InferenceOutput:
+    def predict(self, input_data: InferenceInput) -> InferenceOutput:
         """
         执行人脸检测和识别
         
@@ -191,7 +191,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
                 # 提取人脸特征向量
                 embedding = None
                 if input_data.extract_embeddings:
-                    embedding = await self._extract_face_embedding(
+                    embedding = self._extract_face_embedding(
                         input_data.image, processed_bbox, landmarks
                     )
                 
@@ -225,7 +225,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             output = self._create_inference_output(result, success=False, error_message=str(e))
             return output
     
-    async def _extract_face_embedding(self, image: np.ndarray, bbox: List[float], landmarks: Optional[List]) -> Optional[List[float]]:
+    def _extract_face_embedding(self, image: np.ndarray, bbox: List[float], landmarks: Optional[List]) -> Optional[List[float]]:
         """
         提取人脸特征向量
         
@@ -270,7 +270,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             app_logger.debug(f"提取人脸特征向量失败: {e}")
             return None
     
-    async def cleanup(self) -> bool:
+    def cleanup(self) -> bool:
         """
         清理资源
         

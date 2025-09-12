@@ -192,11 +192,11 @@ class ModelManager:
             )
             
             # 初始化引擎
-            if not await engine.initialize():
+            if not engine.initialize():
                 raise RuntimeError("推理引擎初始化失败")
             
             # 加载模型
-            if not await engine.load_models():
+            if not engine.load_models():
                 raise RuntimeError("模型加载失败")
             
             app_logger.info(f"推理引擎创建成功: {engine.device_type}")
@@ -239,7 +239,7 @@ class ModelManager:
             )
             
             # 执行推理
-            output = await engine.predict(input_data)
+            output = engine.predict(input_data)
             
             if output.success and output.result.faces:
                 app_logger.info(f"自检成功：检测到{len(output.result.faces)}张人脸")
@@ -321,7 +321,7 @@ class ModelManager:
                 model = self._pool.get_nowait()
                 if self._use_new_inference and hasattr(model, 'cleanup'):
                     # 清理推理引擎
-                    await model.cleanup()
+                    model.cleanup()
             except queue.Empty:
                 break
             except Exception as e:

@@ -208,34 +208,90 @@ class FaceStreamPipeline:
 
     def stop(self):
         """停止所有流水线工作线程并释放资源。"""
-        if self.stop_event.is_set(): 
+        if self.stop_event.is_set():
             return
         app_logger.info(f"【流水线 {self.stream_id}】正在停止...")
+        
+        # 1. 设置停止事件
         self.stop_event.set()
-
-        # 等待所有线程安全退出
-        for t in self.threads: 
+        
+        # 2. 特殊处理Reader线程：先尝试优雅停止，如果超时再强制中断视频流
+        # 首先尝试往推理队列中放入None信号，帮助_reader_thread退出
+        try:
+            for _ in range(3):  # 尝试多次放入停止信号
+                if self.inference_queue.empty():
+                    try:
+                        self.inference_queue.put_nowait(None)
+                        break
+                    except queue.Full:
+                        pass
+                time.sleep(0.1)
+        except Exception as e:
+            app_logger.warning(f"【流水线 {self.stream_id}】发送停止信号到推理队列失败: {e}")
+        
+        # 3. 先尝试优雅关闭视频捕获设备（在等待线程退出之前）
+        try:
+            if self.cap and self.cap.isOpened():
+                # 在Windows上，这可能有助于中断read()调用
+                try:
+                    # 先尝试设置一个非常小的读取超时
+                    if hasattr(self.cap, 'set'):
+                        self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)  # 减少缓冲区大小
+                except Exception:
+                    pass
+        except Exception as e:
+            app_logger.warning(f"【流水线 {self.stream_id}】调整视频捕获属性时出错: {e}")
+        
+        # 4. 等待所有线程安全退出
+        reader_thread = None
+        non_reader_threads = []
+        
+        # 分离Reader线程和其他线程
+        for t in self.threads:
+            if "Reader" in t.name:
+                reader_thread = t
+            else:
+                non_reader_threads.append(t)
+        
+        # 先等待非Reader线程（Inference和Postprocessor），它们通常退出较快
+        for t in non_reader_threads:
             if t.is_alive():
-                t.join(timeout=3.0)
+                t.join(timeout=2.0)
                 if t.is_alive():
                     app_logger.warning(f"【流水线 {self.stream_id}】线程 {t.name} 未能及时退出")
         
-        # 安全释放视频捕获资源
-        if self.cap and self.cap.isOpened(): 
+        # 5. 最后等待Reader线程，并增加等待时间
+        if reader_thread and reader_thread.is_alive():
+            # 在等待Reader线程时，尝试释放视频捕获资源来强制中断read()调用
             try:
-                self.cap.release()
+                if self.cap and self.cap.isOpened():
+                    self.cap.release()
+                    app_logger.info(f"【流水线 {self.stream_id}】已释放视频捕获资源，强制中断Reader线程")
             except Exception as e:
                 app_logger.warning(f"【流水线 {self.stream_id}】释放视频捕获资源时出错: {e}")
+            
+            # 再等待一段时间让Reader线程有机会退出
+            reader_thread.join(timeout=2.0)
+            if reader_thread.is_alive():
+                app_logger.warning(f"【流水线 {self.stream_id}】线程 {reader_thread.name} 未能及时退出")
         
-        # 清空队列，避免内存泄漏
+        # 6. 确保视频捕获资源已释放
+        try:
+            if self.cap and self.cap.isOpened():
+                self.cap.release()
+        except Exception as e:
+            app_logger.warning(f"【流水线 {self.stream_id}】再次释放视频捕获资源时出错: {e}")
+        
+        # 7. 清空队列，避免内存泄漏
         for q in [self.inference_queue, self.postprocess_queue]:
             while not q.empty():
                 try:
                     q.get_nowait()
+                    q.task_done()  # 标记任务完成
                 except queue.Empty:
                     break
-
-        # 安全释放数据库连接
+        
+        # 8. 安全释放数据库连接
         if self.face_dao:
             try:
                 self.face_dao.dispose()
@@ -353,46 +409,24 @@ class FaceStreamPipeline:
                     try:
                         # 检查是否使用新的推理引擎
                         if hasattr(self.model, 'predict'):
-                            # 新推理引擎 - 需要在线程中处理异步调用
+                            # 新推理引擎 - 直接调用同步方法
                             from app.inference.models import InferenceInput
-                            import asyncio
                             
-                            def run_async_inference():
-                                # 使用线程安全的方式处理异步调用
-                                import concurrent.futures
-                                import threading
-                                
-                                def run_in_thread():
-                                    loop = asyncio.new_event_loop()
-                                    asyncio.set_event_loop(loop)
-                                    try:
-                                        input_data = InferenceInput(
-                                            image=frame,
-                                            extract_embeddings=True,
-                                            detection_threshold=self.settings.insightface.recognition_det_score_threshold
-                                        )
-                                        output = loop.run_until_complete(self.model.predict(input_data))
-                                        if output.success:
-                                            # 转换为InsightFace的Face对象格式
-                                            detected_faces = []
-                                            for face_detection in output.result.faces:
-                                                face = self._convert_to_insightface_face(face_detection, frame.shape)
-                                                detected_faces.append(face)
-                                            return detected_faces
-                                        else:
-                                            app_logger.error(f"【T2:推理 {self.stream_id}】推理失败: {output.error_message}")
-                                            return []
-                                    finally:
-                                        loop.close()
-                                
-                                # 使用线程池执行异步操作
-                                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                                    future = executor.submit(run_in_thread)
-                                    return future.result(timeout=10.0)  # 10秒超时
-                            
-                            detected_faces = run_async_inference()
-                            if not detected_faces:
-                                continue
+                            input_data = InferenceInput(
+                                image=frame,
+                                extract_embeddings=True,
+                                detection_threshold=self.settings.insightface.recognition_det_score_threshold
+                            )
+                            output = self.model.predict(input_data)
+                            if output.success:
+                                # 转换为InsightFace的Face对象格式
+                                detected_faces = []
+                                for face_detection in output.result.faces:
+                                    face = self._convert_to_insightface_face(face_detection, frame.shape)
+                                    detected_faces.append(face)
+                            else:
+                                app_logger.error(f"【T2:推理 {self.stream_id}】推理失败: {output.error_message}")
+                                detected_faces = []
                         else:
                             # 传统InsightFace
                             detected_faces: List[Face] = self.model.get(frame)
@@ -467,13 +501,16 @@ class FaceStreamPipeline:
                                         face_crop = original_frame[y1_c:y2_c, x1_c:x2_c]
 
                                         if face_crop.size > 0:
+                                            # 使用中国时区 (Asia/Shanghai)
+                                            import pytz
+                                            china_tz = pytz.timezone('Asia/Shanghai')
                                             # 准备持久化数据
                                             persistence_data = {
                                                 "sn": sn,
                                                 "name": name,
                                                 "similarity": similarity,
                                                 "face_crop": face_crop.copy(),  # 复制数据避免引用问题
-                                                "timestamp": datetime.now(),
+                                                "timestamp": datetime.now(china_tz),
                                                 "task_id": self.task_id,
                                                 "app_id": self.app_id,
                                                 "app_name": self.app_name,

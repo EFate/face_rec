@@ -52,7 +52,7 @@ class InferenceAdapter:
             engine = await self.model_manager.acquire_model_async()
             try:
                 # 执行推理
-                output = await engine.predict(input_data)
+                output = engine.predict(input_data)
                 
                 if not output.success:
                     app_logger.error(f"推理失败: {output.error_message}")

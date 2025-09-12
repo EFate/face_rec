@@ -4,6 +4,7 @@ import threading
 import time
 import json
 from datetime import datetime
+import pytz
 from typing import Dict, Any, Optional, List
 from app.cfg.config import MQTTConfig, ServerConfig
 from app.cfg.logging import app_logger
@@ -364,6 +365,8 @@ class MQTTManager:
             return
             
         try:
+            # 使用中国时区 (Asia/Shanghai)
+            china_tz = pytz.timezone('Asia/Shanghai')
             message_data = {
                 "taskId": task_id,
                 "appId": app_id,
@@ -372,8 +375,8 @@ class MQTTManager:
                 "deviceAddress": self.config.device_address,
                 "appType": self.config.app_type,
                 "recordId": record_id,
-                "createTime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "updateTime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "createTime": datetime.now(china_tz).strftime("%Y-%m-%d %H:%M:%S"),
+                "updateTime": datetime.now(china_tz).strftime("%Y-%m-%d %H:%M:%S"),
                 "sn": sn,
                 "name": name,
                 "similarity": similarity,

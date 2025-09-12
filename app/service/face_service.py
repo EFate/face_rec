@@ -371,19 +371,21 @@ class FaceService:
                 return False
         
         try:
-            # 设置停止事件
+            # 设置停止事件 - 这会触发线程内部的清理逻辑
             stream["stop_event"].set()
             
-            # 等待线程结束
+            # 等待线程结束，但不阻塞太长时间
             if stream["thread"].is_alive():
                 stream["thread"].join(timeout=5.0)
                 if stream["thread"].is_alive():
-                    app_logger.warning(f"视频流线程 {stream_id} 未能及时退出")
+                    app_logger.warning(f"视频流线程 {stream_id} 未能及时退出，但会继续在后台完成清理")
                 else:
                     app_logger.debug(f"✅ 视频流已成功停止: ID={stream_id}")
             else:
                 app_logger.debug(f"✅ 视频流线程已自然结束: ID={stream_id}")
             
+            # 注意：资源清理由线程内部的finally块处理，而不是强制终止
+            # 这样可以确保模型资源被正确释放回模型池，不会影响其他任务
             return True
         except Exception as e:
             app_logger.error(f"停止视频流 {stream_id} 时发生错误: {e}", exc_info=True)
@@ -408,19 +410,21 @@ class FaceService:
                 return False
             
         try:
-            # 设置停止事件
+            # 设置停止事件 - 这会触发线程内部的清理逻辑
             stream["stop_event"].set()
             
-            # 等待线程结束
+            # 等待线程结束，但不阻塞太长时间
             if stream["thread"].is_alive():
                 stream["thread"].join(timeout=5.0)
                 if stream["thread"].is_alive():
-                    app_logger.warning(f"视频流线程 TaskID={task_id} 未能及时退出")
+                    app_logger.warning(f"视频流线程 TaskID={task_id} 未能及时退出，但会继续在后台完成清理")
                 else:
                     app_logger.debug(f"✅ 视频流已成功停止: TaskID={task_id}, StreamID={stream_to_stop}")
             else:
                 app_logger.debug(f"✅ 视频流线程已自然结束: TaskID={task_id}, StreamID={stream_to_stop}")
             
+            # 注意：资源清理由线程内部的finally块处理，而不是强制终止
+            # 这样可以确保模型资源被正确释放回模型池，不会影响其他任务
             return True
         except Exception as e:
             app_logger.error(f"停止视频流 TaskID={task_id} 时发生错误: {e}", exc_info=True)
