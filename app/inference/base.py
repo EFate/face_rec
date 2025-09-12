@@ -5,7 +5,7 @@
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Optional, Any, Dict
+from typing import List, Optional, Any, Dict, Tuple
 import time
 import numpy as np
 from .models import InferenceInput, InferenceOutput, InferenceResult, FaceDetection, EngineInfo
@@ -227,41 +227,65 @@ class BaseInferenceEngine(ABC):
             bbox[3] * scale_y   # y2
         ]
     
-    def _align_face(self, image: np.ndarray, landmarks: Optional[List[List[float]]]) -> np.ndarray:
+    def _align_face(self, image: np.ndarray, landmarks: Optional[List[List[float]]], image_size: int = 112) -> Tuple[np.ndarray, np.ndarray]:
         """
-        人脸对齐（如果需要）
-        
+        根据给定的关键点对齐并裁剪图像中的人脸。
+        此函数直接改编自参考文档，是提升识别精度的核心。
+
         Args:
-            image: 输入图像
-            landmarks: 人脸关键点
-            
+            image: 完整的原始图像 (未经裁剪的边界框)
+            landmarks: 5个关键点（界标）的列表，格式为 (x, y) 坐标
+            image_size: 图像应被调整到的大小，默认为112
+
         Returns:
-            np.ndarray: 对齐后的人脸图像
+            对齐后的人脸图像和变换矩阵
         """
-        # 默认实现：直接返回原图像
-        # 子类可以重写此方法实现具体的人脸对齐逻辑
-        return image
-    
-    def _normalize_embedding(self, embedding: List[float]) -> List[float]:
-        """
-        归一化特征向量
-        
-        Args:
-            embedding: 原始特征向量
-            
-        Returns:
-            List[float]: 归一化后的特征向量
-        """
-        if not embedding:
-            return embedding
-        
-        # L2归一化
+        import cv2
         import numpy as np
-        embedding_array = np.array(embedding)
-        norm = np.linalg.norm(embedding_array)
         
-        if norm > 0:
-            normalized = embedding_array / norm
-            return normalized.tolist()
+        if landmarks is None or len(landmarks) < 5:
+            # 如果没有足够的关键点，返回原图像
+            return image, np.eye(3)[:2]
         
-        return embedding
+        # ArcFace模型中使用的参考关键点
+        _arcface_ref_kps = np.array([
+            [38.2946, 51.6963],  # 左眼
+            [73.5318, 51.5014],  # 右眼
+            [56.0252, 71.7366],  # 鼻子
+            [41.5493, 92.3655],  # 左嘴角
+            [70.7299, 92.2041],  # 右嘴角
+        ], dtype=np.float32)
+
+        # 输入验证
+        assert len(landmarks) == 5, f"需要5个关键点进行对齐，但收到了 {len(landmarks)} 个。"
+        assert image_size % 112 == 0 or image_size % 128 == 0, "图像尺寸必须是112或128的倍数。"
+
+        # 根据目标尺寸计算缩放因子和偏移
+        if image_size % 112 == 0:
+            ratio = float(image_size) / 112.0
+            diff_x = 0  # 112缩放无水平偏移
+        else:
+            ratio = float(image_size) / 128.0
+            diff_x = 8.0 * ratio  # 128缩放有水平偏移
+
+        # 应用缩放和偏移到参考关键点
+        dst = _arcface_ref_kps * ratio
+        dst[:, 0] += diff_x
+
+        # 使用RANSAC算法估计相似性变换矩阵
+        M, inliers = cv2.estimateAffinePartial2D(
+            np.array(landmarks, dtype=np.float32), 
+            dst, 
+            ransacReprojThreshold=1000
+        )
+        
+        # 健壮性检查：如果对齐失败，返回空图像
+        if inliers is None or not np.all(inliers):
+            return np.zeros((image_size, image_size, 3), dtype=np.uint8), np.zeros((2, 3), dtype=np.float32)
+
+        # 应用仿射变换对齐人脸
+        aligned_img = cv2.warpAffine(image, M, (image_size, image_size), borderValue=0.0)
+
+        return aligned_img, M
+    
+

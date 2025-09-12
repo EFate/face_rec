@@ -238,17 +238,25 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             Optional[List[float]]: 特征向量
         """
         try:
-            # 裁剪人脸区域
-            x1, y1, x2, y2 = [int(coord) for coord in bbox]
-            x1 = max(0, x1)
-            y1 = max(0, y1)
-            x2 = min(image.shape[1], x2)
-            y2 = min(image.shape[0], y2)
+            # 使用完整图像进行人脸矫正（如果有关键点）
+            aligned_face = None
+            if landmarks and len(landmarks) >= 5:
+                aligned_face, _ = self._align_face(image, landmarks[:5], self.recognition_size[0])
             
-            face_crop = image[y1:y2, x1:x2]
-            
-            if face_crop.size == 0:
-                return None
+            # 如果矫正成功，使用矫正后的人脸；否则裁剪人脸区域
+            if aligned_face is not None and aligned_face.size > 0:
+                face_crop = aligned_face
+            else:
+                # 裁剪人脸区域（备选方案）
+                x1, y1, x2, y2 = [int(coord) for coord in bbox]
+                x1 = max(0, x1)
+                y1 = max(0, y1)
+                x2 = min(image.shape[1], x2)
+                y2 = min(image.shape[0], y2)
+                
+                face_crop = image[y1:y2, x1:x2]
+                if face_crop.size == 0:
+                    return None
             
             # 调整到识别模型输入尺寸
             face_resized = cv2.resize(face_crop, self.recognition_size)
@@ -260,8 +268,7 @@ class RK3588InferenceEngine(BaseInferenceEngine):
             if recognition_result.results and len(recognition_result.results) > 0:
                 embedding_data = recognition_result.results[0].get('data', [])
                 if embedding_data and len(embedding_data) > 0:
-                    # 归一化特征向量
-                    embedding = self._normalize_embedding(embedding_data[0])
+                    embedding = embedding_data[0]
                     return embedding
             
             return None

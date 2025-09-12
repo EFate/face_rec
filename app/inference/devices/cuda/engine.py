@@ -150,7 +150,7 @@ class CudaInferenceEngine(BaseInferenceEngine):
                 # 获取特征向量
                 embedding = None
                 if input_data.extract_embeddings and hasattr(face, 'normed_embedding'):
-                    embedding = self._normalize_embedding(face.normed_embedding.tolist())
+                    embedding = face.normed_embedding.tolist()
                 
                 # 获取关键点
                 landmarks = None
