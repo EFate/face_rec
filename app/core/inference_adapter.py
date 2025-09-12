@@ -88,6 +88,74 @@ class InferenceAdapter:
         except Exception as e:
             app_logger.error(f"InsightFace获取人脸失败: {e}")
             return []
+            
+    async def extract_embedding(self, image: np.ndarray, bbox: List[float], 
+                               landmarks: Optional[List] = None) -> Optional[List[float]]:
+        """
+        直接从图像中提取人脸特征向量
+        
+        Args:
+            image: 输入图像
+            bbox: 人脸边界框 [x1, y1, x2, y2]
+            landmarks: 人脸关键点（可选）
+            
+        Returns:
+            Optional[List[float]]: 特征向量，如果提取失败则返回None
+        """
+        try:
+            if self._use_new_inference:
+                # 使用推理引擎提取特征向量
+                engine = await self.model_manager.acquire_model_async()
+                try:
+                    # 创建输入数据
+                    input_data = InferenceInput(
+                        image=image,
+                        extract_embeddings=True,
+                        detection_threshold=0.1,  # 使用低阈值，因为我们已经有了bbox
+                        bbox=bbox,
+                        landmarks=landmarks
+                    )
+                    
+                    # 执行推理
+                    output = engine.extract_embedding(image, bbox, landmarks)
+                    
+                    if output:
+                        # 确保是numpy数组并归一化
+                        embedding_array = np.array(output, dtype=np.float32)
+                        norm = np.linalg.norm(embedding_array)
+                        if norm > 0:
+                            normalized = embedding_array / norm
+                            return normalized.tolist()
+                        return output
+                    return None
+                finally:
+                    await self.model_manager.release_model_async(engine)
+            else:
+                # 使用传统InsightFace提取特征向量
+                model = await self.model_manager.acquire_model_async()
+                try:
+                    # 裁剪人脸区域
+                    x1, y1, x2, y2 = [int(coord) for coord in bbox]
+                    x1 = max(0, x1)
+                    y1 = max(0, y1)
+                    x2 = min(image.shape[1], x2)
+                    y2 = min(image.shape[0], y2)
+                    
+                    face_crop = image[y1:y2, x1:x2]
+                    if face_crop.size == 0:
+                        app_logger.warning("裁剪后的人脸区域为空")
+                        return None
+                    
+                    # 使用InsightFace提取特征向量
+                    embedding = model.get_embedding(face_crop)
+                    if embedding is not None:
+                        return embedding.tolist()
+                    return None
+                finally:
+                    await self.model_manager.release_model_async(model)
+        except Exception as e:
+            app_logger.error(f"提取特征向量失败: {e}")
+            return None
     
     def _convert_to_insightface_face(self, face_detection, image_shape) -> Face:
         """将推理引擎的结果转换为InsightFace的Face对象"""
@@ -102,19 +170,51 @@ class InferenceAdapter:
         
         # 设置关键点
         if face_detection.landmarks:
-            face.landmark_2d_106 = np.array(face_detection.landmarks, dtype=np.float32)
-        
-        # 设置特征向量 - 使用embedding属性而不是normed_embedding
-        if face_detection.embedding:
-            try:
-                face.embedding = np.array(face_detection.embedding, dtype=np.float32)
-            except AttributeError:
-                # 如果embedding属性不可写，尝试使用normed_embedding
+            # 确保关键点格式正确
+            landmarks_array = np.array(face_detection.landmarks, dtype=np.float32)
+            # 如果是5点关键点，设置为landmark_2d_106（兼容性处理）
+            if landmarks_array.shape[0] == 5:
+                face.landmark_2d_106 = landmarks_array
+                # 同时设置landmark_5点，确保兼容性
                 try:
-                    face.normed_embedding = np.array(face_detection.embedding, dtype=np.float32)
+                    face.landmark_5 = landmarks_array
+                except AttributeError:
+                    # 如果不可写，使用setattr
+                    setattr(face, 'landmark_5', landmarks_array)
+            else:
+                face.landmark_2d_106 = landmarks_array
+        
+        # 设置特征向量
+        if face_detection.embedding:
+            embedding_array = np.array(face_detection.embedding, dtype=np.float32)
+            
+            # 检查是否已经归一化
+            norm = np.linalg.norm(embedding_array)
+            is_normalized = abs(norm - 1.0) < 1e-4
+            
+            try:
+                if is_normalized:
+                    # 如果已经归一化，设置为normed_embedding
+                    face.normed_embedding = embedding_array
+                    app_logger.debug("设置归一化特征向量到normed_embedding")
+                else:
+                    # 如果未归一化，先归一化再设置
+                    if norm > 0:
+                        normalized = embedding_array / norm
+                        face.normed_embedding = normalized
+                        app_logger.debug("归一化特征向量并设置到normed_embedding")
+                    else:
+                        face.embedding = embedding_array
+                        app_logger.warning("特征向量范数为0，无法归一化")
+            except AttributeError:
+                # 如果normed_embedding不可写，尝试使用embedding
+                try:
+                    face.embedding = embedding_array
+                    app_logger.debug("设置特征向量到embedding")
                 except AttributeError:
                     # 如果都不可写，使用setattr
-                    setattr(face, 'embedding', np.array(face_detection.embedding, dtype=np.float32))
+                    setattr(face, 'embedding', embedding_array)
+                    app_logger.debug("使用setattr设置特征向量")
         
         # 设置其他属性
         face.img_shape = image_shape[:2]  # (height, width)

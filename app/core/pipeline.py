@@ -169,7 +169,6 @@ class FaceStreamPipeline:
     封装一个视频流的完整四级处理流水线。
     每个实例对应一个独立的视频源，并管理其下的所有处理线程。
     """
-    # --- 修改 __init__ 方法以接收持久化队列 ---
     def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model, result_persistence_queue: queue.Queue, task_id: int, app_id: int, app_name: str, domain_name: str, mqtt_manager=None):
         self.settings = settings
         self.stream_id = stream_id
@@ -185,7 +184,6 @@ class FaceStreamPipeline:
 
         app_logger.info(f"【流水线 {self.stream_id}】正在初始化...")
 
-
         self.face_dao: FaceDataDAO = LanceDBFaceDataDAO(
             db_uri=self.settings.insightface.lancedb_uri,
             table_name=self.settings.insightface.lancedb_table_name
@@ -196,6 +194,8 @@ class FaceStreamPipeline:
         self.stop_event = threading.Event()
         self.threads: List[threading.Thread] = []
         self.cap = None
+        self._cap_released = False  # 资源释放标志
+        self._resources_cleaned = False  # 清理完成标志
 
     def start(self):
         """启动所有流水线工作线程。"""
@@ -212,93 +212,85 @@ class FaceStreamPipeline:
             return
         app_logger.info(f"【流水线 {self.stream_id}】正在停止...")
         
-        # 1. 设置停止事件
-        self.stop_event.set()
-        
-        # 2. 特殊处理Reader线程：先尝试优雅停止，如果超时再强制中断视频流
-        # 首先尝试往推理队列中放入None信号，帮助_reader_thread退出
         try:
-            for _ in range(3):  # 尝试多次放入停止信号
-                if self.inference_queue.empty():
+            # 1. 设置停止事件，让线程优雅退出
+            self.stop_event.set()
+            
+            # 2. 发送停止信号到所有队列，确保线程能收到
+            try:
+                for q in [self.inference_queue, self.postprocess_queue, self.output_queue]:
                     try:
-                        self.inference_queue.put_nowait(None)
-                        break
-                    except queue.Full:
+                        # 多次尝试发送停止信号
+                        for _ in range(3):
+                            try:
+                                q.put_nowait(None)
+                                break
+                            except queue.Full:
+                                # 清空队列后重试
+                                try:
+                                    q.get_nowait()
+                                except queue.Empty:
+                                    break
+                    except (ValueError, AttributeError):
+                        # 队列已关闭，忽略
                         pass
-                time.sleep(0.1)
-        except Exception as e:
-            app_logger.warning(f"【流水线 {self.stream_id}】发送停止信号到推理队列失败: {e}")
-        
-        # 3. 先尝试优雅关闭视频捕获设备（在等待线程退出之前）
-        try:
-            if self.cap and self.cap.isOpened():
-                # 在Windows上，这可能有助于中断read()调用
+            except Exception as e:
+                app_logger.debug(f"【流水线 {self.stream_id}】发送停止信号时出错: {e}")
+            
+            # 3. 等待所有线程退出，使用更长的超时时间
+            if hasattr(self, 'threads'):
+                for t in self.threads:
+                    if t.is_alive():
+                        t.join(timeout=2.0)
+                        if t.is_alive():
+                            app_logger.warning(f"【流水线 {self.stream_id}】线程 {t.name} 超时未退出")
+            
+            # 4. 安全释放视频捕获资源
+            try:
+                if hasattr(self, 'cap') and self.cap is not None:
+                    # 检查是否已释放
+                    if hasattr(self, '_cap_released') and self._cap_released:
+                        pass
+                    else:
+                        self.cap.release()
+                        self._cap_released = True
+                        app_logger.debug(f"【流水线 {self.stream_id}】视频捕获资源已释放")
+            except (AttributeError, cv2.error):
+                # 资源可能已释放或无效
+                pass
+            
+            # 5. 清空所有队列（使用安全方式）
+            for q_name, q in [("inference", self.inference_queue), 
+                             ("postprocess", self.postprocess_queue), 
+                             ("output", self.output_queue)]:
                 try:
-                    # 先尝试设置一个非常小的读取超时
-                    if hasattr(self.cap, 'set'):
-                        self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)  # 减少缓冲区大小
+                    while True:
+                        try:
+                            q.get_nowait()
+                        except queue.Empty:
+                            break
+                        except (ValueError, AttributeError):
+                            break
                 except Exception:
                     pass
-        except Exception as e:
-            app_logger.warning(f"【流水线 {self.stream_id}】调整视频捕获属性时出错: {e}")
-        
-        # 4. 等待所有线程安全退出
-        reader_thread = None
-        non_reader_threads = []
-        
-        # 分离Reader线程和其他线程
-        for t in self.threads:
-            if "Reader" in t.name:
-                reader_thread = t
-            else:
-                non_reader_threads.append(t)
-        
-        # 先等待非Reader线程（Inference和Postprocessor），它们通常退出较快
-        for t in non_reader_threads:
-            if t.is_alive():
-                t.join(timeout=2.0)
-                if t.is_alive():
-                    app_logger.warning(f"【流水线 {self.stream_id}】线程 {t.name} 未能及时退出")
-        
-        # 5. 最后等待Reader线程，并增加等待时间
-        if reader_thread and reader_thread.is_alive():
-            # 在等待Reader线程时，尝试释放视频捕获资源来强制中断read()调用
-            try:
-                if self.cap and self.cap.isOpened():
-                    self.cap.release()
-                    app_logger.info(f"【流水线 {self.stream_id}】已释放视频捕获资源，强制中断Reader线程")
-            except Exception as e:
-                app_logger.warning(f"【流水线 {self.stream_id}】释放视频捕获资源时出错: {e}")
             
-            # 再等待一段时间让Reader线程有机会退出
-            reader_thread.join(timeout=2.0)
-            if reader_thread.is_alive():
-                app_logger.warning(f"【流水线 {self.stream_id}】线程 {reader_thread.name} 未能及时退出")
-        
-        # 6. 确保视频捕获资源已释放
-        try:
-            if self.cap and self.cap.isOpened():
-                self.cap.release()
-        except Exception as e:
-            app_logger.warning(f"【流水线 {self.stream_id}】再次释放视频捕获资源时出错: {e}")
-        
-        # 7. 清空队列，避免内存泄漏
-        for q in [self.inference_queue, self.postprocess_queue]:
-            while not q.empty():
+            # 6. 释放数据库连接
+            if hasattr(self, 'face_dao') and self.face_dao:
                 try:
-                    q.get_nowait()
-                    q.task_done()  # 标记任务完成
-                except queue.Empty:
-                    break
-        
-        # 8. 安全释放数据库连接
-        if self.face_dao:
+                    self.face_dao.dispose()
+                except Exception as e:
+                    app_logger.debug(f"【流水线 {self.stream_id}】释放数据库连接时出错: {e}")
+            
+            app_logger.info(f"✅【流水线 {self.stream_id}】已安全停止。")
+            
+        except Exception as e:
+            app_logger.error(f"❌【流水线 {self.stream_id}】停止时发生错误: {e}")
+            # 最后的资源清理尝试
             try:
-                self.face_dao.dispose()
-            except Exception as e:
-                app_logger.warning(f"【流水线 {self.stream_id}】释放数据库连接时出错: {e}")
-        
-        app_logger.info(f"✅【流水线 {self.stream_id}】已安全停止。")
+                if hasattr(self, 'cap') and self.cap is not None:
+                    self.cap.release()
+            except:
+                pass
 
     def _start_threads(self):
         try:
@@ -320,17 +312,25 @@ class FaceStreamPipeline:
 
     def _reader_thread(self):
         """
-        [T1: 读帧] 智能读帧线程，支持自适应帧率和缓冲区管理。
+        [T1: 读帧] 读取视频帧线程，保持最新帧，无跳帧逻辑。
         """
         app_logger.info(f"【T1:读帧 {self.stream_id}】启动。")
         
         consecutive_failures = 0
         max_failures = 10
-        adaptive_sleep = 0.01
         
         try:
             while not self.stop_event.is_set():
                 try:
+                    # 检查视频捕获对象是否有效
+                    if not hasattr(self, 'cap') or self.cap is None:
+                        app_logger.error(f"【T1:读帧 {self.stream_id}】视频捕获对象无效")
+                        break
+                    
+                    if not self.cap.isOpened():
+                        app_logger.error(f"【T1:读帧 {self.stream_id}】视频捕获已关闭")
+                        break
+                    
                     ret, frame = self.cap.read()
                     
                     if not ret:
@@ -343,29 +343,22 @@ class FaceStreamPipeline:
                     
                     consecutive_failures = 0
                     
-                    # 智能缓冲区管理：保持队列中只有最新的帧
-                    queue_size = self.inference_queue.qsize()
-                    if queue_size >= 6:  # 队列积压严重时
-                        # 清空队列，只保留最新帧
-                        while not self.inference_queue.empty():
-                            try:
-                                self.inference_queue.get_nowait()
-                            except queue.Empty:
-                                break
-                        adaptive_sleep = max(0.005, adaptive_sleep * 0.9)  # 减少休眠时间
-                    elif queue_size == 0:
-                        adaptive_sleep = min(0.02, adaptive_sleep * 1.1)   # 增加休眠时间
+                    # 保持最新帧：清空队列后放入当前帧
+                    while not self.inference_queue.empty():
+                        try:
+                            self.inference_queue.get_nowait()
+                        except queue.Empty:
+                            break
                     
                     try:
                         self.inference_queue.put_nowait(frame)
                     except queue.Full:
-                        # 队列满时丢弃当前帧，保持实时性
+                        # 队列满时丢弃当前帧
                         pass
                     
-                    # 自适应休眠
-                    time.sleep(adaptive_sleep)
-                    
                 except Exception as e:
+                    if self.stop_event.is_set():
+                        break
                     app_logger.error(f"【T1:读帧 {self.stream_id}】读帧过程中发生错误: {e}", exc_info=True)
                     consecutive_failures += 1
                     if consecutive_failures >= max_failures:
@@ -378,15 +371,14 @@ class FaceStreamPipeline:
             try:
                 self.inference_queue.put(None)
             except Exception as e:
-                app_logger.error(f"【T1:读帧 {self.stream_id}】发送停止信号失败: {e}")
+                if not self.stop_event.is_set():
+                    app_logger.debug(f"【T1:读帧 {self.stream_id}】发送停止信号时出错: {e}")
             app_logger.info(f"【T1:读帧 {self.stream_id}】已停止。")
 
 
     def _inference_thread(self):
-        """[T2: 推理] 执行模型推理，支持动态跳帧策略。"""
+        """[T2: 推理] 执行模型推理。"""
         app_logger.info(f"【T2:推理 {self.stream_id}】启动。")
-        
-        skip_frames = 0
         
         try:
             while not self.stop_event.is_set():
@@ -398,12 +390,6 @@ class FaceStreamPipeline:
                         except Exception as e:
                             app_logger.error(f"【T2:推理 {self.stream_id}】发送停止信号失败: {e}")
                         break
-                    
-                    # 动态跳帧策略：如果推理队列积压严重，跳过一些帧
-                    if self.inference_queue.qsize() > 2:
-                        skip_frames += 1
-                        if skip_frames % 2 == 0:  # 每2帧跳1帧
-                            continue
                     
                     # 执行推理
                     try:
@@ -526,7 +512,8 @@ class FaceStreamPipeline:
                                 
                                 results.append(result_item)
                             except Exception as e:
-                                app_logger.error(f"【T3:后处理 {self.stream_id}】处理单个人脸时出错: {e}", exc_info=True)
+                                if not self.stop_event.is_set():
+                                    app_logger.error(f"【T3:后处理 {self.stream_id}】处理单个人脸时出错: {e}", exc_info=True)
                                 # 继续处理其他人脸
                                 continue
 
@@ -542,16 +529,19 @@ class FaceStreamPipeline:
                                 # 输出队列满时丢弃旧帧，保持实时性
                                 pass
                     except Exception as e:
-                        app_logger.error(f"【T3:后处理 {self.stream_id}】编码图像时出错: {e}", exc_info=True)
+                        if not self.stop_event.is_set():
+                            app_logger.error(f"【T3:后处理 {self.stream_id}】编码图像时出错: {e}", exc_info=True)
                             
                 except queue.Empty:
                     continue
                 except Exception as e:
-                    app_logger.error(f"【T3:后处理 {self.stream_id}】处理帧数据时发生错误: {e}", exc_info=True)
+                    if not self.stop_event.is_set():
+                        app_logger.error(f"【T3:后处理 {self.stream_id}】处理帧数据时发生错误: {e}", exc_info=True)
                     continue
                     
         except Exception as e:
-            app_logger.error(f"【T3:后处理 {self.stream_id}】线程发生致命错误: {e}", exc_info=True)
+            if not self.stop_event.is_set():
+                app_logger.error(f"【T3:后处理 {self.stream_id}】线程发生致命错误: {e}", exc_info=True)
         finally:
             # 清理工作
             try:

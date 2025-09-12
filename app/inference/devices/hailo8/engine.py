@@ -175,17 +175,25 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
                 landmarks = None
                 if 'landmarks' in result:
                     raw_landmarks = result['landmarks']
-                    # 转换landmarks格式：从dict转换为List[List[float]]
+                    # 转换landmarks格式：从复杂结构提取坐标
                     if isinstance(raw_landmarks, list):
                         landmarks = []
                         for landmark in raw_landmarks:
-                            if isinstance(landmark, dict) and 'x' in landmark and 'y' in landmark:
-                                landmarks.append([float(landmark['x']), float(landmark['y'])])
+                            if isinstance(landmark, dict):
+                                # 处理 {"landmark": [x, y], "score": ..., "category_id": ...} 格式
+                                if 'landmark' in landmark and isinstance(landmark['landmark'], (list, tuple)) and len(landmark['landmark']) >= 2:
+                                    landmarks.append([float(landmark['landmark'][0]), float(landmark['landmark'][1])])
+                                # 处理 {"x": x, "y": y} 格式
+                                elif 'x' in landmark and 'y' in landmark:
+                                    landmarks.append([float(landmark['x']), float(landmark['y'])])
                             elif isinstance(landmark, (list, tuple)) and len(landmark) >= 2:
+                                # 处理 [x, y] 简单格式
                                 landmarks.append([float(landmark[0]), float(landmark[1])])
                     elif isinstance(raw_landmarks, dict):
-                        # 如果是单个dict，尝试提取坐标
-                        if 'x' in raw_landmarks and 'y' in raw_landmarks:
+                        # 处理单个关键点的情况
+                        if 'landmark' in raw_landmarks and isinstance(raw_landmarks['landmark'], (list, tuple)) and len(raw_landmarks['landmark']) >= 2:
+                            landmarks = [[float(raw_landmarks['landmark'][0]), float(raw_landmarks['landmark'][1])]]
+                        elif 'x' in raw_landmarks and 'y' in raw_landmarks:
                             landmarks = [[float(raw_landmarks['x']), float(raw_landmarks['y'])]]
                 
                 # 提取人脸特征向量
@@ -225,6 +233,89 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
             output = self._create_inference_output(result, success=False, error_message=str(e))
             return output
     
+    def _align_face(self, img: np.ndarray, landmarks: List, image_size: int = 112) -> tuple:
+        """
+        根据给定的特征点，对图像中的人脸进行对齐与裁剪。
+        此方法基于人脸识别系统构建综合指南中的实现，针对侧脸识别进行了优化。
+        
+        Args:
+            img: 原始完整图像，将对该图像进行变换
+            landmarks: 5个关键点（特征点）的列表，格式为(x, y)坐标
+            image_size: 图像调整后的尺寸，默认值为112
+            
+        Returns:
+            tuple: 对齐后的人脸图像与变换矩阵
+        """
+        try:
+            # 定义ArcFace模型中使用的参考关键点（基于典型面部特征点集）
+            _arcface_ref_kps = np.array(
+                [
+                    [38.2946, 51.6963],  # 左眼
+                    [73.5318, 51.5014],  # 右眼
+                    [56.0252, 71.7366],  # 鼻子
+                    [41.5493, 92.3655],  # 左嘴角
+                    [70.7299, 92.2041],  # 右嘴角
+                ],
+                dtype=np.float32,
+            )
+
+            # 确保输入的特征点数量恰好为5个（人脸对齐所需的标准数量）
+            if len(landmarks) != 5:
+                app_logger.warning(f"人脸对齐需要5个关键点，但提供了{len(landmarks)}个")
+                return None, None
+
+            # 验证image_size是否可被112或128整除（人脸识别模型的常用图像尺寸）
+            if image_size % 112 != 0 and image_size % 128 != 0:
+                app_logger.warning(f"图像尺寸{image_size}不是112或128的倍数")
+                return None, None
+
+            # 将landmarks转换为numpy数组
+            landmarks_array = np.array(landmarks, dtype=np.float32)
+
+            # 根据目标图像尺寸（112或128）调整缩放比例
+            if image_size % 112 == 0:
+                ratio = float(image_size) / 112.0
+                diff_x = 0  # 尺寸为112时无需水平偏移
+            else:
+                ratio = float(image_size) / 128.0
+                diff_x = 8.0 * ratio  # 尺寸为128时需添加水平偏移
+
+            # 对参考关键点应用缩放与偏移
+            dst = _arcface_ref_kps * ratio
+            dst[:, 0] += diff_x  # 应用水平偏移
+
+            # 估计相似变换矩阵，使输入特征点与参考关键点对齐
+            # 使用较低的RANSAC阈值以提高对侧脸的适应性
+            M, inliers = cv2.estimateAffinePartial2D(
+                landmarks_array, 
+                dst, 
+                method=cv2.RANSAC, 
+                ransacReprojThreshold=20.0  # 增加阈值以适应侧脸
+            )
+            
+            if M is None:
+                app_logger.warning("无法估计变换矩阵，尝试使用仿射变换")
+                # 如果相似变换失败，尝试使用仿射变换
+                M, inliers = cv2.estimateAffine2D(
+                    landmarks_array, 
+                    dst, 
+                    method=cv2.RANSAC, 
+                    ransacReprojThreshold=20.0
+                )
+                
+            if M is None:
+                app_logger.warning("无法估计变换矩阵")
+                return None, None
+                
+            # 对输入图像应用仿射变换，实现人脸对齐
+            aligned_img = cv2.warpAffine(img, M, (image_size, image_size), borderValue=0.0)
+
+            return aligned_img, M
+            
+        except Exception as e:
+            app_logger.error(f"人脸对齐失败: {e}")
+            return None, None
+    
     def _extract_face_embedding(self, image: np.ndarray, bbox: List[float], landmarks: Optional[List]) -> Optional[List[float]]:
         """
         提取人脸特征向量
@@ -241,12 +332,15 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
             # 使用完整图像进行人脸矫正（如果有关键点）
             aligned_face = None
             if landmarks and len(landmarks) >= 5:
+                app_logger.debug(f"使用关键点进行人脸对齐，关键点数量: {len(landmarks)}")
                 aligned_face, _ = self._align_face(image, landmarks[:5], self.recognition_size[0])
             
             # 如果矫正成功，使用矫正后的人脸；否则裁剪人脸区域
             if aligned_face is not None and aligned_face.size > 0:
+                app_logger.debug("人脸对齐成功，使用对齐后的人脸")
                 face_crop = aligned_face
             else:
+                app_logger.debug("人脸对齐失败或无关键点，使用裁剪方法")
                 # 裁剪人脸区域（备选方案）
                 x1, y1, x2, y2 = [int(coord) for coord in bbox]
                 x1 = max(0, x1)
@@ -256,25 +350,33 @@ class Hailo8InferenceEngine(BaseInferenceEngine):
                 
                 face_crop = image[y1:y2, x1:x2]
                 if face_crop.size == 0:
+                    app_logger.warning("裁剪后的人脸区域为空")
                     return None
-            
-            # 调整到识别模型输入尺寸
-            face_resized = cv2.resize(face_crop, self.recognition_size)
+                
+                # 调整到识别模型输入尺寸
+                face_crop = cv2.resize(face_crop, self.recognition_size)
             
             # 执行识别推理
-            recognition_result = self.recognition_model.predict(face_resized)
+            recognition_result = self.recognition_model.predict(face_crop)
             
             # 提取特征向量
             if recognition_result.results and len(recognition_result.results) > 0:
                 embedding_data = recognition_result.results[0].get('data', [])
                 if embedding_data and len(embedding_data) > 0:
                     embedding = embedding_data[0]
+                    # 归一化特征向量
+                    embedding_array = np.array(embedding, dtype=np.float32)
+                    norm = np.linalg.norm(embedding_array)
+                    if norm > 0:
+                        normalized_embedding = embedding_array / norm
+                        return normalized_embedding.tolist()
                     return embedding
             
+            app_logger.warning("无法从识别模型获取有效的特征向量")
             return None
             
         except Exception as e:
-            app_logger.debug(f"提取人脸特征向量失败: {e}")
+            app_logger.error(f"提取人脸特征向量失败: {e}")
             return None
     
     def cleanup(self) -> bool:

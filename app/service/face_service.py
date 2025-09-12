@@ -119,7 +119,17 @@ class FaceService:
         
         if not detected_faces: 
             app_logger.info("未检测到任何人脸")
-            return []
+            # 尝试使用更宽松的阈值重新检测
+            app_logger.debug("尝试使用更宽松的阈值重新检测人脸")
+            detected_faces = await self.inference_adapter.get_faces(
+                img, 
+                extract_embeddings=True, 
+                detection_threshold=0.3  # 使用更低的阈值
+            )
+            
+            if not detected_faces:
+                app_logger.info("使用宽松阈值仍未检测到任何人脸")
+                return []
         
         app_logger.debug(f"检测到 {len(detected_faces)} 张人脸，开始识别")
         
@@ -131,10 +141,48 @@ class FaceService:
             embedding = getattr(face, 'normed_embedding', None)
             if embedding is None:
                 embedding = getattr(face, 'embedding', None)
+                
+                # 如果仍然没有embedding，但有原始embedding，尝试归一化
+                if embedding is None:
+                    app_logger.warning(f"第 {i+1} 张人脸无法获取特征向量，尝试重新提取")
+                    
+                    # 如果有关键点，尝试使用关键点重新提取特征
+                    landmarks = getattr(face, 'landmark_5', None)
+                    if landmarks is None:
+                        landmarks = getattr(face, 'landmark_2d_106', None)
+                        if landmarks is not None and len(landmarks) >= 5:
+                            landmarks = landmarks[:5]  # 只使用前5个关键点
+                    
+                    # 重新提取特征
+                    try:
+                        # 获取人脸区域
+                        x1, y1, x2, y2 = face.bbox.astype(int)
+                        x1 = max(0, x1)
+                        y1 = max(0, y1)
+                        x2 = min(img.shape[1], x2)
+                        y2 = min(img.shape[0], y2)
+                        
+                        face_img = img[y1:y2, x1:x2]
+                        if face_img.size > 0:
+                            # 使用推理适配器重新提取特征
+                            embedding = await self.inference_adapter.extract_embedding(
+                                img, face.bbox, landmarks
+                            )
+                    except Exception as e:
+                        app_logger.error(f"重新提取特征失败: {e}")
             
             if embedding is None:
-                app_logger.warning(f"第 {i+1} 张人脸无法获取特征向量")
+                app_logger.warning(f"第 {i+1} 张人脸无法获取特征向量，跳过识别")
                 continue
+                
+            # 确保embedding是numpy数组并归一化
+            if not isinstance(embedding, np.ndarray):
+                embedding = np.array(embedding, dtype=np.float32)
+                
+            # 归一化特征向量
+            norm = np.linalg.norm(embedding)
+            if norm > 0:
+                embedding = embedding / norm
             
             # 执行搜索
             search_res = self.face_dao.search(embedding,
@@ -143,9 +191,15 @@ class FaceService:
             if search_res:
                 name, sn, similarity = search_res
                 app_logger.debug(f"识别成功: {name} (SN: {sn}), 相似度: {similarity:.3f}")
+                
+                # 获取landmark用于结果
+                landmark = getattr(face, 'landmark_2d_106', None)
+                if landmark is None:
+                    landmark = getattr(face, 'landmark_5', None)
+                    
                 results.append(FaceRecognitionResult(
                     name=name, sn=sn, similarity=similarity, box=face.bbox.astype(int).tolist(),
-                    detection_confidence=float(face.det_score), landmark=face.landmark_2d_106
+                    detection_confidence=float(face.det_score), landmark=landmark
                 ))
             else:
                 app_logger.debug(f"第 {i+1} 张人脸未匹配到已知身份，相似度阈值: {self.settings.insightface.recognition_similarity_threshold}")

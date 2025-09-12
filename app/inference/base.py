@@ -230,7 +230,7 @@ class BaseInferenceEngine(ABC):
     def _align_face(self, image: np.ndarray, landmarks: Optional[List[List[float]]], image_size: int = 112) -> Tuple[np.ndarray, np.ndarray]:
         """
         根据给定的关键点对齐并裁剪图像中的人脸。
-        此函数直接改编自参考文档，是提升识别精度的核心。
+        此函数基于人脸识别系统构建综合指南中的实现，针对侧脸识别进行了优化。
 
         Args:
             image: 完整的原始图像 (未经裁剪的边界框)
@@ -273,19 +273,28 @@ class BaseInferenceEngine(ABC):
         dst[:, 0] += diff_x
 
         # 使用RANSAC算法估计相似性变换矩阵
+        # 增加RANSAC阈值以提高对侧脸的适应性
         M, inliers = cv2.estimateAffinePartial2D(
             np.array(landmarks, dtype=np.float32), 
             dst, 
-            ransacReprojThreshold=1000
+            method=cv2.RANSAC,
+            ransacReprojThreshold=20.0  # 增加阈值以适应侧脸
         )
         
+        # 如果相似变换失败，尝试使用仿射变换
+        if M is None:
+            M, inliers = cv2.estimateAffine2D(
+                np.array(landmarks, dtype=np.float32), 
+                dst, 
+                method=cv2.RANSAC,
+                ransacReprojThreshold=20.0
+            )
+        
         # 健壮性检查：如果对齐失败，返回空图像
-        if inliers is None or not np.all(inliers):
+        if M is None or inliers is None or not np.all(inliers):
             return np.zeros((image_size, image_size, 3), dtype=np.uint8), np.zeros((2, 3), dtype=np.float32)
 
         # 应用仿射变换对齐人脸
         aligned_img = cv2.warpAffine(image, M, (image_size, image_size), borderValue=0.0)
 
         return aligned_img, M
-    
-
