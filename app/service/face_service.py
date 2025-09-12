@@ -215,14 +215,46 @@ class FaceService:
         return updated_count, FaceInfo.model_validate(updated_face_info_list[0])
 
     async def delete_face_by_sn(self, sn: str) -> int:
+        """删除指定SN的所有人脸数据，包括:
+        1. lancedb数据库记录
+        2. data/lancedb中的向量数据
+        3. data/faces目录下的所有相关图片
+        """
+        # 1. 获取所有要删除的记录
         records_to_delete = await self.get_face_by_sn(sn)
+        if not records_to_delete:
+            return 0
+            
+        # 2. 删除数据库记录
         deleted_count = self.face_dao.delete_by_sn(sn)
+        
+        # 3. 删除所有相关图片文件
         if deleted_count > 0:
+            # 删除单张注册图片
             for record in records_to_delete:
                 try:
-                    if (p := Path(record.image_path)).exists(): os.remove(p)
+                    if (p := Path(record.image_path)).exists(): 
+                        os.remove(p)
                 except Exception as e:
                     app_logger.error(f"删除图片文件 {record.image_path} 失败: {e}")
+            
+            # 删除data/faces目录下该SN的所有图片
+            sn_dir = self.image_db_path / sn
+            if sn_dir.exists():
+                try:
+                    for img_file in sn_dir.glob("*.jpg"):
+                        try:
+                            img_file.unlink()
+                        except Exception as e:
+                            app_logger.error(f"删除图片文件 {img_file} 失败: {e}")
+                    # 删除空目录
+                    try:
+                        sn_dir.rmdir()
+                    except OSError:
+                        pass  # 目录非空时不删除
+                except Exception as e:
+                    app_logger.error(f"删除SN目录 {sn_dir} 失败: {e}")
+        
         return deleted_count
 
     def _get_model_sync(self):
