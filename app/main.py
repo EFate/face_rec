@@ -137,6 +137,55 @@ def create_app() -> FastAPI:
         redoc_url=None,
     )
 
+    @app.middleware("http")
+    async def log_request_response(request: Request, call_next):
+        """请求-响应日志中间件，记录所有HTTP请求的详细信息"""
+        # 记录请求信息
+        start_time = asyncio.get_event_loop().time()
+        app_logger.info(
+            f"请求: {request.method} {request.url.path}",
+            extra={
+                "client": request.client.host if request.client else "unknown",
+                "method": request.method,
+                "path": request.url.path,
+                "query_params": dict(request.query_params)
+            }
+        )
+        
+        # 处理请求
+        try:
+            response = await call_next(request)
+            # 计算请求处理时间
+            process_time = asyncio.get_event_loop().time() - start_time
+            
+            # 记录响应信息
+            app_logger.info(
+                f"响应: {request.method} {request.url.path} {response.status_code} ({process_time:.3f}s)",
+                extra={
+                    "client": request.client.host if request.client else "unknown",
+                    "method": request.method,
+                    "path": request.url.path,
+                    "status_code": response.status_code,
+                    "process_time": process_time
+                }
+            )
+            return response
+        except Exception as e:
+            # 记录异常信息
+            process_time = asyncio.get_event_loop().time() - start_time
+            app_logger.error(
+                f"请求处理异常: {request.method} {request.url.path} - {str(e)} ({process_time:.3f}s)",
+                exc_info=True,
+                extra={
+                    "client": request.client.host if request.client else "unknown",
+                    "method": request.method,
+                    "path": request.url.path,
+                    "process_time": process_time
+                }
+            )
+            raise
+
+
     @app.exception_handler(HTTPException)
     async def http_exception_handler(request: Request, exc: HTTPException):
         return JSONResponse(status_code=exc.status_code,

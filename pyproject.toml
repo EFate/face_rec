@@ -25,6 +25,7 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "pytz>=2025.2",
     "pyyaml>=6.0.2",
+    "requests>=2.32.3",
     "scipy>=1.15.3",
     "sqlalchemy>=2.0.41",
     "streamlit>=1.45.1",

@@ -59,7 +59,7 @@ class ServerConfig(BaseModel):
 
 class LoggingConfig(BaseModel):
     """日志配置"""
-    level: str = Field("ERROR", description="日志级别")
+    level: str = Field("INFO", description="日志级别")
     file_path: FilePath = Field(LOGS_DIR / "app.log", description="日志文件路径")
     max_bytes: int = Field(50 * 1024 * 1024, description="单个日志文件最大字节数（50MB）")
     backup_count: int = Field(10, description="日志文件备份数量")
