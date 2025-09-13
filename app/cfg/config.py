@@ -127,7 +127,7 @@ class InferenceConfig(BaseModel):
     cuda: CudaConfig = Field(default_factory=CudaConfig, description="CUDA推理配置")
     hailo8: Hailo8Config = Field(default_factory=Hailo8Config, description="Hailo8推理配置")
     rk3588: RK3588Config = Field(default_factory=RK3588Config, description="RK3588推理配置")
-    recognition_similarity_threshold: float = Field(0.2, description="人脸识别相似度阈值")
+    recognition_similarity_threshold: float = Field(0.4, description="人脸识别相似度阈值")
     recognition_det_score_threshold: float = Field(0.2, description="人脸检测置信度阈值（识别时使用）")
     registration_det_score_threshold: float = Field(0.2, description="人脸检测置信度阈值（注册时使用，更宽松）")
     image_db_path: FilePath = Field(DATA_DIR / "faces", description="注册人脸图像存储目录")
