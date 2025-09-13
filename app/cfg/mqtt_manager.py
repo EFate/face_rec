@@ -148,6 +148,7 @@ class MQTTManager:
             
         try:
             message = json.loads(payload)
+            app_logger.info(f"收到人脸注册消息: {message}")
             action_type = message.get("actionType")
             items = message.get("items", [])
             
@@ -200,28 +201,8 @@ class MQTTManager:
                             app_logger.error(f"下载的图片内容为空: {image_url}")
                             continue
                             
-                        # 确保图片是RGB格式的JPEG
-                        from PIL import Image
-                        import io
-                        
-                        # 转换图片格式
-                        try:
-                            img = Image.open(io.BytesIO(response.content))
-                            if img.mode != 'RGB':
-                                img = img.convert('RGB')
-                            
-                            # 调整图片大小到模型输入尺寸
-                            img = img.resize((640, 640))
-                            
-                            # 转换为JPEG格式
-                            output = io.BytesIO()
-                            img.save(output, format='JPEG', quality=95)
-                            image_bytes = output.getvalue()
-                            
-                        except Exception as img_e:
-                            app_logger.error(f"图片处理失败: {str(img_e)}")
-                            # 使用原始图片作为后备方案
-                            image_bytes = response.content
+                        # 直接使用原始图片，不进行任何处理
+                        image_bytes = response.content
                             
                         # 调用router接口注册人脸
                         files = {'image_file': (f'{sn}.jpg', image_bytes)}
@@ -238,21 +219,13 @@ class MQTTManager:
                         else:
                             error_msg = api_response.json().get('msg', '未知错误')
                             app_logger.error(f"注册人脸失败: SN={sn}, 错误: {error_msg}")
-                            # 如果是因为人脸检测失败，尝试调整图片
-                            if "未在图像中检测到任何人脸" in error_msg:
-                                # 尝试转换图片格式
+                            # 如果是因为人脸检测失败，尝试重新下载图片
+                            if "未在图像中检测到任何人脸" in error_msg or "人脸质量不佳" in error_msg:
+                                app_logger.info(f"尝试重新下载图片并注册: SN={sn}")
                                 try:
-                                    from PIL import Image
-                                    import io
-                                    img = Image.open(io.BytesIO(response.content))
-                                    if img.mode != 'RGB':
-                                        img = img.convert('RGB')
-                                    # 调整图片大小
-                                    img = img.resize((640, 640))
-                                    # 重新保存为jpg
-                                    output = io.BytesIO()
-                                    img.save(output, format='JPEG', quality=95)
-                                    files = {'image_file': (f'{sn}.jpg', output.getvalue())}
+                                    response = requests.get(image_url, timeout=15)
+                                    response.raise_for_status()
+                                    files = {'image_file': (f'{sn}.jpg', response.content)}
                                     api_response = requests.post(
                                         f"{self._api_base_url}/faces",
                                         files=files,
@@ -260,11 +233,11 @@ class MQTTManager:
                                         timeout=30
                                     )
                                     if api_response.status_code == 201:
-                                        app_logger.info(f"调整图片后成功注册人脸: SN={sn}")
+                                        app_logger.info(f"重新下载后成功注册人脸: SN={sn}")
                                     else:
-                                        app_logger.error(f"调整图片后注册仍然失败: {api_response.json().get('msg', '未知错误')}")
-                                except Exception as img_e:
-                                    app_logger.error(f"图片处理失败: {str(img_e)}")
+                                        app_logger.error(f"重新下载后注册仍然失败: {api_response.json().get('msg', '未知错误')}")
+                                except Exception as retry_e:
+                                    app_logger.error(f"重新下载图片失败: {str(retry_e)}")
                             
                     except requests.exceptions.RequestException as e:
                         app_logger.error(f"下载图片或调用API失败: {image_url}, 错误: {str(e)}")
@@ -318,7 +291,7 @@ class MQTTManager:
                 except Exception as e:
                     app_logger.error(f"删除SN={sn}时发生错误: {str(e)}")
             
-            # 添加缺失的数据
+            # 处理所有收到的记录，包括已存在的SN
             for item in items:
                 sn = item.get("sn")
                 name = item.get("name")
@@ -326,10 +299,10 @@ class MQTTManager:
                 
                 if not sn or not name or not image_urls:
                     continue
-                    
-                # 如果sn不存在，则添加
-                if sn not in existing_sns:
-                    self._handle_save_action([item])
+                
+                # 无论SN是否存在，都重新注册所有图片
+                app_logger.info(f"处理sync操作中的记录: SN={sn}, 图片数量={len(image_urls)}")
+                self._handle_save_action([item])
                     
         except Exception as e:
             app_logger.error(f"处理sync操作时发生错误: {str(e)}", exc_info=True)

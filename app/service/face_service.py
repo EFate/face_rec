@@ -88,7 +88,7 @@ class FaceService:
                 raise HTTPException(status_code=400, detail="未在图像中检测到任何人脸。请确保图像清晰且包含正面人脸。")
         
         if len(faces) > 1: 
-            raise HTTPException(status_code=400, detail=f"检测到 {len(faces)} 张人脸，注册时必须确保只有一张。")
+            raise HTTPException(status_code=400, detail=f"检测到 {len(faces)} 个人脸，注册时必须确保图片内只有一个。")
         
         face = faces[0]
         # 使用专门的注册检测阈值，比识别阈值更宽松
