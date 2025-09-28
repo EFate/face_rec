@@ -174,7 +174,8 @@ async def start_stream(
     """
     stream_info = await face_service.start_stream(start_request)
     feed_url = request.url_for('get_stream_feed', task_id=stream_info.task_id)
-    response_data = StreamDetail(**stream_info.model_dump(), feed_url=str(feed_url))
+    original_feed_url = request.url_for('get_original_stream_feed', task_id=stream_info.task_id)
+    response_data = StreamDetail(**stream_info.model_dump(), feed_url=str(feed_url), original_feed_url=str(original_feed_url))
     return ApiResponse(data=response_data)
 
 
@@ -203,6 +204,38 @@ async def get_stream_feed(
         face_service.get_stream_feed_by_task_id(task_id),
         media_type="multipart/x-mixed-replace; boundary=frame"
     )
+
+
+@router.get(
+    "/stream/original/{task_id}",
+    summary="获取原始视频流（未经处理）",
+    tags=["视频流管理"],
+    name="get_original_stream_feed",
+    responses={
+        200: {
+            "content": {"multipart/x-mixed-replace; boundary=frame": {}},
+            "description": "原始视频流（未经处理）",
+        },
+        404: {"description": "Stream not found."}
+    }
+)
+async def get_original_stream_feed(
+        task_id: int,
+        face_service: FaceService = Depends(get_face_service)
+):
+    """
+    获取原始视频流（未经处理）
+    """
+    try:
+        return StreamingResponse(
+            face_service.get_original_stream_feed_by_task_id(task_id),
+            media_type="multipart/x-mixed-replace; boundary=frame",
+            headers={"Cache-Control": "no-cache", "Connection": "keep-alive"}
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
 @router.post(
@@ -238,7 +271,8 @@ async def get_all_streams(
     streams_with_details = [
         StreamDetail(
             **info.model_dump(),
-            feed_url=str(request.url_for('get_stream_feed', task_id=info.task_id))
+            feed_url=str(request.url_for('get_stream_feed', task_id=info.task_id)),
+            original_feed_url=str(request.url_for('get_original_stream_feed', task_id=info.task_id))
         )
         for info in active_streams_info
     ]

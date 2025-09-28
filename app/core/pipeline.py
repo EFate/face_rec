@@ -169,11 +169,12 @@ class FaceStreamPipeline:
     封装一个视频流的完整四级处理流水线。
     每个实例对应一个独立的视频源，并管理其下的所有处理线程。
     """
-    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model, result_persistence_queue: queue.Queue, task_id: int, app_id: int, app_name: str, domain_name: str, mqtt_manager=None):
+    def __init__(self, settings: AppSettings, stream_id: str, video_source: str, output_queue: queue.Queue, model, result_persistence_queue: queue.Queue, task_id: int, app_id: int, app_name: str, domain_name: str, mqtt_manager=None, original_output_queue: queue.Queue = None):
         self.settings = settings
         self.stream_id = stream_id
         self.video_source = video_source
         self.output_queue = output_queue
+        self.original_output_queue = original_output_queue  # 添加原始视频输出队列
         self.model = model
         self.result_persistence_queue = result_persistence_queue # 接收结果持久化队列
         self.mqtt_manager = mqtt_manager  # 接收MQTT管理器
@@ -519,6 +520,18 @@ class FaceStreamPipeline:
 
                     # 快速绘制结果并输出
                     try:
+                        # 如果有原始视频输出队列，先输出原始帧
+                        if self.original_output_queue is not None:
+                            flag_orig, encoded_orig_image = cv2.imencode(".jpg", original_frame, 
+                                                                     [cv2.IMWRITE_JPEG_QUALITY, 85])
+                            if flag_orig:
+                                try:
+                                    self.original_output_queue.put_nowait(encoded_orig_image.tobytes())
+                                except queue.Full:
+                                    # 输出队列满时丢弃旧帧，保持实时性
+                                    pass
+                        
+                        # 绘制推理结果
                         _draw_results_on_frame(original_frame, results)
                         flag, encoded_image = cv2.imencode(".jpg", original_frame, 
                                                          [cv2.IMWRITE_JPEG_QUALITY, 85])  # 降低质量提升编码速度

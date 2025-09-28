@@ -327,7 +327,7 @@ class FaceService:
             app_logger.error(f"同步释放模型失败: {e}")
 
     def _pipeline_worker_thread(self, stream_id: str, video_source: str, result_queue: queue.Queue,
-                                stop_event: threading.Event, task_id: int, app_id: int, app_name: str, domain_name: str):
+                                stop_event: threading.Event, task_id: int, app_id: int, app_name: str, domain_name: str, original_result_queue: queue.Queue = None):
         """在独立线程中运行，管理单个视频流管道的生命周期。"""
         if video_source.startswith("rtsp://"):
             os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;tcp"
@@ -349,7 +349,7 @@ class FaceService:
                 output_queue=result_queue, model=model,
                 result_persistence_queue=self.result_persistence_queue,
                 task_id=task_id, app_id=app_id, app_name=app_name, domain_name=domain_name,
-                mqtt_manager=self.mqtt_manager
+                mqtt_manager=self.mqtt_manager, original_output_queue=original_result_queue
             )
             pipeline.start()  # 启动内部读帧、推理等线程
 
@@ -384,6 +384,13 @@ class FaceService:
             except (queue.Full, ValueError):
                 pass
             
+            # 发送结束信号到原始结果队列
+            if original_result_queue is not None:
+                try:
+                    original_result_queue.put_nowait(None)
+                except (queue.Full, ValueError):
+                    pass
+            
             app_logger.debug(f"✅【线程 {stream_id}】处理工作已结束。")
 
     async def start_stream(self, req: StreamStartRequest) -> ActiveStreamInfo:
@@ -392,10 +399,11 @@ class FaceService:
 
         async with self.stream_lock:
             result_queue = queue.Queue(maxsize=120)
+            original_result_queue = queue.Queue(maxsize=120)  # 创建原始视频输出队列
             stop_event = threading.Event()
             thread = threading.Thread(
                 target=self._pipeline_worker_thread,
-                args=(stream_id, req.source, result_queue, stop_event, req.taskId, req.appId, req.appName, req.domainName),
+                args=(stream_id, req.source, result_queue, stop_event, req.taskId, req.appId, req.appName, req.domainName, original_result_queue),
                 daemon=True
             )
             thread.start()
@@ -412,7 +420,7 @@ class FaceService:
                 expires_at=expires_at, 
                 lifetime_minutes=lifetime
             )
-            self.active_streams[stream_id] = {"info": stream_info, "queue": result_queue, "stop_event": stop_event,
+            self.active_streams[stream_id] = {"info": stream_info, "queue": result_queue, "original_queue": original_result_queue, "stop_event": stop_event,
                                               "thread": thread}
             app_logger.debug(f"🚀 视频流线程已启动: ID={stream_id}, TaskID={req.taskId}, Source={req.source}")
             return stream_info
@@ -563,6 +571,54 @@ class FaceService:
             app_logger.debug(f"客户端从流 TaskID={task_id} 断开: {e}")
         except Exception as e:
             app_logger.error(f"获取视频流 TaskID={task_id} 时发生错误: {e}", exc_info=True)
+            raise
+
+    async def get_original_stream_feed_by_task_id(self, task_id: int):
+        """根据task_id获取原始视频流"""
+        async with self.stream_lock:
+            stream_id = None
+            stream_info = None
+            for sid, stream in self.active_streams.items():
+                if stream["info"].task_id == task_id:
+                    stream_id = sid
+                    stream_info = stream
+                    break
+            
+            if not stream_id or not stream_info:
+                app_logger.warning(f"请求不存在的视频流: TaskID={task_id}")
+                raise HTTPException(status_code=404, detail="Stream not found.")
+            
+            # 检查线程是否还活着
+            if not stream_info["thread"].is_alive():
+                app_logger.warning(f"视频流线程已死亡: TaskID={task_id}, StreamID={stream_id}")
+                # 清理死亡的流
+                self.active_streams.pop(stream_id, None)
+                raise HTTPException(status_code=404, detail="Stream not found.")
+                
+            frame_queue = stream_info.get("original_queue")
+            if frame_queue is None:
+                app_logger.warning(f"视频流没有原始队列: TaskID={task_id}, StreamID={stream_id}")
+                raise HTTPException(status_code=404, detail="Original stream not available.")
+        
+        try:
+            while True:
+                try:
+                    # 使用非阻塞方式获取帧数据
+                    frame_bytes = frame_queue.get_nowait()
+                except queue.Empty:
+                    # 队列为空时，异步等待一小段时间
+                    await asyncio.sleep(0.01)
+                    continue
+                
+                if frame_bytes is None: 
+                    app_logger.debug(f"原始视频流 TaskID={task_id} 已结束")
+                    break
+                    
+                yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+        except (ValueError, asyncio.CancelledError) as e:
+            app_logger.debug(f"客户端从原始流 TaskID={task_id} 断开: {e}")
+        except Exception as e:
+            app_logger.error(f"获取原始视频流 TaskID={task_id} 时发生错误: {e}", exc_info=True)
             raise
 
     async def get_all_active_streams_info(self) -> List[ActiveStreamInfo]:

@@ -121,6 +121,7 @@ class ActiveStreamInfo(BaseModel):
 class StreamDetail(ActiveStreamInfo):
     """用于API响应的单个视频流的详细信息"""
     feed_url: str = Field(..., description="用于播放该视频流的完整URL。")
+    original_feed_url: Optional[str] = Field(None, description="用于播放原始视频流的完整URL。")
 
 
 class StopStreamResponseData(BaseModel):
