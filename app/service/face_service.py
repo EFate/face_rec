@@ -398,8 +398,8 @@ class FaceService:
         lifetime = req.lifetime_minutes if req.lifetime_minutes is not None else self.settings.app.stream_default_lifetime_minutes
 
         async with self.stream_lock:
-            result_queue = queue.Queue(maxsize=120)
-            original_result_queue = queue.Queue(maxsize=120)  # 创建原始视频输出队列
+            result_queue = queue.Queue(maxsize=30)  # 减小队列大小以降低延迟
+            original_result_queue = queue.Queue(maxsize=30)  # 减小原始视频队列大小
             stop_event = threading.Event()
             thread = threading.Thread(
                 target=self._pipeline_worker_thread,
@@ -514,7 +514,7 @@ class FaceService:
                     frame_bytes = frame_queue.get_nowait()
                 except queue.Empty:
                     # 队列为空时，异步等待一小段时间
-                    await asyncio.sleep(0.01)
+                    await asyncio.sleep(0.005)  # 减少等待时间以降低延迟
                     continue
                 
                 if frame_bytes is None: 
@@ -606,8 +606,8 @@ class FaceService:
                     # 使用非阻塞方式获取帧数据
                     frame_bytes = frame_queue.get_nowait()
                 except queue.Empty:
-                    # 队列为空时，异步等待一小段时间
-                    await asyncio.sleep(0.01)
+                    # 减少等待时间以降低延迟
+                    await asyncio.sleep(0.005)  # 从0.01秒减少到0.005秒
                     continue
                 
                 if frame_bytes is None: 

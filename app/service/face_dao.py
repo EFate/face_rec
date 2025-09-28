@@ -149,7 +149,8 @@ class LanceDBFaceDataDAO(FaceDataDAO):
                 return None
             
             app_logger.debug(f"开始搜索，相似度阈值: {threshold}")
-            search_result = self.table.search(embedding).metric("cosine").limit(top_k).to_list()
+            # 使用nprobes参数加速搜索，牺牲少量精度换取速度
+            search_result = self.table.search(embedding).metric("cosine").limit(top_k).nprobes(10).to_list()
             if not search_result: 
                 app_logger.debug("搜索无结果")
                 return None

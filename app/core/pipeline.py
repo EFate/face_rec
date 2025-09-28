@@ -190,8 +190,8 @@ class FaceStreamPipeline:
             table_name=self.settings.insightface.lancedb_table_name
         )
         self.settings.app.detected_imgs_path.mkdir(parents=True, exist_ok=True)
-        self.inference_queue = queue.Queue(maxsize=8)  # 增加推理队列大小
-        self.postprocess_queue = queue.Queue(maxsize=4)
+        self.inference_queue = queue.Queue(maxsize=3)  # 减小推理队列大小以降低延迟
+        self.postprocess_queue = queue.Queue(maxsize=2)  # 减小后处理队列大小
         self.stop_event = threading.Event()
         self.threads: List[threading.Thread] = []
         self.cap = None
@@ -344,17 +344,19 @@ class FaceStreamPipeline:
                     
                     consecutive_failures = 0
                     
-                    # 保持最新帧：清空队列后放入当前帧
-                    while not self.inference_queue.empty():
-                        try:
-                            self.inference_queue.get_nowait()
-                        except queue.Empty:
-                            break
-                    
+                    # 优化：只丢弃一帧而不是清空整个队列，减少CPU开销
                     try:
+                        # 如果队列已满，丢弃最旧的一帧
+                        if self.inference_queue.full():
+                            try:
+                                self.inference_queue.get_nowait()
+                            except queue.Empty:
+                                pass
+                        
+                        # 放入当前帧
                         self.inference_queue.put_nowait(frame)
                     except queue.Full:
-                        # 队列满时丢弃当前帧
+                        # 队列仍然满，丢弃当前帧
                         pass
                     
                 except Exception as e:
@@ -470,46 +472,49 @@ class FaceStreamPipeline:
                                 if embedding is None:
                                     embedding = getattr(face, 'normed_embedding', None)
                                 
-                                if embedding is not None:
-                                    search_res = self.face_dao.search(embedding, threshold)
-                                else:
-                                    search_res = None
                                 result_item = {"box": face.bbox, "name": "Unknown", "similarity": None}
                                 
-                                if search_res:
-                                    name, sn, similarity = search_res
-                                    result_item.update({"name": name, "sn": sn, "similarity": similarity})
-
-                                    # 异步处理结果保存 - 不阻塞推理流程
+                                if embedding is not None:
+                                    # 使用更短的超时时间进行人脸搜索，减少阻塞
                                     try:
-                                        box = face.bbox.astype(int)
-                                        y1_c, y2_c = max(0, box[1]), min(original_frame.shape[0], box[3])
-                                        x1_c, x2_c = max(0, box[0]), min(original_frame.shape[1], box[2])
-                                        face_crop = original_frame[y1_c:y2_c, x1_c:x2_c]
+                                        search_res = self.face_dao.search(embedding, threshold)
+                                        if search_res:
+                                            name, sn, similarity = search_res
+                                            result_item.update({"name": name, "sn": sn, "similarity": similarity})
 
-                                        if face_crop.size > 0:
-                                            # 使用中国时区 (Asia/Shanghai)
-                                            import pytz
-                                            china_tz = pytz.timezone('Asia/Shanghai')
-                                            # 准备持久化数据
-                                            persistence_data = {
-                                                "sn": sn,
-                                                "name": name,
-                                                "similarity": similarity,
-                                                "face_crop": face_crop.copy(),  # 复制数据避免引用问题
-                                                "timestamp": datetime.now(china_tz),
-                                                "task_id": self.task_id,
-                                                "app_id": self.app_id,
-                                                "app_name": self.app_name,
-                                                "domain_name": self.domain_name
-                                            }
-                                            # 非阻塞放入队列，满了就丢弃
-                                            self.result_persistence_queue.put_nowait(persistence_data)
-                                    except queue.Full:
-                                        # 队列满时静默丢弃，不影响推理性能
-                                        pass
+                                            # 异步处理结果保存 - 不阻塞推理流程
+                                            try:
+                                                box = face.bbox.astype(int)
+                                                y1_c, y2_c = max(0, box[1]), min(original_frame.shape[0], box[3])
+                                                x1_c, x2_c = max(0, box[0]), min(original_frame.shape[1], box[2])
+                                                face_crop = original_frame[y1_c:y2_c, x1_c:x2_c]
+
+                                                if face_crop.size > 0:
+                                                    # 使用中国时区 (Asia/Shanghai)
+                                                    import pytz
+                                                    china_tz = pytz.timezone('Asia/Shanghai')
+                                                    # 准备持久化数据
+                                                    persistence_data = {
+                                                        "sn": sn,
+                                                        "name": name,
+                                                        "similarity": similarity,
+                                                        "face_crop": face_crop.copy(),  # 复制数据避免引用问题
+                                                        "timestamp": datetime.now(china_tz),
+                                                        "task_id": self.task_id,
+                                                        "app_id": self.app_id,
+                                                        "app_name": self.app_name,
+                                                        "domain_name": self.domain_name
+                                                    }
+                                                    # 非阻塞放入队列，满了就丢弃
+                                                    self.result_persistence_queue.put_nowait(persistence_data)
+                                            except queue.Full:
+                                                # 队列满时静默丢弃，不影响推理性能
+                                                pass
+                                            except Exception as e:
+                                                app_logger.debug(f"准备持久化数据时出错: {e}")
                                     except Exception as e:
-                                        app_logger.debug(f"准备持久化数据时出错: {e}")
+                                        # 人脸搜索失败，继续使用默认的"Unknown"结果
+                                        app_logger.debug(f"人脸搜索失败: {e}")
                                 
                                 results.append(result_item)
                             except Exception as e:
@@ -523,7 +528,7 @@ class FaceStreamPipeline:
                         # 如果有原始视频输出队列，先输出原始帧
                         if self.original_output_queue is not None:
                             flag_orig, encoded_orig_image = cv2.imencode(".jpg", original_frame, 
-                                                                     [cv2.IMWRITE_JPEG_QUALITY, 85])
+                                                                     [cv2.IMWRITE_JPEG_QUALITY, 70])  # 降低质量提高速度
                             if flag_orig:
                                 try:
                                     self.original_output_queue.put_nowait(encoded_orig_image.tobytes())
@@ -534,7 +539,7 @@ class FaceStreamPipeline:
                         # 绘制推理结果
                         _draw_results_on_frame(original_frame, results)
                         flag, encoded_image = cv2.imencode(".jpg", original_frame, 
-                                                         [cv2.IMWRITE_JPEG_QUALITY, 85])  # 降低质量提升编码速度
+                                                         [cv2.IMWRITE_JPEG_QUALITY, 70])  # 降低质量提高速度
                         if flag:
                             try:
                                 self.output_queue.put_nowait(encoded_image.tobytes())
