@@ -1,5 +1,5 @@
 # Dockerfile
-FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/nvidia/cuda:12.1.0-runtime-ubuntu20.04
 
 # 环境变量配置
 ENV DEBIAN_FRONTEND=noninteractive
