@@ -635,6 +635,14 @@ class FaceService:
                 self.active_streams.pop(sid, None)
             return active_infos
 
+    async def is_task_running(self, task_id: int) -> bool:
+        """检查指定task_id的任务是否正在运行"""
+        async with self.stream_lock:
+            for stream_id, stream in self.active_streams.items():
+                if stream["info"].task_id == task_id:
+                    return stream["thread"].is_alive()
+            return False
+
     async def cleanup_expired_streams(self):
         while True:
             await asyncio.sleep(self.settings.app.stream_cleanup_interval_seconds)

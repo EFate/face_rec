@@ -96,8 +96,8 @@ class StreamStartRequest(BaseModel):
         description="视频流生命周期（分钟）。-1表示永久，不填则使用配置默认值。",
         example=10
     )
-    taskId: int = Field(..., description="任务ID，用于唯一标识一个视频流任务。", example="1234567890")
-    appId : int = Field(..., description="应用id", example="31")
+    taskId: int = Field(..., description="任务ID，用于唯一标识一个视频流任务。", example="1")
+    appId : int = Field(..., description="应用id", example="1")
     appName : str = Field(..., description="应用名称", example="人脸应用")
     domainName: str = Field(..., description="域名", example="video.com")
 
@@ -134,3 +134,9 @@ class GetAllStreamsResponseData(BaseModel):
     """获取所有活动流的响应数据"""
     active_streams_count: int = Field(..., description="当前活动的视频流数量。")
     streams: List[StreamDetail] = Field([], description="所有活动视频流的详细信息列表。")
+
+
+class TaskRunningStatusResponseData(BaseModel):
+    """检查任务运行状态的响应数据"""
+    task_id: int = Field(..., description="任务ID。")
+    is_running: bool = Field(..., description="任务是否正在运行。")

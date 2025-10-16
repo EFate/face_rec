@@ -10,7 +10,8 @@ from app.schema.face_schema import (
     ApiResponse, FaceRegisterResponseData, FaceRecognitionResult,
     GetAllFacesResponseData, DeleteFaceResponseData, HealthCheckResponseData,
     UpdateFaceRequest, UpdateFaceResponseData, FaceInfo,
-    StreamStartRequest, StreamDetail, GetAllStreamsResponseData, StopStreamResponseData
+    StreamStartRequest, StreamDetail, GetAllStreamsResponseData, StopStreamResponseData,
+    TaskRunningStatusResponseData
 )
 from app.service.face_service import FaceService
 
@@ -281,4 +282,20 @@ async def get_all_streams(
         active_streams_count=len(streams_with_details),
         streams=streams_with_details
     )
+    return ApiResponse(data=response_data)
+
+
+@router.get(
+    "/streams/status/{task_id}",
+    response_model=ApiResponse[TaskRunningStatusResponseData],
+    summary="检查指定任务是否正在运行",
+    tags=["视频流管理"]
+)
+async def check_task_status(
+        task_id: int,
+        face_service: FaceService = Depends(get_face_service)
+):
+    """根据task_id检查指定任务是否正在运行。"""
+    is_running = await face_service.is_task_running(task_id)
+    response_data = TaskRunningStatusResponseData(task_id=task_id, is_running=is_running)
     return ApiResponse(data=response_data)
