@@ -208,7 +208,7 @@ async def get_stream_feed(
 
 
 @router.get(
-    "/stream/original/{task_id}",
+    "/streams/original/{task_id}",
     summary="获取原始视频流（未经处理）",
     tags=["视频流管理"],
     name="get_original_stream_feed",

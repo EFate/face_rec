@@ -451,7 +451,7 @@ class FaceStreamPipeline:
         """
         app_logger.info(f"【T3:后处理 {self.stream_id}】启动。")
 
-        threshold = self.settings.insightface.recognition_similarity_threshold
+        threshold = self.settings.inference.recognition_similarity_threshold
 
         try:
             while not self.stop_event.is_set():
