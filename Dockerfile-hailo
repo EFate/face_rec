@@ -1,7 +1,7 @@
 # Dockerfile
 
 # --- Stage 1: 基础镜像 ---
-FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/python:3.10-slim
+FROM crpi-3syvxpuaq1m8bch1.cn-shanghai.personal.cr.aliyuncs.com/efatenex/python:3.10.19-slim
 
 # --- Stage 2: 配置国内软件源 (清华源) ---
 RUN rm -f /etc/apt/sources.list && \
