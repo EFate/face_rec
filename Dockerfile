@@ -1,5 +1,5 @@
 # Dockerfile
-FROM crpi-3syvxpuaq1m8bch1.cn-shanghai.personal.cr.aliyuncs.com/efatenex/cuda:12.4.1-runtime-ubuntu22.04
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/nvidia/cuda:12.4.1-runtime-ubuntu22.04
 
 # 环境变量配置
 ENV DEBIAN_FRONTEND=noninteractive
